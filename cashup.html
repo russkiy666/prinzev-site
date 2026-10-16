@@ -779,7 +779,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
   function size(){W=innerWidth;H=innerHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
   function seed(){
     dots=[]; var n=Math.round(Math.min(90,Math.max(34,W*H/14000)));
-    for(var i=0;i<n;i++){var z=Math.random();dots.push({x:Math.random()*W,y:Math.random()*H,z:z,r:.8+z*1.9,a:.08+z*.22,vx:(Math.random()-.5)*.12,vy:-.05-Math.random()*.12,ph:Math.random()*6.283,f:.0004+Math.random()*.0006})}
+    for(var i=0;i<n;i++){var z=Math.random();dots.push({x:Math.random()*W,y:Math.random()*H,z:z,r:1+z*2.2,a:.1+z*.3,vx:(Math.random()-.5)*.12,vy:-.05-Math.random()*.12,ph:Math.random()*6.283,f:.0004+Math.random()*.0006})}
   }
   size(); seed();
   addEventListener('resize',function(){var w=W;size();if(Math.abs(innerWidth-w)>80)seed()});
