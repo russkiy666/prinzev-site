@@ -1418,10 +1418,12 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 @keyframes reelFlash{0%{opacity:1}100%{opacity:0}}
 .reel-bump{animation:reelBump .32s cubic-bezier(.2,.8,.2,1)}
 @keyframes reelBump{0%{transform:rotateX(-7deg) scale(1.08)}100%{transform:rotateX(-7deg) scale(1)}}
-/* finale: the ring whips round and flies into the camera, the site shows through */
-.reel.fin .reel-ring{transition:transform 1s cubic-bezier(.6,0,.3,1)}
-.reel.fin .reel-stage{transform:scale(2.4);opacity:0;filter:blur(6px);transition:transform 1s cubic-bezier(.6,0,.3,1),opacity .8s ease .2s,filter .8s ease .2s}
+/* finale: cards burst into particles (canvas), the overlay is wiped away from top to bottom */
+.reel.fin .reel-stage{opacity:0;transition:opacity .08s linear}
+.reel.fin .reel-wall b{opacity:0;transition:opacity .5s ease}
 .reel.fin .reel-flash{animation:reelFlash .7s ease-out}
+.reel.wipe{-webkit-mask-image:linear-gradient(to bottom,transparent 0,transparent calc(var(--wp,0%) - 8%),#000 var(--wp,0%));mask-image:linear-gradient(to bottom,transparent 0,transparent calc(var(--wp,0%) - 8%),#000 var(--wp,0%))}
+.reel-dust{position:fixed;inset:0;width:100vw;height:100vh;z-index:10002;pointer-events:none}
 .reel-skip{position:absolute;z-index:3;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(243,241,234,.25);background:rgba(14,14,13,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:rgba(243,241,234,.75);font:inherit;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s ease 1s,color .2s ease,border-color .2s ease}
 .reel.on .reel-skip{opacity:1}
 .reel.fin .reel-skip{opacity:0;transition:opacity .2s ease}
@@ -3089,19 +3091,69 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       hit(); tilt.classList.remove('reel-bump'); void tilt.offsetWidth; tilt.classList.add('reel-bump');
       kick(false);
     }
-    function close(){
+    function close(wipe){
       if(ended)return; ended=true; timers.forEach(clearTimeout);
       if(audio){var a=audio,v=a.volume,f=setInterval(function(){v-=.06;if(v<=0){clearInterval(f);a.pause()}else a.volume=v},40)}
       done();
-      el.classList.add('out'); document.documentElement.classList.remove('reel-lock');
+      if(!wipe)el.classList.add('out'); document.documentElement.classList.remove('reel-lock');
       if(window.pcMusic)pcMusic.hold(false);
-      setTimeout(function(){el.remove()},1100);
+      setTimeout(function(){el.remove()},wipe?1600:1100);
     }
+    /* finale: the front cards burst into thousands of particles, the site draws itself in from top to bottom */
+    function dust(){
+      var dpr=Math.min(2,window.devicePixelRatio||1), W=innerWidth, H=innerHeight, small=W<700;
+      var cv=document.createElement('canvas'); cv.className='reel-dust'; cv.width=W*dpr; cv.height=H*dpr; document.body.appendChild(cv);
+      var g=cv.getContext('2d'); g.scale(dpr,dpr);
+      var parts=[], STEP=small?5:6, MAXP=small?9000:16000;
+      var rcs=Array.prototype.slice.call(el.querySelectorAll('.reel-card .rc')).map(function(rc){return {rc:rc,r:rc.getBoundingClientRect()}})
+        .filter(function(o){return o.r.width>20&&o.r.right>0&&o.r.left<W}).sort(function(a,b){var fa=a.rc.parentNode.classList.contains('on'),fb=b.rc.parentNode.classList.contains('on');return fa!==fb?(fa?-1:1):b.r.width-a.r.width}).slice(0,3);
+      var pending=rcs.length;
+      function cover(img,w,h,px,py){var s=Math.max(w/img.width,h/img.height),dw=img.width*s,dh=img.height*s;return [(w-dw)*px,(h-dh)*py,dw,dh]}
+      rcs.forEach(function(o,idx){
+        var sp=o.rc.querySelector('span'), cs=getComputedStyle(sp), m=/url\(["']?(.*?)["']?\)/.exec(cs.backgroundImage);
+        var bright=idx===0?1:.38;
+        if(!m){if(--pending===0)go();return}
+        var img=new Image(); img.onload=function(){
+          var w=Math.max(1,Math.round(o.r.width/STEP)), h=Math.max(1,Math.round(o.r.height/STEP));
+          var c2=document.createElement('canvas'); c2.width=w; c2.height=h; var x2=c2.getContext('2d');
+          var pos=cs.backgroundPosition.split(' ').map(function(v){return parseFloat(v)/100}); 
+          var d=cover(img,w,h,isNaN(pos[0])?.5:pos[0],isNaN(pos[1])?.5:pos[1]); x2.drawImage(img,d[0],d[1],d[2],d[3]);
+          var px; try{px=x2.getImageData(0,0,w,h).data}catch(e){px=null}
+          if(px)for(var y=0;y<h;y++)for(var x=0;x<w;x++){
+            if(parts.length>MAXP)break;
+            var i=(y*w+x)*4; if(px[i+3]<10)continue;
+            var cx=o.r.left+x*STEP, cy=o.r.top+y*STEP;
+            parts.push({x:cx,y:cy,c:'rgb('+(px[i]*bright|0)+','+(px[i+1]*bright|0)+','+(px[i+2]*bright|0)+')',
+              vx:(Math.random()-.5)*(idx?2:3.2)+(cx-W/2)*.004, vy:-1.5-Math.random()*2.5,
+              dl:(y/h)*.35+Math.random()*.25, s:STEP*(.75+Math.random()*.5), a:1});
+          }
+          if(--pending===0)go();
+        }; img.onerror=function(){if(--pending===0)go()}; img.src=m[1];
+      });
+      if(!pending)go();
+      function go(){
+        el.classList.add('wipe');
+        var t0=performance.now();
+        (function frame(now){
+          var t=(now-t0)/1000; g.clearRect(0,0,W,H); var alive=0;
+          var wk=Math.min(1,Math.max(0,(t-.15)/1.3)); wk=wk<.5?2*wk*wk:1-Math.pow(-2*wk+2,2)/2; el.style.setProperty('--wp',(wk*112).toFixed(1)+'%');
+          for(var k=0;k<parts.length;k++){var p=parts[k],tt=t-p.dl;
+            if(tt<0){g.fillStyle=p.c;g.globalAlpha=1;g.fillRect(p.x,p.y,p.s,p.s);alive++;continue}
+            p.vy+=.18; p.vx*=.99; p.x+=p.vx; p.y+=p.vy; p.a=Math.max(0,1-tt/1.1);
+            if(p.a<=0)continue; alive++;
+            g.globalAlpha=p.a; g.fillStyle=tt<.05&&k%3===0?'#fff':p.c; var z=p.s*(1-tt*.6); if(z>.4)g.fillRect(p.x,p.y,z,z);
+          }
+          if((alive||t<1.5)&&t<2.4)requestAnimationFrame(frame); else cv.remove();
+        })(t0);
+      }
+    }
+
     function fin(){
-      if(ended)return; el.classList.add('fin'); rot(base-(n-1)*step-540); hit(); kick(true); whoosh(.9,false);
-      timers.push(setTimeout(close,550));
+      if(ended)return; el.classList.add('fin'); hit(); kick(true); whoosh(1.2,false);
+      try{dust()}catch(e){el.classList.add('out')}
+      close(true);
     }
-    el.querySelector('.reel-skip').addEventListener('click',function(e){e.stopPropagation();close()});
+    el.querySelector('.reel-skip').addEventListener('click',function(e){e.stopPropagation();close(false)});
     document.addEventListener('keydown',function k(e){if(e.key==='Escape'){document.removeEventListener('keydown',k);close()}});
     if(MUSIC){audio=new Audio(MUSIC);audio.volume=.9;var p=audio.play();if(p&&p.catch)p.catch(function(){})}
     var t0=performance.now();
