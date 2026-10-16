@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;700;800&display=swap"></noscript>
+<script>/* ?demo: show the loader and the showreel on every visit */try{if(/[?&]demo\b/.test(location.search))["pc-ld","pc-reel","pc-hi"].forEach(function(k){sessionStorage.removeItem(k)})}catch(e){}</script>
 <script>/* open the main page unless the link is a shared case link (?case=…): browsers like to restore an old #case-… address */(function(){try{var L=location,c=/[?&]case=([a-z]+)/.exec(L.search);if(!c&&/^#case-/.test(L.hash)&&history.replaceState){history.replaceState(null,"",L.pathname+L.search);if("scrollRestoration" in history)history.scrollRestoration="manual"}if(c&&L.hash!=="#case-"+c[1]){window.__pcCase="case-"+c[1]}}catch(e){}})();</script>
 <script>(function(h){h.classList.add("js");try{if(/[?&]draft\b/.test(location.search))h.classList.add("draft")}catch(e){}var seen=false;try{seen=sessionStorage.getItem("pc-ld")==="1"}catch(e){}var deep=(location.hash&&location.hash.length>1&&location.hash!=="#top")||!!window.__pcCase;var calm=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;if(seen||deep||calm)h.classList.add("no-ld")})(document.documentElement)</script>
 <style>
