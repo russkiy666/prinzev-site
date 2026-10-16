@@ -79,6 +79,7 @@ img{display:block;max-width:100%}
 .cv-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
 .cv-stats>div{display:flex;flex-direction:column;gap:6px;padding:clamp(20px,2vw,30px);border:1px solid rgba(200,240,60,.28);border-radius:clamp(18px,1.6vw,24px);background:linear-gradient(160deg,rgba(200,240,60,.08),rgba(243,241,234,.02))}
 .cv-stats b{font-family:var(--display);font-weight:800;font-size:clamp(26px,3vw,52px);letter-spacing:-0.02em;color:var(--accent);white-space:nowrap;text-shadow:0 0 28px rgba(200,240,60,.35)}
+.cv-stats .s{display:none}
 .cv-stats span{font-weight:700;font-size:clamp(13px,1vw,16px);color:var(--onDarkMuted)}
 
 /* marquee */
@@ -387,7 +388,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .rc-wrap{position:relative;z-index:1;height:clamp(70px,7vw,120px)}
 .rc-wrap .res-chart{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .res-chart .rc-ln{fill:none;stroke:var(--accent);stroke-width:3.5;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px rgba(200,240,60,.8));stroke-dasharray:1 1.1;stroke-dashoffset:0}
-.rc-wrap .rc-dot{position:absolute;right:0;top:5%;width:14px;height:14px;margin:-7px -7px 0 0;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px rgba(200,240,60,.18),0 0 22px var(--accent)}
+.rc-wrap .rc-dot{position:absolute;right:7px;top:5%;width:14px;height:14px;margin:-7px -7px 0 0;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px rgba(200,240,60,.18),0 0 22px var(--accent)}
 .js .res-dark:not(.vis) .rc-ln{stroke-dashoffset:1.05}
 .js .res-dark:not(.vis) .rc-area,.js .res-dark:not(.vis) .rc-dot{opacity:0}
 .res-dark .rc-ln{transition:stroke-dashoffset 2s cubic-bezier(.5,.05,.25,1) .3s}
@@ -454,13 +455,16 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
   .cv-actions .btn{width:100%;min-height:58px;font-size:16px}
   .cv-stats{gap:8px}
   .cv-stats>div{padding:14px 8px;text-align:center;align-items:center;border-radius:16px}
-  .cv-stats b{font-size:clamp(17px,5.4vw,24px)}
+  .cv-stats b{font-size:clamp(15px,4.6vw,22px)}
+  .cv-stats .l{display:none}.cv-stats .s{display:inline}
   .cv-stats span{font-size:11.5px;line-height:1.3}
   .slide{padding:56px 24px 64px;gap:36px}
   .slide+.slide{border-top-width:1px}
   .pill{font-size:11px;padding:10px 14px}
   .count{font-size:13px}
-  .h-lg{font-size:30px;line-height:1.15}
+  .h-lg{font-size:26px;line-height:1.15}
+  .h-long{font-size:clamp(18px,6.4vw,26px)}
+  .faq-head h2{font-size:26px!important}
   .lead{font-size:17px;line-height:1.6}
   .photo{min-height:0;aspect-ratio:3/4}
   .steps,.steps.s3,.st-grid,.mods,.ba{grid-template-columns:1fr;gap:14px}
@@ -518,9 +522,9 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
       </div>
     </div>
     <div class="cv-stats">
-      <div><b>6.5 млн+</b><span>заработано чистыми за год</span></div>
-      <div><b>2.8 млн</b><span>рекордная выручка проекта</span></div>
-      <div><b>300+</b><span>единомышленников внутри</span></div>
+      <div><b>6.5 млн+</b><span><span class="l">заработано чистыми за год</span><span class="s">чистыми за год</span></span></div>
+      <div><b>2.8 млн</b><span><span class="l">рекордная выручка проекта</span><span class="s">рекорд проекта</span></span></div>
+      <div><b>300+</b><span><span class="l">единомышленников внутри</span><span class="s">человек внутри</span></span></div>
     </div>
   </div>
 </section>
@@ -557,7 +561,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 <!-- WHAT IS -->
 <section class="slide">
   <div class="top"><span class="pill"><i></i>О продюсировании</span><span class="count">02 / 08</span></div>
-  <h2 class="h-lg rv">ЧТО ТАКОЕ <em>ПРОДЮСИРОВАНИЕ?</em></h2>
+  <h2 class="h-lg h-long rv">ЧТО ТАКОЕ <em>ПРОДЮСИРОВАНИЕ?</em></h2>
   <div class="important rv"><span class="tag">Коротко</span><p>Продюсирование — это метод продаж, где ты без своего лица и блога забираешь вплоть до половины выручки проекта.</p></div>
   <div class="steps rv">
     <div class="card step hl"><div class="row"><span class="n">01</span><span class="d">Старт</span></div><h3>Лучший способ заработать первые 100к в онлайне</h3><p>Ведь тебе не нужно ничего придумывать и тестировать — потому что ты берёшь мой опыт и мои знания, которые просто повторяешь и получаешь доход.</p></div>
