@@ -2164,15 +2164,6 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
             <button type="button" role="radio" aria-checked="false" data-m="1.1" data-n="22–30">22–30</button>
           </div>
         </div>
-        <div class="calc-field">
-          <div class="calc-lbl" id="calcEngL"><span>Вовлечённость аудитории</span></div>
-          <div class="calc-seg" role="radiogroup" aria-labelledby="calcEngL" data-g="eng">
-            <button type="button" role="radio" aria-checked="false" data-r="0.05" data-n="слабая">Слабая</button>
-            <button type="button" role="radio" aria-checked="true" data-r="0.09" data-n="средняя">Средняя</button>
-            <button type="button" role="radio" aria-checked="false" data-r="0.16" data-n="сильная">Сильная</button>
-          </div>
-          <p class="calc-hint" id="calcHint">Подписчики реагируют на посты, но пишут и отвечают на сторис не так часто</p>
-        </div>
       </div>
       <div class="calc-res">
         <span class="calc-res-k">Касса запуска</span>
@@ -2765,7 +2756,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
   };
   var $=function(id){return document.getElementById(id)};
   var range=$('calcReach'), out=$('calcReachOut'), sumEl=$('calcSum'), leadsEl=$('calcLeads'), salesEl=$('calcSales');
-  var nearK=$('calcNearK'), near=$('calcNear'), nearImg=$('calcNearImg'), nearName=$('calcNearName'), nearSum=$('calcNearSum'), cta=$('calcCta'), hint=$('calcHint');
+  var nearK=$('calcNearK'), near=$('calcNear'), nearImg=$('calcNearImg'), nearName=$('calcNearName'), nearSum=$('calcNearSum'), cta=$('calcCta'), hint=$('calcHint')||{};
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
   function reachOf(x){
@@ -2802,11 +2793,11 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       near.setAttribute('href','#case-'+best.id); near.setAttribute('aria-label','Кейс '+best.n);
       nearImg.className=best.img; nearName.textContent=best.n; nearSum.textContent=fmt(best.sum)+' ₽ '+best.t;
     }
-    var msg='Привет! Посчитал запуск на сайте: охват '+fmt(reach).replace(/ /g,' ')+', ЦА '+age+', вовлечённость '+eng+' — примерно '+fmt(cash).replace(/ /g,' ')+' ₽ в месяц. Хочу обсудить запуск';
+    var msg='Привет! Посчитал запуск на сайте: охват '+fmt(reach).replace(/ /g,' ')+', ЦА '+age+' — примерно '+fmt(cash).replace(/ /g,' ')+' ₽ в месяц. Хочу обсудить запуск';
     cta.href='https://t.me/'+TG+'?text='+encodeURIComponent(msg);
   }
   range.addEventListener('input',function(){update(true)});
-  /* one-choice groups: engagement (sets the rate) and audience age (14–17: −30%, 18–21: as is, 22–30: +10%) */
+  /* one-choice groups (engagement fixed at the average, 9%) and audience age (14–17: −30%, 18–21: as is, 22–30: +10%) */
   Array.prototype.forEach.call(sec.querySelectorAll('.calc-seg'),function(g){
     var bs=Array.prototype.slice.call(g.querySelectorAll('button')), key=g.getAttribute('data-g');
     function pick(b){
