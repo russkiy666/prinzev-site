@@ -2159,9 +2159,9 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
         <div class="calc-field">
           <div class="calc-lbl" id="calcAgeL"><span>Средний возраст ЦА</span></div>
           <div class="calc-seg" role="radiogroup" aria-labelledby="calcAgeL" data-g="age">
-            <button type="button" role="radio" aria-checked="false" data-m="1" data-n="14–17">14–17</button>
-            <button type="button" role="radio" aria-checked="true" data-m="1" data-n="18–22">18–22</button>
-            <button type="button" role="radio" aria-checked="false" data-m="1" data-n="22–30">22–30</button>
+            <button type="button" role="radio" aria-checked="false" data-m="0.7" data-n="14–17">14–17</button>
+            <button type="button" role="radio" aria-checked="true" data-m="1" data-n="18–21">18–21</button>
+            <button type="button" role="radio" aria-checked="false" data-m="1.1" data-n="22–30">22–30</button>
           </div>
         </div>
         <div class="calc-field">
@@ -2772,7 +2772,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     var r=MIN*Math.pow(MAX/MIN,x/1000), st=r<1000?50:r<5000?100:r<20000?500:1000;
     return Math.min(MAX,Math.max(MIN,Math.round(r/st)*st));
   }
-  var rate=0.09, eng='средняя', ageMul=1, age='18–22', shown=1350000, lastReach=null, raf=null;
+  var rate=0.09, eng='средняя', ageMul=1, age='18–21', shown=1350000, lastReach=null, raf=null;
   function animate(to){
     cancelAnimationFrame(raf);
     if(reduce){sumEl.textContent=fmt(to);shown=to;return}
@@ -2790,7 +2790,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       if(sound&&lastReach!==null&&window.pcSfx)window.pcSfx('tick');
       lastReach=reach; out.textContent=fmt(reach);
     }
-    var leads=Math.round(reach*rate*ageMul), sales=Math.round(leads*CONV), cash=sales*CHECK;
+    var bl=Math.round(reach*rate), bs=Math.round(bl*CONV), leads=Math.round(bl*ageMul), sales=Math.round(bs*ageMul), cash=Math.round(bs*CHECK*ageMul/1000)*1000; /* age changes the total by exactly its % */
     leadsEl.textContent=fmt(leads); salesEl.textContent=fmt(sales);
     animate(cash);
     /* closest real case by result */
@@ -2806,7 +2806,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     cta.href='https://t.me/'+TG+'?text='+encodeURIComponent(msg);
   }
   range.addEventListener('input',function(){update(true)});
-  /* one-choice groups: engagement (sets the rate) and audience age (multiplier — 1 for now) */
+  /* one-choice groups: engagement (sets the rate) and audience age (14–17: −30%, 18–21: as is, 22–30: +10%) */
   Array.prototype.forEach.call(sec.querySelectorAll('.calc-seg'),function(g){
     var bs=Array.prototype.slice.call(g.querySelectorAll('button')), key=g.getAttribute('data-g');
     function pick(b){
