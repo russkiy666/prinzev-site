@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<script>/* self-update: an old cached copy reloads itself to the latest version */(function(){var V="20261017003256";try{fetch("version.txt?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){t=(t||"").trim();if(t&&t!==V){var u=new URL(location.href);if(u.searchParams.get("v")===t)return;u.searchParams.set("v",t);location.replace(u.toString())}}).catch(function(){})}catch(e){}})();</script>
+<script>/* self-update: an old cached copy reloads itself to the latest version */(function(){var V="20261017003708";try{fetch("version.txt?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){t=(t||"").trim();if(t&&t!==V){var u=new URL(location.href);if(u.searchParams.get("v")===t)return;u.searchParams.set("v",t);location.replace(u.toString())}}).catch(function(){})}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SABIZ &amp; CO. — кейсы запусков блогеров</title>
@@ -1391,45 +1391,43 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
   .faq-i[open] .faq-a{animation:none}
 }
 
-/* ===== showreel right after «Открыть кейсы» ===== */
+/* ===== showreel right after «Открыть кейсы» (transform/opacity only — smooth on phones) ===== */
 .reel{position:fixed;inset:0;z-index:10001;background:#070707;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;transition:opacity .35s ease;touch-action:none}
 .reel.on{opacity:1}
-.reel.out{opacity:0;transition:opacity .8s ease .15s;pointer-events:none}
-.reel::before{content:"";position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(200,240,60,.2),transparent 70%);opacity:.45;transition:opacity .25s ease,transform .25s ease}
-.reel.hit::before{opacity:1;transform:scale(1.1)}
-/* background wall of launches drifting up: "there are a lot of them" */
-.reel-wall{position:absolute;inset:0;pointer-events:none}
-.reel-wall b{position:absolute;bottom:-30%;border-radius:14px;overflow:hidden;background:#1a1a18;opacity:.2;animation:reelDrift linear infinite;will-change:transform;transition:opacity .25s ease}
-.reel.hit .reel-wall b{opacity:.34}
-.reel-wall b>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;animation:none!important;transform:none!important}
-@keyframes reelDrift{from{transform:translateY(0)}to{transform:translateY(-170vh)}}
+.reel.out{opacity:0;transition:opacity .6s ease;pointer-events:none}
+.reel-glow{position:absolute;left:50%;top:50%;width:140vmax;height:140vmax;margin:-70vmax 0 0 -70vmax;background:radial-gradient(closest-side,rgba(200,240,60,.22),transparent 70%);opacity:.5;transition:opacity .2s ease,transform .2s ease;will-change:transform,opacity;pointer-events:none}
+.reel.hit .reel-glow{opacity:.9;transform:scale(1.06)}
 .reel-stage{position:relative;width:var(--cw);height:calc(var(--cw)*1.33);perspective:1600px}
 .reel-tilt{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-7deg)}
-.reel-ring{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.9,.3,1.15)}
-.reel-ring.spin{transition:transform 1.7s cubic-bezier(.12,.75,.25,1)}
+.reel-ring{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .32s cubic-bezier(.2,.9,.3,1.12);will-change:transform}
+.reel-ring.spin{transition:transform 1.5s cubic-bezier(.12,.75,.25,1)}
 .reel-card{position:absolute;inset:0;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.reel-card .rc{position:absolute;inset:0;border-radius:26px;overflow:hidden;background:#1a1a18;box-shadow:0 30px 80px -30px rgba(0,0,0,.9);transform:var(--from);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.2,1) var(--d),opacity .5s ease var(--d),filter .45s ease,box-shadow .35s ease}
+.reel-card .rc{position:absolute;inset:0;border-radius:24px;overflow:hidden;background:#1a1a18;border:2px solid transparent;transform:var(--from);opacity:0;transition:transform .8s cubic-bezier(.2,.8,.2,1) var(--d),opacity .45s ease var(--d),border-color .2s ease}
 .reel.on .reel-card .rc{transform:none;opacity:1}
+.reel.beat .reel-card .rc{transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .2s ease,border-color .2s ease}
+.reel.beat .reel-card:not(.on) .rc{opacity:.32}
+.reel-card.on .rc{border-color:var(--accent)}
 .reel-card .rc>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;background-repeat:no-repeat!important;animation:none!important;transform:none!important}
-.reel-card .rc::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(243,241,234,.12)}
-.reel.beat .reel-card:not(.on) .rc{filter:brightness(.38) saturate(.6)}
-.reel-card.on .rc{box-shadow:0 0 0 2px var(--accent),0 0 60px rgba(200,240,60,.45),0 40px 90px -30px rgba(0,0,0,.9)}
-.reel-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.24),transparent 55%);opacity:0;pointer-events:none;z-index:2}
-.reel.hit .reel-flash{animation:reelFlash .35s ease-out}
+.reel-card .rc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 48%,rgba(7,7,7,.92))}
+.reel-cap{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;display:flex;flex-direction:column;gap:3px;color:var(--onDark)}
+.reel-cap b{font-family:var(--display);font-weight:800;font-size:clamp(17px,calc(var(--cw)*.075),26px);letter-spacing:.01em;line-height:1.05}
+.reel-cap i{font-style:normal;font-family:var(--display);font-weight:800;font-size:clamp(19px,calc(var(--cw)*.09),32px);letter-spacing:-.02em;line-height:1.05;color:var(--accent);white-space:nowrap}
+.reel-cap small{font-weight:700;font-size:clamp(11px,calc(var(--cw)*.04),14px);color:rgba(243,241,234,.7)}
+.reel-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.2),transparent 55%);opacity:0;pointer-events:none;z-index:2;will-change:opacity}
+.reel.hit .reel-flash{animation:reelFlash .28s ease-out}
 @keyframes reelFlash{0%{opacity:1}100%{opacity:0}}
-.reel-bump{animation:reelBump .32s cubic-bezier(.2,.8,.2,1)}
-@keyframes reelBump{0%{transform:rotateX(-7deg) scale(1.08)}100%{transform:rotateX(-7deg) scale(1)}}
-/* finale: cards burst into particles (canvas), the overlay is wiped away from top to bottom */
-.reel.fin .reel-stage{opacity:0;transition:opacity .08s linear}
-.reel.fin .reel-wall b{opacity:0;transition:opacity .5s ease}
-.reel.fin .reel-flash{animation:reelFlash .7s ease-out}
-.reel.wipe{background:transparent;transition:none}
-.reel.wipe::before{opacity:0;transition:opacity .3s ease}
-.reel-cover{position:absolute;left:0;right:0;top:-22%;height:122%;background:linear-gradient(to bottom,rgba(7,7,7,0) 0,#070707 18%);transform:translateY(-100%);will-change:transform;pointer-events:none}
-.reel.wipe .reel-cover{transform:translateY(0);animation:reelCurtain 1.25s cubic-bezier(.5,0,.25,1) .12s forwards}
+.reel-bump{animation:reelBump .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes reelBump{0%{transform:rotateX(-7deg) scale(1.06)}100%{transform:rotateX(-7deg) scale(1)}}
+/* finale: side cards fade, the front card flies into the camera, a curtain slides down to the site */
+.reel.fin .reel-card:not(.on) .rc{opacity:0!important;transition:opacity .25s ease}
+.reel.fin .reel-card.on .rc{transform:translateZ(520px) scale(1.25);opacity:0;transition:transform .75s cubic-bezier(.55,0,.35,1),opacity .55s ease .2s}
+.reel.fin .reel-flash{animation:reelFlash .5s ease-out}
+.reel.fin{background:transparent}
+.reel-cover{position:absolute;left:0;right:0;top:-22%;height:122%;background:linear-gradient(to bottom,rgba(7,7,7,0) 0,#070707 18%);will-change:transform;pointer-events:none}
+.reel.fin .reel-cover{animation:reelCurtain 1s cubic-bezier(.5,0,.25,1) .25s forwards}
+.reel.fin .reel-glow{opacity:0;transition:opacity .5s ease}
 @keyframes reelCurtain{from{transform:translateY(0)}to{transform:translateY(105%)}}
-.reel-dust{position:fixed;inset:0;width:100vw;height:100vh;z-index:10002;pointer-events:none}
-.reel-skip{position:absolute;z-index:3;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(243,241,234,.25);background:rgba(14,14,13,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:rgba(243,241,234,.75);font:inherit;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s ease 1s,color .2s ease,border-color .2s ease}
+.reel-skip{position:absolute;z-index:3;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(243,241,234,.25);background:rgba(14,14,13,.6);color:rgba(243,241,234,.75);font:inherit;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s ease 1s,color .2s ease,border-color .2s ease}
 .reel.on .reel-skip{opacity:1}
 .reel.fin .reel-skip{opacity:0;transition:opacity .2s ease}
 .reel-skip:hover{color:var(--onDark);border-color:var(--accent)}
@@ -1437,8 +1435,8 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .reel-dots{position:absolute;z-index:3;left:50%;top:calc(30px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;gap:6px;opacity:0;transition:opacity .4s ease}
 .reel.beat .reel-dots{opacity:1}
 .reel.fin .reel-dots{opacity:0}
-.reel-dots i{width:22px;height:3px;border-radius:3px;background:rgba(243,241,234,.18);transition:background-color .2s ease,box-shadow .2s ease}
-.reel-dots i.on{background:var(--accent);box-shadow:0 0 10px rgba(200,240,60,.6)}
+.reel-dots i{width:22px;height:3px;border-radius:3px;background:rgba(243,241,234,.18);transition:background-color .15s ease}
+.reel-dots i.on{background:var(--accent)}
 html.reel-lock,html.reel-lock body{overflow:hidden}
 </style>
 </head>
@@ -3032,56 +3030,58 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
 })();
 </script>
 <script>
-/* showreel right after «Открыть кейсы»: cards fly in and spin up, then one step per beat, then the ring flies into the camera and the site appears */
+/* showreel right after «Открыть кейсы»: cards fly in and spin up, two laps at one step per beat (0.5 s), the front card flies into the camera and the site slides in */
 (function(){
-  /* timeline in seconds; when the track arrives BEATS become its real hits */
-  var SPIN=0.15, BEATS=[1.8,2.8,3.8,4.8,5.8,6.8,7.8], FIN=8.7, END=9.8;
-  var MUSIC=null; /* e.g. 'reel.mp3' — the track for the showreel */
+  var STEP=0.5, FIRST=1.6, LAPS_SHOWN=2;
+  var MUSIC=null; /* e.g. 'reel.mp3' — the track for the showreel; then BEATS become its real hits */
   var KEY='pc-reel';
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var cards=Array.prototype.slice.call(document.querySelectorAll('#caseRail .case-card .cc-photo [class^="img-"]')).map(function(e){return e.className.split(' ')[0]});
+  var cards=Array.prototype.slice.call(document.querySelectorAll('#caseRail .case-card')).map(function(c){
+    var im=c.querySelector('.cc-photo [class^="img-"]'), r=c.querySelector('.cc-result');
+    return {img:im?im.className.split(' ')[0]:'', name:(c.querySelector('h3')||{}).textContent||'',
+      sum:r&&r.querySelector('b')?r.querySelector('b').textContent:'', per:r&&r.querySelector('span')?r.querySelector('span').textContent:''};
+  }).filter(function(c){return c.img});
+  var n=cards.length;
+  var BEATS=[]; for(var i=0;i<n*LAPS_SHOWN;i++)BEATS.push(+(FIRST+i*STEP).toFixed(2));
+  var FIN=BEATS[BEATS.length-1]+STEP+.1, END=FIN+1.4;
   function seen(){try{return sessionStorage.getItem(KEY)==='1'}catch(e){return false}}
   function mark(){try{sessionStorage.setItem(KEY,'1')}catch(e){}}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 
   var AC=window.AudioContext||window.webkitAudioContext, ctx=null;
   function ac(){if(!AC)return null;if(!ctx)ctx=new AC();if(ctx.state==='suspended')ctx.resume();return ctx}
-  /* placeholder beat until the real track is in: deep kick + click */
+  /* placeholder beat until the real track is in */
   function kick(big){
     if(MUSIC)return;
     try{var c=ac();if(!c)return;var t=c.currentTime,o=c.createOscillator(),g=c.createGain();
-      o.type='sine';o.frequency.setValueAtTime(big?170:140,t);o.frequency.exponentialRampToValueAtTime(40,t+.24);
-      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(big?.7:.5,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+(big?.6:.38));
+      o.type='sine';o.frequency.setValueAtTime(big?170:140,t);o.frequency.exponentialRampToValueAtTime(42,t+.2);
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(big?.7:.45,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+(big?.6:.3));
       o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.65);
-      var n=c.createBufferSource(),b=c.createBuffer(1,c.sampleRate*.05,c.sampleRate),d=b.getChannelData(0);
-      for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
-      n.buffer=b;var hp=c.createBiquadFilter();hp.type='highpass';hp.frequency.value=2500;var g2=c.createGain();g2.gain.value=.12;
-      n.connect(hp);hp.connect(g2);g2.connect(c.destination);n.start(t);
     }catch(e){}
   }
   function whoosh(dur,up){
     if(MUSIC)return;
-    try{var c=ac();if(!c)return;var t=c.currentTime,len=dur,b=c.createBuffer(1,Math.floor(c.sampleRate*len),c.sampleRate),d=b.getChannelData(0);
+    try{var c=ac();if(!c)return;var t=c.currentTime,b=c.createBuffer(1,Math.floor(c.sampleRate*dur),c.sampleRate),d=b.getChannelData(0);
       for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
-      var n=c.createBufferSource();n.buffer=b;var f=c.createBiquadFilter();f.type='bandpass';f.Q.value=3;
-      f.frequency.setValueAtTime(up?300:2400,t);f.frequency.exponentialRampToValueAtTime(up?3200:250,t+len);
-      var g=c.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+len*.6);g.gain.linearRampToValueAtTime(0,t+len);
-      n.connect(f);f.connect(g);g.connect(c.destination);n.start(t);n.stop(t+len);
+      var s=c.createBufferSource();s.buffer=b;var f=c.createBiquadFilter();f.type='bandpass';f.Q.value=3;
+      f.frequency.setValueAtTime(up?300:2400,t);f.frequency.exponentialRampToValueAtTime(up?3200:250,t+dur);
+      var g=c.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+dur*.6);g.gain.linearRampToValueAtTime(0,t+dur);
+      s.connect(f);f.connect(g);g.connect(c.destination);s.start(t);s.stop(t+dur);
     }catch(e){}
   }
 
   function run(done){
     mark();
-    var n=cards.length, step=360/n, laps=2;
+    var step=360/n, laps=2;
     var cw=Math.round(Math.min(innerWidth*.62,innerHeight*.5,420));
     var R=Math.round(cw/2/Math.tan(Math.PI/n)*1.18);
     var el=document.createElement('div'); el.className='reel'; el.style.setProperty('--cw',cw+'px'); el.setAttribute('role','dialog'); el.setAttribute('aria-label','Наши запуски');
-    var wall='';
-    for(var w=0;w<26;w++){var c=cards[w%n],sz=Math.round(54+Math.random()*70);wall+='<b style="left:'+(Math.random()*100-5).toFixed(1)+'%;width:'+sz+'px;height:'+Math.round(sz*1.3)+'px;animation-duration:'+(6+Math.random()*6).toFixed(2)+'s;animation-delay:-'+(Math.random()*10).toFixed(2)+'s"><span class="'+c+'"></span></b>'}
-    var html='<div class="reel-cover"></div><div class="reel-wall" aria-hidden="true">'+wall+'</div><div class="reel-dots" aria-hidden="true">'+cards.map(function(){return '<i></i>'}).join('')+'</div><div class="reel-flash"></div><div class="reel-stage"><div class="reel-tilt"><div class="reel-ring" style="transform:translateZ(-'+R+'px)">';
+    var html='<div class="reel-cover"></div><div class="reel-glow"></div><div class="reel-dots" aria-hidden="true">'+cards.map(function(){return '<i></i>'}).join('')+'</div><div class="reel-flash"></div><div class="reel-stage"><div class="reel-tilt"><div class="reel-ring" style="transform:translateZ(-'+R+'px)">';
     cards.forEach(function(c,i){
-      var a=Math.random()*Math.PI*2, dist=900+Math.random()*500;
-      var from='translate3d('+Math.round(Math.cos(a)*dist)+'px,'+Math.round(Math.sin(a)*dist)+'px,'+Math.round(300+Math.random()*600)+'px) rotate('+Math.round(Math.random()*120-60)+'deg) scale(.5)';
-      html+='<div class="reel-card" style="transform:rotateY('+(i*step)+'deg) translateZ('+R+'px)"><div class="rc" style="--from:'+from+';--d:'+(i*0.07).toFixed(2)+'s"><span class="'+c+'"></span></div></div>';
+      var a=Math.random()*Math.PI*2, dist=700+Math.random()*400;
+      var from='translate3d('+Math.round(Math.cos(a)*dist)+'px,'+Math.round(Math.sin(a)*dist)+'px,300px) rotate('+Math.round(Math.random()*90-45)+'deg) scale(.6)';
+      html+='<div class="reel-card" style="transform:rotateY('+(i*step)+'deg) translateZ('+R+'px)"><div class="rc" style="--from:'+from+';--d:'+(i*0.06).toFixed(2)+'s"><span class="'+c.img+'"></span>'+
+        '<div class="reel-cap"><b>'+esc(c.name)+'</b><i>'+esc(c.sum)+'</i><small>'+esc(c.per)+'</small></div></div></div>';
     });
     html+='</div></div></div><button type="button" class="reel-skip">Пропустить <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>';
     el.innerHTML=html; document.body.appendChild(el); document.documentElement.classList.add('reel-lock');
@@ -3096,76 +3096,29 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       hit(); tilt.classList.remove('reel-bump'); void tilt.offsetWidth; tilt.classList.add('reel-bump');
       kick(false);
     }
-    function close(wipe){
+    function close(soft){
       if(ended)return; ended=true; timers.forEach(clearTimeout);
       if(audio){var a=audio,v=a.volume,f=setInterval(function(){v-=.06;if(v<=0){clearInterval(f);a.pause()}else a.volume=v},40)}
       done();
-      if(!wipe)el.classList.add('out'); document.documentElement.classList.remove('reel-lock');
+      if(!soft)el.classList.add('out'); document.documentElement.classList.remove('reel-lock');
       if(window.pcMusic)pcMusic.hold(false);
-      setTimeout(function(){el.remove()},wipe?1600:1100);
+      setTimeout(function(){el.remove()},soft?1400:800);
     }
-    /* finale: the front cards break into pieces (canvas, ~1500 tiles, GPU-friendly), a soft dark curtain slides down and uncovers the site */
-    function dust(){
-      var W=innerWidth, H=innerHeight, small=W<700, S=small?12:16;
-      var cv=document.createElement('canvas'); cv.className='reel-dust'; cv.width=W; cv.height=H; document.body.appendChild(cv);
-      var g=cv.getContext('2d');
-      var parts=[];
-      var rcs=Array.prototype.slice.call(el.querySelectorAll('.reel-card .rc')).map(function(rc){return {rc:rc,r:rc.getBoundingClientRect()}})
-        .filter(function(o){return o.r.width>20&&o.r.right>0&&o.r.left<W}).sort(function(a,b){var fa=a.rc.parentNode.classList.contains('on'),fb=b.rc.parentNode.classList.contains('on');return fa!==fb?(fa?-1:1):b.r.width-a.r.width}).slice(0,3);
-      var pending=rcs.length, started=false;
-      function go(){
-        if(started)return; started=true;
-        el.classList.add('wipe');
-        var t0=performance.now();
-        (function frame(now){
-          var t=(now-t0)/1000; g.clearRect(0,0,W,H); var alive=0;
-          for(var k=0;k<parts.length;k++){var p=parts[k],tt=t-p.dl;
-            if(tt<0){g.globalAlpha=p.b;g.drawImage(p.src,p.sx,p.sy,p.s,p.s,p.x0,p.y0,p.s,p.s);alive++;continue}
-            var a=1-tt/1.05; if(a<=0)continue; alive++;
-            var x=p.x0+p.vx*tt*60, y=p.y0+(p.vy*tt+4.2*tt*tt)*60, z=p.s*(1-tt*.55);
-            g.globalAlpha=a*p.b; g.drawImage(p.src,p.sx,p.sy,p.s,p.s,x,y,z,z);
-          }
-          if((alive||t<1.3)&&t<2.4)requestAnimationFrame(frame); else cv.remove();
-        })(t0);
-      }
-      rcs.forEach(function(o,idx){
-        var sp=o.rc.querySelector('span'), cs=getComputedStyle(sp), m=/url\(["']?(.*?)["']?\)/.exec(cs.backgroundImage);
-        if(!m){if(--pending===0)go();return}
-        var img=new Image(); img.onload=function(){
-          var w=Math.round(o.r.width), h=Math.round(o.r.height);
-          var c2=document.createElement('canvas'); c2.width=w; c2.height=h; var x2=c2.getContext('2d');
-          var pos=cs.backgroundPosition.split(' ').map(function(v){return parseFloat(v)/100}), px=isNaN(pos[0])?.5:pos[0], py=isNaN(pos[1])?.5:pos[1];
-          var sc=Math.max(w/img.width,h/img.height), dw=img.width*sc, dh=img.height*sc; x2.drawImage(img,(w-dw)*px,(h-dh)*py,dw,dh);
-          var s=idx?S*1.4|0:S, b=idx?.4:1;
-          for(var y=0;y<h;y+=s)for(var x=0;x<w;x+=s){
-            var cx=o.r.left+x, cy=o.r.top+y;
-            parts.push({src:c2,sx:x,sy:y,s:s,x0:cx,y0:cy,b:b,vx:(Math.random()-.5)*(idx?1.6:2.6)+(cx-W/2)*.003,vy:-1.2-Math.random()*2.2,dl:(y/h)*.3+Math.random()*.2});
-          }
-          if(--pending===0)go();
-        }; img.onerror=function(){if(--pending===0)go()}; img.src=m[1];
-      });
-      if(!pending)go();
-      setTimeout(go,250); /* never wait long for images */
-    }
-    function fin(){
-      if(ended)return; el.classList.add('fin'); hit(); kick(true); whoosh(1.2,false);
-      try{dust()}catch(e){el.classList.add('out')}
-      close(true);
-    }
+    function fin(){if(ended)return; el.classList.add('fin'); hit(); kick(true); whoosh(1,false); close(true)}
     el.querySelector('.reel-skip').addEventListener('click',function(e){e.stopPropagation();close(false)});
-    document.addEventListener('keydown',function k(e){if(e.key==='Escape'){document.removeEventListener('keydown',k);close()}});
+    document.addEventListener('keydown',function k(e){if(e.key==='Escape'){document.removeEventListener('keydown',k);close(false)}});
     if(MUSIC){audio=new Audio(MUSIC);audio.volume=.9;var p=audio.play();if(p&&p.catch)p.catch(function(){})}
     var t0=performance.now();
     function at(sec,fn){timers.push(setTimeout(fn,Math.max(0,sec*1000-(performance.now()-t0))))}
     requestAnimationFrame(function(){el.classList.add('on')});
-    at(SPIN,function(){ring.classList.add('spin');rot(base);whoosh(1.4,true)});
+    at(.15,function(){ring.classList.add('spin');rot(base);whoosh(1.3,true)});
     BEATS.forEach(function(b,i){at(b,function(){show(i)})});
     at(FIN,fin);
-    at(END,close);
+    at(END,function(){close(true)});
   }
 
   window.pcReel={
-    ok:function(){return !reduce&&cards.length>2&&!seen()},
+    ok:function(){return !reduce&&n>2&&!seen()},
     run:function(done){try{run(done)}catch(e){done()}}
   };
 })();
