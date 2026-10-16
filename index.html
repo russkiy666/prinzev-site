@@ -1318,6 +1318,78 @@ html.js:not(.no-ld) .loader.gate{animation:none;cursor:pointer}
 .loader.gate .ld-hint{opacity:1}
 html.ld-gate,html.ld-gate body{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.loader.gate .ld-enter,.ld-hint i b{animation:none}}
+
+/* ===== header contact ===== */
+.bar-cta{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:999px;background:var(--accent);color:var(--ink);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 0 18px rgba(200,240,60,.3);transition:background-color .2s ease,box-shadow .2s ease}
+.bar-cta svg{width:14px;height:14px;flex:none}
+.bar-cta:hover{background:var(--onDark);box-shadow:none}
+.bar-cta:focus-visible{outline:3px solid var(--onDark);outline-offset:3px}
+@media (max-width:600px){
+  .bar-r .bar-link{display:none}
+  .bar-cta{padding:0 14px;font-size:11.5px}
+}
+@media (max-width:420px){.bar-cta{padding:0 12px;font-size:11px;letter-spacing:.04em}.bar-cta svg{display:none}}
+
+/* ===== FAQ ===== */
+.faq,.endcta{background:#0E0E0D;color:var(--onDark);border-top:1px solid rgba(243,241,234,.08);position:relative;overflow:hidden}
+.faq-in{max-width:1728px;margin:0 auto;padding:clamp(48px,6vw,112px) var(--pad);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,80px);align-items:start}
+.faq-head h2{font-size:clamp(30px,4.6vw,80px);color:var(--onDark)}
+.faq-head p{margin:14px 0 0;font-weight:600;font-size:clamp(15px,1.2vw,20px);line-height:1.45;color:var(--onDarkMuted);max-width:460px}
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-i{border-radius:22px;border:1px solid rgba(243,241,234,.12);background:rgba(243,241,234,.04);transition:border-color .25s ease,background-color .25s ease}
+.faq-i[open]{border-color:rgba(200,240,60,.35);background:linear-gradient(160deg,rgba(200,240,60,.08),rgba(243,241,234,.03))}
+.faq-i summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:clamp(18px,1.6vw,26px) clamp(20px,1.8vw,30px);cursor:pointer;font-weight:800;font-size:clamp(16px,1.3vw,22px);line-height:1.3;-webkit-tap-highlight-color:transparent}
+.faq-i summary::-webkit-details-marker{display:none}
+.faq-i summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:22px}
+.faq-i summary i{position:relative;flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(243,241,234,.3);transition:transform .3s cubic-bezier(.2,.8,.2,1),background-color .25s ease,border-color .25s ease}
+.faq-i summary i::before,.faq-i summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;border-radius:2px;background:currentColor}
+.faq-i summary i::after{transform:rotate(90deg)}
+.faq-i[open] summary i{transform:rotate(45deg);background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.faq-i summary:hover i{border-color:var(--accent)}
+.faq-a{padding:0 clamp(20px,1.8vw,30px) clamp(18px,1.6vw,26px)}
+.faq-a p{margin:0;max-width:680px;font-weight:600;font-size:clamp(15px,1.1vw,18px);line-height:1.55;color:var(--onDarkMuted)}
+.faq-i[open] .faq-a{animation:faqIn .35s ease}
+@keyframes faqIn{from{opacity:0;transform:translateY(-6px)}}
+
+/* ===== endcta call ===== */
+.endcta::before{content:"";position:absolute;left:50%;top:50%;width:min(1100px,140vw);aspect-ratio:1;transform:translate(-50%,-42%);background:radial-gradient(circle,rgba(200,240,60,.16),transparent 60%);pointer-events:none}
+.endcta-in{position:relative;max-width:980px;margin:0 auto;padding:clamp(64px,8vw,150px) var(--pad);display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.endcta-in h2{font-size:clamp(36px,6.4vw,112px);color:var(--onDark)}
+.endcta-in h2+p{margin:4px 0 10px;max-width:620px;font-weight:600;font-size:clamp(16px,1.35vw,22px);line-height:1.5;color:var(--onDarkMuted)}
+.endcta-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;width:100%}
+.endcta-btns .btn{flex:0 1 auto}
+.endcta-cta svg{width:22px;height:22px}
+.endcta-calc{background:transparent;color:var(--onDark);border-color:rgba(243,241,234,.3)}
+.endcta-calc:hover{background:var(--onDark);color:var(--ink);border-color:var(--onDark)}
+.endcta-who{margin-top:6px;font-weight:700;font-size:13px;letter-spacing:.04em;color:rgba(243,241,234,.45)}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.on{opacity:1;transform:none}
+.js .faq-list.rv{transition-delay:.1s}
+
+@media (max-width:900px){
+  .faq-in{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .faq-in{padding:48px 20px 56px;gap:22px}
+  .faq-head h2{font-size:clamp(26px,8vw,36px)}
+  .faq-head p{font-size:15px}
+  .faq-i{border-radius:18px}
+  .faq-i summary{padding:16px 16px 16px 18px;font-size:16px}
+  .faq-i summary i{width:30px;height:30px}
+  .faq-a{padding:0 18px 18px}
+  .faq-a p{font-size:15px}
+  .endcta-in{padding:64px 20px 72px}
+  .endcta-in h2{font-size:clamp(32px,10vw,44px)}
+  .endcta-in h2+p{font-size:16px}
+  .endcta-btns{flex-direction:column}
+  .endcta-btns .btn{width:100%;min-height:56px}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .rv{opacity:1;transform:none;transition:none}
+  .faq-i[open] .faq-a{animation:none}
+}
 </style>
 </head>
 <body>
@@ -1335,18 +1407,18 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
     <div class="cv-main">
       <div class="cv-left">
         <h1 class="cv-word"><span>ПРИНЦЕВСКИЙ</span><span class="cv-co">&amp; CO.</span></h1>
-        <p class="cv-lead">Запускаем блогеров на собственные проекты: от анализа аудитории и прогрева до отдела продаж.</p>
+        <p class="cv-lead">Запускаем блогеров на собственные проекты и берём всю работу на себя: прогрев, закрытый канал и отдел продаж. От тебя — 3–4 поста в блоге.</p>
         <div class="cv-actions">
           <a class="btn accent cv-cta" href="#cases">Смотреть кейсы <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
           <a class="btn cv-calc" href="#calc">Посчитать свой доход</a>
-          <span class="cv-note">7 запусков · выбери любой</span>
+          <span class="cv-note">50+ запусков · здесь 7 из них</span>
         </div>
       </div>
       <div class="cv-faces"><a class="cv-face" href="#case-serafimchik" aria-label="Открыть кейс SERAFIMCHIK"><div class="img-serafim"></div><span class="cv-face-cap"><b>SERAFIMCHIK</b><span>2 500 000 ₽ / мес</span></span></a><a class="cv-face" href="#case-befresh" aria-label="Открыть кейс BE FRESH"><div class="img-befresh"></div><span class="cv-face-cap"><b>BE FRESH</b><span>1 000 000 ₽ / мес</span></span></a><a class="cv-face" href="#case-diktorych" aria-label="Открыть кейс ДИКТОРЫЧ"><div class="img-diktor"></div><span class="cv-face-cap"><b>ДИКТОРЫЧ</b><span>3 000 000 ₽ / мес</span></span></a><a class="cv-face" href="#case-ivanich" aria-label="Открыть кейс ИВАНИЧ"><div class="img-ivanich"></div><span class="cv-face-cap"><b>ИВАНИЧ</b><span>2 500 000 ₽ / запуск</span></span></a></div>
     </div>
     <div class="cv-stats">
       <div><b><span class="l">до 3 000 000 ₽</span><span class="s">3 млн ₽</span></b><span><span class="l">в месяц у блогера после запуска</span><span class="s">в месяц у блогера</span></span></div>
-      <div><b>×5</b><span><span class="l">рост дохода блогера</span><span class="s">рост дохода</span></span></div>
+      <div><b>от 3 500</b><span><span class="l">подписчиков хватает для запуска</span><span class="s">подписчиков хватит</span></span></div>
       <div><b>100%</b><span><span class="l">в белую: официально, налог с каждого рубля</span><span class="s">в белую, с налогами</span></span></div>
     </div>
 
@@ -2206,6 +2278,53 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
     </details>
   </div>
 </section>
+<section class="faq" id="faq">
+  <div class="faq-in">
+    <div class="faq-head rv">
+      <span class="kicker">Перед запуском</span>
+      <h2>ЧАСТЫЕ ВОПРОСЫ</h2>
+      <p>Коротко о том, что обычно спрашивают блогеры перед стартом</p>
+    </div>
+    <div class="faq-list rv">
+      <details class="faq-i">
+        <summary><span>Сколько нужно подписчиков?</span><i aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Меньше, чем кажется. У VQIDER было 3&nbsp;500 подписчиков, а после запуска проект приносит 1&nbsp;500&nbsp;000&nbsp;₽ в месяц. Важнее не размер блога, а живая аудитория, которая тебе доверяет.</p></div>
+      </details>
+      <details class="faq-i">
+        <summary><span>Что нужно от меня?</span><i aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Твой блог и 3–4 поста для прогрева. Остальное на нас: анализ аудитории, закрытый канал, прогрев и отдел продаж, который обрабатывает все заявки.</p></div>
+      </details>
+      <details class="faq-i">
+        <summary><span>Не выжгу ли я аудиторию?</span><i aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Нет. Мы не работаем на весь блог: создаём отдельный канал, и вся работа идёт там. В основном блоге — только 3–4 поста.</p></div>
+      </details>
+      <details class="faq-i">
+        <summary><span>Как быстро появятся деньги?</span><i aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>В наших кейсах — уже в первый месяц: ДИКТОРЫЧ с&nbsp;нуля вышел на 3&nbsp;000&nbsp;000&nbsp;₽ за месяц, ДИМОН заработал 800&nbsp;000&nbsp;₽ за один запуск.</p></div>
+      </details>
+      <details class="faq-i">
+        <summary><span>Это законно?</span><i aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Да. Всё в белую: официально, с налогом с каждого рубля.</p></div>
+      </details>
+      <details class="faq-i">
+        <summary><span>Сколько стоит работа с вами?</span><i aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>Условия зависят от блога и аудитории. Напиши нам — разберём твой канал и посчитаем, сколько может принести запуск.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+<section class="endcta" id="start">
+  <div class="endcta-in rv">
+    <span class="kicker">Следующий кейс — твой</span>
+    <h2>ГОТОВ К ЗАПУСКУ?</h2>
+    <p>Напиши в Telegram — разберём твой блог и аудиторию и посчитаем, сколько может приносить запуск.</p>
+    <div class="endcta-btns">
+      <a class="btn accent endcta-cta" href="https://t.me/YakimovichI" data-tg="Привет! Хочу обсудить запуск своего блога" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать в Telegram</a>
+      <a class="btn endcta-calc" href="#calc">Посчитать свой доход</a>
+    </div>
+    <span class="endcta-who">Отвечает лично продюсер Илья · @YakimovichI</span>
+  </div>
+</section>
 <footer class="site-foot">
   <div class="sf-in">
     <div class="sf-brand"><span class="mark">П</span><div><b>ПРИНЦЕВСКИЙ <em>&amp; CO.</em></b><small>Продюсерское агентство · запускаем блогеров на собственные проекты</small></div></div>
@@ -2823,6 +2942,35 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){sec.classList.add('on');io.disconnect()}})},{threshold:.12});
     io.observe(sec);
   } else sec.classList.add('on');
+})();
+</script>
+<script>
+/* contact: header button, prefilled Telegram messages, reveal for the FAQ and the final call */
+(function(){
+  var TG='https://t.me/YakimovichI';
+  var MSG='Привет! Хочу обсудить запуск своего блога';
+  var slot=document.querySelector('.bar-r');
+  if(slot&&!slot.querySelector('.bar-cta')){
+    var a=document.createElement('a'); a.className='bar-cta'; a.target='_blank'; a.rel='noopener';
+    a.setAttribute('data-tg',MSG); a.href=TG;
+    a.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать';
+    a.setAttribute('aria-label','Написать нам в Telegram');
+    slot.appendChild(a);
+  }
+  var foot=document.querySelector('.sf-tg'); if(foot&&!foot.hasAttribute('data-tg'))foot.setAttribute('data-tg',MSG);
+  Array.prototype.forEach.call(document.querySelectorAll('[data-tg]'),function(el){
+    el.href=TG+'?text='+encodeURIComponent(el.getAttribute('data-tg'));
+  });
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
+    Array.prototype.forEach.call(els,function(el){io.observe(el)});
+  } else Array.prototype.forEach.call(els,function(el){el.classList.add('on')});
+  /* one question open at a time */
+  var qs=document.querySelectorAll('.faq-i');
+  Array.prototype.forEach.call(qs,function(d){
+    d.addEventListener('toggle',function(){if(d.open)Array.prototype.forEach.call(qs,function(o){if(o!==d&&o.open)o.open=false})});
+  });
 })();
 </script>
 <style id="pc-img">
