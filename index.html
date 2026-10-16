@@ -2132,13 +2132,21 @@ html{-webkit-tap-highlight-color:transparent}
     <div class="calc-box">
       <div class="calc-form">
         <div class="calc-field">
-          <label class="calc-lbl" for="calcReach"><span>Средний охват поста или сторис</span><output id="calcReachOut" for="calcReach">2&nbsp;500</output></label>
+          <label class="calc-lbl" for="calcReach"><span>Дневной охват поста в TG</span><output id="calcReachOut" for="calcReach">2&nbsp;500</output></label>
           <input class="calc-range" type="range" id="calcReach" min="0" max="1000" step="1" value="505">
           <div class="calc-scale" aria-hidden="true"><span>300</span><span>20&nbsp;000</span></div>
         </div>
         <div class="calc-field">
+          <div class="calc-lbl" id="calcAgeL"><span>Средний возраст ЦА</span></div>
+          <div class="calc-seg" role="radiogroup" aria-labelledby="calcAgeL" data-g="age">
+            <button type="button" role="radio" aria-checked="false" data-m="1" data-n="14–17">14–17</button>
+            <button type="button" role="radio" aria-checked="true" data-m="1" data-n="18–22">18–22</button>
+            <button type="button" role="radio" aria-checked="false" data-m="1" data-n="22–30">22–30</button>
+          </div>
+        </div>
+        <div class="calc-field">
           <div class="calc-lbl" id="calcEngL"><span>Вовлечённость аудитории</span></div>
-          <div class="calc-seg" role="radiogroup" aria-labelledby="calcEngL">
+          <div class="calc-seg" role="radiogroup" aria-labelledby="calcEngL" data-g="eng">
             <button type="button" role="radio" aria-checked="false" data-r="0.05" data-n="слабая">Слабая</button>
             <button type="button" role="radio" aria-checked="true" data-r="0.09" data-n="средняя">Средняя</button>
             <button type="button" role="radio" aria-checked="false" data-r="0.16" data-n="сильная">Сильная</button>
@@ -2688,7 +2696,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
 })();
 </script>
 <script>
-/* launch calculator: reach × engagement → leads → 20% to sales → 30 000 ₽ each */
+/* launch calculator: reach × engagement × age → leads → 20% to sales → 30 000 ₽ each */
 (function(){
   var sec=document.getElementById('calc'); if(!sec)return;
   var MIN=300, MAX=20000, CONV=0.2, CHECK=30000, TG='YakimovichI';
@@ -2709,14 +2717,13 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
   var $=function(id){return document.getElementById(id)};
   var range=$('calcReach'), out=$('calcReachOut'), sumEl=$('calcSum'), leadsEl=$('calcLeads'), salesEl=$('calcSales');
   var nearK=$('calcNearK'), near=$('calcNear'), nearImg=$('calcNearImg'), nearName=$('calcNearName'), nearSum=$('calcNearSum'), cta=$('calcCta'), hint=$('calcHint');
-  var seg=Array.prototype.slice.call(sec.querySelectorAll('.calc-seg button'));
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
   function reachOf(x){
     var r=MIN*Math.pow(MAX/MIN,x/1000), st=r<1000?50:r<5000?100:r<20000?500:1000;
     return Math.min(MAX,Math.max(MIN,Math.round(r/st)*st));
   }
-  var rate=0.09, eng='средняя', shown=1350000, lastReach=null, raf=null;
+  var rate=0.09, eng='средняя', ageMul=1, age='18–22', shown=1350000, lastReach=null, raf=null;
   function animate(to){
     cancelAnimationFrame(raf);
     if(reduce){sumEl.textContent=fmt(to);shown=to;return}
@@ -2734,7 +2741,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       if(sound&&lastReach!==null&&window.pcSfx)window.pcSfx('tick');
       lastReach=reach; out.textContent=fmt(reach);
     }
-    var leads=Math.round(reach*rate), sales=Math.round(leads*CONV), cash=sales*CHECK;
+    var leads=Math.round(reach*rate*ageMul), sales=Math.round(leads*CONV), cash=sales*CHECK;
     leadsEl.textContent=fmt(leads); salesEl.textContent=fmt(sales);
     animate(cash);
     /* closest real case by result */
@@ -2746,22 +2753,28 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       near.setAttribute('href','#case-'+best.id); near.setAttribute('aria-label','Кейс '+best.n);
       nearImg.className=best.img; nearName.textContent=best.n; nearSum.textContent=fmt(best.sum)+' ₽ '+best.t;
     }
-    var msg='Привет! Посчитал запуск на сайте: охват '+fmt(reach).replace(/ /g,' ')+', вовлечённость '+eng+' — примерно '+fmt(cash).replace(/ /g,' ')+' ₽ в месяц. Хочу обсудить запуск';
+    var msg='Привет! Посчитал запуск на сайте: охват '+fmt(reach).replace(/ /g,' ')+', ЦА '+age+', вовлечённость '+eng+' — примерно '+fmt(cash).replace(/ /g,' ')+' ₽ в месяц. Хочу обсудить запуск';
     cta.href='https://t.me/'+TG+'?text='+encodeURIComponent(msg);
   }
   range.addEventListener('input',function(){update(true)});
-  seg.forEach(function(b){
-    b.addEventListener('click',function(){
+  /* one-choice groups: engagement (sets the rate) and audience age (multiplier — 1 for now) */
+  Array.prototype.forEach.call(sec.querySelectorAll('.calc-seg'),function(g){
+    var bs=Array.prototype.slice.call(g.querySelectorAll('button')), key=g.getAttribute('data-g');
+    function pick(b){
       if(b.getAttribute('aria-checked')==='true')return;
-      seg.forEach(function(o){o.setAttribute('aria-checked',o===b?'true':'false');o.tabIndex=o===b?0:-1});
-      rate=parseFloat(b.dataset.r); eng=b.dataset.n; hint.textContent=HINT[eng]||'';
+      bs.forEach(function(o){o.setAttribute('aria-checked',o===b?'true':'false');o.tabIndex=o===b?0:-1});
+      if(key==='eng'){rate=parseFloat(b.dataset.r);eng=b.dataset.n;hint.textContent=HINT[eng]||''}
+      else if(key==='age'){ageMul=parseFloat(b.dataset.m)||1;age=b.dataset.n}
       update(false);
       var box=sumEl.parentNode; box.classList.remove('calc-bump'); void box.offsetWidth; box.classList.add('calc-bump');
-    });
-    b.tabIndex=b.getAttribute('aria-checked')==='true'?0:-1;
-    b.addEventListener('keydown',function(e){
-      var i=seg.indexOf(b), j=e.key==='ArrowRight'||e.key==='ArrowDown'?i+1:e.key==='ArrowLeft'||e.key==='ArrowUp'?i-1:-9;
-      if(j===-9)return; e.preventDefault(); j=(j+seg.length)%seg.length; seg[j].focus(); seg[j].click();
+    }
+    bs.forEach(function(b){
+      b.tabIndex=b.getAttribute('aria-checked')==='true'?0:-1;
+      b.addEventListener('click',function(){pick(b)});
+      b.addEventListener('keydown',function(e){
+        var i=bs.indexOf(b), j=e.key==='ArrowRight'||e.key==='ArrowDown'?i+1:e.key==='ArrowLeft'||e.key==='ArrowUp'?i-1:-9;
+        if(j===-9)return; e.preventDefault(); j=(j+bs.length)%bs.length; bs[j].focus(); pick(bs[j]);
+      });
     });
   });
   update(false);
