@@ -1390,32 +1390,46 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
   .faq-i[open] .faq-a{animation:none}
 }
 
-/* ===== showreel after «Смотреть кейсы» ===== */
-.reel{position:fixed;inset:0;z-index:9000;background:#070707;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;transition:opacity .5s ease;touch-action:none}
+/* ===== showreel right after «Открыть кейсы» ===== */
+.reel{position:fixed;inset:0;z-index:10001;background:#070707;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;transition:opacity .35s ease;touch-action:none}
 .reel.on{opacity:1}
-.reel.out{opacity:0;transition:opacity .7s ease}
-.reel::before{content:"";position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(200,240,60,.18),transparent 70%);opacity:.5;transition:opacity .25s ease,transform .25s ease}
-.reel.hit::before{opacity:1;transform:scale(1.08)}
-.reel-stage{position:relative;width:var(--cw);height:calc(var(--cw)*1.33);perspective:1600px;transform:scale(.6);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
-.reel.on .reel-stage{transform:none;opacity:1}
-.reel.out .reel-stage{transform:scale(.5) translateY(20%);opacity:0;transition:transform .7s cubic-bezier(.6,0,.4,1),opacity .6s ease}
+.reel.out{opacity:0;transition:opacity .8s ease .15s;pointer-events:none}
+.reel::before{content:"";position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(200,240,60,.2),transparent 70%);opacity:.45;transition:opacity .25s ease,transform .25s ease}
+.reel.hit::before{opacity:1;transform:scale(1.1)}
+/* background wall of launches drifting up: "there are a lot of them" */
+.reel-wall{position:absolute;inset:0;pointer-events:none}
+.reel-wall b{position:absolute;bottom:-30%;border-radius:14px;overflow:hidden;background:#1a1a18;opacity:.22;filter:blur(1.5px) saturate(.7);animation:reelDrift linear infinite;transition:opacity .25s ease}
+.reel.hit .reel-wall b{opacity:.34}
+.reel-wall b>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;animation:none!important;transform:none!important}
+@keyframes reelDrift{from{transform:translateY(0)}to{transform:translateY(-170vh)}}
+.reel-stage{position:relative;width:var(--cw);height:calc(var(--cw)*1.33);perspective:1600px}
 .reel-tilt{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-7deg)}
 .reel-ring{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.9,.3,1.15)}
-.reel-card{position:absolute;inset:0;border-radius:26px;overflow:hidden;background:#1a1a18;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.9);transition:filter .45s ease,box-shadow .35s ease}
-.reel-card>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;background-repeat:no-repeat!important;animation:none!important;transform:none!important}
-.reel-card::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(243,241,234,.12)}
-.reel-card:not(.on){filter:brightness(.38) saturate(.6) blur(1px)}
-.reel-card.on{box-shadow:0 0 0 2px var(--accent),0 0 60px rgba(200,240,60,.45),0 40px 90px -30px rgba(0,0,0,.9)}
-.reel-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.22),transparent 55%);opacity:0;pointer-events:none}
+.reel-ring.spin{transition:transform 1.7s cubic-bezier(.12,.75,.25,1)}
+.reel-card{position:absolute;inset:0;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.reel-card .rc{position:absolute;inset:0;border-radius:26px;overflow:hidden;background:#1a1a18;box-shadow:0 30px 80px -30px rgba(0,0,0,.9);transform:var(--from);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.2,1) var(--d),opacity .5s ease var(--d),filter .45s ease,box-shadow .35s ease}
+.reel.on .reel-card .rc{transform:none;opacity:1}
+.reel-card .rc>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;background-repeat:no-repeat!important;animation:none!important;transform:none!important}
+.reel-card .rc::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(243,241,234,.12)}
+.reel.beat .reel-card:not(.on) .rc{filter:brightness(.38) saturate(.6) blur(1px)}
+.reel-card.on .rc{box-shadow:0 0 0 2px var(--accent),0 0 60px rgba(200,240,60,.45),0 40px 90px -30px rgba(0,0,0,.9)}
+.reel-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.24),transparent 55%);opacity:0;pointer-events:none;z-index:2}
 .reel.hit .reel-flash{animation:reelFlash .35s ease-out}
 @keyframes reelFlash{0%{opacity:1}100%{opacity:0}}
 .reel-bump{animation:reelBump .32s cubic-bezier(.2,.8,.2,1)}
-@keyframes reelBump{0%{transform:scale(1.07)}100%{transform:scale(1)}}
-.reel-skip{position:absolute;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(243,241,234,.25);background:rgba(14,14,13,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:rgba(243,241,234,.75);font:inherit;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s ease .8s,color .2s ease,border-color .2s ease}
+@keyframes reelBump{0%{transform:rotateX(-7deg) scale(1.08)}100%{transform:rotateX(-7deg) scale(1)}}
+/* finale: the ring whips round and flies into the camera, the site shows through */
+.reel.fin .reel-ring{transition:transform 1s cubic-bezier(.6,0,.3,1)}
+.reel.fin .reel-stage{transform:scale(2.4);opacity:0;filter:blur(6px);transition:transform 1s cubic-bezier(.6,0,.3,1),opacity .8s ease .2s,filter .8s ease .2s}
+.reel.fin .reel-flash{animation:reelFlash .7s ease-out}
+.reel-skip{position:absolute;z-index:3;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(243,241,234,.25);background:rgba(14,14,13,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:rgba(243,241,234,.75);font:inherit;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s ease 1s,color .2s ease,border-color .2s ease}
 .reel.on .reel-skip{opacity:1}
+.reel.fin .reel-skip{opacity:0;transition:opacity .2s ease}
 .reel-skip:hover{color:var(--onDark);border-color:var(--accent)}
 .reel-skip svg{width:14px;height:14px}
-.reel-dots{position:absolute;left:50%;top:calc(30px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;gap:6px}
+.reel-dots{position:absolute;z-index:3;left:50%;top:calc(30px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;gap:6px;opacity:0;transition:opacity .4s ease}
+.reel.beat .reel-dots{opacity:1}
+.reel.fin .reel-dots{opacity:0}
 .reel-dots i{width:22px;height:3px;border-radius:3px;background:rgba(243,241,234,.18);transition:background-color .2s ease,box-shadow .2s ease}
 .reel-dots i.on{background:var(--accent);box-shadow:0 0 10px rgba(200,240,60,.6)}
 html.reel-lock,html.reel-lock body{overflow:hidden}
@@ -2409,8 +2423,10 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     var b=ld.querySelector('.ld-enter'); if(!b){finish();return}
     ld.classList.add('gate'); ld.removeAttribute('aria-hidden'); ld.setAttribute('role','dialog'); ld.setAttribute('aria-label','SABIZ & CO.');
     root.classList.add('ld-gate'); b.tabIndex=0;
-    ld.addEventListener('click',function(){finish()});
-    document.addEventListener('keydown',function k(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape'){document.removeEventListener('keydown',k);e.preventDefault();finish()}});
+    var went=false;
+    function go(){if(went)return;went=true;if(window.pcReel&&pcReel.ok())pcReel.run(finish);else finish()}
+    ld.addEventListener('click',go);
+    document.addEventListener('keydown',function k(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape'){document.removeEventListener('keydown',k);e.preventDefault();go()}});
   }
   if(!skipLd){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);else ready()}
 
@@ -2576,11 +2592,13 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     clearInterval(vt); var from=a.volume, steps=Math.max(1,Math.round(s*20)), k=0;
     vt=setInterval(function(){k++;a.volume=Math.max(0,Math.min(1,from+(v-from)*k/steps));if(k>=steps)clearInterval(vt)},50);
   }
-  function play(){
+  var holds=0, held=false;
+  function play(fs){
+    if(holds>0){held=true;return}
     if(!a)setup();
     if(ctx&&ctx.state==='suspended')ctx.resume();
     var p=a.play(); if(p&&p.catch)p.catch(function(){playing=false;btn.classList.remove('on')});
-    fadingOut=false; fade(VOL,FADE); playing=true;
+    fadingOut=false; fade(VOL,fs||FADE); playing=true;
     btn.classList.add('on'); btn.classList.remove('off'); btn.setAttribute('aria-pressed','true');
   }
   function stop(){
@@ -2588,6 +2606,14 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     setTimeout(function(){if(!playing)a.pause()},1100);
   }
 
+  /* other sounds (showreel, blogger videos) can pause the music; it resumes from the same moment */
+  window.pcMusic={
+    enabled:function(){var p='on';try{p=localStorage.getItem(KEY)||'on'}catch(_){}return p!=='off'},
+    hold:function(on){
+      if(on){holds++; if(holds===1&&playing){held=true;playing=false;btn.classList.remove('on');fade(0,.25);setTimeout(function(){if(!playing&&a)a.pause()},300)}}
+      else if(holds>0){holds--; if(holds===0&&held){held=false;if(window.pcMusic.enabled())play(1.2)}}
+    }
+  };
   btn.addEventListener('click',function(){
     started=true;
     if(playing){stop();btn.classList.add('off');btn.setAttribute('aria-pressed','false');try{localStorage.setItem(KEY,'off')}catch(_){}}
@@ -2723,7 +2749,9 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
   document.querySelectorAll('.cc-photo,.cv-face,.nx-photo').forEach(function(box){
     var im=box.querySelector('[class^="img-"]'); if(!im)return;
     var src=VIDEOS[im.className.split(' ')[0]]; if(!src)return;
-    var v=null, want=false;
+    var v=null, want=false, loud=false;
+    /* sound from the clip: on hover (computer) or for a card in the rail (phone); the music pauses meanwhile */
+    var withSound=canHover||!!(box.closest('.case-grid,.nx-card'));
     function make(){
       if(v)return v;
       v=document.createElement('video');
@@ -2734,8 +2762,18 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       im.insertAdjacentElement('afterend',v);
       return v;
     }
-    function play(){want=true;make();var p=v.play();if(p&&p.catch)p.catch(function(){});if(!v.paused&&v.readyState>2)box.classList.add('vid-on')}
-    function stop(){want=false;box.classList.remove('vid-on');if(v)setTimeout(function(){if(!want)v.pause()},450)}
+    function quiet(){if(loud){loud=false;if(v){v.muted=true}if(window.pcMusic)pcMusic.hold(false)}}
+    function play(){
+      want=true;make();
+      var act=!navigator.userActivation||navigator.userActivation.hasBeenActive;
+      if(withSound&&!loud&&act&&window.pcMusic&&pcMusic.enabled()){
+        loud=true;pcMusic.hold(true);v.muted=false;v.volume=.5;try{v.currentTime=0}catch(_){}
+      }
+      var p=v.play();
+      if(p&&p.catch)p.catch(function(){quiet();v.muted=true;var q=v.play();if(q&&q.catch)q.catch(function(){})});
+      if(!v.paused&&v.readyState>2)box.classList.add('vid-on');
+    }
+    function stop(){want=false;quiet();box.classList.remove('vid-on');if(v)setTimeout(function(){if(!want)v.pause()},450)}
     if(canHover){
       var card=box.closest('.case-card,.nx-card')||box;
       card.addEventListener('mouseenter',play); card.addEventListener('mouseleave',stop);
@@ -2987,79 +3025,98 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
 })();
 </script>
 <script>
-/* showreel: after «Смотреть кейсы» the launches spin in a 3D ring, one step per beat, then the page lands on the case rail */
+/* showreel right after «Открыть кейсы»: cards fly in and spin up, then one step per beat, then the ring flies into the camera and the site appears */
 (function(){
-  /* beat times in seconds from the start; when the track arrives these become the real hits */
-  var BEATS=[0.7,1.7,2.7,3.7,4.7,5.7,6.7], END=7.7;
+  /* timeline in seconds; when the track arrives BEATS become its real hits */
+  var SPIN=0.15, BEATS=[1.8,2.8,3.8,4.8,5.8,6.8,7.8], FIN=8.7, END=9.8;
   var MUSIC=null; /* e.g. 'reel.mp3' — the track for the showreel */
   var KEY='pc-reel';
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var cards=Array.prototype.slice.call(document.querySelectorAll('#caseRail .case-card .cc-photo [class^="img-"]')).map(function(e){return e.className.split(' ')[0]});
-  if(cards.length<3)return;
-  var running=false;
   function seen(){try{return sessionStorage.getItem(KEY)==='1'}catch(e){return false}}
   function mark(){try{sessionStorage.setItem(KEY,'1')}catch(e){}}
 
-  /* a deep kick on every beat until the real track is in */
   var AC=window.AudioContext||window.webkitAudioContext, ctx=null;
-  function kick(){
-    if(MUSIC||!AC)return;
-    try{
-      if(!ctx)ctx=new AC(); if(ctx.state==='suspended')ctx.resume();
-      var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();
-      o.type='sine';o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(42,t+.22);
-      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.55,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.38);
-      o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+.4);
-      var n=ctx.createBufferSource(),b=ctx.createBuffer(1,ctx.sampleRate*.05,ctx.sampleRate),d=b.getChannelData(0);
+  function ac(){if(!AC)return null;if(!ctx)ctx=new AC();if(ctx.state==='suspended')ctx.resume();return ctx}
+  /* placeholder beat until the real track is in: deep kick + click */
+  function kick(big){
+    if(MUSIC)return;
+    try{var c=ac();if(!c)return;var t=c.currentTime,o=c.createOscillator(),g=c.createGain();
+      o.type='sine';o.frequency.setValueAtTime(big?170:140,t);o.frequency.exponentialRampToValueAtTime(40,t+.24);
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(big?.7:.5,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+(big?.6:.38));
+      o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.65);
+      var n=c.createBufferSource(),b=c.createBuffer(1,c.sampleRate*.05,c.sampleRate),d=b.getChannelData(0);
       for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
-      n.buffer=b;var hp=ctx.createBiquadFilter();hp.type='highpass';hp.frequency.value=2500;var g2=ctx.createGain();g2.gain.value=.12;
-      n.connect(hp);hp.connect(g2);g2.connect(ctx.destination);n.start(t);
+      n.buffer=b;var hp=c.createBiquadFilter();hp.type='highpass';hp.frequency.value=2500;var g2=c.createGain();g2.gain.value=.12;
+      n.connect(hp);hp.connect(g2);g2.connect(c.destination);n.start(t);
     }catch(e){}
   }
-  function bgMusic(off){var b=document.querySelector('.snd.on');if(!MUSIC)return;if(off&&b){b.dataset.reelOff='1';b.click()}else if(!off){var x=document.querySelector('.snd[data-reel-off]');if(x){delete x.dataset.reelOff;x.click()}}}
+  function whoosh(dur,up){
+    if(MUSIC)return;
+    try{var c=ac();if(!c)return;var t=c.currentTime,len=dur,b=c.createBuffer(1,Math.floor(c.sampleRate*len),c.sampleRate),d=b.getChannelData(0);
+      for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+      var n=c.createBufferSource();n.buffer=b;var f=c.createBiquadFilter();f.type='bandpass';f.Q.value=3;
+      f.frequency.setValueAtTime(up?300:2400,t);f.frequency.exponentialRampToValueAtTime(up?3200:250,t+len);
+      var g=c.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12,t+len*.6);g.gain.linearRampToValueAtTime(0,t+len);
+      n.connect(f);f.connect(g);g.connect(c.destination);n.start(t);n.stop(t+len);
+    }catch(e){}
+  }
 
   function run(done){
-    running=true; mark();
-    var n=cards.length, step=360/n;
+    mark();
+    var n=cards.length, step=360/n, laps=2;
     var cw=Math.round(Math.min(innerWidth*.62,innerHeight*.5,420));
     var R=Math.round(cw/2/Math.tan(Math.PI/n)*1.18);
     var el=document.createElement('div'); el.className='reel'; el.style.setProperty('--cw',cw+'px'); el.setAttribute('role','dialog'); el.setAttribute('aria-label','Наши запуски');
-    var html='<div class="reel-dots" aria-hidden="true">'+cards.map(function(){return '<i></i>'}).join('')+'</div><div class="reel-flash"></div><div class="reel-stage"><div class="reel-tilt"><div class="reel-ring" style="transform:translateZ(-'+R+'px)">';
-    cards.forEach(function(c,i){html+='<div class="reel-card" style="transform:rotateY('+(i*step)+'deg) translateZ('+R+'px)"><span class="'+c+'"></span></div>'});
+    var wall='';
+    for(var w=0;w<26;w++){var c=cards[w%n],sz=Math.round(54+Math.random()*70);wall+='<b style="left:'+(Math.random()*100-5).toFixed(1)+'%;width:'+sz+'px;height:'+Math.round(sz*1.3)+'px;animation-duration:'+(6+Math.random()*6).toFixed(2)+'s;animation-delay:-'+(Math.random()*10).toFixed(2)+'s"><span class="'+c+'"></span></b>'}
+    var html='<div class="reel-wall" aria-hidden="true">'+wall+'</div><div class="reel-dots" aria-hidden="true">'+cards.map(function(){return '<i></i>'}).join('')+'</div><div class="reel-flash"></div><div class="reel-stage"><div class="reel-tilt"><div class="reel-ring" style="transform:translateZ(-'+R+'px)">';
+    cards.forEach(function(c,i){
+      var a=Math.random()*Math.PI*2, dist=900+Math.random()*500;
+      var from='translate3d('+Math.round(Math.cos(a)*dist)+'px,'+Math.round(Math.sin(a)*dist)+'px,'+Math.round(300+Math.random()*600)+'px) rotate('+Math.round(Math.random()*120-60)+'deg) scale(.5)';
+      html+='<div class="reel-card" style="transform:rotateY('+(i*step)+'deg) translateZ('+R+'px)"><div class="rc" style="--from:'+from+';--d:'+(i*0.07).toFixed(2)+'s"><span class="'+c+'"></span></div></div>';
+    });
     html+='</div></div></div><button type="button" class="reel-skip">Пропустить <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>';
     el.innerHTML=html; document.body.appendChild(el); document.documentElement.classList.add('reel-lock');
+    if(window.pcMusic)pcMusic.hold(true);
     var ring=el.querySelector('.reel-ring'), tilt=el.querySelector('.reel-tilt'), cs=el.querySelectorAll('.reel-card'), dots=el.querySelectorAll('.reel-dots i');
-    var timers=[], audio=null, finished=false;
+    var timers=[], audio=null, ended=false, base=-laps*360;
+    function rot(deg){ring.style.transform='translateZ(-'+R+'px) rotateY('+deg+'deg)'}
+    function hit(){el.classList.remove('hit');void el.offsetWidth;el.classList.add('hit')}
     function show(k){
-      ring.style.transform='translateZ(-'+R+'px) rotateY('+(-k*step)+'deg)';
+      el.classList.add('beat'); ring.classList.remove('spin'); rot(base-k*step);
       for(var i=0;i<n;i++){cs[i].classList.toggle('on',i===k%n);dots[i].classList.toggle('on',i===k%n)}
-      el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit');
-      tilt.classList.remove('reel-bump'); void tilt.offsetWidth; tilt.classList.add('reel-bump');
-      kick();
+      hit(); tilt.classList.remove('reel-bump'); void tilt.offsetWidth; tilt.classList.add('reel-bump');
+      kick(false);
     }
-    function finish(){
-      if(finished)return; finished=true; timers.forEach(clearTimeout);
-      if(audio){var a=audio,v=a.volume,f=setInterval(function(){v-=.08;if(v<=0){clearInterval(f);a.pause()}else a.volume=v},40)}
+    function close(){
+      if(ended)return; ended=true; timers.forEach(clearTimeout);
+      if(audio){var a=audio,v=a.volume,f=setInterval(function(){v-=.06;if(v<=0){clearInterval(f);a.pause()}else a.volume=v},40)}
       done();
       el.classList.add('out'); document.documentElement.classList.remove('reel-lock');
-      setTimeout(function(){el.remove();running=false;bgMusic(false)},750);
+      if(window.pcMusic)pcMusic.hold(false);
+      setTimeout(function(){el.remove()},1100);
     }
-    el.querySelector('.reel-skip').addEventListener('click',function(e){e.stopPropagation();finish()});
-    document.addEventListener('keydown',function k(e){if(e.key==='Escape'){document.removeEventListener('keydown',k);finish()}});
-    requestAnimationFrame(function(){el.classList.add('on')});
-    if(MUSIC){bgMusic(true);audio=new Audio(MUSIC);audio.volume=.9;var p=audio.play();if(p&&p.catch)p.catch(function(){})}
+    function fin(){
+      if(ended)return; el.classList.add('fin'); rot(base-(n-1)*step-540); hit(); kick(true); whoosh(.9,false);
+      timers.push(setTimeout(close,550));
+    }
+    el.querySelector('.reel-skip').addEventListener('click',function(e){e.stopPropagation();close()});
+    document.addEventListener('keydown',function k(e){if(e.key==='Escape'){document.removeEventListener('keydown',k);close()}});
+    if(MUSIC){audio=new Audio(MUSIC);audio.volume=.9;var p=audio.play();if(p&&p.catch)p.catch(function(){})}
     var t0=performance.now();
     function at(sec,fn){timers.push(setTimeout(fn,Math.max(0,sec*1000-(performance.now()-t0))))}
+    requestAnimationFrame(function(){el.classList.add('on')});
+    at(SPIN,function(){ring.classList.add('spin');rot(base);whoosh(1.4,true)});
     BEATS.forEach(function(b,i){at(b,function(){show(i)})});
-    at(END,finish);
+    at(FIN,fin);
+    at(END,close);
   }
 
-  document.addEventListener('click',function(e){
-    var a=e.target.closest&&e.target.closest('a.cv-cta'); if(!a||running||seen())return;
-    if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;
-    e.preventDefault(); e.stopPropagation();
-    run(function(){var t=document.getElementById('cases'); if(t)t.scrollIntoView({behavior:'auto',block:'start'}); try{history.replaceState(null,'','#cases')}catch(_){}});
-  },true);
+  window.pcReel={
+    ok:function(){return !reduce&&cards.length>2&&!seen()},
+    run:function(done){try{run(done)}catch(e){done()}}
+  };
 })();
 </script>
 <style id="pc-img">
