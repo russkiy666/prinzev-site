@@ -1265,6 +1265,7 @@ html{-webkit-tap-highlight-color:transparent}
 .calc-near svg{flex:none;width:18px;height:18px;transition:transform .25s ease}
 .calc-near:hover svg{transform:translateX(3px)}
 .calc-cta{margin-top:14px;width:100%;flex:none!important}
+.calc-call{margin:12px 0 0;padding:14px 18px;border-radius:16px;border:1px dashed rgba(200,240,60,.4);font-weight:700;font-size:14px;line-height:1.4;color:var(--onDark);text-align:center}
 .calc-cta svg{width:18px;height:18px}
 .calc-note{margin:0;max-width:900px;font-size:12.5px;line-height:1.55;color:rgba(243,241,234,.42)}
 .calc-bump{animation:calcBump .35s ease}
@@ -1324,10 +1325,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .bar-cta svg{width:14px;height:14px;flex:none}
 .bar-cta:hover{background:var(--onDark);box-shadow:none}
 .bar-cta:focus-visible{outline:3px solid var(--onDark);outline-offset:3px}
-@media (max-width:600px){
-  .bar-r .bar-link{display:none}
-  .bar-cta{padding:0 14px;font-size:11.5px}
-}
+
 @media (max-width:420px){.bar-cta{padding:0 12px;font-size:11px;letter-spacing:.04em}.bar-cta svg{display:none}}
 
 /* ===== FAQ ===== */
@@ -1359,8 +1357,8 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .endcta-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;width:100%}
 .endcta-btns .btn{flex:0 1 auto}
 .endcta-cta svg{width:22px;height:22px}
-.endcta-calc{background:transparent;color:var(--onDark);border-color:rgba(243,241,234,.3)}
-.endcta-calc:hover{background:var(--onDark);color:var(--ink);border-color:var(--onDark)}
+.endcta-cases{background:transparent;color:var(--onDark);border-color:rgba(243,241,234,.3)}
+.endcta-cases:hover{background:var(--onDark);color:var(--ink);border-color:var(--onDark)}
 .endcta-who{margin-top:6px;font-weight:700;font-size:13px;letter-spacing:.04em;color:rgba(243,241,234,.45)}
 
 /* reveal */
@@ -2251,7 +2249,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
           <span class="calc-near-t"><small id="calcNearK">Похожий результат</small><b id="calcNearName">VQIDER</b><span id="calcNearSum">1&nbsp;500&nbsp;000&nbsp;₽ в месяц</span></span>
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a>
-        <a class="btn accent calc-cta" id="calcCta" href="https://t.me/YakimovichI" target="_blank" rel="noopener">Обсудить мой запуск <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        <p class="calc-call">Точный расчёт под твой блог сделаем на созвоне</p>
       </div>
     </div>
     <p class="calc-note">Расчёт примерный: берём средние цифры наших запусков — 30&nbsp;000&nbsp;₽ с оформления, в оформление доходит около 20% заявок. Итог зависит от ниши, аудитории и вовлечённости и не является гарантией дохода.</p>
@@ -2308,7 +2306,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
       </details>
       <details class="faq-i">
         <summary><span>Сколько стоит работа с вами?</span><i aria-hidden="true"></i></summary>
-        <div class="faq-a"><p>Условия зависят от блога и аудитории. Напиши нам — разберём твой канал и посчитаем, сколько может принести запуск.</p></div>
+        <div class="faq-a"><p>Условия зависят от блога и аудитории — разберём это на созвоне и посчитаем, сколько может принести запуск именно у тебя.</p></div>
       </details>
     </div>
   </div>
@@ -2317,18 +2315,16 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
   <div class="endcta-in rv">
     <span class="kicker">Следующий кейс — твой</span>
     <h2>ГОТОВ К ЗАПУСКУ?</h2>
-    <p>Напиши в Telegram — разберём твой блог и аудиторию и посчитаем, сколько может приносить запуск.</p>
+    <p>Дальше — созвон: разберём твой блог и аудиторию, покажем план запуска и посчитаем, сколько он может приносить.</p>
     <div class="endcta-btns">
-      <a class="btn accent endcta-cta" href="https://t.me/YakimovichI" data-tg="Привет! Хочу обсудить запуск своего блога" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать в Telegram</a>
-      <a class="btn endcta-calc" href="#calc">Посчитать свой доход</a>
+      <a class="btn accent endcta-calc" href="#calc">Посчитать свой доход</a><a class="btn endcta-cases" href="#cases">Смотреть кейсы</a>
     </div>
-    <span class="endcta-who">Отвечает лично продюсер Илья · @YakimovichI</span>
   </div>
 </section>
 <footer class="site-foot">
   <div class="sf-in">
     <div class="sf-brand"><span class="mark">П</span><div><b>ПРИНЦЕВСКИЙ <em>&amp; CO.</em></b><small>Продюсерское агентство · запускаем блогеров на собственные проекты</small></div></div>
-    <nav class="sf-nav" aria-label="Навигация"><a class="sf-tg" href="https://t.me/YakimovichI" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать нам</a><a href="#cases">Все кейсы</a><a href="#top">Наверх <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4"/></svg></a></nav>
+    <nav class="sf-nav" aria-label="Навигация"><a href="#cases">Все кейсы</a><a href="#top">Наверх <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4"/></svg></a></nav>
     <div class="sf-legal">
       <p class="sf-req">ИП Принцевский Антон Александрович&nbsp;· ИНН&nbsp;860238040955 · Telegram:&nbsp;<a href="https://t.me/YakimovichI" target="_blank" rel="noopener">@YakimovichI</a></p>
       <p class="sf-note">Результаты в кейсах зависят от аудитории и вовлечённости блогера и не являются гарантией дохода. Информация на сайте не является публичной офертой.</p>
@@ -2913,7 +2909,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       nearImg.className=best.img; nearName.textContent=best.n; nearSum.textContent=fmt(best.sum)+' ₽ '+best.t;
     }
     var msg='Привет! Посчитал запуск на сайте: охват '+fmt(reach).replace(/ /g,' ')+', ЦА '+age+' — примерно '+fmt(cash).replace(/ /g,' ')+' ₽ в месяц. Хочу обсудить запуск';
-    cta.href='https://t.me/'+TG+'?text='+encodeURIComponent(msg);
+    if(cta)cta.href='https://t.me/'+TG+'?text='+encodeURIComponent(msg);
   }
   range.addEventListener('input',function(){update(true)});
   /* one-choice groups (engagement fixed at the average, 9%) and audience age (14–17: −30%, 18–21: as is, 22–30: +10%) */
@@ -2945,22 +2941,8 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
 })();
 </script>
 <script>
-/* contact: header button, prefilled Telegram messages, reveal for the FAQ and the final call */
+/* reveal for the FAQ and the closing block; one question open at a time */
 (function(){
-  var TG='https://t.me/YakimovichI';
-  var MSG='Привет! Хочу обсудить запуск своего блога';
-  var slot=document.querySelector('.bar-r');
-  if(slot&&!slot.querySelector('.bar-cta')){
-    var a=document.createElement('a'); a.className='bar-cta'; a.target='_blank'; a.rel='noopener';
-    a.setAttribute('data-tg',MSG); a.href=TG;
-    a.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать';
-    a.setAttribute('aria-label','Написать нам в Telegram');
-    slot.appendChild(a);
-  }
-  var foot=document.querySelector('.sf-tg'); if(foot&&!foot.hasAttribute('data-tg'))foot.setAttribute('data-tg',MSG);
-  Array.prototype.forEach.call(document.querySelectorAll('[data-tg]'),function(el){
-    el.href=TG+'?text='+encodeURIComponent(el.getAttribute('data-tg'));
-  });
   var els=document.querySelectorAll('.rv');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});
