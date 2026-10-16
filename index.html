@@ -2742,11 +2742,11 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
 })();
 </script>
 <script>
-/* soft interface sounds: synthesized, quiet, silent when the visitor turned music off */
+/* soft interface sounds: synthesized, quiet; independent of the music toggle */
 (function(){
   var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
   var ctx=null, out=null, last=0;
-  function on(){try{return (localStorage.getItem('pc-music')||'on')!=='off'}catch(e){return true}}
+  function on(){return true} /* taps stay on even when the visitor turns the music off */
   function ready(){
     if(!ctx){ctx=new AC();out=ctx.createGain();out.gain.value=.9;var comp=ctx.createDynamicsCompressor();out.connect(comp);comp.connect(ctx.destination)}
     if(ctx.state==='suspended')ctx.resume();
