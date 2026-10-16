@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<script>/* self-update: an old cached copy reloads itself to the latest version */(function(){var V="20261017002946";try{fetch("version.txt?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){t=(t||"").trim();if(t&&t!==V){var u=new URL(location.href);if(u.searchParams.get("v")===t)return;u.searchParams.set("v",t);location.replace(u.toString())}}).catch(function(){})}catch(e){}})();</script>
+<script>/* self-update: an old cached copy reloads itself to the latest version */(function(){var V="20261017003256";try{fetch("version.txt?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.text():""}).then(function(t){t=(t||"").trim();if(t&&t!==V){var u=new URL(location.href);if(u.searchParams.get("v")===t)return;u.searchParams.set("v",t);location.replace(u.toString())}}).catch(function(){})}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SABIZ &amp; CO. — кейсы запусков блогеров</title>
@@ -1399,7 +1399,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .reel.hit::before{opacity:1;transform:scale(1.1)}
 /* background wall of launches drifting up: "there are a lot of them" */
 .reel-wall{position:absolute;inset:0;pointer-events:none}
-.reel-wall b{position:absolute;bottom:-30%;border-radius:14px;overflow:hidden;background:#1a1a18;opacity:.22;filter:blur(1.5px) saturate(.7);animation:reelDrift linear infinite;transition:opacity .25s ease}
+.reel-wall b{position:absolute;bottom:-30%;border-radius:14px;overflow:hidden;background:#1a1a18;opacity:.2;animation:reelDrift linear infinite;will-change:transform;transition:opacity .25s ease}
 .reel.hit .reel-wall b{opacity:.34}
 .reel-wall b>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;animation:none!important;transform:none!important}
 @keyframes reelDrift{from{transform:translateY(0)}to{transform:translateY(-170vh)}}
@@ -1412,7 +1412,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .reel.on .reel-card .rc{transform:none;opacity:1}
 .reel-card .rc>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;background-repeat:no-repeat!important;animation:none!important;transform:none!important}
 .reel-card .rc::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(243,241,234,.12)}
-.reel.beat .reel-card:not(.on) .rc{filter:brightness(.38) saturate(.6) blur(1px)}
+.reel.beat .reel-card:not(.on) .rc{filter:brightness(.38) saturate(.6)}
 .reel-card.on .rc{box-shadow:0 0 0 2px var(--accent),0 0 60px rgba(200,240,60,.45),0 40px 90px -30px rgba(0,0,0,.9)}
 .reel-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.24),transparent 55%);opacity:0;pointer-events:none;z-index:2}
 .reel.hit .reel-flash{animation:reelFlash .35s ease-out}
@@ -1423,7 +1423,11 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .reel.fin .reel-stage{opacity:0;transition:opacity .08s linear}
 .reel.fin .reel-wall b{opacity:0;transition:opacity .5s ease}
 .reel.fin .reel-flash{animation:reelFlash .7s ease-out}
-.reel.wipe{-webkit-mask-image:linear-gradient(to bottom,transparent 0,transparent calc(var(--wp,0%) - 8%),#000 var(--wp,0%));mask-image:linear-gradient(to bottom,transparent 0,transparent calc(var(--wp,0%) - 8%),#000 var(--wp,0%))}
+.reel.wipe{background:transparent;transition:none}
+.reel.wipe::before{opacity:0;transition:opacity .3s ease}
+.reel-cover{position:absolute;left:0;right:0;top:-22%;height:122%;background:linear-gradient(to bottom,rgba(7,7,7,0) 0,#070707 18%);transform:translateY(-100%);will-change:transform;pointer-events:none}
+.reel.wipe .reel-cover{transform:translateY(0);animation:reelCurtain 1.25s cubic-bezier(.5,0,.25,1) .12s forwards}
+@keyframes reelCurtain{from{transform:translateY(0)}to{transform:translateY(105%)}}
 .reel-dust{position:fixed;inset:0;width:100vw;height:100vh;z-index:10002;pointer-events:none}
 .reel-skip{position:absolute;z-index:3;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(243,241,234,.25);background:rgba(14,14,13,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:rgba(243,241,234,.75);font:inherit;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s ease 1s,color .2s ease,border-color .2s ease}
 .reel.on .reel-skip{opacity:1}
@@ -3073,7 +3077,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     var el=document.createElement('div'); el.className='reel'; el.style.setProperty('--cw',cw+'px'); el.setAttribute('role','dialog'); el.setAttribute('aria-label','Наши запуски');
     var wall='';
     for(var w=0;w<26;w++){var c=cards[w%n],sz=Math.round(54+Math.random()*70);wall+='<b style="left:'+(Math.random()*100-5).toFixed(1)+'%;width:'+sz+'px;height:'+Math.round(sz*1.3)+'px;animation-duration:'+(6+Math.random()*6).toFixed(2)+'s;animation-delay:-'+(Math.random()*10).toFixed(2)+'s"><span class="'+c+'"></span></b>'}
-    var html='<div class="reel-wall" aria-hidden="true">'+wall+'</div><div class="reel-dots" aria-hidden="true">'+cards.map(function(){return '<i></i>'}).join('')+'</div><div class="reel-flash"></div><div class="reel-stage"><div class="reel-tilt"><div class="reel-ring" style="transform:translateZ(-'+R+'px)">';
+    var html='<div class="reel-cover"></div><div class="reel-wall" aria-hidden="true">'+wall+'</div><div class="reel-dots" aria-hidden="true">'+cards.map(function(){return '<i></i>'}).join('')+'</div><div class="reel-flash"></div><div class="reel-stage"><div class="reel-tilt"><div class="reel-ring" style="transform:translateZ(-'+R+'px)">';
     cards.forEach(function(c,i){
       var a=Math.random()*Math.PI*2, dist=900+Math.random()*500;
       var from='translate3d('+Math.round(Math.cos(a)*dist)+'px,'+Math.round(Math.sin(a)*dist)+'px,'+Math.round(300+Math.random()*600)+'px) rotate('+Math.round(Math.random()*120-60)+'deg) scale(.5)';
@@ -3100,55 +3104,49 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
       if(window.pcMusic)pcMusic.hold(false);
       setTimeout(function(){el.remove()},wipe?1600:1100);
     }
-    /* finale: the front cards burst into thousands of particles, the site draws itself in from top to bottom */
+    /* finale: the front cards break into pieces (canvas, ~1500 tiles, GPU-friendly), a soft dark curtain slides down and uncovers the site */
     function dust(){
-      var dpr=Math.min(2,window.devicePixelRatio||1), W=innerWidth, H=innerHeight, small=W<700;
-      var cv=document.createElement('canvas'); cv.className='reel-dust'; cv.width=W*dpr; cv.height=H*dpr; document.body.appendChild(cv);
-      var g=cv.getContext('2d'); g.scale(dpr,dpr);
-      var parts=[], STEP=small?5:6, MAXP=small?9000:16000;
+      var W=innerWidth, H=innerHeight, small=W<700, S=small?12:16;
+      var cv=document.createElement('canvas'); cv.className='reel-dust'; cv.width=W; cv.height=H; document.body.appendChild(cv);
+      var g=cv.getContext('2d');
+      var parts=[];
       var rcs=Array.prototype.slice.call(el.querySelectorAll('.reel-card .rc')).map(function(rc){return {rc:rc,r:rc.getBoundingClientRect()}})
         .filter(function(o){return o.r.width>20&&o.r.right>0&&o.r.left<W}).sort(function(a,b){var fa=a.rc.parentNode.classList.contains('on'),fb=b.rc.parentNode.classList.contains('on');return fa!==fb?(fa?-1:1):b.r.width-a.r.width}).slice(0,3);
-      var pending=rcs.length;
-      function cover(img,w,h,px,py){var s=Math.max(w/img.width,h/img.height),dw=img.width*s,dh=img.height*s;return [(w-dw)*px,(h-dh)*py,dw,dh]}
+      var pending=rcs.length, started=false;
+      function go(){
+        if(started)return; started=true;
+        el.classList.add('wipe');
+        var t0=performance.now();
+        (function frame(now){
+          var t=(now-t0)/1000; g.clearRect(0,0,W,H); var alive=0;
+          for(var k=0;k<parts.length;k++){var p=parts[k],tt=t-p.dl;
+            if(tt<0){g.globalAlpha=p.b;g.drawImage(p.src,p.sx,p.sy,p.s,p.s,p.x0,p.y0,p.s,p.s);alive++;continue}
+            var a=1-tt/1.05; if(a<=0)continue; alive++;
+            var x=p.x0+p.vx*tt*60, y=p.y0+(p.vy*tt+4.2*tt*tt)*60, z=p.s*(1-tt*.55);
+            g.globalAlpha=a*p.b; g.drawImage(p.src,p.sx,p.sy,p.s,p.s,x,y,z,z);
+          }
+          if((alive||t<1.3)&&t<2.4)requestAnimationFrame(frame); else cv.remove();
+        })(t0);
+      }
       rcs.forEach(function(o,idx){
         var sp=o.rc.querySelector('span'), cs=getComputedStyle(sp), m=/url\(["']?(.*?)["']?\)/.exec(cs.backgroundImage);
-        var bright=idx===0?1:.38;
         if(!m){if(--pending===0)go();return}
         var img=new Image(); img.onload=function(){
-          var w=Math.max(1,Math.round(o.r.width/STEP)), h=Math.max(1,Math.round(o.r.height/STEP));
+          var w=Math.round(o.r.width), h=Math.round(o.r.height);
           var c2=document.createElement('canvas'); c2.width=w; c2.height=h; var x2=c2.getContext('2d');
-          var pos=cs.backgroundPosition.split(' ').map(function(v){return parseFloat(v)/100}); 
-          var d=cover(img,w,h,isNaN(pos[0])?.5:pos[0],isNaN(pos[1])?.5:pos[1]); x2.drawImage(img,d[0],d[1],d[2],d[3]);
-          var px; try{px=x2.getImageData(0,0,w,h).data}catch(e){px=null}
-          if(px)for(var y=0;y<h;y++)for(var x=0;x<w;x++){
-            if(parts.length>MAXP)break;
-            var i=(y*w+x)*4; if(px[i+3]<10)continue;
-            var cx=o.r.left+x*STEP, cy=o.r.top+y*STEP;
-            parts.push({x:cx,y:cy,c:'rgb('+(px[i]*bright|0)+','+(px[i+1]*bright|0)+','+(px[i+2]*bright|0)+')',
-              vx:(Math.random()-.5)*(idx?2:3.2)+(cx-W/2)*.004, vy:-1.5-Math.random()*2.5,
-              dl:(y/h)*.35+Math.random()*.25, s:STEP*(.75+Math.random()*.5), a:1});
+          var pos=cs.backgroundPosition.split(' ').map(function(v){return parseFloat(v)/100}), px=isNaN(pos[0])?.5:pos[0], py=isNaN(pos[1])?.5:pos[1];
+          var sc=Math.max(w/img.width,h/img.height), dw=img.width*sc, dh=img.height*sc; x2.drawImage(img,(w-dw)*px,(h-dh)*py,dw,dh);
+          var s=idx?S*1.4|0:S, b=idx?.4:1;
+          for(var y=0;y<h;y+=s)for(var x=0;x<w;x+=s){
+            var cx=o.r.left+x, cy=o.r.top+y;
+            parts.push({src:c2,sx:x,sy:y,s:s,x0:cx,y0:cy,b:b,vx:(Math.random()-.5)*(idx?1.6:2.6)+(cx-W/2)*.003,vy:-1.2-Math.random()*2.2,dl:(y/h)*.3+Math.random()*.2});
           }
           if(--pending===0)go();
         }; img.onerror=function(){if(--pending===0)go()}; img.src=m[1];
       });
       if(!pending)go();
-      function go(){
-        el.classList.add('wipe');
-        var t0=performance.now();
-        (function frame(now){
-          var t=(now-t0)/1000; g.clearRect(0,0,W,H); var alive=0;
-          var wk=Math.min(1,Math.max(0,(t-.15)/1.3)); wk=wk<.5?2*wk*wk:1-Math.pow(-2*wk+2,2)/2; el.style.setProperty('--wp',(wk*112).toFixed(1)+'%');
-          for(var k=0;k<parts.length;k++){var p=parts[k],tt=t-p.dl;
-            if(tt<0){g.fillStyle=p.c;g.globalAlpha=1;g.fillRect(p.x,p.y,p.s,p.s);alive++;continue}
-            p.vy+=.18; p.vx*=.99; p.x+=p.vx; p.y+=p.vy; p.a=Math.max(0,1-tt/1.1);
-            if(p.a<=0)continue; alive++;
-            g.globalAlpha=p.a; g.fillStyle=tt<.05&&k%3===0?'#fff':p.c; var z=p.s*(1-tt*.6); if(z>.4)g.fillRect(p.x,p.y,z,z);
-          }
-          if((alive||t<1.5)&&t<2.4)requestAnimationFrame(frame); else cv.remove();
-        })(t0);
-      }
+      setTimeout(go,250); /* never wait long for images */
     }
-
     function fin(){
       if(ended)return; el.classList.add('fin'); hit(); kick(true); whoosh(1.2,false);
       try{dust()}catch(e){el.classList.add('out')}
