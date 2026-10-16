@@ -2381,7 +2381,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
 <script>
 /* background music: calm original ambient (music.mp3 next to the page); downloaded only when it first plays */
 (function(){
-  var SRC='music.mp3', VOL=0.22, FADE=2.5;
+  var SRC='music.mp3', VOL=0.14, FADE=2.5;
   var AC=window.AudioContext||window.webkitAudioContext;
   var KEY='pc-music', pref='on'; try{pref=localStorage.getItem(KEY)||'on'}catch(e){}
   var a=null, ctx=null, gain=null, playing=false, started=false, fadingOut=false, vt=null;
