@@ -2428,14 +2428,31 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     else{play();try{localStorage.setItem(KEY,'on')}catch(_){}}
   });
   /* browsers allow sound only after the first tap/click/key — start then */
+  var EVS=['pointerdown','mousedown','touchend','keydown','click'];
   function first(e){
-    if(started)return; started=true;
-    ['touchend','keydown','click'].forEach(function(ev){removeEventListener(ev,first,true)});
+    if(started)return;
+    if(e&&e.type==='pointerdown'&&e.pointerType!=='mouse'&&e.pointerType!=='pen')return; /* iPhone: a finger only counts on release */
+    started=true;
+    EVS.forEach(function(ev){removeEventListener(ev,first,true)});
     if(e&&e.target&&e.target.closest&&e.target.closest('.snd'))return; /* the toggle itself decides */
     var p='on'; try{p=localStorage.getItem(KEY)||'on'}catch(_){}
     if(p!=='off')play();
   }
-  ['touchend','keydown','click'].forEach(function(ev){addEventListener(ev,first,true)});
+  EVS.forEach(function(ev){addEventListener(ev,first,true)});
+  /* try to start right away; browsers that allow it (e.g. Chrome for sites you visit often) will play, the rest start on the first tap/click */
+  function auto(){
+    if(started||pref==='off')return;
+    if(!a)setup();
+    function go(){if(started)return;started=true;EVS.forEach(function(ev){removeEventListener(ev,first,true)});playing=true;fadingOut=false;fade(VOL,FADE);btn.classList.add('on');btn.classList.remove('off');btn.setAttribute('aria-pressed','true')}
+    try{
+      var p=a.play();
+      if(p&&p.then)p.then(function(){
+        if(!ctx||ctx.state==='running'){go();return}
+        var r=ctx.resume(); if(r&&r.then)r.then(function(){if(ctx.state==='running')go()},function(){});
+      },function(){});
+    }catch(_){}
+  }
+  if(document.readyState==='complete')auto(); else addEventListener('load',auto);
   ['touchend','click'].forEach(function(ev){addEventListener(ev,function(){if(playing&&ctx&&ctx.state!=='running')ctx.resume()},true)});
   document.addEventListener('visibilitychange',function(){
     if(!a)return;
@@ -2610,7 +2627,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
   function noise(){if(NB)return NB;NB=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);var d=NB.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;return NB}
   /* one keystroke of a lubed linear board in an aluminium gasket case (Leobog Hi75-style): creamy, marbly, deep — one press, one sound */
   function key(o){o=o||{};
-    var t=ctx.currentTime+(o.d||0),v=(o.v||1)*.46*(.9+Math.random()*.2),p=(o.p||1)*(.96+Math.random()*.08),nb=noise();
+    var t=ctx.currentTime+(o.d||0),v=(o.v||1)*.85*(.9+Math.random()*.2),p=(o.p||1)*(.96+Math.random()*.08),nb=noise();
     /* creamy body */
     var n=ctx.createBufferSource();n.buffer=nb;
     var bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=620*p;bp.Q.value=1.1;
