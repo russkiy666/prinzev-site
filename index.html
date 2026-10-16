@@ -1213,6 +1213,91 @@ html{-webkit-tap-highlight-color:transparent}
 
 .tm-joke{cursor:default}
 @media (hover:hover){.tm-joke:hover{background:transparent!important;color:var(--onDark)!important;border-color:rgba(243,241,234,.3)!important}}
+
+/* ===== launch calculator ===== */
+.calc{background:#0E0E0D;color:var(--onDark);border-top:1px solid rgba(243,241,234,.08);position:relative;overflow:hidden}
+.calc::before{content:"";position:absolute;width:min(900px,120vw);aspect-ratio:1;right:-25%;top:-30%;background:radial-gradient(circle,rgba(200,240,60,.10),transparent 62%);pointer-events:none}
+.calc-in{position:relative;max-width:1728px;margin:0 auto;padding:clamp(48px,6vw,112px) var(--pad);display:flex;flex-direction:column;gap:clamp(24px,3vw,44px)}
+.calc-head h2{font-size:clamp(30px,4.6vw,80px);color:var(--onDark)}
+.calc-head p{margin:14px 0 0;font-weight:600;font-size:clamp(15px,1.2vw,20px);line-height:1.45;color:var(--onDarkMuted);max-width:640px}
+.calc-box{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(14px,1.6vw,24px)}
+.calc-form,.calc-res{border-radius:var(--r-lg);padding:clamp(22px,2.6vw,44px)}
+.calc-form{display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,3vw,48px);background:rgba(243,241,234,.04);border:1px solid rgba(243,241,234,.12)}
+.calc-field{display:flex;flex-direction:column;gap:14px}
+.calc-lbl{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;font-weight:700;font-size:clamp(14px,1.1vw,18px);color:var(--onDarkMuted)}
+.calc-lbl output{font-family:var(--display);font-weight:800;font-size:clamp(28px,3vw,52px);letter-spacing:-.02em;line-height:1;color:var(--onDark)}
+/* slider */
+.calc-range{-webkit-appearance:none;appearance:none;width:100%;height:36px;margin:0;background:transparent;cursor:pointer;touch-action:pan-y;--p:50.5%}
+.calc-range:focus{outline:none}
+.calc-range::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:linear-gradient(90deg,var(--accent) var(--p),rgba(243,241,234,.16) var(--p))}
+.calc-range::-moz-range-track{height:8px;border-radius:8px;background:rgba(243,241,234,.16)}
+.calc-range::-moz-range-progress{height:8px;border-radius:8px;background:var(--accent)}
+.calc-range::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;margin-top:-11px;border-radius:50%;background:var(--onDark);border:6px solid var(--accent);box-shadow:0 0 0 6px rgba(200,240,60,.16),0 0 22px rgba(200,240,60,.45);transition:transform .15s ease}
+.calc-range::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--onDark);border:6px solid var(--accent);box-shadow:0 0 0 6px rgba(200,240,60,.16),0 0 22px rgba(200,240,60,.45)}
+.calc-range:active::-webkit-slider-thumb{transform:scale(1.12)}
+.calc-range:focus-visible::-webkit-slider-thumb{outline:3px solid var(--onDark);outline-offset:3px}
+.calc-scale{display:flex;justify-content:space-between;font-weight:700;font-size:12px;letter-spacing:.06em;color:rgba(243,241,234,.4)}
+/* engagement */
+.calc-seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:6px;border-radius:999px;background:rgba(243,241,234,.06);border:1px solid rgba(243,241,234,.12)}
+.calc-seg button{min-height:48px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--onDarkMuted);font:inherit;font-weight:800;font-size:clamp(14px,1.05vw,17px);cursor:pointer;transition:background-color .25s ease,color .25s ease,box-shadow .25s ease;-webkit-tap-highlight-color:transparent}
+.calc-seg button:hover{color:var(--onDark)}
+.calc-seg button[aria-checked="true"]{background:var(--accent);color:var(--ink);box-shadow:0 0 20px rgba(200,240,60,.35)}
+.calc-seg button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.calc-hint{margin:0;font-weight:600;font-size:14px;line-height:1.5;color:rgba(243,241,234,.5);min-height:3em}
+/* result */
+.calc-res{display:flex;flex-direction:column;gap:6px;border:1px solid rgba(200,240,60,.3);background:linear-gradient(160deg,rgba(200,240,60,.10),rgba(200,240,60,.02) 55%,rgba(243,241,234,.03))}
+.calc-res-k{font-weight:800;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.calc-sum{font-family:var(--display);font-weight:800;font-size:clamp(34px,4.6vw,80px);letter-spacing:-.03em;line-height:1.05;color:var(--accent);text-shadow:0 0 34px rgba(200,240,60,.35);white-space:nowrap;font-variant-numeric:tabular-nums}
+.calc-res-sub{font-weight:700;font-size:clamp(14px,1.1vw,18px);color:var(--onDarkMuted)}
+.calc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:clamp(14px,1.6vw,24px) 0 6px}
+.calc-stats>div{display:flex;flex-direction:column;gap:4px;padding:14px 12px;border-radius:16px;background:rgba(14,14,13,.55);border:1px solid rgba(243,241,234,.1)}
+.calc-stats b{font-family:var(--display);font-weight:800;font-size:clamp(17px,1.6vw,26px);letter-spacing:-.02em;color:var(--onDark);white-space:nowrap;font-variant-numeric:tabular-nums}
+.calc-stats span{font-weight:700;font-size:12.5px;color:rgba(243,241,234,.55)}
+.calc-near{display:flex;align-items:center;gap:14px;padding:10px 16px 10px 10px;margin-top:4px;border-radius:999px;border:1px solid rgba(243,241,234,.14);color:var(--onDark);text-decoration:none;transition:border-color .25s ease,background-color .25s ease}
+.calc-near:hover{border-color:var(--accent);background:rgba(200,240,60,.06)}
+.calc-near-ph{position:relative;flex:none;width:52px;height:52px;border-radius:50%;overflow:hidden;background:#1a1a18}
+.calc-near-ph>span{position:absolute;inset:0;display:block;width:auto;height:auto;background-size:cover;background-position:50% 35%;background-repeat:no-repeat;animation:none!important;transform:none!important}
+.calc-near-t{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.calc-near-t small{font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,241,234,.5)}
+.calc-near-t b{font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:.01em}
+.calc-near-t span{font-weight:700;font-size:13px;color:var(--accent)}
+.calc-near svg{flex:none;width:18px;height:18px;transition:transform .25s ease}
+.calc-near:hover svg{transform:translateX(3px)}
+.calc-cta{margin-top:14px;width:100%;flex:none!important}
+.calc-cta svg{width:18px;height:18px}
+.calc-note{margin:0;max-width:900px;font-size:12.5px;line-height:1.55;color:rgba(243,241,234,.42)}
+.calc-bump{animation:calcBump .35s ease}
+@keyframes calcBump{40%{transform:scale(1.035)}}
+/* reveal */
+.js .calc-head,.js .calc-form,.js .calc-res{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .calc-res{transition-delay:.12s}
+.js .calc.on .calc-head,.js .calc.on .calc-form,.js .calc.on .calc-res{opacity:1;transform:none}
+/* cover: second action */
+.btn.cv-calc{background:transparent;color:var(--onDark);border-color:rgba(243,241,234,.3)}
+.btn.cv-calc:hover{background:var(--onDark);color:var(--ink);border-color:var(--onDark)}
+@media (max-width:900px){
+  .calc-box{grid-template-columns:1fr}
+}
+@media (max-width:820px){.btn.cv-calc{width:100%;min-height:52px}}
+@media (max-width:820px){
+  .calc-in{padding:48px 20px 56px;gap:24px}
+  .calc-head h2{font-size:clamp(26px,8vw,36px)}
+  .calc-head p{font-size:15px}
+  .calc-form,.calc-res{border-radius:24px;padding:22px 18px}
+  .calc-form{gap:28px}
+  .calc-lbl{font-size:14px}
+  .calc-lbl output{font-size:30px}
+  .calc-sum{font-size:clamp(30px,10.5vw,44px)}
+  .calc-stats{gap:6px}
+  .calc-stats>div{padding:12px 8px;text-align:center;align-items:center}
+  .calc-stats b{font-size:clamp(15px,4.6vw,19px)}
+  .calc-stats span{font-size:11.5px}
+  .calc-hint{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .calc-head,.js .calc-form,.js .calc-res{opacity:1;transform:none;transition:none}
+  .calc-bump{animation:none}
+}
 </style>
 </head>
 <body>
@@ -1233,6 +1318,7 @@ html{-webkit-tap-highlight-color:transparent}
         <p class="cv-lead">Запускаем блогеров на собственные проекты: от анализа аудитории и прогрева до отдела продаж.</p>
         <div class="cv-actions">
           <a class="btn accent cv-cta" href="#cases">Смотреть кейсы <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
+          <a class="btn cv-calc" href="#calc">Посчитать свой доход</a>
           <span class="cv-note">7 запусков · выбери любой</span>
         </div>
       </div>
@@ -2036,6 +2122,51 @@ html{-webkit-tap-highlight-color:transparent}
 </section>
 </div><!-- /case dimon -->
 
+<section class="calc" id="calc">
+  <div class="calc-in">
+    <div class="calc-head">
+      <span class="kicker">Калькулятор запуска</span>
+      <h2>СКОЛЬКО ПРИНЕСЁТ ТВОЙ ЗАПУСК</h2>
+      <p>Подвигай ползунок — посчитаем по средним цифрам наших запусков</p>
+    </div>
+    <div class="calc-box">
+      <div class="calc-form">
+        <div class="calc-field">
+          <label class="calc-lbl" for="calcReach"><span>Средний охват поста или сторис</span><output id="calcReachOut" for="calcReach">2&nbsp;500</output></label>
+          <input class="calc-range" type="range" id="calcReach" min="0" max="1000" step="1" value="505">
+          <div class="calc-scale" aria-hidden="true"><span>300</span><span>20&nbsp;000</span></div>
+        </div>
+        <div class="calc-field">
+          <div class="calc-lbl" id="calcEngL"><span>Вовлечённость аудитории</span></div>
+          <div class="calc-seg" role="radiogroup" aria-labelledby="calcEngL">
+            <button type="button" role="radio" aria-checked="false" data-r="0.05" data-n="слабая">Слабая</button>
+            <button type="button" role="radio" aria-checked="true" data-r="0.09" data-n="средняя">Средняя</button>
+            <button type="button" role="radio" aria-checked="false" data-r="0.16" data-n="сильная">Сильная</button>
+          </div>
+          <p class="calc-hint" id="calcHint">Подписчики реагируют на посты, но пишут и отвечают на сторис не так часто</p>
+        </div>
+      </div>
+      <div class="calc-res">
+        <span class="calc-res-k">Касса запуска</span>
+        <b class="calc-sum" aria-live="polite"><span id="calcSum">1&nbsp;350&nbsp;000</span>&nbsp;₽</b>
+        <span class="calc-res-sub">в месяц, примерно</span>
+        <div class="calc-stats">
+          <div><b id="calcLeads">225</b><span>заявок</span></div>
+          <div><b id="calcSales">45</b><span>оформлений</span></div>
+          <div><b>30&nbsp;000&nbsp;₽</b><span>с оформления</span></div>
+        </div>
+        <a class="calc-near" id="calcNear" href="#case-vqider">
+          <span class="calc-near-ph"><span class="img-vqider" id="calcNearImg"></span></span>
+          <span class="calc-near-t"><small id="calcNearK">Похожий результат</small><b id="calcNearName">VQIDER</b><span id="calcNearSum">1&nbsp;500&nbsp;000&nbsp;₽ в месяц</span></span>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="btn accent calc-cta" id="calcCta" href="https://t.me/YakimovichI" target="_blank" rel="noopener">Обсудить мой запуск <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+    <p class="calc-note">Расчёт примерный: берём средние цифры наших запусков — 30&nbsp;000&nbsp;₽ с оформления, в оформление доходит около 20% заявок. Итог зависит от ниши, аудитории и вовлечённости и не является гарантией дохода.</p>
+  </div>
+</section>
+
 <section class="team-end" id="team">
   <div class="team-in">
     <figure class="cv-team">
@@ -2554,6 +2685,91 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
   }
   watch(document.getElementById('caseRail'),'.case-card');
   watch(document.querySelector('.tm-rail'),'.tm');
+})();
+</script>
+<script>
+/* launch calculator: reach × engagement → leads → 20% to sales → 30 000 ₽ each */
+(function(){
+  var sec=document.getElementById('calc'); if(!sec)return;
+  var MIN=300, MAX=20000, CONV=0.2, CHECK=30000, TG='YakimovichI';
+  var CASES=[
+    {id:'serafimchik',img:'img-serafim',n:'SERAFIMCHIK',sum:2500000,t:'в месяц чистыми'},
+    {id:'befresh',img:'img-befresh',n:'BE FRESH',sum:1000000,t:'в месяц'},
+    {id:'diktorych',img:'img-diktor',n:'ДИКТОРЫЧ',sum:3000000,t:'за месяц'},
+    {id:'ivanich',img:'img-ivanich',n:'ИВАНИЧ',sum:2500000,t:'за запуск'},
+    {id:'holdenskiy',img:'img-holden',n:'HOLDENSKIY',sum:2000000,t:'в месяц'},
+    {id:'vqider',img:'img-vqider',n:'VQIDER',sum:1500000,t:'в месяц'},
+    {id:'dimon',img:'img-dimon',n:'ДИМОН',sum:800000,t:'за запуск'}
+  ];
+  var HINT={
+    'слабая':'Подписчики смотрят, но редко пишут в комментах и отвечают на сторис',
+    'средняя':'Подписчики реагируют на посты, но пишут и отвечают на сторис не так часто',
+    'сильная':'Подписчики активно пишут в комментах, отвечают на сторис и ждут новые посты'
+  };
+  var $=function(id){return document.getElementById(id)};
+  var range=$('calcReach'), out=$('calcReachOut'), sumEl=$('calcSum'), leadsEl=$('calcLeads'), salesEl=$('calcSales');
+  var nearK=$('calcNearK'), near=$('calcNear'), nearImg=$('calcNearImg'), nearName=$('calcNearName'), nearSum=$('calcNearSum'), cta=$('calcCta'), hint=$('calcHint');
+  var seg=Array.prototype.slice.call(sec.querySelectorAll('.calc-seg button'));
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function fmt(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
+  function reachOf(x){
+    var r=MIN*Math.pow(MAX/MIN,x/1000), st=r<1000?50:r<5000?100:r<20000?500:1000;
+    return Math.min(MAX,Math.max(MIN,Math.round(r/st)*st));
+  }
+  var rate=0.09, eng='средняя', shown=1350000, lastReach=null, raf=null;
+  function animate(to){
+    cancelAnimationFrame(raf);
+    if(reduce){sumEl.textContent=fmt(to);shown=to;return}
+    var from=shown, t0=performance.now(), d=420;
+    (function step(now){
+      var k=Math.min(1,(now-t0)/d), e=1-Math.pow(1-k,3);
+      shown=from+(to-from)*e; sumEl.textContent=fmt(Math.round(shown/1000)*1000);
+      if(k<1)raf=requestAnimationFrame(step); else {shown=to;sumEl.textContent=fmt(to)}
+    })(t0);
+  }
+  function update(sound){
+    var reach=reachOf(+range.value);
+    range.style.setProperty('--p',(range.value/10)+'%');
+    if(reach!==lastReach){
+      if(sound&&lastReach!==null&&window.pcSfx)window.pcSfx('tick');
+      lastReach=reach; out.textContent=fmt(reach);
+    }
+    var leads=Math.round(reach*rate), sales=Math.round(leads*CONV), cash=sales*CHECK;
+    leadsEl.textContent=fmt(leads); salesEl.textContent=fmt(sales);
+    animate(cash);
+    /* closest real case by result */
+    var best=CASES[0], bd=1e9;
+    CASES.forEach(function(c){var d=Math.abs(Math.log(c.sum)-Math.log(Math.max(cash,1)));if(d<bd-1e-9){bd=d;best=c}});
+    var lbl=bd<Math.log(1.6)?'Похожий результат':cash>best.sum?'Наш самый крупный кейс':'Ближайший кейс';
+    if(nearK.textContent!==lbl)nearK.textContent=lbl;
+    if(near.getAttribute('href')!=='#case-'+best.id){
+      near.setAttribute('href','#case-'+best.id); near.setAttribute('aria-label','Кейс '+best.n);
+      nearImg.className=best.img; nearName.textContent=best.n; nearSum.textContent=fmt(best.sum)+' ₽ '+best.t;
+    }
+    var msg='Привет! Посчитал запуск на сайте: охват '+fmt(reach).replace(/ /g,' ')+', вовлечённость '+eng+' — примерно '+fmt(cash).replace(/ /g,' ')+' ₽ в месяц. Хочу обсудить запуск';
+    cta.href='https://t.me/'+TG+'?text='+encodeURIComponent(msg);
+  }
+  range.addEventListener('input',function(){update(true)});
+  seg.forEach(function(b){
+    b.addEventListener('click',function(){
+      if(b.getAttribute('aria-checked')==='true')return;
+      seg.forEach(function(o){o.setAttribute('aria-checked',o===b?'true':'false');o.tabIndex=o===b?0:-1});
+      rate=parseFloat(b.dataset.r); eng=b.dataset.n; hint.textContent=HINT[eng]||'';
+      update(false);
+      var box=sumEl.parentNode; box.classList.remove('calc-bump'); void box.offsetWidth; box.classList.add('calc-bump');
+    });
+    b.tabIndex=b.getAttribute('aria-checked')==='true'?0:-1;
+    b.addEventListener('keydown',function(e){
+      var i=seg.indexOf(b), j=e.key==='ArrowRight'||e.key==='ArrowDown'?i+1:e.key==='ArrowLeft'||e.key==='ArrowUp'?i-1:-9;
+      if(j===-9)return; e.preventDefault(); j=(j+seg.length)%seg.length; seg[j].focus(); seg[j].click();
+    });
+  });
+  update(false);
+  /* reveal */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){sec.classList.add('on');io.disconnect()}})},{threshold:.12});
+    io.observe(sec);
+  } else sec.classList.add('on');
 })();
 </script>
 <style id="pc-img">
