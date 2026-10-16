@@ -1388,6 +1388,36 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
   .js .rv{opacity:1;transform:none;transition:none}
   .faq-i[open] .faq-a{animation:none}
 }
+
+/* ===== showreel after «Смотреть кейсы» ===== */
+.reel{position:fixed;inset:0;z-index:9000;background:#070707;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;transition:opacity .5s ease;touch-action:none}
+.reel.on{opacity:1}
+.reel.out{opacity:0;transition:opacity .7s ease}
+.reel::before{content:"";position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(200,240,60,.18),transparent 70%);opacity:.5;transition:opacity .25s ease,transform .25s ease}
+.reel.hit::before{opacity:1;transform:scale(1.08)}
+.reel-stage{position:relative;width:var(--cw);height:calc(var(--cw)*1.33);perspective:1600px;transform:scale(.6);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
+.reel.on .reel-stage{transform:none;opacity:1}
+.reel.out .reel-stage{transform:scale(.5) translateY(20%);opacity:0;transition:transform .7s cubic-bezier(.6,0,.4,1),opacity .6s ease}
+.reel-tilt{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(-7deg)}
+.reel-ring{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.9,.3,1.15)}
+.reel-card{position:absolute;inset:0;border-radius:26px;overflow:hidden;background:#1a1a18;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.9);transition:filter .45s ease,box-shadow .35s ease}
+.reel-card>span{position:absolute!important;inset:0!important;width:auto!important;height:auto!important;background-size:cover!important;background-repeat:no-repeat!important;animation:none!important;transform:none!important}
+.reel-card::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(243,241,234,.12)}
+.reel-card:not(.on){filter:brightness(.38) saturate(.6) blur(1px)}
+.reel-card.on{box-shadow:0 0 0 2px var(--accent),0 0 60px rgba(200,240,60,.45),0 40px 90px -30px rgba(0,0,0,.9)}
+.reel-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.22),transparent 55%);opacity:0;pointer-events:none}
+.reel.hit .reel-flash{animation:reelFlash .35s ease-out}
+@keyframes reelFlash{0%{opacity:1}100%{opacity:0}}
+.reel-bump{animation:reelBump .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes reelBump{0%{transform:scale(1.07)}100%{transform:scale(1)}}
+.reel-skip{position:absolute;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid rgba(243,241,234,.25);background:rgba(14,14,13,.5);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:rgba(243,241,234,.75);font:inherit;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;transition:opacity .4s ease .8s,color .2s ease,border-color .2s ease}
+.reel.on .reel-skip{opacity:1}
+.reel-skip:hover{color:var(--onDark);border-color:var(--accent)}
+.reel-skip svg{width:14px;height:14px}
+.reel-dots{position:absolute;left:50%;top:calc(30px + env(safe-area-inset-top,0px));transform:translateX(-50%);display:flex;gap:6px}
+.reel-dots i{width:22px;height:3px;border-radius:3px;background:rgba(243,241,234,.18);transition:background-color .2s ease,box-shadow .2s ease}
+.reel-dots i.on{background:var(--accent);box-shadow:0 0 10px rgba(200,240,60,.6)}
+html.reel-lock,html.reel-lock body{overflow:hidden}
 </style>
 </head>
 <body>
@@ -2953,6 +2983,82 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
   Array.prototype.forEach.call(qs,function(d){
     d.addEventListener('toggle',function(){if(d.open)Array.prototype.forEach.call(qs,function(o){if(o!==d&&o.open)o.open=false})});
   });
+})();
+</script>
+<script>
+/* showreel: after «Смотреть кейсы» the launches spin in a 3D ring, one step per beat, then the page lands on the case rail */
+(function(){
+  /* beat times in seconds from the start; when the track arrives these become the real hits */
+  var BEATS=[0.7,1.7,2.7,3.7,4.7,5.7,6.7], END=7.7;
+  var MUSIC=null; /* e.g. 'reel.mp3' — the track for the showreel */
+  var KEY='pc-reel';
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var cards=Array.prototype.slice.call(document.querySelectorAll('#caseRail .case-card .cc-photo [class^="img-"]')).map(function(e){return e.className.split(' ')[0]});
+  if(cards.length<3)return;
+  var running=false;
+  function seen(){try{return sessionStorage.getItem(KEY)==='1'}catch(e){return false}}
+  function mark(){try{sessionStorage.setItem(KEY,'1')}catch(e){}}
+
+  /* a deep kick on every beat until the real track is in */
+  var AC=window.AudioContext||window.webkitAudioContext, ctx=null;
+  function kick(){
+    if(MUSIC||!AC)return;
+    try{
+      if(!ctx)ctx=new AC(); if(ctx.state==='suspended')ctx.resume();
+      var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(42,t+.22);
+      g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.55,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.38);
+      o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+.4);
+      var n=ctx.createBufferSource(),b=ctx.createBuffer(1,ctx.sampleRate*.05,ctx.sampleRate),d=b.getChannelData(0);
+      for(var i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
+      n.buffer=b;var hp=ctx.createBiquadFilter();hp.type='highpass';hp.frequency.value=2500;var g2=ctx.createGain();g2.gain.value=.12;
+      n.connect(hp);hp.connect(g2);g2.connect(ctx.destination);n.start(t);
+    }catch(e){}
+  }
+  function bgMusic(off){var b=document.querySelector('.snd.on');if(!MUSIC)return;if(off&&b){b.dataset.reelOff='1';b.click()}else if(!off){var x=document.querySelector('.snd[data-reel-off]');if(x){delete x.dataset.reelOff;x.click()}}}
+
+  function run(done){
+    running=true; mark();
+    var n=cards.length, step=360/n;
+    var cw=Math.round(Math.min(innerWidth*.62,innerHeight*.5,420));
+    var R=Math.round(cw/2/Math.tan(Math.PI/n)*1.18);
+    var el=document.createElement('div'); el.className='reel'; el.style.setProperty('--cw',cw+'px'); el.setAttribute('role','dialog'); el.setAttribute('aria-label','Наши запуски');
+    var html='<div class="reel-dots" aria-hidden="true">'+cards.map(function(){return '<i></i>'}).join('')+'</div><div class="reel-flash"></div><div class="reel-stage"><div class="reel-tilt"><div class="reel-ring" style="transform:translateZ(-'+R+'px)">';
+    cards.forEach(function(c,i){html+='<div class="reel-card" style="transform:rotateY('+(i*step)+'deg) translateZ('+R+'px)"><span class="'+c+'"></span></div>'});
+    html+='</div></div></div><button type="button" class="reel-skip">Пропустить <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>';
+    el.innerHTML=html; document.body.appendChild(el); document.documentElement.classList.add('reel-lock');
+    var ring=el.querySelector('.reel-ring'), tilt=el.querySelector('.reel-tilt'), cs=el.querySelectorAll('.reel-card'), dots=el.querySelectorAll('.reel-dots i');
+    var timers=[], audio=null, finished=false;
+    function show(k){
+      ring.style.transform='translateZ(-'+R+'px) rotateY('+(-k*step)+'deg)';
+      for(var i=0;i<n;i++){cs[i].classList.toggle('on',i===k%n);dots[i].classList.toggle('on',i===k%n)}
+      el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit');
+      tilt.classList.remove('reel-bump'); void tilt.offsetWidth; tilt.classList.add('reel-bump');
+      kick();
+    }
+    function finish(){
+      if(finished)return; finished=true; timers.forEach(clearTimeout);
+      if(audio){var a=audio,v=a.volume,f=setInterval(function(){v-=.08;if(v<=0){clearInterval(f);a.pause()}else a.volume=v},40)}
+      done();
+      el.classList.add('out'); document.documentElement.classList.remove('reel-lock');
+      setTimeout(function(){el.remove();running=false;bgMusic(false)},750);
+    }
+    el.querySelector('.reel-skip').addEventListener('click',function(e){e.stopPropagation();finish()});
+    document.addEventListener('keydown',function k(e){if(e.key==='Escape'){document.removeEventListener('keydown',k);finish()}});
+    requestAnimationFrame(function(){el.classList.add('on')});
+    if(MUSIC){bgMusic(true);audio=new Audio(MUSIC);audio.volume=.9;var p=audio.play();if(p&&p.catch)p.catch(function(){})}
+    var t0=performance.now();
+    function at(sec,fn){timers.push(setTimeout(fn,Math.max(0,sec*1000-(performance.now()-t0))))}
+    BEATS.forEach(function(b,i){at(b,function(){show(i)})});
+    at(END,finish);
+  }
+
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a.cv-cta'); if(!a||running||seen())return;
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.button)return;
+    e.preventDefault(); e.stopPropagation();
+    run(function(){var t=document.getElementById('cases'); if(t)t.scrollIntoView({behavior:'auto',block:'start'}); try{history.replaceState(null,'','#cases')}catch(_){}});
+  },true);
 })();
 </script>
 <style id="pc-img">
