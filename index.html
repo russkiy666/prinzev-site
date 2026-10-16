@@ -1299,10 +1299,29 @@ html{-webkit-tap-highlight-color:transparent}
   .js .calc-head,.js .calc-form,.js .calc-res{opacity:1;transform:none;transition:none}
   .calc-bump{animation:none}
 }
+
+/* entry gate: after the drawing, one button — that click also starts the music */
+.ld-enter{display:inline-flex;align-items:center;gap:12px;margin-top:14px;min-height:58px;padding:0 32px;border:0;border-radius:999px;background:var(--accent);color:var(--ink);font:inherit;font-weight:800;font-size:17px;letter-spacing:.02em;cursor:pointer;opacity:0;transform:translateY(12px) scale(.96);pointer-events:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1),background-color .25s ease;box-shadow:0 0 0 0 rgba(200,240,60,.45),0 0 26px rgba(200,240,60,.35);-webkit-tap-highlight-color:transparent}
+.ld-enter svg{width:18px;height:18px;transition:transform .25s ease}
+.ld-enter:hover{background:var(--onDark)}
+.ld-enter:hover svg{transform:translateX(3px)}
+.ld-enter:active{transform:scale(.96)}
+.ld-enter:focus-visible{outline:3px solid var(--onDark);outline-offset:4px}
+.ld-hint{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12px;letter-spacing:.06em;color:rgba(243,241,234,.45);opacity:0;transition:opacity .6s ease .25s}
+.ld-hint i{display:inline-flex;align-items:flex-end;gap:2px;height:11px}
+.ld-hint i b{width:2px;height:100%;border-radius:2px;background:var(--accent);animation:ldEq 1s ease-in-out infinite}
+.ld-hint i b:nth-child(2){animation-delay:-.3s}.ld-hint i b:nth-child(3){animation-delay:-.6s}
+@keyframes ldEq{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@keyframes ldPulse{0%,100%{box-shadow:0 0 0 0 rgba(200,240,60,.45),0 0 26px rgba(200,240,60,.35)}60%{box-shadow:0 0 0 14px rgba(200,240,60,0),0 0 44px rgba(200,240,60,.55)}}
+html.js:not(.no-ld) .loader.gate{animation:none;cursor:pointer}
+.loader.gate .ld-enter{opacity:1;transform:none;pointer-events:auto;animation:ldPulse 2.4s ease-in-out .8s infinite}
+.loader.gate .ld-hint{opacity:1}
+html.ld-gate,html.ld-gate body{overflow:hidden}
+@media (prefers-reduced-motion:reduce){.loader.gate .ld-enter,.ld-hint i b{animation:none}}
 </style>
 </head>
 <body>
-<div class="loader" id="pcLoader" aria-hidden="true"><svg class="tt" viewBox="100 110 580 900" aria-hidden="true"><g class="tt-track"><path d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg><div class="loader-name">ПРИНЦЕВСКИЙ <em>&amp; CO.</em></div></div>
+<div class="loader" id="pcLoader" aria-hidden="true"><svg class="tt" viewBox="100 110 580 900" aria-hidden="true"><g class="tt-track"><path d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg><div class="loader-name">ПРИНЦЕВСКИЙ <em>&amp; CO.</em></div><button type="button" class="ld-enter" tabindex="-1">Открыть кейсы <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button><span class="ld-hint"><i aria-hidden="true"><b></b><b></b><b></b></i>со звуком</span></div>
 <script>window.__ld0=(window.performance&&performance.now)?performance.now():0</script>
 <header class="bar">
   <a class="brand" href="#top"><span class="mark">П</span><span>ПРИНЦЕВСКИЙ <em>&amp; CO.</em></span></a>
@@ -2245,7 +2264,17 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
   var ld=document.getElementById('pcLoader')||document.createElement('div');
   var skipLd=root.classList.contains('no-ld')||!document.getElementById('pcLoader');
   var t=null;
-  function ready(){var now=(window.performance&&performance.now)?performance.now():0;t=setTimeout(finish,Math.max(0,2300-(now-(window.__ld0||0))))}
+  function ready(){var now=(window.performance&&performance.now)?performance.now():0;t=setTimeout(gate,Math.max(0,2300-(now-(window.__ld0||0))))}
+  /* after the drawing: wait for one tap on «Открыть кейсы» — that tap also lets the browser start the music */
+  var gated=false;
+  function gate(){
+    if(finished||gated)return; gated=true;
+    var b=ld.querySelector('.ld-enter'); if(!b){finish();return}
+    ld.classList.add('gate'); ld.removeAttribute('aria-hidden'); ld.setAttribute('role','dialog'); ld.setAttribute('aria-label','ПРИНЦЕВСКИЙ & CO.');
+    root.classList.add('ld-gate'); b.tabIndex=0;
+    ld.addEventListener('click',function(){finish()});
+    document.addEventListener('keydown',function k(e){if(e.key==='Enter'||e.key===' '||e.key==='Escape'){document.removeEventListener('keydown',k);e.preventDefault();finish()}});
+  }
   if(!skipLd){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);else ready()}
 
   /* split the wordmark into letters */
@@ -2257,7 +2286,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
 
   var finished=false;
   function finish(){
-    if(finished)return; finished=true; clearTimeout(t);
+    if(finished)return; finished=true; clearTimeout(t); root.classList.remove('ld-gate'); ld.setAttribute('aria-hidden','true');
     try{sessionStorage.setItem('pc-ld','1')}catch(e){}
     ld.classList.add('done'); setTimeout(function(){if(ld.parentNode)ld.parentNode.removeChild(ld)},700);
     var bar=document.querySelector('.bar'); if(bar) bar.classList.add('in');
@@ -2269,7 +2298,7 @@ document.addEventListener('toggle',function(e){if(e.target.classList&&e.target.c
     setTimeout(function(){q('.cv-stats').forEach(function(e){e.classList.add('on')})},1150);
   }
   if(skipLd){finish()}
-  setTimeout(finish,9000); /* never keep the loader longer than this, even on a very slow connection */
+  setTimeout(function(){if(!gated)gate()},9000); /* never keep the drawing longer than this, even on a very slow connection */
 
   /* scroll reveal */
   var groups=[
