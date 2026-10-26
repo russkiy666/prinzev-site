@@ -741,6 +741,25 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
   .orbs{display:none}
   body{background:radial-gradient(90vw 60vh at 85% -10%,rgba(255,170,20,.14),transparent 60%),radial-gradient(80vw 50vh at 0% 60%,rgba(255,140,0,.07),transparent 60%),#000;background-attachment:scroll}
 }
+
+/* ===== Reels: старт по кнопке, со звуком с начала ===== */
+.au-reel{cursor:pointer}
+.au-reel::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.1) 40%,rgba(0,0,0,.55));transition:opacity .3s}
+.au-reel.playing::after{opacity:0}
+.reel-start{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:0;padding:0;background:none;color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .3s}
+.au-reel.playing .reel-start{opacity:0;pointer-events:none}
+.au-reel.playing.paused .reel-start{opacity:1;pointer-events:auto}
+.rs-btn{position:relative;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#1A1000;background:var(--grad);background-size:200% 100%;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 0 0 6px rgba(255,190,46,.18),0 0 30px rgba(255,170,20,.75);transition:transform .2s}
+.rs-btn svg{width:22px;height:22px;margin-left:3px;fill:currentColor}
+.reel-start:active .rs-btn{transform:scale(.9)}
+.rs-ring{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-38px 0 0 -28px;border-radius:50%;border:1.5px solid rgba(255,200,80,.85);animation:rsPing 2s cubic-bezier(.2,.6,.3,1) infinite;pointer-events:none}
+@keyframes rsPing{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+.rs-txt{font:600 13px/1 var(--body);letter-spacing:-.01em;padding:7px 12px;border-radius:999px;background:rgba(0,0,0,.5);border:.5px solid rgba(255,255,255,.18)}
+.reel-bar{position:absolute;left:8px;right:8px;bottom:8px;z-index:2;height:3px;border-radius:3px;background:rgba(255,255,255,.22);overflow:hidden;opacity:0;transition:opacity .3s}
+.au-reel.playing .reel-bar{opacity:1}
+.reel-bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#FF9A12,#FFE9A6);transform-origin:left;transform:scaleX(0)}
+@media (max-width:760px){.rs-btn{width:48px;height:48px}.rs-ring{width:48px;height:48px;margin:-34px 0 0 -24px}.rs-txt{font-size:12px;padding:6px 10px}}
 </style>
 
 <div class="loader" id="ld" aria-hidden="true">
@@ -846,14 +865,15 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
   <div class="in bento">
     <div class="cell c-author neon hin">
       <div class="au-photo"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" decoding="async" fetchpriority="high">
-        <div class="au-reel">
-          <video id="reel" poster="media/reel.jpg" muted autoplay loop playsinline webkit-playsinline preload="auto" disablepictureinpicture aria-label="Видео SABIZ"><source src="media/reel.mp4" type="video/mp4"></video>
-          <button type="button" class="play-ov" id="reel-play" aria-label="Включить видео"><span><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></span></button>
-          <span class="media-tag"><span class="live"><i></i></span>Reels</span>
-          <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
-          <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
-          <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-        </button>
+        <div class="au-reel" id="reel-box">
+          <video id="reel" poster="media/reel.jpg" playsinline webkit-playsinline preload="metadata" disablepictureinpicture aria-label="Видео SABIZ"><source src="media/reel.mp4" type="video/mp4"></video>
+          <span class="reel-bar" aria-hidden="true"><i id="reel-prog"></i></span>
+          <span class="media-tag">Reels</span>
+          <button type="button" class="reel-start" id="reel-play" aria-label="Смотреть видео со звуком">
+            <span class="rs-ring" aria-hidden="true"></span>
+            <span class="rs-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span>
+            <span class="rs-txt" id="reel-txt">Смотреть</span>
+          </button>
         </div>
       </div>
       <div class="au-body">
@@ -1251,7 +1271,7 @@ document.addEventListener("click", function(e){
   if (!t.closest) return;
   var s = t.closest(".faq-i summary");
   if (s) { sfx.play(s.parentNode.open ? "close" : "open"); return; }
-  if (t.closest(".reel-snd, .play-ov")) return;
+  if (t.closest(".au-reel")) return;
   if (t.closest(".play")) { sfx.play("open"); return; }
   if (t.closest(".bar-link, .btns .btn, #tg-link")) sfx.play("tap");
 }, true);
@@ -1347,44 +1367,30 @@ document.addEventListener("click", function(e){
   io.observe(iso);
 })();
 
-/* ===== Видео в панели автора: без звука по кругу; звук по кнопке без перезапуска ===== */
+/* ===== Reels: стартует только по кнопке, сразу со звуком и с начала ===== */
 (function(){
-  var v = document.getElementById("reel"), b = document.getElementById("reel-snd"), pl = document.getElementById("reel-play");
+  var v = document.getElementById("reel"), box = document.getElementById("reel-box"),
+      btn = document.getElementById("reel-play"), txt = document.getElementById("reel-txt"), bar = document.getElementById("reel-prog");
   if (!v) return;
-  var box = v.parentNode, wantPlay = false;
-  v.muted = true; v.defaultMuted = true; v.setAttribute("muted", "");
-  function setPlaying(on){ box.className = box.className.replace(/\s*playing/g, "") + (on ? " playing" : ""); }
-  v.addEventListener("playing", function(){ setPlaying(true); });
-  /* кнопку ▶ показываем, только если видео реально остановилось само, а не на долю секунды при переключении звука */
-  v.addEventListener("pause", function(){ setTimeout(function(){ if (v.paused && wantPlay) setPlaying(false); }, 400); });
-  function tryPlay(){
-    wantPlay = true;
+  var raf = 0;
+  function cls(){ var c = "au-reel"; if (!v.paused || v.__started) c += " playing"; if (v.paused && v.__started && !v.ended) c += " paused"; box.className = c; }
+  function tick(){ if (v.duration) bar.style.transform = "scaleX(" + (v.currentTime / v.duration) + ")"; if (!v.paused) raf = requestAnimationFrame(tick); }
+  function start(fromZero){
+    if (fromZero) { try { v.currentTime = 0; } catch(e) {} }
+    v.muted = false; v.__started = true;
+    sfx.pause && sfx.pause(true);
     var pr = v.play();
-    if (pr && pr.catch) pr.catch(function(){
-      if (!v.muted) { v.muted = true; sfx.pause && sfx.pause(false); paintSnd(); var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){ setPlaying(false); }); }
-      else setPlaying(false);
-    });
+    if (pr && pr.catch) pr.catch(function(){ v.muted = true; var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){ v.__started = false; cls(); }); });
   }
-  function paintSnd(){
-    b.setAttribute("aria-pressed", v.muted ? "false" : "true");
-    b.setAttribute("aria-label", v.muted ? "Включить звук видео" : "Выключить звук видео");
-  }
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function(es){
-      for (var i = 0; i < es.length; i++) {
-        if (es[i].isIntersecting) tryPlay();
-        else if (!v.paused) { wantPlay = false; v.pause(); if (!v.muted) { v.muted = true; sfx.pause && sfx.pause(false); paintSnd(); } }
-      }
-    }, { threshold: .2 }).observe(box);
-  } else tryPlay();
-  pl.addEventListener("click", function(){ tryPlay(); });
-  b.addEventListener("click", function(e){
-    e.stopPropagation();
-    v.muted = !v.muted;
-    sfx.pause && sfx.pause(!v.muted);
-    paintSnd();
-    if (v.paused) tryPlay();
-  });
+  btn.addEventListener("click", function(e){ e.stopPropagation(); start(!v.__started || v.ended); });
+  /* тап по видео во время показа — пауза; ещё тап — продолжить */
+  box.addEventListener("click", function(){ if (!v.__started) return; if (v.paused) start(false); else v.pause(); });
+  v.addEventListener("play", function(){ cls(); cancelAnimationFrame(raf); tick(); });
+  v.addEventListener("pause", function(){ cls(); sfx.pause && sfx.pause(false); txt.textContent = "Продолжить"; });
+  v.addEventListener("ended", function(){ v.__started = false; cls(); sfx.pause && sfx.pause(false); txt.textContent = "Ещё раз"; bar.style.transform = "scaleX(0)"; try { v.currentTime = 0; } catch(e) {} });
+  /* ушёл с экрана — пауза */
+  if ("IntersectionObserver" in window) new IntersectionObserver(function(es){ for (var i = 0; i < es.length; i++) if (!es[i].isIntersecting && !v.paused) v.pause(); }, { threshold: .1 }).observe(box);
+  cls();
 })();
 
 /* ===== Скриншоты пруфов: открыть целиком ===== */
