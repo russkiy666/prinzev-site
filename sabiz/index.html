@@ -241,6 +241,24 @@ p{margin:0}
   .c-reel .media,.c-cash .media,.c-shot .media{aspect-ratio:3/4}
 }
 
+/* пруфы */
+.c-ptext{display:flex;flex-direction:column;gap:16px}
+.pnums{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.pnums li{display:flex;flex-direction:column;gap:4px;padding:12px 0;border-top:1px solid var(--edge)}
+.pnums b{font:600 clamp(24px,2.2vw,32px)/1 var(--display);letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;align-self:flex-start}
+.pnums span{font-size:14px;color:var(--muted);line-height:1.45}
+.c-proof{padding:8px;display:flex;flex-direction:column;gap:8px}
+.pimg{border-radius:calc(var(--r) - 6px);overflow:hidden;display:grid;place-items:center}
+.c-proof .pimg{flex:1;min-height:220px}
+.pimg img{display:block;max-width:100%;height:auto}
+.pimg.dark{background:#000}
+.pimg.light{background:#fff}
+.pimg.plan{background:#fff;border-radius:10px;margin-top:auto}
+.pcap{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 12px 10px}
+.pcap span{font:500 11px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pcap b{font:600 16px/1 var(--display)}
+@media (min-width:1025px){.bento > .c-ptext,.bento > .c-proof{grid-column:span 4}}
+
 /* консультация */
 .c-offer{display:flex;flex-direction:column;gap:18px;background:radial-gradient(90% 70% at 0% 0%,rgba(124,92,255,.2),transparent 70%),linear-gradient(155deg,rgba(255,255,255,.08),rgba(255,255,255,.02) 45%,rgba(255,255,255,.035))}
 .c-offer h2{font-size:clamp(24px,2.4vw,34px)}
@@ -558,6 +576,29 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
     </div>
     <div class="cell c-shot">
       <div class="media"><img src="media/night.jpg" alt="Александр Сабиз на вечеринке" width="800" height="1067" loading="lazy" decoding="async" style="object-position:62% 40%"><span class="media-tag">Вечер</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3.7 ПРУФЫ -->
+<section class="sec" id="proofs">
+  <div class="in bento">
+    <div class="cell c-ptext tilt">
+      <span class="label">Пруфы</span>
+      <h2 class="h2">Цифры, а не обещания</h2>
+      <ul class="pnums">
+        <li><b>1 280 513 ₽</b><span>доход за октябрь</span></li>
+        <li><b>146%</b><span>плана по оплатам на запуске: 747 964 ₽ при плане 510 370 ₽</span></li>
+      </ul>
+      <div class="pimg plan"><img src="media/proof-plan.jpg" alt="Таблица запуска: ожидалось 510 370 ₽, оплат 747 964 ₽, получено 698 089 ₽" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="cell c-proof">
+      <div class="pimg dark"><img src="media/proof-bank.jpg" alt="Скриншот банка: доходы за октябрь 1 280 513 ₽" loading="lazy" decoding="async"></div>
+      <div class="pcap"><span>Банк · октябрь</span><b>1 280 513 ₽</b></div>
+    </div>
+    <div class="cell c-proof">
+      <div class="pimg light"><img src="media/proof-rev.jpg" alt="Таблица выручки по запуску" loading="lazy" decoding="async"></div>
+      <div class="pcap"><span>Таблица запуска</span><b>Выручка</b></div>
     </div>
   </div>
 </section>
