@@ -682,21 +682,21 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
 @keyframes ring{to{--ang:360deg}}
 .c-author,.c-quiz{box-shadow:inset 0 .5px 0 rgba(255,255,255,.08),0 0 0 .5px rgba(255,190,46,.25),0 0 60px -20px rgba(255,160,20,.55)}
 /* кнопки: блик + неоновый пульс */
-.btn.accent,.btn.next{animation:sheen 5s linear infinite,neonBtn 2.6s ease-in-out infinite}
+.btn.accent,.btn.next{box-shadow:0 0 22px -4px rgba(255,170,20,.55),0 8px 24px -14px rgba(255,150,0,.6)}
 @keyframes neonBtn{0%,100%{box-shadow:0 0 0 0 rgba(255,170,0,0),0 8px 24px -14px rgba(255,150,0,.6)}50%{box-shadow:0 0 18px 2px rgba(255,180,30,.45),0 0 42px -4px rgba(255,140,0,.45)}}
 /* выбранный этап — неоновая подсветка */
-.stp.on{box-shadow:0 3px 8px rgba(0,0,0,.35),0 0 0 .5px rgba(255,190,46,.6),0 0 18px -2px rgba(255,170,20,.6);animation:segGlow 2.4s ease-in-out infinite}
+.stp.on{box-shadow:0 3px 8px rgba(0,0,0,.35),0 0 0 .5px rgba(255,190,46,.7),0 0 18px -2px rgba(255,170,20,.6)}
 @keyframes segGlow{50%{box-shadow:0 3px 8px rgba(0,0,0,.35),0 0 0 .5px rgba(255,210,90,.9),0 0 26px 0 rgba(255,170,20,.75)}}
 .stp.on i{text-shadow:0 0 10px rgba(255,190,46,.9)}
 /* имя светится */
-.hero h1 em{animation:sheen 5s linear infinite,nameGlow 3s ease-in-out infinite}
+.hero h1 em{animation:sheen 6s linear infinite;filter:none;text-shadow:none}
 @keyframes nameGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,170,0,.35))}50%{filter:drop-shadow(0 0 22px rgba(255,190,46,.75))}}
 /* иконки регалий мерцают по очереди */
-.regalia .ic{animation:icGlow 3s ease-in-out infinite}
-.regalia li:nth-child(2) .ic{animation-delay:.5s}.regalia li:nth-child(3) .ic{animation-delay:1s}
+.regalia .ic{box-shadow:0 0 14px -2px rgba(255,180,30,.55)}
+
 @keyframes icGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,170,0,0)}50%{box-shadow:0 0 16px 2px rgba(255,180,30,.6)}}
 /* цифры пруфов пульсируют светом */
-.pr-nums b{animation:sheen 5s linear infinite,nameGlow 3.4s ease-in-out infinite}
+.pr-nums b{animation:sheen 6s linear infinite;filter:none}
 /* карточки въезжают по очереди при смене этапа */
 .stage.on .cell{animation:cellIn .6s cubic-bezier(.2,.8,.2,1) both}
 .stage.on .sec:nth-of-type(2) .cell{animation-delay:.08s}
@@ -706,11 +706,11 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
 .stage.on .bento > .cell:nth-child(4){animation-delay:.3s}
 @keyframes cellIn{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:none}}
 /* световая волна по фото автора */
-.au-photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,230,160,.18) 48%,transparent 60%);background-size:250% 100%;animation:sweep 6s ease-in-out infinite}
-@keyframes sweep{0%{background-position:130% 0}60%,100%{background-position:-60% 0}}
+.au-photo::before{content:"";position:absolute;top:0;bottom:0;left:0;width:45%;z-index:1;pointer-events:none;background:linear-gradient(105deg,transparent,rgba(255,230,160,.16) 50%,transparent);transform:translateX(-120%);animation:sweep 6s ease-in-out infinite;will-change:transform}
+@keyframes sweep{0%{transform:translateX(-120%)}60%,100%{transform:translateX(260%)}}
 .au-photo{box-shadow:0 0 0 1px rgba(255,190,46,.45),0 0 40px -10px rgba(255,160,20,.6)}
 /* рамка Reels — неоновое дыхание */
-.au-reel{animation:reelGlow 2.8s ease-in-out infinite}
+.au-reel{box-shadow:0 0 0 1.5px rgba(255,200,80,.85),0 0 30px -4px rgba(255,170,20,.8),0 20px 40px -12px rgba(0,0,0,.8)}
 @keyframes reelGlow{0%,100%{box-shadow:0 0 0 1px rgba(255,190,46,.6),0 0 22px -6px rgba(255,160,20,.7),0 20px 40px -12px rgba(0,0,0,.8)}50%{box-shadow:0 0 0 1.5px rgba(255,215,100,.95),0 0 36px -2px rgba(255,170,20,.9),0 20px 40px -12px rgba(0,0,0,.8)}}
 /* живой индикатор — золотой */
 .live i{background:#FFC23D;box-shadow:0 0 0 0 rgba(255,194,61,.6);animation:pulseG 1.8s infinite}
@@ -728,6 +728,19 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
 .loader{background:radial-gradient(70vw 55vh at 50% 42%,rgba(255,170,20,.16),transparent 65%),#030304!important}
 .ld-fx{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .loader > *:not(.ld-fx){position:relative;z-index:1}
+
+/* ===== Производительность ===== */
+.cell{contain:paint}
+.c-author,.c-quiz,.c-video,.c-proofs,.stage-nav{contain:none}
+/* бегущая обводка только на автора и анкету; на телефоне — статичная золотая кромка */
+.c-video::after,.c-proofs::after,.stage-nav::after{animation:none;background:linear-gradient(135deg,rgba(255,190,46,.55),transparent 35%,transparent 65%,rgba(255,154,18,.45))}
+@media (hover:none),(max-width:760px){
+  .c-author::after,.c-quiz::after{animation:none;background:linear-gradient(135deg,rgba(255,214,120,.9),rgba(255,154,18,.15) 30%,transparent 50%,rgba(255,154,18,.15) 70%,rgba(255,190,46,.8))}
+  .btn.accent,.btn.next,.stp.on,.hero h1 em,.pr-nums b,.mark,.bar-link{animation:none!important}
+  .live i{animation:none;box-shadow:0 0 8px rgba(255,194,61,.8)}
+  .orbs{display:none}
+  body{background:radial-gradient(90vw 60vh at 85% -10%,rgba(255,170,20,.14),transparent 60%),radial-gradient(80vw 50vh at 0% 60%,rgba(255,140,0,.07),transparent 60%),#000;background-attachment:scroll}
+}
 </style>
 
 <div class="loader" id="ld" aria-hidden="true">
@@ -746,60 +759,71 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
   <span class="ld-hint"><i aria-hidden="true"><b></b><b></b><b></b></i>со звуком</span>
 </div>
 <script>
-/* ===== Интро: золотые точки плавно плывут по экрану и соединяются тонкими линиями ===== */
+/* ===== Интро: золотые точки (оптимизировано: готовые спрайты свечения, без shadowBlur) ===== */
 (function(){
   var c = document.getElementById("ldfx"), ld = document.getElementById("ld");
   if (!c || !c.getContext || !ld || /\bno-ld\b/.test(document.documentElement.className)) return;
-  var x = c.getContext("2d"), W, H, dpr, P = [], run = true, calm = false, mx = -999, my = -999;
-  try { calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e) {}
+  var x = c.getContext("2d", { alpha: true }), W, H, P = [], run = true, mob = false, raf = 0;
+  var calm = false; try { calm = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e) {}
+  /* один раз рисуем светящуюся точку каждого цвета, дальше только копируем картинку */
+  var COLORS = ["255,233,166", "255,190,46", "255,154,18"], SPR = [];
+  for (var ci = 0; ci < COLORS.length; ci++) {
+    var sc = document.createElement("canvas"); sc.width = sc.height = 32;
+    var g = sc.getContext("2d"), gr = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gr.addColorStop(0, "rgba(" + COLORS[ci] + ",1)"); gr.addColorStop(.18, "rgba(" + COLORS[ci] + ",.95)");
+    gr.addColorStop(.4, "rgba(" + COLORS[ci] + ",.25)"); gr.addColorStop(1, "rgba(" + COLORS[ci] + ",0)");
+    g.fillStyle = gr; g.fillRect(0, 0, 32, 32); SPR.push(sc);
+  }
   function size(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = c.clientWidth; H = c.clientHeight; c.width = W * dpr; c.height = H * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var n = W < 760 ? 46 : 90; P = [];
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = c.clientWidth; H = c.clientHeight; mob = W < 760;
+    c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = mob ? 32 : 64; P = [];
     for (var i = 0; i < n; i++) {
-      var a = Math.random() * 6.283, sp = .12 + Math.random() * .32;
-      P.push({ x: Math.random() * W, y: Math.random() * H, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
-               r: .8 + Math.random() * 2.2, ph: Math.random() * 6.283, tw: .01 + Math.random() * .02,
-               c: Math.random() < .25 ? "255,233,166" : (Math.random() < .5 ? "255,190,46" : "255,154,18") });
+      var an = Math.random() * 6.283, sp = .15 + Math.random() * .3;
+      P.push({ x: Math.random() * W, y: Math.random() * H, vx: Math.cos(an) * sp, vy: Math.sin(an) * sp,
+               s: 6 + Math.random() * 10, ph: Math.random() * 6.283, tw: .015 + Math.random() * .02, k: (Math.random() * 3) | 0 });
     }
   }
-  var link = 0;
-  function frame(){
+  var last = 0;
+  function frame(t){
     if (!run) return;
+    raf = requestAnimationFrame(frame);
+    var dt = last ? Math.min(3, (t - last) / 16.7) : 1; last = t;
     x.clearRect(0, 0, W, H);
-    link = W < 760 ? 90 : 130;
-    for (var i = 0; i < P.length; i++) {
-      var p = P[i];
-      p.x += p.vx; p.y += p.vy; p.ph += p.tw;
-      if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
-      if (p.y < -10) p.y = H + 10; else if (p.y > H + 10) p.y = -10;
-      /* лёгкое отталкивание от пальца/курсора */
-      var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
-      if (d2 < 9000) { p.x += dx * .02; p.y += dy * .02; }
+    var L = mob ? 85 : 120, L2 = L * L, i, j, p, q;
+    for (i = 0; i < P.length; i++) {
+      p = P[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.ph += p.tw * dt;
+      if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12;
+      if (p.y < -12) p.y = H + 12; else if (p.y > H + 12) p.y = -12;
+    }
+    /* линии одним путём на 2 уровня яркости — 2 отрисовки вместо сотен */
+    var near = new Path2D(), far = new Path2D();
+    for (i = 0; i < P.length; i++) for (j = i + 1; j < P.length; j++) {
+      p = P[i]; q = P[j];
+      var dx = p.x - q.x; if (dx > L || dx < -L) continue;
+      var dy = p.y - q.y; if (dy > L || dy < -L) continue;
+      var d2 = dx * dx + dy * dy; if (d2 > L2) continue;
+      var path = d2 < L2 * .35 ? near : far; path.moveTo(p.x, p.y); path.lineTo(q.x, q.y);
     }
     x.lineWidth = .6;
-    for (var a = 0; a < P.length; a++) for (var b = a + 1; b < P.length; b++) {
-      var ex = P[a].x - P[b].x, ey = P[a].y - P[b].y, dd = ex * ex + ey * ey;
-      if (dd < link * link) {
-        x.strokeStyle = "rgba(255,190,46," + (0.16 * (1 - Math.sqrt(dd) / link)).toFixed(3) + ")";
-        x.beginPath(); x.moveTo(P[a].x, P[a].y); x.lineTo(P[b].x, P[b].y); x.stroke();
-      }
+    x.strokeStyle = "rgba(255,190,46,.07)"; x.stroke(far);
+    x.strokeStyle = "rgba(255,200,80,.15)"; x.stroke(near);
+    for (i = 0; i < P.length; i++) {
+      p = P[i]; x.globalAlpha = .45 + .55 * Math.abs(Math.sin(p.ph));
+      x.drawImage(SPR[p.k], p.x - p.s / 2, p.y - p.s / 2, p.s, p.s);
     }
-    for (var k = 0; k < P.length; k++) {
-      var q = P[k], al = .45 + .55 * Math.abs(Math.sin(q.ph));
-      x.shadowBlur = 10; x.shadowColor = "rgba(" + q.c + ",.9)";
-      x.fillStyle = "rgba(" + q.c + "," + al.toFixed(2) + ")";
-      x.beginPath(); x.arc(q.x, q.y, q.r, 0, 6.283); x.fill();
-    }
-    x.shadowBlur = 0;
-    if (!calm) requestAnimationFrame(frame);
+    x.globalAlpha = 1;
   }
-  ld.addEventListener("pointermove", function(e){ mx = e.clientX; my = e.clientY; }, { passive: true });
-  size(); frame();
+  size();
+  if (calm) { run = true; frame(0); run = false; } else raf = requestAnimationFrame(frame);
   window.addEventListener("resize", size);
-  /* остановить, когда интро закрыто */
-  new MutationObserver(function(){ if (/\bdone\b/.test(ld.className) || !document.body.contains(ld)) run = false; })
-    .observe(ld, { attributes: true, attributeFilter: ["class"] });
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) { cancelAnimationFrame(raf); last = 0; }
+    else if (run && !calm) raf = requestAnimationFrame(frame);
+  });
+  function stop(){ run = false; cancelAnimationFrame(raf); c.width = c.height = 0; }
+  new MutationObserver(function(){ if (/\bdone\b/.test(ld.className)) stop(); }).observe(ld, { attributes: true, attributeFilter: ["class"] });
 })();
 </script>
 <canvas id="stars" aria-hidden="true"></canvas>
@@ -1089,41 +1113,32 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
 var SHEET_URL = "";
 var TG_LINK = "https://t.me/YakimovichI";
 
-/* ===== Звёздное небо: мерцание + редкие падающие звёзды ===== */
+/* ===== Звёздное небо: на телефоне рисуется один раз, на компьютере мерцает 20 к/с ===== */
 (function(){
   var c = document.getElementById("stars"); if (!c || !c.getContext) return;
-  var x = c.getContext("2d"), W, H, dpr, stars = [], shoot = null, calm = false;
-  try { calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e) {}
+  var x = c.getContext("2d"), W, H, stars = [], timer = 0, mob = false, calm = false;
+  try { calm = matchMedia("(prefers-reduced-motion: reduce)").matches || matchMedia("(hover: none)").matches; } catch(e) {}
   function size(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = c.clientWidth; H = c.clientHeight; c.width = W*dpr; c.height = H*dpr; x.setTransform(dpr,0,0,dpr,0,0);
-    var n = Math.min(W < 760 ? 90 : 260, Math.round(W*H/(W < 760 ? 9000 : 7000))); stars = [];
-    for (var i = 0; i < n; i++) stars.push({ x: Math.random()*W, y: Math.random()*H, r: Math.random()*1.3+.2, p: Math.random()*6.28, s: Math.random()*.02+.004,
-      c: Math.random() < .15 ? "245,222,154" : (Math.random() < .2 ? "212,175,55" : "244,238,226") });
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = c.clientWidth; H = c.clientHeight; mob = W < 760;
+    c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.min(mob ? 70 : 180, Math.round(W * H / 8000)); stars = [];
+    for (var i = 0; i < n; i++) stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + .3, p: Math.random() * 6.28, s: Math.random() * .05 + .02,
+      c: Math.random() < .2 ? "255,214,120" : "245,243,238" });
   }
-  function frame(){
-    x.clearRect(0,0,W,H);
+  function draw(step){
+    x.clearRect(0, 0, W, H);
     for (var i = 0; i < stars.length; i++) {
-      var s = stars[i]; s.p += s.s;
-      var a = calm ? .7 : .35 + .65*Math.abs(Math.sin(s.p));
-      x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.283); x.fillStyle = "rgba(" + s.c + "," + a.toFixed(2) + ")"; x.fill();
+      var st = stars[i]; if (step) st.p += st.s;
+      x.globalAlpha = (mob || calm) ? .6 : .3 + .6 * Math.abs(Math.sin(st.p));
+      x.fillStyle = "rgb(" + st.c + ")"; x.fillRect(st.x, st.y, st.r * 1.6, st.r * 1.6);
     }
-    if (!calm) {
-      if (!shoot && Math.random() < .0015) shoot = { x: Math.random()*W*.8 + W*.2, y: Math.random()*H*.4, l: 0 };
-      if (shoot) {
-        shoot.l += 1; var len = 90, dx = -shoot.l*9, dy = shoot.l*4;
-        var g = x.createLinearGradient(shoot.x+dx, shoot.y+dy, shoot.x+dx+len, shoot.y+dy-len*.45);
-        g.addColorStop(0, "rgba(255,255,255,.9)"); g.addColorStop(1, "rgba(255,226,150,0)");
-        x.strokeStyle = g; x.lineWidth = 1.6; x.beginPath(); x.moveTo(shoot.x+dx, shoot.y+dy); x.lineTo(shoot.x+dx+len, shoot.y+dy-len*.45); x.stroke();
-        if (shoot.l > 40) shoot = null;
-      }
-      setTimeout(function(){ if (!document.hidden) (window.requestAnimationFrame || function(f){ f(); })(frame); else hiddenStop = true; }, 33);
-    }
+    x.globalAlpha = 1;
   }
-  var hiddenStop = false;
-  document.addEventListener("visibilitychange", function(){ if (!document.hidden && hiddenStop) { hiddenStop = false; frame(); } });
-  size(); frame();
-  var t; window.addEventListener("resize", function(){ clearTimeout(t); t = setTimeout(function(){ size(); if (calm) frame(); }, 150); });
+  function loop(){ clearTimeout(timer); if (document.hidden || mob || calm) return; draw(true); timer = setTimeout(loop, 50); }
+  size(); draw(false); loop();
+  document.addEventListener("visibilitychange", loop);
+  var t; window.addEventListener("resize", function(){ clearTimeout(t); t = setTimeout(function(){ size(); draw(false); loop(); }, 200); });
 })();
 
 /* ===== Звук нажатий: синтезированный «мягкий клик клавиатуры», без файлов ===== */
