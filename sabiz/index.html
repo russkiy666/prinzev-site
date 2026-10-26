@@ -228,10 +228,17 @@ p{margin:0}
 .reel-snd .on,.reel-snd[aria-pressed="true"] .off{display:none}
 .reel-snd[aria-pressed="true"] .on{display:block}
 .reel-snd[aria-pressed="true"]{background:var(--grad);border-color:transparent}
-.bento > .c-reel,.bento > .c-cash{grid-column:auto}
+.bento > .c-reel,.bento > .c-cash,.bento > .c-shot{grid-column:auto}
+.c-shot{padding:8px;display:flex}
+.c-quote{display:flex;flex-direction:column;gap:18px}
+.quote{font:500 clamp(20px,1.8vw,26px)/1.35 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.sign{display:flex;align-items:center;gap:12px}
+.sign b{display:block;font-weight:600;font-size:15px}
+.sign small{display:block;font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.c-quote .btns{margin-top:auto}
 @media (min-width:1025px){
-  .bento > .c-life,.bento > .c-reel,.bento > .c-cash{grid-column:span 4}
-  .c-reel .media,.c-cash .media{aspect-ratio:3/4}
+  .bento > .c-life,.bento > .c-reel,.bento > .c-cash,.bento > .c-shot,.bento > .c-quote{grid-column:span 4}
+  .c-reel .media,.c-cash .media,.c-shot .media{aspect-ratio:3/4}
 }
 
 /* консультация */
@@ -539,6 +546,18 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
     </div>
     <div class="cell c-cash">
       <div class="media"><img src="media/cash.jpg" alt="Пачка купюр по 5000 ₽ на руке" width="720" height="1273" loading="lazy" decoding="async"><span class="media-tag">Кэш</span></div>
+    </div>
+    <div class="cell c-shot">
+      <div class="media"><img src="media/city.jpg" alt="Александр Сабиз на балконе в центре Москвы" width="800" height="998" loading="lazy" decoding="async"><span class="media-tag">Москва</span></div>
+    </div>
+    <div class="cell c-quote tilt">
+      <span class="label">Лайфстайл</span>
+      <p class="quote">Это моя обычная жизнь, а не картинка для рекламы. Начинал с нуля — так же, как ты сейчас.</p>
+      <div class="sign"><span class="mark">S</span><span><b>Александр Сабиз</b><small>продюсер экспертов</small></span></div>
+      <div class="btns"><a class="btn" href="#lesson">Смотреть урок</a></div>
+    </div>
+    <div class="cell c-shot">
+      <div class="media"><img src="media/night.jpg" alt="Александр Сабиз на вечеринке" width="800" height="1067" loading="lazy" decoding="async" style="object-position:62% 40%"><span class="media-tag">Вечер</span></div>
     </div>
   </div>
 </section>
