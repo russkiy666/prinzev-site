@@ -108,7 +108,7 @@ p{margin:0}
 @keyframes rip{to{transform:scale(1);opacity:0}}
 
 /* шапка: плавающая стеклянная капсула */
-.bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:40;padding-top:10px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;padding-top:10px;padding-bottom:10px;background:linear-gradient(180deg,var(--bg) 0,var(--bg) calc(100% - 14px),transparent)}
 .bar-pill{display:flex;justify-content:space-between;align-items:center;gap:10px;height:58px;padding:0 8px 0 12px;border-radius:16px;
   background:rgba(14,14,17,.62);border:1px solid var(--edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 20px 40px -20px rgba(0,0,0,.8)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.bar-pill{-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}}
@@ -288,7 +288,7 @@ p{margin:0}
 .thumb span{position:absolute;left:6px;right:6px;bottom:6px;font:500 10px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:6px 8px;border-radius:7px;background:rgba(5,5,7,.72);text-align:left}
 @media (hover:hover){.thumb:hover{transform:translateY(-2px);border-color:rgba(255,190,46,.8)}}
 .pr-hint{font:500 11px/1.3 var(--mono);letter-spacing:.06em;color:var(--dim)}
-@media (max-width:600px){.pr-nums{grid-template-columns:1fr}}
+@media (max-width:600px){.pr-nums{grid-template-columns:1fr}.thumb{aspect-ratio:3/4}.thumb span{font-size:9px;letter-spacing:.04em;padding:5px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .c-reel .media{aspect-ratio:3/4}
 .bento > .c-proofs{grid-column:1/-1}
 .pr-left,.pr-right{display:flex;flex-direction:column;gap:16px;min-width:0}
@@ -324,6 +324,28 @@ p{margin:0}
 @keyframes sheen{from{background-position:0% 0}to{background-position:-200% 0}}
 .btn.accent,.btn.next{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 30px -12px rgba(255,150,0,.65)}
 .free strong{background-image:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* этапы */
+html{scroll-padding-top:176px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:6px;padding:6px;border-radius:14px;background:rgba(14,14,17,.72);border:1px solid var(--edge)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.steps{-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}}
+.stp{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 8px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:600 14px/1 var(--body);cursor:pointer;transition:background-color .2s,color .2s;overflow:hidden}
+.stp i{font:500 11px/1 var(--mono);font-style:normal;letter-spacing:.06em;color:var(--dim);padding:4px 5px;border-radius:6px;border:1px solid var(--edge2)}
+.stp.past{color:var(--soft)}
+.stp.past i{color:var(--accent);border-color:rgba(255,190,46,.5)}
+.stp.on{background:var(--grad);background-size:200% 100%;animation:sheen 5s linear infinite;color:#1A1000}
+.stp.on i{color:#1A1000;border-color:rgba(26,16,0,.35)}
+@media (hover:hover){.stp:not(.on):hover{background:var(--glass2);color:var(--ink)}}
+.stp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:420px){.stp{flex-direction:column;gap:4px;min-height:48px;font-size:12px}.stp i{padding:2px 4px;font-size:10px}}
+html.js .stage{display:none}
+html.js .stage.on{display:block;animation:stageIn .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes stageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.stage-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:clamp(16px,2vw,24px) clamp(18px,2.4vw,30px)}
+.sn-txt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.sn-txt b{font:600 clamp(17px,1.5vw,21px)/1.25 var(--display);letter-spacing:-.01em}
+.stage-nav .btns{justify-content:flex-end}
+@media (max-width:600px){.stage-nav .btns{width:100%}}
 
 /* неон и движение */
 @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
@@ -588,12 +610,19 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
       <div class="brand"><span class="mark">S</span><span><em>SABIZ</em><span class="full"> · ТОП-1 ХАСЛЕР СНГ</span></span></div>
       <div class="bar-r">
         <button type="button" class="snd on" id="snd" aria-pressed="true" aria-label="Звук нажатий"><span class="snd-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="snd-lbl">Звук</span></button>
-        <a class="bar-link" href="#consult">Записаться</a>
+        <a class="bar-link" href="#quiz" data-go="3">Записаться</a>
       </div>
     </div>
+    <nav class="steps" aria-label="Этапы">
+      <button type="button" class="stp on" data-go="1"><i>01</i><span>Автор</span></button>
+      <button type="button" class="stp" data-go="2"><i>02</i><span>Урок</span></button>
+      <button type="button" class="stp" data-go="3"><i>03</i><span>Запись</span></button>
+      <button type="button" class="stp" data-go="4"><i>04</i><span>Ответы</span></button>
+    </nav>
   </div>
 </div>
 
+<main class="stage on" data-stage="1" id="s1">
 <!-- 1. АВТОР -->
 <section class="sec hero" id="author">
   <div class="in bento">
@@ -620,38 +649,11 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
           <li><b>16 лет</b><span>Вышел на стабильные 700&nbsp;000&nbsp;₽ в&nbsp;месяц</span></li>
         </ul>
         <div class="btns">
-          <a class="btn accent" href="#lesson">Смотреть урок
+          <a class="btn accent" href="#lesson" data-go="2">Перейти к уроку
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-          <a class="btn" href="#consult">Записаться на консультацию</a>
+          <a class="btn" href="#consult" data-go="3">Записаться на консультацию</a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. ВИДЕОУРОК -->
-<section class="sec" id="lesson">
-  <div class="in bento">
-    <div class="cell c-video neon">
-      <div class="player" id="video-slot">
-        <span class="rec"><span class="live"><i></i></span>Урок</span>
-        <div class="inner">
-          <button type="button" class="play" aria-label="Смотреть урок"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></button>
-          <strong>Здесь будет видеоурок</strong>
-          <small>Место под плеер Kinescope, YouTube, VK Видео или Rutube</small>
-        </div>
-        <span class="dur">00:25:00</span>
-      </div>
-    </div>
-    <div class="cell c-chapters tilt">
-      <span class="label">Видеоурок · 25 минут</span>
-      <h2>Смотри до конца: в финале запись на консультацию</h2>
-      <ol class="chapters">
-        <li><time>00:00</time><span>Кто такой продюсер экспертов и сколько он зарабатывает</span></li>
-        <li><time>06:30</time><span>Где найти первого эксперта, если у тебя ноль кейсов</span></li>
-        <li><time>14:00</time><span>Разбор реального запуска с цифрами</span></li>
-        <li><time>21:00</time><span>План на первые 3 месяца и запись на консультацию</span></li>
-      </ol>
     </div>
   </div>
 </section>
@@ -680,6 +682,47 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
   </div>
 </section>
 
+<div class="sec"><div class="in"><div class="stage-nav cell">
+  <div class="sn-txt"><span class="label">Этап 1 из 4</span><b>Дальше — бесплатный видеоурок</b></div>
+  <div class="btns"><a class="btn accent" href="#lesson" data-go="2">Перейти к уроку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</div></div></div>
+</main>
+
+<main class="stage" data-stage="2" id="s2">
+<!-- 3. ВИДЕОУРОК -->
+<section class="sec" id="lesson">
+  <div class="in bento">
+    <div class="cell c-video neon">
+      <div class="player" id="video-slot">
+        <span class="rec"><span class="live"><i></i></span>Урок</span>
+        <div class="inner">
+          <button type="button" class="play" aria-label="Смотреть урок"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></button>
+          <strong>Здесь будет видеоурок</strong>
+          <small>Место под плеер Kinescope, YouTube, VK Видео или Rutube</small>
+        </div>
+        <span class="dur">00:25:00</span>
+      </div>
+    </div>
+    <div class="cell c-chapters tilt">
+      <span class="label">Видеоурок · 25 минут</span>
+      <h2>Смотри до конца: в финале запись на консультацию</h2>
+      <ol class="chapters">
+        <li><time>00:00</time><span>Кто такой продюсер экспертов и сколько он зарабатывает</span></li>
+        <li><time>06:30</time><span>Где найти первого эксперта, если у тебя ноль кейсов</span></li>
+        <li><time>14:00</time><span>Разбор реального запуска с цифрами</span></li>
+        <li><time>21:00</time><span>План на первые 3 месяца и запись на консультацию</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="sec"><div class="in"><div class="stage-nav cell">
+  <div class="sn-txt"><span class="label">Этап 2 из 4</span><b>Посмотрел урок? Переходи к записи на консультацию</b></div>
+  <div class="btns"><a class="btn" href="#author" data-go="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a><a class="btn" href="#consult" data-go="3">Записаться на консультацию</a><a class="btn accent" href="#consult" data-go="3">Посмотрел урок <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</div></div></div>
+</main>
+
+<main class="stage" data-stage="3" id="s3">
 <!-- 4. КОНСУЛЬТАЦИЯ + АНКЕТА -->
 <section class="sec" id="consult">
   <div class="in bento">
@@ -805,15 +848,22 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
   </div>
 </section>
 
+<div class="sec"><div class="in"><div class="stage-nav cell">
+  <div class="sn-txt"><span class="label">Этап 3 из 4</span><b>Остались сомнения? Ответы на частые вопросы</b></div>
+  <div class="btns"><a class="btn" href="#lesson" data-go="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a><a class="btn accent" href="#faq" data-go="4">Ответы на вопросы <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</div></div></div>
+</main>
+
+<main class="stage" data-stage="4" id="s4">
 <!-- 5. FAQ -->
-<section class="sec">
+<section class="sec" id="faq">
   <div class="in bento">
     <div class="cell c-faqhead tilt">
       <span class="label">Вопросы</span>
       <h2 class="h2">Частые вопросы</h2>
       <p class="lead">Не нашёл ответ? Задай его лично на консультации.</p>
       <div class="fq-photo"><img src="media/night.jpg" alt="Александр Сабиз на вечеринке" width="800" height="1067" loading="lazy" decoding="async"></div>
-      <div class="btns"><a class="btn accent" href="#consult">Записаться</a></div>
+      <div class="btns"><a class="btn accent" href="#quiz" data-go="3">Записаться на консультацию</a></div>
     </div>
     <div class="cell c-faq">
       <details class="faq-i"><summary>Консультация правда бесплатная?<span class="pl">+</span></summary><p>Да. 30 минут разбора твоей ситуации без оплаты и обязательств.</p></details>
@@ -823,6 +873,12 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
     </div>
   </div>
 </section>
+
+<div class="sec"><div class="in"><div class="stage-nav cell">
+  <div class="sn-txt"><span class="label">Этап 4 из 4</span><b>Готов? Места на бесплатные консультации ограничены</b></div>
+  <div class="btns"><a class="btn" href="#consult" data-go="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a><a class="btn accent" href="#quiz" data-go="3">Записаться на консультацию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+</div></div></div>
+</main>
 
 <div class="lb" id="lb" hidden><button type="button" class="lb-x" aria-label="Закрыть">×</button><img alt=""></div>
 
@@ -1101,6 +1157,51 @@ document.addEventListener("click", function(e){
   function close(){ if (!lb.hidden) { lb.hidden = true; sfx.play("close"); } }
   lb.addEventListener("click", close);
   document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
+})();
+
+/* ===== Этапы: переключение страниц ===== */
+var goStage = (function(){
+  var stages = document.querySelectorAll(".stage"), tabs = document.querySelectorAll(".stp"), cur = 1;
+  var names = { "1":"author", "2":"lesson", "3":"consult", "4":"faq" };
+  function stageOf(el){ while (el && !(typeof el.className === "string" && (" " + el.className + " ").indexOf(" stage ") > -1)) el = el.parentNode; return el ? +el.getAttribute("data-stage") : 0; }
+  function go(n, target, silent){
+    n = Math.max(1, Math.min(4, n|0));
+    for (var i = 0; i < stages.length; i++) {
+      var on = +stages[i].getAttribute("data-stage") === n;
+      stages[i].className = stages[i].className.replace(/\s*on\b/g, "") + (on ? " on" : "");
+    }
+    for (var k = 0; k < tabs.length; k++) {
+      var t = +tabs[k].getAttribute("data-go");
+      tabs[k].className = "stp" + (t === n ? " on" : (t < n ? " past" : ""));
+      if (t === n) tabs[k].setAttribute("aria-current", "step"); else tabs[k].removeAttribute("aria-current");
+    }
+    var changed = n !== cur; cur = n;
+    var el = target ? document.getElementById(target) : null;
+    if (el && stageOf(el) === n && target !== names[n]) {
+      setTimeout(function(){ el.scrollIntoView({ behavior: changed ? "auto" : "smooth", block: "start" }); }, changed ? 30 : 0);
+    } else if (changed) window.scrollTo(0, 0);
+    if (changed && !silent) {
+      sfx.play("next");
+      try { if (location.hash !== "#" + names[n]) history.pushState(null, "", "#" + names[n]); } catch(e) {}
+    }
+  }
+  document.addEventListener("click", function(e){
+    var a = e.target.closest ? e.target.closest("[data-go]") : null;
+    if (!a) return;
+    e.preventDefault();
+    var href = a.getAttribute("href") || "", id = href.charAt(0) === "#" ? href.slice(1) : "";
+    go(+a.getAttribute("data-go"), id);
+  });
+  function fromHash(silent){
+    var h = (location.hash || "").slice(1);
+    for (var n in names) if (names[n] === h) { go(+n, null, silent); return; }
+    var el = h ? document.getElementById(h) : null;
+    if (el) go(stageOf(el) || 1, h, silent);
+  }
+  window.addEventListener("hashchange", function(){ fromHash(true); });
+  window.addEventListener("popstate", function(){ fromHash(true); if (!location.hash) go(1, null, true); });
+  fromHash(true);
+  return go;
 })();
 
 /* ===== Анкета ===== */
