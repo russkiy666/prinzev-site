@@ -224,7 +224,7 @@ p{margin:0}
 .c-cash .media img{object-position:50% 55%}
 .media::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,7,.35),transparent 22%,transparent 70%,rgba(5,5,7,.55))}
 .media-tag{position:absolute;z-index:1;left:12px;top:12px;display:inline-flex;gap:7px;align-items:center;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#fff;padding:8px 10px;border-radius:9px;background:rgba(5,5,7,.45);border:1px solid rgba(255,255,255,.14)}
-@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.media-tag,.reel-snd{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.media-tag:not(.au-reel .media-tag){-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}}
 .reel-snd{position:absolute;z-index:1;right:12px;bottom:12px;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(5,5,7,.45);color:#fff;display:grid;place-items:center;cursor:pointer}
 .reel-snd svg{width:20px;height:20px}
 .reel-snd .on,.reel-snd[aria-pressed="true"] .off{display:none}
@@ -266,7 +266,7 @@ p{margin:0}
   border:1px solid rgba(255,255,255,.28);box-shadow:0 0 0 1px rgba(255,190,46,.5),0 0 34px -6px rgba(255,190,46,.8),0 20px 40px -12px rgba(0,0,0,.8)}
 .au-reel::before{content:"";display:block;padding-top:177.78%}
 .au-reel{background:#111 url(media/reel.jpg) center/cover no-repeat}
-.au-reel video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;background:transparent;transform:translateZ(0)}
+.au-reel video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;background:transparent}
 .au-reel .play-ov{position:absolute;inset:0;z-index:1;display:grid;place-items:center;border:0;padding:0;background:rgba(5,5,7,.25);color:#fff;cursor:pointer}
 .au-reel .play-ov span{width:44px;height:44px;border-radius:50%;background:var(--grad);color:#1A1000;display:grid;place-items:center;box-shadow:0 0 24px rgba(255,190,46,.8)}
 .au-reel .play-ov svg{width:16px;height:16px;margin-left:3px;fill:currentColor}
@@ -668,6 +668,61 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
   .c-author{padding:8px}
   .au-photo{border-radius:20px}
 }
+
+/* ===== Неон и анимации (золото) ===== */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+.c-author,.c-video,.c-quiz,.c-proofs,.stage-nav{position:relative}
+.c-author::after,.c-video::after,.c-quiz::after,.c-proofs::after,.stage-nav::after{content:"";display:block;position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:3;
+  background:conic-gradient(from var(--ang),transparent 0 58%,rgba(255,170,0,.0) 60%,#FF9A12 70%,#FFE9A6 76%,#FFBE2E 82%,transparent 92% 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:ring 5s linear infinite}
+.c-video::after{animation-duration:7s;animation-direction:reverse}
+.c-quiz::after{animation-duration:6s}
+.stage-nav::after{animation-duration:4s}
+@keyframes ring{to{--ang:360deg}}
+.c-author,.c-quiz{box-shadow:inset 0 .5px 0 rgba(255,255,255,.08),0 0 0 .5px rgba(255,190,46,.25),0 0 60px -20px rgba(255,160,20,.55)}
+/* кнопки: блик + неоновый пульс */
+.btn.accent,.btn.next{animation:sheen 5s linear infinite,neonBtn 2.6s ease-in-out infinite}
+@keyframes neonBtn{0%,100%{box-shadow:0 0 0 0 rgba(255,170,0,0),0 8px 24px -14px rgba(255,150,0,.6)}50%{box-shadow:0 0 18px 2px rgba(255,180,30,.45),0 0 42px -4px rgba(255,140,0,.45)}}
+/* выбранный этап — неоновая подсветка */
+.stp.on{box-shadow:0 3px 8px rgba(0,0,0,.35),0 0 0 .5px rgba(255,190,46,.6),0 0 18px -2px rgba(255,170,20,.6);animation:segGlow 2.4s ease-in-out infinite}
+@keyframes segGlow{50%{box-shadow:0 3px 8px rgba(0,0,0,.35),0 0 0 .5px rgba(255,210,90,.9),0 0 26px 0 rgba(255,170,20,.75)}}
+.stp.on i{text-shadow:0 0 10px rgba(255,190,46,.9)}
+/* имя светится */
+.hero h1 em{animation:sheen 5s linear infinite,nameGlow 3s ease-in-out infinite}
+@keyframes nameGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,170,0,.35))}50%{filter:drop-shadow(0 0 22px rgba(255,190,46,.75))}}
+/* иконки регалий мерцают по очереди */
+.regalia .ic{animation:icGlow 3s ease-in-out infinite}
+.regalia li:nth-child(2) .ic{animation-delay:.5s}.regalia li:nth-child(3) .ic{animation-delay:1s}
+@keyframes icGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,170,0,0)}50%{box-shadow:0 0 16px 2px rgba(255,180,30,.6)}}
+/* цифры пруфов пульсируют светом */
+.pr-nums b{animation:sheen 5s linear infinite,nameGlow 3.4s ease-in-out infinite}
+/* карточки въезжают по очереди при смене этапа */
+.stage.on .cell{animation:cellIn .6s cubic-bezier(.2,.8,.2,1) both}
+.stage.on .sec:nth-of-type(2) .cell{animation-delay:.08s}
+.stage.on .sec:nth-of-type(3) .cell{animation-delay:.16s}
+.stage.on .bento > .cell:nth-child(2){animation-delay:.1s}
+.stage.on .bento > .cell:nth-child(3){animation-delay:.2s}
+.stage.on .bento > .cell:nth-child(4){animation-delay:.3s}
+@keyframes cellIn{from{opacity:0;transform:translateY(22px) scale(.985)}to{opacity:1;transform:none}}
+/* световая волна по фото автора */
+.au-photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,230,160,.18) 48%,transparent 60%);background-size:250% 100%;animation:sweep 6s ease-in-out infinite}
+@keyframes sweep{0%{background-position:130% 0}60%,100%{background-position:-60% 0}}
+.au-photo{box-shadow:0 0 0 1px rgba(255,190,46,.45),0 0 40px -10px rgba(255,160,20,.6)}
+/* рамка Reels — неоновое дыхание */
+.au-reel{animation:reelGlow 2.8s ease-in-out infinite}
+@keyframes reelGlow{0%,100%{box-shadow:0 0 0 1px rgba(255,190,46,.6),0 0 22px -6px rgba(255,160,20,.7),0 20px 40px -12px rgba(0,0,0,.8)}50%{box-shadow:0 0 0 1.5px rgba(255,215,100,.95),0 0 36px -2px rgba(255,170,20,.9),0 20px 40px -12px rgba(0,0,0,.8)}}
+/* живой индикатор — золотой */
+.live i{background:#FFC23D;box-shadow:0 0 0 0 rgba(255,194,61,.6);animation:pulseG 1.8s infinite}
+@keyframes pulseG{70%{box-shadow:0 0 0 9px rgba(255,194,61,0)}100%{box-shadow:0 0 0 0 rgba(255,194,61,0)}}
+/* прогресс анкеты светится */
+.progress i.cur{background:#FFD066;box-shadow:0 0 12px rgba(255,190,46,.9)}
+.progress i.on{background:#FFBE2E}
+/* выбранный ответ — неон */
+.opt input:checked + .rad::before,.emo input:checked ~ .l::before{border-color:rgba(255,190,46,.9);background:rgba(255,190,46,.10);box-shadow:0 0 18px -4px rgba(255,170,20,.7),inset 0 0 12px -6px rgba(255,190,46,.6)}
+.opt input:checked + .rad{border-color:#FFC23D;box-shadow:0 0 10px rgba(255,190,46,.8)}
+.opt .rad::after{background:#FFC23D}
+@media (prefers-reduced-motion:reduce){.c-author::after,.c-video::after,.c-quiz::after,.c-proofs::after,.stage-nav::after,.au-photo::before{animation:none}}
 </style>
 
 <div class="loader" id="ld" aria-hidden="true">
@@ -1068,7 +1123,9 @@ var sfx = (function(){
     try { ready(); S[n](); } catch(e) {}
   }
   function set(v){ enabled = v; try { localStorage.setItem("sab-snd", v ? "on" : "off"); } catch(e) {} }
-  return { play: play, set: set, on: function(){ return enabled; }, ok: !!AC };
+  var hold = false;
+  function pause(on){ hold = on; try { if (ctx) { if (on) ctx.suspend(); else ctx.resume(); } } catch(e) {} }
+  return { play: function(n, f){ if (!hold) play(n, f); }, set: set, on: function(){ return enabled; }, ok: !!AC, pause: pause };
 })();
 
 /* ===== Визуальный отклик на тап (волна) ===== */
@@ -1211,7 +1268,7 @@ document.addEventListener("click", function(e){
     wantPlay = true;
     var pr = v.play();
     if (pr && pr.catch) pr.catch(function(){
-      if (!v.muted) { v.muted = true; paintSnd(); var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){ setPlaying(false); }); }
+      if (!v.muted) { v.muted = true; sfx.pause && sfx.pause(false); paintSnd(); var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){ setPlaying(false); }); }
       else setPlaying(false);
     });
   }
@@ -1223,7 +1280,7 @@ document.addEventListener("click", function(e){
     new IntersectionObserver(function(es){
       for (var i = 0; i < es.length; i++) {
         if (es[i].isIntersecting) tryPlay();
-        else if (!v.paused) { wantPlay = false; v.pause(); }
+        else if (!v.paused) { wantPlay = false; v.pause(); if (!v.muted) { v.muted = true; sfx.pause && sfx.pause(false); paintSnd(); } }
       }
     }, { threshold: .2 }).observe(box);
   } else tryPlay();
@@ -1231,6 +1288,7 @@ document.addEventListener("click", function(e){
   b.addEventListener("click", function(e){
     e.stopPropagation();
     v.muted = !v.muted;
+    sfx.pause && sfx.pause(!v.muted);
     paintSnd();
     if (v.paused) tryPlay();
   });
