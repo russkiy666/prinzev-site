@@ -241,6 +241,19 @@ p{margin:0}
   .c-reel .media,.c-cash .media,.c-shot .media{aspect-ratio:3/4}
 }
 
+/* регалии */
+.c-regalia b small{font:500 .45em/1 var(--body);letter-spacing:0;color:var(--muted)}
+.c-regalia .st.hl b small{-webkit-text-fill-color:var(--muted)}
+.c-regalia span{font-size:15px;color:var(--soft)}
+
+/* галерея */
+.c-gallery{display:flex;flex-direction:column;gap:clamp(16px,2vw,24px);padding:clamp(16px,2vw,26px)}
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:clamp(4px,1vw,10px) clamp(4px,1vw,10px) 0}
+.gal-title{display:flex;flex-direction:column;gap:10px}
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gal .media{margin:0;aspect-ratio:3/4;flex:none}
+@media (max-width:760px){.gal{grid-template-columns:repeat(2,minmax(0,1fr))}.gal-head .btn{width:100%}}
+
 /* пруфы */
 .c-ptext{display:flex;flex-direction:column;gap:16px}
 .pnums{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
@@ -495,7 +508,26 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
   </div>
 </header>
 
-<!-- 2. ВИДЕОУРОК -->
+<!-- 2. ОБ АВТОРЕ -->
+<section class="sec" id="author">
+  <div class="in bento">
+    <div class="cell c-photo">
+      <div class="photo has-img"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="cell c-about tilt">
+      <span class="label">Автор урока</span>
+      <h2>Александр Сабиз</h2>
+      <p class="lead">Продюсер экспертов и блогеров. Веду запуски под ключ: от упаковки продукта до продаж. На уроке показываю путь, который прошёл сам.</p>
+    </div>
+    <div class="cell c-stats c-regalia">
+      <div class="st"><b>14<small> лет</small></b><span>Первый миллион рублей</span></div>
+      <div class="st"><b>15<small> лет</small></b><span>Один переехал в Москву</span></div>
+      <div class="st hl"><b>16<small> лет</small></b><span>Стабильные 700 тыс. ₽ в месяц</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ВИДЕОУРОК -->
 <section class="sec" id="lesson">
   <div class="in bento">
     <div class="cell c-video">
@@ -522,60 +554,28 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
   </div>
 </section>
 
-<!-- 3. ОБО МНЕ -->
-<section class="sec">
-  <div class="in bento">
-    <div class="cell c-photo">
-      <div class="photo has-img"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" loading="lazy" decoding="async"></div>
-    </div>
-    <div class="cell c-about tilt">
-      <span class="label">Кто ведёт урок</span>
-      <h2>Александр Сабиз</h2>
-      <p class="lead">Продюсер экспертов и блогеров. Сам начинал с нуля, а сейчас веду запуски под ключ: от упаковки продукта до продаж. На уроке показываю путь, который прошёл сам.</p>
-    </div>
-    <div class="cell c-stats">
-      <div class="st"><b>00</b><span>запусков проведено</span></div>
-      <div class="st hl"><b>00 млн ₽</b><span>выручки у клиентов</span></div>
-      <div class="st"><b>00</b><span>учеников начали зарабатывать</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- 3.5 РЕЗУЛЬТАТ -->
+<!-- 4. ЛАЙФСТАЙЛ -->
 <section class="sec" id="life">
   <div class="in bento">
-    <div class="cell c-life tilt">
-      <span class="label">Результат</span>
-      <h2 class="h2">Так выглядит доход продюсера</h2>
-      <p class="lead">Свой график, свои деньги и никакого офиса. На уроке показываю, с чего начинал сам и как к этому прийти тебе.</p>
-      <div class="life-tags"><span>Без вложений</span><span>Удалённо</span><span>Процент с запусков</span></div>
-      <div class="btns"><a class="btn accent" href="#consult">Хочу так же
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-    </div>
-    <div class="cell c-reel">
-      <div class="media">
-        <video id="reel" src="media/reel.mp4" poster="media/reel.jpg" muted loop playsinline preload="metadata" aria-label="Видео SABIZ"></video>
-        <span class="media-tag"><span class="live"><i></i></span>Reels</span>
-        <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
+    <div class="cell c-gallery">
+      <div class="gal-head">
+        <div class="gal-title"><span class="label">Лайфстайл</span><h2 class="h2">Как я живу сейчас</h2></div>
+        <a class="btn accent" href="#consult">Хочу так же
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="gal">
+        <figure class="media">
+          <video id="reel" src="media/reel.mp4" poster="media/reel.jpg" muted loop playsinline preload="metadata" aria-label="Видео SABIZ"></video>
+          <span class="media-tag"><span class="live"><i></i></span>Reels</span>
+          <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
           <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
           <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
         </button>
+        </figure>
+        <figure class="media"><img src="media/city.jpg" alt="Александр Сабиз на балконе в центре Москвы" width="800" height="998" loading="lazy" decoding="async"><span class="media-tag">Москва</span></figure>
+        <figure class="media"><img src="media/cash.jpg" alt="Пачка купюр по 5000 ₽ на руке" width="720" height="1273" loading="lazy" decoding="async" style="object-position:50% 55%"><span class="media-tag">Кэш</span></figure>
+        <figure class="media"><img src="media/night.jpg" alt="Александр Сабиз на вечеринке" width="800" height="1067" loading="lazy" decoding="async" style="object-position:62% 40%"><span class="media-tag">Вечер</span></figure>
       </div>
-    </div>
-    <div class="cell c-cash">
-      <div class="media"><img src="media/cash.jpg" alt="Пачка купюр по 5000 ₽ на руке" width="720" height="1273" loading="lazy" decoding="async"><span class="media-tag">Кэш</span></div>
-    </div>
-    <div class="cell c-shot">
-      <div class="media"><img src="media/city.jpg" alt="Александр Сабиз на балконе в центре Москвы" width="800" height="998" loading="lazy" decoding="async"><span class="media-tag">Москва</span></div>
-    </div>
-    <div class="cell c-quote tilt">
-      <span class="label">Лайфстайл</span>
-      <p class="quote">Это моя обычная жизнь, а не картинка для рекламы. Начинал с нуля — так же, как ты сейчас.</p>
-      <div class="sign"><span class="mark">S</span><span><b>Александр Сабиз</b><small>продюсер экспертов</small></span></div>
-      <div class="btns"><a class="btn" href="#lesson">Смотреть урок</a></div>
-    </div>
-    <div class="cell c-shot">
-      <div class="media"><img src="media/night.jpg" alt="Александр Сабиз на вечеринке" width="800" height="1067" loading="lazy" decoding="async" style="object-position:62% 40%"><span class="media-tag">Вечер</span></div>
     </div>
   </div>
 </section>
