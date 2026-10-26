@@ -215,9 +215,80 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 .loader.gate .ld-enter{opacity:1;transform:none;pointer-events:auto}
 .loader.gate .ld-hint{opacity:1}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tt-d,.lw-line{stroke-dashoffset:0}.lw{fill-opacity:1;stroke-dashoffset:0}}
+
+/* ===== Эффекты: стекло, неон, звёзды, 3D — в бело-синем ===== */
+@property --h{syntax:'<length>';inherits:true;initial-value:0px}
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+body{background:#EEF3FB}
+.orbs{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.orbs i{position:absolute;width:70vmax;height:70vmax;border-radius:50%}
+.orbs .o1{left:-25vmax;top:-30vmax;background:radial-gradient(circle,rgba(29,92,255,.28),transparent 60%);animation:d1 26s ease-in-out infinite alternate}
+.orbs .o2{right:-30vmax;top:20vh;background:radial-gradient(circle,rgba(56,189,248,.24),transparent 60%);animation:d2 32s ease-in-out infinite alternate}
+.orbs .o3{left:10vw;bottom:-40vmax;background:radial-gradient(circle,rgba(99,102,241,.18),transparent 60%);animation:d3 36s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(12vw,10vh)}}@keyframes d2{to{transform:translate(-12vw,14vh)}}@keyframes d3{to{transform:translate(10vw,-12vh)}}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+/* стекло */
+.card{position:relative;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.85);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 10px 30px -12px rgba(29,60,140,.18)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.card{-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%)}}
+.facts,.nums div,.opt,.emo,.field input,.btn:not(.primary):not(.next){background:rgba(255,255,255,.7);box-shadow:0 0 0 1px rgba(29,92,255,.08) inset}
+.bar{background:rgba(238,243,251,.55)}
+.steps{background:rgba(255,255,255,.5);box-shadow:0 0 0 1px rgba(255,255,255,.8) inset}
+/* неон: бегущая синяя обводка */
+.neon::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:2px;pointer-events:none;z-index:3;
+  background:conic-gradient(from var(--ang),transparent 0 60%,#1D5CFF 72%,#38BDF8 80%,transparent 90% 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  animation:ring 5s linear infinite}
+@keyframes ring{to{--ang:360deg}}
+.neon{box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(29,92,255,.12),0 16px 40px -16px rgba(29,92,255,.45)}
+.btn.primary,.btn.next,.ld-enter{background:linear-gradient(110deg,#1D5CFF,#3B82F6 50%,#1D5CFF);background-size:200% 100%;animation:sheen 5s linear infinite;box-shadow:0 0 0 1px rgba(255,255,255,.25) inset,0 8px 24px -8px rgba(29,92,255,.65)}
+@keyframes sheen{from{background-position:0 0}to{background-position:-200% 0}}
+.stp.on{box-shadow:0 1px 3px rgba(15,30,60,.12),0 0 0 1px rgba(29,92,255,.25),0 0 16px -4px rgba(29,92,255,.55)}
+.au-reel{box-shadow:0 0 0 2px #fff,0 0 22px -2px rgba(29,92,255,.6)}
+.rs-btn{box-shadow:0 0 0 6px rgba(255,255,255,.35),0 0 24px rgba(29,92,255,.6)}
+.nums b{text-shadow:0 0 18px rgba(29,92,255,.25)}
+.opt input:checked + .rad::before,.emo input:checked ~ .l::before{box-shadow:0 0 16px -4px rgba(29,92,255,.6)}
+/* 3D-график */
+.goal{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.iso-wrap{height:200px;display:grid;place-items:center}
+.iso{position:relative;width:260px;height:66px;transform:rotateX(58deg) rotateZ(-36deg) scale(.92);transform-style:preserve-3d;margin-top:96px;
+  background-image:linear-gradient(rgba(29,92,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(29,92,255,.12) 1px,transparent 1px);background-size:13px 13px;border:1px solid rgba(29,92,255,.18);border-radius:4px}
+.b3{position:absolute;top:11px;left:calc(var(--i) * 62px + 11px);width:44px;height:44px;transform-style:preserve-3d;--h:0px;transition:--h 1.3s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i) * .16s)}
+.iso.grow .b3{--h:var(--t)}
+.b3 .f{position:absolute;border:1px solid rgba(29,92,255,.45);background:rgba(29,92,255,.12)}
+.b3 .t{inset:0;transform:translateZ(var(--h));background:rgba(59,130,246,.45);border-color:rgba(29,92,255,.7)}
+.b3 .y0,.b3 .y1{left:0;width:100%;height:var(--h);transform-origin:top;transform:rotateX(90deg)}
+.b3 .y0{top:0}.b3 .y1{top:100%}
+.b3 .x0,.b3 .x1{top:0;height:100%;width:var(--h);transform-origin:left;transform:rotateY(-90deg)}
+.b3 .x0{left:0}.b3 .x1{left:100%}
+.b3.hi .f{border-color:rgba(14,165,233,.6);background:rgba(56,189,248,.18)}
+.b3.hi .t{background:rgba(56,189,248,.6);border-color:rgba(14,165,233,.9);box-shadow:0 0 24px rgba(56,189,248,.7)}
+.iso-legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.iso-legend span{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.iso-legend b{font-size:16px;color:var(--ink)}
+.iso-legend .hi b{color:var(--blue)}
+/* интро: синие точки */
+.ld-fx{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.loader > *:not(.ld-fx){position:relative;z-index:1}
+.loader{background:radial-gradient(70vw 55vh at 50% 42%,rgba(29,92,255,.08),transparent 65%),#fff}
+.tt-ink{filter:drop-shadow(0 0 8px rgba(29,92,255,.45))}
+/* телефон: экономим ресурсы */
+@media (hover:none),(max-width:760px){
+  .orbs i{animation:none}
+  .neon::after{animation:none;background:linear-gradient(135deg,#1D5CFF,rgba(56,189,248,.2) 35%,transparent 55%,rgba(56,189,248,.25) 75%,#38BDF8)}
+  .btn.primary,.btn.next,.ld-enter{animation:none}
+  /* размытие на телефоне сильно садит FPS — делаем «стекло» полупрозрачной заливкой с бликом */
+  .card,.bar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  .card{background:linear-gradient(160deg,rgba(255,255,255,.9),rgba(255,255,255,.74))}
+  .bar{background:rgba(238,243,251,.94)}
+}
+@media (prefers-reduced-motion:reduce){.neon::after,.orbs i{animation:none}.iso .b3{--h:var(--t)}}
 </style>
 
+<div class="orbs" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+
 <div class="loader" id="ld" aria-hidden="true">
+  <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
   <svg class="tt" viewBox="60 110 435 900" aria-hidden="true"><g class="tt-track"><path d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
   <svg class="ld-words" viewBox="0 0 640 200" role="img" aria-label="SABIZ — ТОП-1 ХАСЛЕР СНГ">
     <text class="lw lw-name" x="327" y="100" text-anchor="middle">SABIZ</text>
@@ -242,7 +313,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 <!-- ЭТАП 1. АВТОР -->
 <main class="stage on" data-stage="1" id="s1">
   <div class="wrap stack">
-    <section class="card author" id="author">
+    <section class="card author neon" id="author">
       <div class="au-photo">
         <img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" decoding="async" fetchpriority="high">
         <div class="au-reel" id="reel-box">
@@ -323,9 +394,19 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
         <li>Посчитаем, как выйти на твою цель по доходу за 3 месяца</li>
         <li>Дам план из 3 шагов на эту неделю</li>
       </ul>
+      <div class="goal">
+        <span class="label">Твоя цель на 3 месяца</span>
+        <div class="iso-wrap" aria-hidden="true"><div class="iso" id="iso">
+          <div class="b3" style="--i:0;--t:10px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
+          <div class="b3" style="--i:1;--t:42px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
+          <div class="b3" style="--i:2;--t:88px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
+          <div class="b3 hi" style="--i:3;--t:150px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
+        </div></div>
+        <div class="iso-legend"><span>Старт<b>0 ₽</b></span><span>1 мес<b>50к</b></span><span>2 мес<b>150к</b></span><span class="hi">3 мес<b>300к</b></span></div>
+      </div>
     </section>
 
-    <section class="card c-quiz" id="quiz">
+    <section class="card c-quiz neon" id="quiz">
       <div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
       <fieldset class="step" data-step="1">
@@ -754,6 +835,81 @@ var goStage = (function(){
 
   show(0, false);
   quiz.className += " ready";
+})();
+
+/* ===== Синие звёзды-точки на фоне: на телефоне рисуются один раз ===== */
+(function(){
+  var c = document.getElementById("stars"); if (!c || !c.getContext) return;
+  var x = c.getContext("2d"), W, H, st = [], timer = 0, still = false;
+  try { still = matchMedia("(prefers-reduced-motion: reduce)").matches || matchMedia("(hover: none)").matches; } catch(e) {}
+  function size(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = c.clientWidth; H = c.clientHeight; c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.min(W < 760 ? 50 : 120, Math.round(W * H / 10000)); st = [];
+    for (var i = 0; i < n; i++) st.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.4 + .6, p: Math.random() * 6.28, s: Math.random() * .05 + .02, c: Math.random() < .5 ? "29,92,255" : "56,189,248" });
+  }
+  function draw(step){
+    x.clearRect(0, 0, W, H);
+    for (var i = 0; i < st.length; i++) { var q = st[i]; if (step) q.p += q.s;
+      x.globalAlpha = still ? .35 : .15 + .35 * Math.abs(Math.sin(q.p)); x.fillStyle = "rgb(" + q.c + ")";
+      x.beginPath(); x.arc(q.x, q.y, q.r, 0, 6.283); x.fill(); }
+    x.globalAlpha = 1;
+  }
+  function loop(){ clearTimeout(timer); if (document.hidden || still) return; draw(true); timer = setTimeout(loop, 60); }
+  size(); draw(false); loop();
+  document.addEventListener("visibilitychange", loop);
+  var t; window.addEventListener("resize", function(){ clearTimeout(t); t = setTimeout(function(){ size(); draw(false); loop(); }, 200); });
+})();
+
+/* ===== Интро: синие точки плывут и соединяются линиями ===== */
+(function(){
+  var c = document.getElementById("ldfx"), ld = document.getElementById("ld");
+  if (!c || !c.getContext || !ld || /\bno-ld\b/.test(document.documentElement.className)) return;
+  var x = c.getContext("2d"), W, H, P = [], run = true, mob = false, raf = 0, last = 0;
+  var COLORS = ["29,92,255", "56,189,248", "99,102,241"], SPR = [];
+  for (var ci = 0; ci < COLORS.length; ci++) {
+    var sc = document.createElement("canvas"); sc.width = sc.height = 32;
+    var g = sc.getContext("2d"), gr = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gr.addColorStop(0, "rgba(" + COLORS[ci] + ",1)"); gr.addColorStop(.2, "rgba(" + COLORS[ci] + ",.9)");
+    gr.addColorStop(.45, "rgba(" + COLORS[ci] + ",.2)"); gr.addColorStop(1, "rgba(" + COLORS[ci] + ",0)");
+    g.fillStyle = gr; g.fillRect(0, 0, 32, 32); SPR.push(sc);
+  }
+  function size(){
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = c.clientWidth; H = c.clientHeight; mob = W < 760;
+    c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = mob ? 30 : 60; P = [];
+    for (var i = 0; i < n; i++) { var an = Math.random() * 6.283, sp = .15 + Math.random() * .3;
+      P.push({ x: Math.random() * W, y: Math.random() * H, vx: Math.cos(an) * sp, vy: Math.sin(an) * sp, s: 6 + Math.random() * 9, ph: Math.random() * 6.283, tw: .015 + Math.random() * .02, k: (Math.random() * 3) | 0 }); }
+  }
+  function frame(t){
+    if (!run) return; raf = requestAnimationFrame(frame);
+    var dt = last ? Math.min(3, (t - last) / 16.7) : 1; last = t;
+    x.clearRect(0, 0, W, H);
+    var L = mob ? 85 : 120, L2 = L * L, i, j, p, q;
+    for (i = 0; i < P.length; i++) { p = P[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.ph += p.tw * dt;
+      if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12; if (p.y < -12) p.y = H + 12; else if (p.y > H + 12) p.y = -12; }
+    var near = new Path2D(), far = new Path2D();
+    for (i = 0; i < P.length; i++) for (j = i + 1; j < P.length; j++) { p = P[i]; q = P[j];
+      var dx = p.x - q.x; if (dx > L || dx < -L) continue; var dy = p.y - q.y; if (dy > L || dy < -L) continue;
+      var d2 = dx * dx + dy * dy; if (d2 > L2) continue; var path = d2 < L2 * .35 ? near : far; path.moveTo(p.x, p.y); path.lineTo(q.x, q.y); }
+    x.lineWidth = .7; x.strokeStyle = "rgba(29,92,255,.08)"; x.stroke(far); x.strokeStyle = "rgba(29,92,255,.18)"; x.stroke(near);
+    for (i = 0; i < P.length; i++) { p = P[i]; x.globalAlpha = .45 + .55 * Math.abs(Math.sin(p.ph)); x.drawImage(SPR[p.k], p.x - p.s / 2, p.y - p.s / 2, p.s, p.s); }
+    x.globalAlpha = 1;
+  }
+  size(); raf = requestAnimationFrame(frame);
+  window.addEventListener("resize", size);
+  document.addEventListener("visibilitychange", function(){ if (document.hidden) { cancelAnimationFrame(raf); last = 0; } else if (run) raf = requestAnimationFrame(frame); });
+  new MutationObserver(function(){ if (/\bdone\b/.test(ld.className)) { run = false; cancelAnimationFrame(raf); c.width = c.height = 0; } }).observe(ld, { attributes: true, attributeFilter: ["class"] });
+})();
+
+/* ===== 3D-график растёт, когда виден ===== */
+(function(){
+  var iso = document.getElementById("iso"); if (!iso) return;
+  function grow(){ if (iso.className.indexOf("grow") < 0) iso.className += " grow"; }
+  if (!("IntersectionObserver" in window)) { grow(); return; }
+  var io = new IntersectionObserver(function(es){ for (var i = 0; i < es.length; i++) if (es[i].isIntersecting) { setTimeout(grow, 250); io.disconnect(); } }, { threshold: .4 });
+  io.observe(iso);
 })();
 </script>
 
