@@ -723,9 +723,15 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
 .opt input:checked + .rad{border-color:#FFC23D;box-shadow:0 0 10px rgba(255,190,46,.8)}
 .opt .rad::after{background:#FFC23D}
 @media (prefers-reduced-motion:reduce){.c-author::after,.c-video::after,.c-quiz::after,.c-proofs::after,.stage-nav::after,.au-photo::before{animation:none}}
+
+/* интро: плавающие золотые точки */
+.loader{background:radial-gradient(70vw 55vh at 50% 42%,rgba(255,170,20,.16),transparent 65%),#030304!important}
+.ld-fx{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.loader > *:not(.ld-fx){position:relative;z-index:1}
 </style>
 
 <div class="loader" id="ld" aria-hidden="true">
+  <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
   <svg class="tt" viewBox="60 110 435 900" aria-hidden="true"><defs><linearGradient id="ldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F08A00"/><stop offset=".55" stop-color="#FFD066"/><stop offset="1" stop-color="#FFF1C4"/></linearGradient></defs><g class="tt-track"><path d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
   <svg class="ld-words" viewBox="0 0 640 210" role="img" aria-label="SABIZ — ТОП-1 ХАСЛЕР СНГ">
     <defs>
@@ -739,6 +745,63 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
   <button type="button" class="ld-enter" tabindex="-1">Смотреть урок <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
   <span class="ld-hint"><i aria-hidden="true"><b></b><b></b><b></b></i>со звуком</span>
 </div>
+<script>
+/* ===== Интро: золотые точки плавно плывут по экрану и соединяются тонкими линиями ===== */
+(function(){
+  var c = document.getElementById("ldfx"), ld = document.getElementById("ld");
+  if (!c || !c.getContext || !ld || /\bno-ld\b/.test(document.documentElement.className)) return;
+  var x = c.getContext("2d"), W, H, dpr, P = [], run = true, calm = false, mx = -999, my = -999;
+  try { calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e) {}
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = c.clientWidth; H = c.clientHeight; c.width = W * dpr; c.height = H * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = W < 760 ? 46 : 90; P = [];
+    for (var i = 0; i < n; i++) {
+      var a = Math.random() * 6.283, sp = .12 + Math.random() * .32;
+      P.push({ x: Math.random() * W, y: Math.random() * H, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+               r: .8 + Math.random() * 2.2, ph: Math.random() * 6.283, tw: .01 + Math.random() * .02,
+               c: Math.random() < .25 ? "255,233,166" : (Math.random() < .5 ? "255,190,46" : "255,154,18") });
+    }
+  }
+  var link = 0;
+  function frame(){
+    if (!run) return;
+    x.clearRect(0, 0, W, H);
+    link = W < 760 ? 90 : 130;
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i];
+      p.x += p.vx; p.y += p.vy; p.ph += p.tw;
+      if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
+      if (p.y < -10) p.y = H + 10; else if (p.y > H + 10) p.y = -10;
+      /* лёгкое отталкивание от пальца/курсора */
+      var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+      if (d2 < 9000) { p.x += dx * .02; p.y += dy * .02; }
+    }
+    x.lineWidth = .6;
+    for (var a = 0; a < P.length; a++) for (var b = a + 1; b < P.length; b++) {
+      var ex = P[a].x - P[b].x, ey = P[a].y - P[b].y, dd = ex * ex + ey * ey;
+      if (dd < link * link) {
+        x.strokeStyle = "rgba(255,190,46," + (0.16 * (1 - Math.sqrt(dd) / link)).toFixed(3) + ")";
+        x.beginPath(); x.moveTo(P[a].x, P[a].y); x.lineTo(P[b].x, P[b].y); x.stroke();
+      }
+    }
+    for (var k = 0; k < P.length; k++) {
+      var q = P[k], al = .45 + .55 * Math.abs(Math.sin(q.ph));
+      x.shadowBlur = 10; x.shadowColor = "rgba(" + q.c + ",.9)";
+      x.fillStyle = "rgba(" + q.c + "," + al.toFixed(2) + ")";
+      x.beginPath(); x.arc(q.x, q.y, q.r, 0, 6.283); x.fill();
+    }
+    x.shadowBlur = 0;
+    if (!calm) requestAnimationFrame(frame);
+  }
+  ld.addEventListener("pointermove", function(e){ mx = e.clientX; my = e.clientY; }, { passive: true });
+  size(); frame();
+  window.addEventListener("resize", size);
+  /* остановить, когда интро закрыто */
+  new MutationObserver(function(){ if (/\bdone\b/.test(ld.className) || !document.body.contains(ld)) run = false; })
+    .observe(ld, { attributes: true, attributeFilter: ["class"] });
+})();
+</script>
 <canvas id="stars" aria-hidden="true"></canvas>
 <div class="orbs" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
 
