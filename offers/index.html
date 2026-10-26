@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Финансовый каталог</title>
+<meta name="description" content="30 финансовых предложений с выплатой до 2 550 ₽ за оформление: займы, карты и счета для бизнеса. Выберите вариант и уточните условия у менеджера в Telegram.">
+<meta name="theme-color" content="#0B0C0A">
+<meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Финансовый каталог">
+<meta property="og:title" content="Финансовый каталог">
+<meta property="og:description" content="30 финансовых предложений с выплатой до 2 550 ₽ за оформление: займы, карты и счета для бизнеса. Выберите вариант и уточните условия у менеджера в Telegram.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23C8F03C'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='900' font-size='38' fill='%23111'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Manrope:wght@400;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800&family=Manrope:wght@400;600;700;800&display=swap"></noscript>
+<script>document.documentElement.classList.add('js');if(!document.documentElement.lang)document.documentElement.lang='ru'</script>
+
+<style>
+/* Layout: бенто-сетка из стеклянных плиток на тёмном фоне с мягкими световыми пятнами; 3D-монета и стопка карт на CSS; бренд сайта кейсов */
+:root{
+  --night:#0B0C0A; --ink:#111111; --bg:#F3F1EA; --onDark:#F3F1EA; --muted:#B4B2A9; --dim:#8D8B83;
+  --accent:#C8F03C; --accent2:#9BD11E; --moss:#2E4A1C;
+  --glass:rgba(243,241,234,.06); --glass2:rgba(243,241,234,.11); --stroke:rgba(243,241,234,.14); --stroke2:rgba(243,241,234,.26);
+  --pad:clamp(16px,3.4vw,56px); --gap:clamp(10px,1.1vw,16px);
+  --r:clamp(22px,2vw,32px); --r-s:clamp(16px,1.4vw,22px);
+  --display:'Unbounded',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --body:'Manrope',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:76px;-webkit-tap-highlight-color:transparent;background:var(--night)}
+body{margin:0;background:var(--night);color:var(--onDark);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--night)}
+a{color:inherit}
+p{margin:0}
+button{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:800;letter-spacing:-0.03em;line-height:1;text-wrap:balance}
+[hidden]{display:none!important}
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+html:not(.js) .needs-js{display:none!important}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1600px;margin:0 auto;padding-left:max(var(--pad),env(safe-area-inset-left,0px));padding-right:max(var(--pad),env(safe-area-inset-right,0px))}
+
+/* ---------- фон: световые пятна под стеклом ---------- */
+.aura{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:
+  radial-gradient(1200px 700px at 50% -10%,rgba(200,240,60,.10),transparent 60%),var(--night)}
+.aura i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;will-change:transform}
+.aura .a1{width:46vmax;height:46vmax;left:-12vmax;top:-10vmax;background:radial-gradient(circle,rgba(200,240,60,.55),rgba(200,240,60,0) 65%);animation:drift1 26s ease-in-out infinite alternate}
+.aura .a2{width:40vmax;height:40vmax;right:-14vmax;top:22vh;background:radial-gradient(circle,rgba(70,120,40,.75),rgba(70,120,40,0) 65%);animation:drift2 32s ease-in-out infinite alternate}
+.aura .a3{width:34vmax;height:34vmax;left:24vw;bottom:-16vmax;background:radial-gradient(circle,rgba(243,241,234,.20),rgba(243,241,234,0) 65%);animation:drift1 38s ease-in-out infinite alternate-reverse}
+.aura:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(243,241,234,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(243,241,234,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 75%)}
+@keyframes drift1{to{transform:translate3d(8vw,10vh,0) scale(1.12)}}
+@keyframes drift2{to{transform:translate3d(-10vw,-8vh,0) scale(.9)}}
+
+/* ---------- стекло ---------- */
+.glass{position:relative;border-radius:var(--r);background:linear-gradient(150deg,rgba(243,241,234,.11),rgba(243,241,234,.035) 55%,rgba(243,241,234,.06));
+  border:1px solid var(--stroke);-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.3),0 30px 60px -30px rgba(0,0,0,.8);isolation:isolate}
+/* блик, который следует за курсором */
+.glass:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:var(--shine,0);transition:opacity .3s ease;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.14),transparent 45%)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.glass{background:rgba(28,29,26,.92)}}
+.tilt{transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease,border-color .3s ease;will-change:transform}
+.tilt.is-tilting{transition:transform .08s linear,box-shadow .4s ease,border-color .3s ease}
+
+/* ---------- шапка ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;padding-block:12px;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.bar.bar-hide{transform:translateY(calc(-100% - env(safe-area-inset-top,0px) - 4px))}
+.bar-in{display:flex;justify-content:space-between;align-items:center;gap:12px;height:60px;padding:0 10px 0 16px;border-radius:999px}
+.brand{display:inline-flex;align-items:center;gap:12px;min-height:44px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap;transition:transform .25s ease}
+.brand em{font-style:normal;color:var(--accent)}
+.mark{width:34px;height:34px;flex-shrink:0;border-radius:999px;background:radial-gradient(circle at 30% 25%,#E9FF8A,var(--accent) 45%,var(--accent2));color:var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:16px;line-height:1;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18),0 4px 14px rgba(200,240,60,.35)}
+.bar-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:0 18px;border-radius:999px;background:var(--onDark);color:var(--ink);white-space:nowrap;transition:background-color .2s ease,transform .25s ease}
+.bar-link .s{display:none}
+@media (hover:hover){.bar-link:hover{background:var(--accent)}}
+
+/* ---------- кнопки ---------- */
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:999px;font-family:var(--body);font-weight:800;font-size:16px;letter-spacing:.02em;text-decoration:none;background:var(--onDark);color:var(--ink);border:0;cursor:pointer;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.14),0 10px 24px -12px rgba(0,0,0,.7);transition:background-color .25s ease,color .25s ease,transform .25s ease,box-shadow .25s ease}
+.btn.accent{background:linear-gradient(180deg,#D8FF5C,var(--accent) 60%,var(--accent2));color:var(--ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -3px 0 rgba(0,0,0,.15),0 14px 34px -12px rgba(200,240,60,.6)}
+.btn.line{background:rgba(243,241,234,.06);color:var(--onDark);box-shadow:inset 0 0 0 1.5px var(--stroke2)}
+.btn svg{width:1.1em;height:1.1em;flex-shrink:0}
+@media (hover:hover){
+  .btn:not(.is-off):hover{transform:translateY(-3px);background:var(--accent);color:var(--ink);box-shadow:inset 0 -3px 0 rgba(0,0,0,.15),0 18px 30px -14px rgba(200,240,60,.7)}
+  .btn.accent:hover{background:var(--onDark)}
+}
+.btn:not(.is-off):active,.bar-link:active,.brand:active,.t-link:active,.chip:active,.views button:active,.s-clear:active,.reset:active,.cat:active,.top-row:active{transform:scale(.96);transition-duration:.08s}
+
+/* ---------- бенто: обложка ---------- */
+.hero{padding-block:clamp(8px,1.4vw,20px) clamp(36px,4vw,64px)}
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap)}
+.tile{padding:clamp(20px,2.2vw,34px);display:flex;flex-direction:column;gap:16px;min-width:0}
+.kick{font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kick b{color:var(--accent);font-weight:800}
+
+.t-hero{grid-column:span 7;grid-row:span 2;justify-content:space-between;gap:clamp(24px,3vw,40px);container-type:inline-size;overflow:hidden}
+.t-hero .meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.live{display:inline-flex;align-items:center;gap:8px}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(200,240,60,.6);animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(200,240,60,0)}100%{box-shadow:0 0 0 0 rgba(200,240,60,0)}}
+.wm{display:flex;flex-direction:column}
+.wm span{font-family:var(--display);font-weight:800;letter-spacing:-0.045em;line-height:.92;white-space:nowrap;font-size:clamp(26px,10.1cqi,132px)}
+.wm .w2{background:linear-gradient(180deg,#E6FF7A,var(--accent) 55%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 30px rgba(200,240,60,.25))}
+.t-hero .lead{font-size:clamp(17px,1.5vw,22px);line-height:1.5;color:var(--muted);max-width:560px}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+
+.t-3d{grid-column:span 5;grid-row:span 2;overflow:hidden;justify-content:space-between;min-height:clamp(420px,36vw,560px);
+  background:radial-gradient(120% 90% at 70% 30%,rgba(200,240,60,.22),rgba(200,240,60,0) 60%),linear-gradient(150deg,rgba(243,241,234,.10),rgba(243,241,234,.03))}
+.t-3d .cap{position:relative;z-index:2;display:flex;flex-direction:column;gap:6px}
+.t-3d .big{font-family:var(--display);font-weight:800;font-size:clamp(34px,3.4vw,56px);letter-spacing:-0.03em;line-height:1;white-space:nowrap}
+.t-3d .big em{font-style:normal;color:var(--accent)}
+.t-3d .cap span{font-weight:700;color:var(--muted)}
+
+/* 3D-сцена */
+.scene{position:absolute;inset:0;perspective:1100px;perspective-origin:50% 40%;pointer-events:none}
+.stage{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--sx,0deg)) rotateY(var(--sy,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.stack{position:absolute;left:50%;top:56%;width:240px;height:152px;margin:-76px 0 0 -120px;transform-style:preserve-3d;transform:rotateX(60deg) rotateZ(-34deg);animation:hover 6s ease-in-out infinite}
+@keyframes hover{50%{transform:rotateX(60deg) rotateZ(-34deg) translateZ(18px)}}
+.bcard{position:absolute;inset:0;border-radius:18px;transform-style:preserve-3d;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset}
+.bcard.c1{transform:translateZ(0);background:linear-gradient(135deg,#E9E5D6,#CFCAB6);box-shadow:0 40px 60px -10px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.08) inset}
+.bcard.c2{transform:translateZ(22px);background:linear-gradient(135deg,#3E6A1E,#203A10)}
+.bcard.c3{transform:translateZ(44px);background:linear-gradient(135deg,rgba(40,42,36,.92),rgba(14,15,13,.96));overflow:hidden}
+.bcard.c3:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.18) 45%,transparent 60%);transform:translateX(-60%);animation:sheen 5s ease-in-out infinite}
+@keyframes sheen{60%,100%{transform:translateX(60%)}}
+.chip3{position:absolute;left:20px;top:44px;width:36px;height:28px;border-radius:7px;background:linear-gradient(135deg,#F0FF9C,var(--accent) 50%,#8DB51A);box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+.bmark{position:absolute;right:18px;top:16px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--ink);font:800 15px/30px var(--display);text-align:center}
+.bnum{position:absolute;left:20px;bottom:18px;font:700 13px/1 var(--body);letter-spacing:.18em;color:rgba(243,241,234,.75)}
+.orbit{position:absolute;left:50%;top:58%;width:380px;height:380px;margin:-190px 0 0 -190px;border-radius:50%;border:1.5px solid rgba(200,240,60,.35);transform:rotateX(74deg);box-shadow:0 0 30px rgba(200,240,60,.15)}
+.orbit:before{content:"";position:absolute;left:50%;top:-6px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px var(--accent)}
+.orbit{animation:orbit 14s linear infinite}
+@keyframes orbit{to{transform:rotateX(74deg) rotateZ(360deg)}}
+.coin-wrap{position:absolute;left:66%;top:20%;width:156px;height:156px;margin:-78px 0 0 -78px;transform-style:preserve-3d;transform:rotateX(-14deg) rotateZ(8deg);animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:rotateX(-14deg) rotateZ(8deg) translateY(-14px)}}
+.coin{position:absolute;inset:0;transform-style:preserve-3d;animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotateY(360deg)}}
+.cf{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:66px;color:#3B5410;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:radial-gradient(circle at 32% 28%,#F6FFC2,#D9FF5E 28%,var(--accent) 52%,#93C21B 100%);box-shadow:inset 0 0 0 8px rgba(255,255,255,.25),inset 0 0 0 10px rgba(0,0,0,.12);text-shadow:0 1px 0 rgba(255,255,255,.5),0 -1px 0 rgba(0,0,0,.25)}
+.cf.front{transform:translateZ(7px)}
+.cf.back{transform:rotateY(180deg) translateZ(7px)}
+.edge{position:absolute;left:50%;top:50%;transform-style:preserve-3d}
+.edge i{position:absolute;left:-6.17px;top:-7px;width:12.34px;height:14px;background:linear-gradient(90deg,#7FA815,#A9D326,#7FA815);transform-origin:50% 50%}
+.spark{position:absolute;width:10px;height:10px;border-radius:3px;background:var(--onDark);opacity:.8;transform:rotate(45deg);animation:twinkle 3s ease-in-out infinite}
+.spark.s1{left:22%;top:30%}.spark.s2{left:84%;top:52%;width:7px;height:7px;animation-delay:-1s}.spark.s3{left:30%;top:78%;width:6px;height:6px;background:var(--accent);animation-delay:-2s}
+@keyframes twinkle{50%{opacity:.15;transform:rotate(45deg) scale(.6)}}
+
+.t-count{grid-column:span 3;background:linear-gradient(160deg,#F7F5EE,#E7E3D5);color:var(--ink);border-color:rgba(255,255,255,.5);justify-content:space-between;container-type:inline-size}
+.t-count .kick{color:#5B5A53}
+.t-count .num{font-family:var(--display);font-weight:800;font-size:clamp(64px,36cqi,120px);line-height:.85;letter-spacing:-0.05em;font-variant-numeric:tabular-nums}
+.t-count .sub{font-weight:800;font-size:16px}
+.st{display:flex;gap:6px;flex-wrap:wrap}
+.st span{font-weight:800;font-size:12px;padding:6px 10px;border-radius:10px;background:#fff}
+.st span.soon{background:transparent;box-shadow:inset 0 0 0 1.5px #C2BEAE;color:#5B5A53}
+
+.cat{grid-column:span 3;text-decoration:none;justify-content:space-between;cursor:pointer;container-type:inline-size}
+.cat .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.cat .num{font-family:var(--display);font-weight:800;font-size:clamp(44px,26cqi,84px);line-height:.85;letter-spacing:-0.05em}
+.cat .go{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:rgba(243,241,234,.1);display:inline-flex;align-items:center;justify-content:center;transition:background-color .25s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+.cat .go svg{width:18px;height:18px}
+.cat .txt{display:flex;flex-direction:column;gap:6px}
+.cat h3{font-size:clamp(18px,1.5vw,22px);letter-spacing:-0.02em}
+.cat p{font-weight:600;font-size:14px;line-height:1.45;color:var(--muted)}
+@media (hover:hover){.cat:hover{border-color:rgba(200,240,60,.45)}.cat:hover .go{background:var(--accent);color:var(--ink);transform:rotate(-45deg)}}
+
+.t-top{grid-column:span 7}
+.t-top .head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.top-list{display:flex;flex-direction:column}
+.top-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--stroke);text-decoration:none;transition:transform .25s ease}
+.top-row:first-child{border-top:0}
+.rk{font:800 12px/1 var(--display);color:var(--dim);width:22px}
+.top-row .nm{display:flex;align-items:center;gap:12px;min-width:0;font-weight:800;font-size:16px}
+.top-row .nm span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-row .amt{font-family:var(--display);font-weight:800;font-size:clamp(17px,1.4vw,22px);color:var(--accent);white-space:nowrap;font-variant-numeric:tabular-nums}
+.top-row .st2{font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);white-space:nowrap;min-width:84px;text-align:right}
+a.top-row .st2{color:var(--onDark)}
+@media (hover:hover){a.top-row:hover .st2{color:var(--accent)}}
+.mini-logo{width:34px;height:34px;flex-shrink:0;border-radius:50%;background:var(--onDark);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;font:800 11px/1 var(--display);letter-spacing:-0.02em}
+.mini-logo[data-len="4"]{font-size:8px}
+
+.t-how{grid-column:span 5;scroll-margin-top:90px}
+.how{display:grid;gap:10px;counter-reset:s}
+.how div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:baseline;padding:14px 16px;border-radius:var(--r-s);background:rgba(243,241,234,.05);box-shadow:inset 0 0 0 1px var(--stroke)}
+.how b{grid-row:span 2;font:800 22px/1 var(--display);color:var(--accent)}
+.how strong{font-weight:800;font-size:16px}
+.how span{font-weight:600;font-size:14px;color:var(--muted);line-height:1.45}
+
+/* ---------- каталог ---------- */
+.catalog{padding-block:clamp(24px,3vw,48px) clamp(48px,6vw,96px);scroll-margin-top:70px}
+.cat-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:var(--gap)}
+.cat-head h2{font-size:clamp(34px,4.6vw,76px)}
+.cat-head p{max-width:520px;font-weight:600;font-size:clamp(15px,1.1vw,18px);line-height:1.5;color:var(--muted)}
+.toolbar{padding:12px;border-radius:calc(var(--r) + 4px);display:flex;flex-direction:column;gap:10px;margin-bottom:var(--gap)}
+.tb-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search{flex:1 1 340px;position:relative;min-width:0;display:block}
+.search>svg{position:absolute;left:20px;top:50%;width:20px;height:20px;transform:translateY(-50%);color:var(--dim);pointer-events:none}
+.search input{width:100%;min-height:56px;padding:0 56px;border-radius:999px;border:1px solid var(--stroke);background:rgba(0,0,0,.28);color:var(--onDark);font:700 17px var(--body);-webkit-appearance:none;appearance:none;box-shadow:inset 0 2px 8px rgba(0,0,0,.35);transition:border-color .2s ease,box-shadow .2s ease}
+.search input::placeholder{color:var(--dim)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.search input:focus{outline:none;border-color:var(--accent);box-shadow:inset 0 2px 8px rgba(0,0,0,.35),0 0 0 4px rgba(200,240,60,.15)}
+.s-clear{position:absolute;right:8px;top:50%;margin-top:-20px;width:40px;height:40px;border-radius:999px;border:0;background:rgba(243,241,234,.1);color:var(--onDark);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .2s ease,transform .2s ease}
+.s-clear svg{width:16px;height:16px}
+@media (hover:hover){.s-clear:hover{background:var(--accent);color:var(--ink)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{appearance:none;-webkit-appearance:none;border:0;background:rgba(243,241,234,.06);box-shadow:inset 0 0 0 1px var(--stroke);color:var(--onDark);border-radius:999px;min-height:44px;padding:0 16px;font:800 13px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:background-color .2s ease,color .2s ease,box-shadow .2s ease,transform .25s ease}
+.chip i{font-style:normal;color:var(--dim);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--ink);box-shadow:0 8px 20px -8px rgba(200,240,60,.6)}
+.chip[aria-pressed="true"] i{color:var(--ink)}
+@media (hover:hover){.chip[aria-pressed="false"]:hover{box-shadow:inset 0 0 0 1px var(--accent)}}
+.tb-end{display:flex;gap:12px;align-items:center;margin-left:auto}
+.views{display:inline-flex;padding:4px;border-radius:999px;background:rgba(0,0,0,.3);box-shadow:inset 0 0 0 1px var(--stroke)}
+.views button{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:var(--muted);border-radius:999px;min-height:38px;padding:0 14px;font:800 12px/1 var(--body);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background-color .2s ease,color .2s ease,transform .25s ease}
+.views button[aria-pressed="true"]{background:var(--onDark);color:var(--ink)}
+.shown{font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+.shown b{color:var(--accent)}
+
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-flow:row dense;gap:var(--gap)}
+.offer{position:relative;display:flex;flex-direction:column;gap:14px;padding:clamp(18px,1.6vw,24px);border-radius:var(--r);container-type:inline-size;
+  background:linear-gradient(150deg,rgba(243,241,234,.10),rgba(243,241,234,.03) 60%);border:1px solid var(--stroke);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 24px 50px -30px rgba(0,0,0,.85);isolation:isolate}
+.offer:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:var(--shine,0);transition:opacity .3s ease;background:radial-gradient(320px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.14),transparent 45%)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.offer{background:rgba(28,29,26,.94)}}
+.js .offer.ok{cursor:pointer}
+@media (hover:hover){.offer.ok:hover{border-color:rgba(200,240,60,.4)}}
+.js .offer.ok:active{transform:scale(.985)!important;transition-duration:.08s}
+.offer.wide{grid-column:span 2;background:radial-gradient(90% 120% at 100% 0%,rgba(200,240,60,.20),transparent 60%),linear-gradient(150deg,rgba(243,241,234,.12),rgba(243,241,234,.035) 60%)}
+.offer.wide .o-pay b{font-size:clamp(30px,7cqi,52px)}
+.offer.wide .o-name h3{font-size:clamp(22px,5cqi,34px)}
+.o-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.o-num{font-weight:800;font-size:12px;letter-spacing:.1em;padding:7px 11px;border-radius:999px;background:rgba(243,241,234,.08);color:var(--muted);font-variant-numeric:tabular-nums}
+.o-cat{font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:999px;background:rgba(200,240,60,.14);color:var(--accent);white-space:nowrap}
+.offer.wide .o-top:after{content:"Топ выплата";order:1;font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:999px;background:var(--accent);color:var(--ink);margin-left:auto}
+.offer.wide .o-cat{order:2}
+.o-name{display:flex;align-items:center;gap:12px;min-width:0}
+.o-logo{width:clamp(44px,13cqi,54px);height:clamp(44px,13cqi,54px);flex-shrink:0;border-radius:50%;background:radial-gradient(circle at 30% 25%,#FFFFFF,var(--onDark) 45%,#CFCAB6);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:clamp(14px,4.4cqi,17px);letter-spacing:-0.02em;box-shadow:inset 0 -3px 0 rgba(0,0,0,.12),0 8px 18px -8px rgba(0,0,0,.7)}
+.o-logo[data-len="3"]{font-size:clamp(11px,3.4cqi,13px);letter-spacing:-0.03em}
+.o-logo[data-len="4"]{font-size:clamp(9px,2.8cqi,11px);letter-spacing:-0.04em}
+.o-title{min-width:0;display:flex;flex-direction:column;gap:4px}
+.o-name h3{font-size:clamp(18px,7.4cqi,24px);letter-spacing:-0.03em;line-height:1.1;overflow-wrap:break-word}
+.o-sub{font-weight:600;font-size:13px;line-height:1.35;color:var(--muted)}
+.o-pay{display:flex;flex-direction:column;gap:2px;margin-top:auto}
+.o-pay small{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.o-pay b{font-family:var(--display);font-weight:800;font-size:clamp(26px,10cqi,38px);color:var(--accent);letter-spacing:-0.01em;line-height:1.05;white-space:nowrap;font-variant-numeric:tabular-nums;text-shadow:0 8px 28px rgba(200,240,60,.25)}
+.o-go{width:100%;min-height:50px;font-size:15px;gap:8px}
+.o-go.is-off{background:transparent;color:var(--dim);box-shadow:inset 0 0 0 1.5px rgba(243,241,234,.18);cursor:default}
+.note{display:flex;gap:12px;align-items:center;font-weight:700;font-size:14px;line-height:1.45;color:var(--muted)}
+.empty{display:flex;flex-direction:column;align-items:center;gap:10px;padding:clamp(32px,4vw,56px) 24px;text-align:center;margin-bottom:var(--gap)}
+.empty b{font-family:var(--display);font-weight:800;font-size:clamp(20px,2vw,28px)}
+.empty span{font-weight:700;color:var(--muted)}
+.reset{appearance:none;border:0;background:var(--accent);color:var(--ink);border-radius:999px;min-height:46px;padding:0 20px;font:800 15px/1 var(--body);cursor:pointer;margin-top:6px;transition:transform .25s ease}
+
+.tbl-box{border-radius:var(--r);overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:var(--gap)}
+table{width:100%;border-collapse:collapse;min-width:760px}
+thead th{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--dim);padding:18px 22px;border-bottom:1px solid var(--stroke)}
+tbody td{padding:14px 22px;border-bottom:1px solid rgba(243,241,234,.08);font-size:16px;font-weight:700;vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+@media (hover:hover){tbody tr:hover{background:rgba(243,241,234,.04)}}
+.t-brand{display:flex;align-items:center;gap:12px}
+.t-name{display:flex;flex-direction:column;gap:2px;min-width:0}
+.t-name b{font-weight:800}
+.t-type{display:none;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.t-logo{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--onDark);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;font:800 11px/1 var(--display)}
+.t-logo[data-len="3"]{font-size:10px}.t-logo[data-len="4"]{font-size:8px}
+.c-type{color:var(--muted)}
+.t-lbl{display:none}
+.t-pay{font-family:var(--display);font-weight:800;color:var(--accent);white-space:nowrap}
+.pend{color:var(--dim)}
+.c-act{text-align:right;white-space:nowrap}
+.t-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:800;font-size:14px;text-decoration:none;padding:0 18px;border-radius:999px;background:var(--onDark);color:var(--ink);white-space:nowrap;transition:background-color .2s ease,transform .25s ease}
+@media (hover:hover){.t-link:hover{background:var(--accent)}}
+.t-soon{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;box-shadow:inset 0 0 0 1.5px rgba(243,241,234,.18);color:var(--dim);font-weight:800;font-size:13px}
+
+.bottom{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);margin-top:var(--gap)}
+.important{grid-column:span 8;flex-direction:row;align-items:center;gap:18px;flex-wrap:wrap}
+.important .tag{flex-shrink:0;font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-radius:999px;background:var(--accent);color:var(--ink)}
+.important div{flex:1;min-width:240px;display:flex;flex-direction:column;gap:6px}
+.important b{font-family:var(--display);font-weight:700;font-size:clamp(16px,1.3vw,20px);line-height:1.25}
+.important p{font-weight:600;font-size:15px;line-height:1.55;color:var(--muted)}
+.t-back{grid-column:span 4;justify-content:space-between;text-decoration:none}
+.t-back b{font-family:var(--display);font-weight:800;font-size:clamp(20px,1.8vw,26px);letter-spacing:-0.02em}
+.t-back span{font-weight:700;color:var(--muted);font-size:14px}
+.t-back .go{align-self:flex-end;width:52px;height:52px;border-radius:50%;background:var(--onDark);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;transition:background-color .2s ease,transform .3s ease}
+@media (hover:hover){.t-back:hover .go{background:var(--accent);transform:translateY(-4px)}}
+
+.foot .wrap{padding-block:0 clamp(24px,3vw,40px)}
+.foot-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:20px 24px;border-radius:var(--r)}
+.foot p{flex:1 1 420px;font-size:13px;line-height:1.6;color:var(--dim);max-width:780px}
+.foot-r{display:flex;align-items:center;gap:10px}
+.age{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:30px;padding:0 10px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--stroke2);font-weight:800;font-size:12px}
+.foot .c{font-weight:800;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+
+/* ---------- адаптив ---------- */
+@media (max-width:1200px){
+  .bento{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .t-hero,.t-3d{grid-column:span 6;grid-row:auto}
+  .t-3d{min-height:400px}
+  .t-count{grid-column:span 6}
+  .t-count{flex-direction:row;align-items:flex-end;flex-wrap:wrap}
+  .cat{grid-column:span 2}
+  .t-top,.t-how{grid-column:span 6}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tb-end{margin-left:0;width:100%;justify-content:space-between}
+  .important{grid-column:span 12}.t-back{grid-column:span 12;flex-direction:row;align-items:center}
+}
+@media (max-width:820px){
+  :root{--pad:14px;--gap:10px}
+  .bar{padding-block:8px}
+  .bar-in{height:56px}
+  .brand{font-size:12px;gap:10px}
+  .mark{width:30px;height:30px;font-size:14px}
+  .bar-link{font-size:12px;padding:0 14px}
+  .bar-link .l{display:none}.bar-link .s{display:inline}
+  .t-hero .meta{flex-direction:column;gap:8px}
+  .wm span{letter-spacing:-0.03em;font-size:clamp(24px,10cqi,132px)}
+  .btns{flex-direction:column}
+  .btns .btn{width:100%}
+  .t-3d{min-height:360px}
+  .stack{transform:rotateX(60deg) rotateZ(-34deg) scale(.82)}
+  @keyframes hover{50%{transform:rotateX(60deg) rotateZ(-34deg) scale(.82) translateZ(14px)}}
+  .orbit{width:300px;height:300px;margin:-150px 0 0 -150px}
+  .coin-wrap{left:72%;top:24%;transform:rotateX(-14deg) rotateZ(8deg) scale(.72)}
+  @keyframes bob{50%{transform:rotateX(-14deg) rotateZ(8deg) scale(.72) translateY(-12px)}}
+  .cat{grid-column:span 3}
+  .t-count{grid-column:span 6}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .chip{padding:0 6px;font-size:12px;letter-spacing:.03em;gap:5px}
+  .top-row{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}
+  .top-row .st2{display:none}
+  .tbl-box{overflow:visible}
+  table{min-width:0}
+  thead{display:none}
+  tbody tr{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px 12px;padding:14px 16px;border-bottom:1px solid rgba(243,241,234,.08)}
+  tbody tr:last-child{border-bottom:0}
+  tbody td{padding:0;border:0;font-size:15px}
+  .c-type,.c-mech{display:none}
+  .t-type{display:block}
+  .c-brand{grid-column:1;grid-row:1}
+  .c-act{grid-column:2;grid-row:1}
+  .c-pay{grid-column:1 / -1;grid-row:2;font-size:14px;padding-left:48px}
+  .t-lbl{display:inline;color:var(--dim)}
+  .t-link{padding:0 14px}
+}
+@media (max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .offer.wide{grid-column:auto}
+  .cat .num{font-size:44px}
+  .cat p{display:none}
+  .cat{gap:10px;padding:16px}
+  .cat .go{width:36px;height:36px}
+  .cat,.t-count{grid-column:span 3}
+  .t-count{flex-direction:column;align-items:stretch}
+  .t-count .num{font-size:56px}
+  .views button{padding:0 10px;font-size:11px}
+  .chip{font-size:11px}
+}
+@media (max-width:400px){.brand{font-size:11px;gap:8px;letter-spacing:0}.bar-link{padding:0 12px;font-size:11px}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- приятные тапы: волна от пальца + пружина ---------- */
+.btn,.chip,.views button,.bar-link,.t-link,.reset,.s-clear,.cat,.top-row,.offer,.t-back{position:relative;overflow:hidden;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+.offer{-webkit-user-select:text;user-select:text}
+.rip{position:absolute;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);opacity:.55;background:radial-gradient(circle,rgba(255,255,255,.7),rgba(255,255,255,.25) 45%,rgba(255,255,255,0) 70%);animation:rip .6s cubic-bezier(.2,.8,.2,1) forwards;z-index:3}
+.btn .rip,.bar-link .rip,.t-link .rip,.views button[aria-pressed="true"] .rip,.chip[aria-pressed="true"] .rip,.reset .rip{background:radial-gradient(circle,rgba(17,17,17,.28),rgba(17,17,17,.1) 45%,rgba(17,17,17,0) 70%)}
+.offer .rip,.cat .rip,.top-row .rip,.t-back .rip{background:radial-gradient(circle,rgba(200,240,60,.35),rgba(200,240,60,.12) 45%,rgba(200,240,60,0) 70%)}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.pressed{transform:scale(.95)!important;transition:transform .1s ease!important}
+.offer.pressed,.cat.pressed,.t-back.pressed{transform:scale(.975)!important}
+.springback{transition:transform .5s cubic-bezier(.34,1.7,.5,1)!important}
+@media (prefers-reduced-motion:reduce){.rip{display:none}}
+</style>
+
+</head>
+<body>
+
+<div class="aura" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+<header class="bar">
+  <div class="wrap"><div class="bar-in glass">
+    <a class="brand" href="#top" aria-label="Финансовый каталог — в начало"><span class="mark" aria-hidden="true">F</span><span aria-hidden="true">Финансовый <em>каталог</em></span></a>
+    <a class="bar-link" href="#offers"><span class="l">Все предложения</span><span class="s">Каталог</span> <span aria-hidden="true">↓</span></a>
+  </div></div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap bento">
+      <div class="tile glass t-hero">
+        <div class="meta kick"><span>Каталог предложений</span><span class="live"><i></i>Выплаты за оформление</span></div>
+        <h1 class="sr" id="h1">Финансовый каталог</h1>
+        <div class="wm" aria-hidden="true"><span class="w1">ФИНАНСОВЫЙ</span><span class="w2">КАТАЛОГ</span></div>
+        <p class="lead">Займы, карты и счета для бизнеса в одном месте. Выберите вариант, оформите через менеджера в Telegram и получите выплату.</p>
+        <div class="btns">
+          <a class="btn accent" href="#offers">Выбрать предложение <span aria-hidden="true">↓</span></a>
+          <a class="btn line" href="#how">Как это работает</a>
+        </div>
+      </div>
+
+      <div class="tile glass t-3d tilt" data-scene>
+        <div class="scene" aria-hidden="true"><div class="stage">
+  <div class="orbit"></div>
+  <div class="stack">
+    <div class="bcard c1"></div>
+    <div class="bcard c2"><span class="chip3"></span></div>
+    <div class="bcard c3"><span class="chip3"></span><span class="bmark">F</span><span class="bnum">••••&nbsp;2026</span></div>
+  </div>
+  <div class="coin-wrap"><div class="coin"><span class="cf front">₽</span><span class="cf back">₽</span><span class="edge"><i style="transform:rotateZ(0.000deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(8.182deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(16.364deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(24.545deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(32.727deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(40.909deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(49.091deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(57.273deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(65.455deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(73.636deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(81.818deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(90.000deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(98.182deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(106.364deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(114.545deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(122.727deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(130.909deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(139.091deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(147.273deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(155.455deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(163.636deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(171.818deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(180.000deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(188.182deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(196.364deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(204.545deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(212.727deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(220.909deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(229.091deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(237.273deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(245.455deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(253.636deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(261.818deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(270.000deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(278.182deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(286.364deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(294.545deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(302.727deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(310.909deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(319.091deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(327.273deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(335.455deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(343.636deg) translateY(-78px) rotateX(90deg)"></i><i style="transform:rotateZ(351.818deg) translateY(-78px) rotateX(90deg)"></i></span></div></div>
+  <span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
+</div></div>
+        <div class="cap kick">Максимальная выплата</div>
+        <div class="cap"><div class="big">до <em>2 550 ₽</em></div><span>за одно оформление · Альфа РКО</span></div>
+      </div>
+
+      <div class="tile glass t-count tilt">
+        <span class="kick">В каталоге</span>
+        <span class="num">30</span>
+        <span class="sub">предложений</span>
+        <div class="st"><span>17 с чатом</span><span class="soon">13 скоро</span></div>
+      </div>
+      <a class="tile cat glass tilt" href="#offers" data-go="loans"><span class="row"><span class="num">18</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></span><span class="txt"><h3>Займы</h3><p>МФО: выплата до 1 495 ₽</p></span></a>
+      <a class="tile cat glass tilt" href="#offers" data-go="cards"><span class="row"><span class="num">8</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></span><span class="txt"><h3>Карты</h3><p>Дебетовые, кредитные, Яндекс Пэй и стикер ВТБ</p></span></a>
+      <a class="tile cat glass tilt" href="#offers" data-go="biz"><span class="row"><span class="num">4</span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span></span><span class="txt"><h3>Бизнес</h3><p>Регистрация и расчётный счёт: ВТБ, Альфа, Озон</p></span></a>
+
+      <div class="tile glass t-top">
+        <div class="head"><span class="kick">Самые высокие выплаты</span><span class="kick"><b>Топ-4</b></span></div>
+        <div class="top-list"><div class="top-row"><span class="rk">01</span><span class="nm"><span class="mini-logo" data-len="2" aria-hidden="true">АР</span><span>Альфа РКО</span></span><span class="amt">2 550 ₽</span><span class="st2">Скоро</span></div><a class="top-row" href="https://t.me/m/XZBiSO0AYTky" target="_blank" rel="noopener noreferrer" aria-label="ВТБ РЕГБИЗ+РКО: 2 500 ₽ — открыть чат в Telegram"><span class="rk">02</span><span class="nm"><span class="mini-logo" data-len="3" aria-hidden="true">ВТБ</span><span>ВТБ РЕГБИЗ+РКО</span></span><span class="amt">2 500 ₽</span><span class="st2">Оформить ↗</span></a><div class="top-row"><span class="rk">03</span><span class="nm"><span class="mini-logo" data-len="4" aria-hidden="true">ОЗОН</span><span>ОЗОН РЕГ Биз</span></span><span class="amt">2 300 ₽</span><span class="st2">Скоро</span></div><a class="top-row" href="https://t.me/m/Luj-ZfD4MjIy" target="_blank" rel="noopener noreferrer" aria-label="Финмолл: 1 495 ₽ — открыть чат в Telegram"><span class="rk">04</span><span class="nm"><span class="mini-logo" data-len="1" aria-hidden="true">Ф</span><span>Финмолл</span></span><span class="amt">1 495 ₽</span><span class="st2">Оформить ↗</span></a></div>
+      </div>
+
+      <div class="tile glass t-how" id="how">
+        <span class="kick">Как это работает</span>
+        <div class="how">
+          <div><b>01</b><strong>Выберите предложение</strong><span>Через поиск, фильтр или таблицу.</span></div>
+          <div><b>02</b><strong>Откройте чат</strong><span>Кнопка «Оформить» ведёт к менеджеру в Telegram.</span></div>
+          <div><b>03</b><strong>Оформите и получите выплату</strong><span>Условия выплаты менеджер расскажет в чате.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="catalog" id="offers" aria-labelledby="offersTitle">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2 id="offersTitle">Все предложения</h2>
+        <p>На каждой карточке — сумма, которую вы получите за оформление. Решение и итоговые условия определяет компания, предоставляющая услугу.</p>
+      </div>
+      <div class="toolbar glass needs-js">
+        <div class="tb-row">
+          <label class="search" for="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="search" type="search" placeholder="Найти компанию" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Найти компанию">
+            <button type="button" class="s-clear" id="sClear" aria-label="Очистить поиск" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+          </label>
+        </div>
+        <div class="tb-row">
+          <div class="chips" role="group" aria-label="Тип предложения"><button type="button" class="chip" data-g="all" aria-pressed="true">Все <i>30</i></button><button type="button" class="chip" data-g="loans" aria-pressed="false">Займы <i>18</i></button><button type="button" class="chip" data-g="cards" aria-pressed="false">Карты <i>8</i></button><button type="button" class="chip" data-g="biz" aria-pressed="false">Бизнес <i>4</i></button></div>
+          <div class="tb-end">
+            <p class="shown" aria-live="polite">Показано <b id="shownCount">30</b> из 30</p>
+            <div class="views" role="group" aria-label="Вид списка">
+              <button type="button" data-v="cards" aria-pressed="true">Карточки</button>
+              <button type="button" data-v="table" aria-pressed="false">Таблица</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid" id="cards">
+<article class="offer tilt soon wide" data-group="biz" data-q="озонрегбизozonозонрегистрацияипооорегбиздлябизнеса"><div class="o-top"><span class="o-num">01</span><span class="o-cat">Для бизнеса</span></div><div class="o-name"><span class="o-logo" data-len="4" aria-hidden="true">ОЗОН</span><div class="o-title"><h3>ОЗОН РЕГ Биз</h3><p class="o-sub">Регистрация бизнеса</p></div></div><div class="o-pay"><small>Вы получите</small><b>2 300 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon" data-group="loans" data-q="бустраboostraбустразайм"><div class="o-top"><span class="o-num">02</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="1" aria-hidden="true">Б</span><div class="o-title"><h3>Бустра</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 025 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon" data-group="loans" data-q="рублионrublionзайм"><div class="o-top"><span class="o-num">03</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="1" aria-hidden="true">Р</span><div class="o-title"><h3>Рублион</h3></div></div><div class="o-pay"><small>Вы получите</small><b>750 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt ok" data-group="cards" data-q="псбдебетpsbпромсвязьбанкдебетоваядебетоваякарта"><div class="o-top"><span class="o-num">04</span><span class="o-cat">Дебетовая карта</span></div><div class="o-name"><span class="o-logo" data-len="3" aria-hidden="true">ПСБ</span><div class="o-title"><h3>ПСБ Дебет</h3></div></div><div class="o-pay"><small>Вы получите</small><b>550 ₽</b></div><a class="btn o-go" href="https://t.me/m/n3qkk6osNGZi" target="_blank" rel="noopener noreferrer" aria-label="Оформить ПСБ Дебет — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt soon" data-group="cards" data-q="втбстикерvtbстикерплатежныйплатежныйстикер"><div class="o-top"><span class="o-num">05</span><span class="o-cat">Платёжный стикер</span></div><div class="o-name"><span class="o-logo" data-len="3" aria-hidden="true">ВТБ</span><div class="o-title"><h3>ВТБ Стикер</h3></div></div><div class="o-pay"><small>Вы получите</small><b>500 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt ok" data-group="cards" data-q="отпдебетotpотпбанкдебетоваядебетоваякарта"><div class="o-top"><span class="o-num">06</span><span class="o-cat">Дебетовая карта</span></div><div class="o-name"><span class="o-logo" data-len="3" aria-hidden="true">ОТП</span><div class="o-title"><h3>ОТП Дебет</h3></div></div><div class="o-pay"><small>Вы получите</small><b>375 ₽</b></div><a class="btn o-go" href="https://t.me/m/OuN0f0mhYmM6" target="_blank" rel="noopener noreferrer" aria-label="Оформить ОТП Дебет — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt soon" data-group="cards" data-q="яндекспэйyandexpayяндекспейяндекспейкартакарта"><div class="o-top"><span class="o-num">07</span><span class="o-cat">Карта</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">ЯП</span><div class="o-title"><h3>Яндекс Пэй</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 219 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon" data-group="cards" data-q="тбанккредиткатбанктинькоффtbankкредитнаякредитнаякарта"><div class="o-top"><span class="o-num">08</span><span class="o-cat">Кредитная карта</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">ТК</span><div class="o-title"><h3>Т-Банк Кредитка</h3></div></div><div class="o-pay"><small>Вы получите</small><b>920 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon" data-group="loans" data-q="простойвопросзайм"><div class="o-top"><span class="o-num">09</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">ПВ</span><div class="o-title"><h3>Простой вопрос</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 100 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon" data-group="loans" data-q="деньгинадомденьгинадомзайм"><div class="o-top"><span class="o-num">10</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">ДН</span><div class="o-title"><h3>Деньги на Дом</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 225 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt ok" data-group="biz" data-q="втбркоvtbрасчетныйсчетипдлябизнеса"><div class="o-top"><span class="o-num">11</span><span class="o-cat">Для бизнеса</span></div><div class="o-name"><span class="o-logo" data-len="3" aria-hidden="true">ВТБ</span><div class="o-title"><h3>ВТБ РКО</h3><p class="o-sub">Расчётный счёт для бизнеса</p></div></div><div class="o-pay"><small>Вы получите</small><b>1 125 ₽</b></div><a class="btn o-go" href="https://t.me/m/vAMoCxZ4MjEy" target="_blank" rel="noopener noreferrer" aria-label="Оформить ВТБ РКО — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok wide" data-group="biz" data-q="втбрегбизркоvtbрегистрацияипооорасчетныйсчетрегбиздлябизнеса"><div class="o-top"><span class="o-num">12</span><span class="o-cat">Для бизнеса</span></div><div class="o-name"><span class="o-logo" data-len="3" aria-hidden="true">ВТБ</span><div class="o-title"><h3>ВТБ РЕГБИЗ+<wbr>РКО</h3><p class="o-sub">Регистрация бизнеса и расчётный счёт</p></div></div><div class="o-pay"><small>Вы получите</small><b>2 500 ₽</b></div><a class="btn o-go" href="https://t.me/m/XZBiSO0AYTky" target="_blank" rel="noopener noreferrer" aria-label="Оформить ВТБ РЕГБИЗ+РКО — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt soon" data-group="cards" data-q="втбдебетvtbдебетоваядебетоваякарта"><div class="o-top"><span class="o-num">13</span><span class="o-cat">Дебетовая карта</span></div><div class="o-name"><span class="o-logo" data-len="3" aria-hidden="true">ВТБ</span><div class="o-title"><h3>ВТБ Дебет</h3></div></div><div class="o-pay"><small>Вы получите</small><b>475 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon" data-group="loans" data-q="бережныйзайм"><div class="o-top"><span class="o-num">14</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="1" aria-hidden="true">Б</span><div class="o-title"><h3>Бережный</h3></div></div><div class="o-pay"><small>Вы получите</small><b>750 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon wide" data-group="biz" data-q="альфаркоальфабанкalfaрасчетныйсчетипдлябизнеса"><div class="o-top"><span class="o-num">15</span><span class="o-cat">Для бизнеса</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">АР</span><div class="o-title"><h3>Альфа РКО</h3><p class="o-sub">Расчётный счёт для бизнеса</p></div></div><div class="o-pay"><small>Вы получите</small><b>2 550 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt soon" data-group="cards" data-q="альфакредиткаальфабанкalfaкредитнаякредитнаякарта"><div class="o-top"><span class="o-num">16</span><span class="o-cat">Кредитная карта</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">АК</span><div class="o-title"><h3>Альфа Кредитка</h3></div></div><div class="o-pay"><small>Вы получите</small><b>828 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt ok" data-group="loans" data-q="moneymanманименманимэнманимензайм"><div class="o-top"><span class="o-num">17</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">MM</span><div class="o-title"><h3>MoneyMan</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 000 ₽</b></div><a class="btn o-go" href="https://t.me/m/uaPlIaPLYjMy" target="_blank" rel="noopener noreferrer" aria-label="Оформить MoneyMan — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="лайкзаймлайкзаймlikezaimзайм"><div class="o-top"><span class="o-num">18</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">ЛЗ</span><div class="o-title"><h3>ЛайкЗайм</h3></div></div><div class="o-pay"><small>Вы получите</small><b>920 ₽</b></div><a class="btn o-go" href="https://t.me/m/37aDP9q6YzMy" target="_blank" rel="noopener noreferrer" aria-label="Оформить ЛайкЗайм — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="мегаденьгимегаденьгизайм"><div class="o-top"><span class="o-num">19</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">МД</span><div class="o-title"><h3>Мега Деньги</h3></div></div><div class="o-pay"><small>Вы получите</small><b>575 ₽</b></div><a class="btn o-go" href="https://t.me/m/FB2q3Tn2ZDYy" target="_blank" rel="noopener noreferrer" aria-label="Оформить Мега Деньги — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="своилюдизайм"><div class="o-top"><span class="o-num">20</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">СЛ</span><div class="o-title"><h3>Свои люди</h3></div></div><div class="o-pay"><small>Вы получите</small><b>667 ₽</b></div><a class="btn o-go" href="https://t.me/m/XE782axpODJi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Свои люди — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt soon" data-group="cards" data-q="совкомбанкдебетсовкомsovcomдебетоваяхалвадебетоваякарта"><div class="o-top"><span class="o-num">21</span><span class="o-cat">Дебетовая карта</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">СД</span><div class="o-title"><h3>Совкомбанк Дебет</h3></div></div><div class="o-pay"><small>Вы получите</small><b>345 ₽</b></div><span class="btn o-go is-off">Ссылка появится скоро</span></article>
+<article class="offer tilt ok" data-group="loans" data-q="умныеналичныезайм"><div class="o-top"><span class="o-num">22</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">УН</span><div class="o-title"><h3>Умные Наличные</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 150 ₽</b></div><a class="btn o-go" href="https://t.me/m/6OtqyvNBM2Fi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Умные Наличные — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="финмоллfinmollфинмолзайм"><div class="o-top"><span class="o-num">23</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="1" aria-hidden="true">Ф</span><div class="o-title"><h3>Финмолл</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 495 ₽</b></div><a class="btn o-go" href="https://t.me/m/Luj-ZfD4MjIy" target="_blank" rel="noopener noreferrer" aria-label="Оформить Финмолл — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="maxcreditмакскредитмакскредитзайм"><div class="o-top"><span class="o-num">24</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">MC</span><div class="o-title"><h3>Max.Credit</h3></div></div><div class="o-pay"><small>Вы получите</small><b>1 035 ₽</b></div><a class="btn o-go" href="https://t.me/m/SKak0bbTYzIy" target="_blank" rel="noopener noreferrer" aria-label="Оформить Max.Credit — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="rocketmanрокетменрокетмэнзайм"><div class="o-top"><span class="o-num">25</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="1" aria-hidden="true">R</span><div class="o-title"><h3>Rocketman</h3></div></div><div class="o-pay"><small>Вы получите</small><b>667 ₽</b></div><a class="btn o-go" href="https://t.me/m/rhhBv4U8ZTZi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Rocketman — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="альфаденьгиаденьгиadengiзайм"><div class="o-top"><span class="o-num">26</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">АД</span><div class="o-title"><h3>Альфа Деньги</h3></div></div><div class="o-pay"><small>Вы получите</small><b>759 ₽</b></div><a class="btn o-go" href="https://t.me/m/wEbLVDZpMmZi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Альфа Деньги — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="быстроденьгибыстроденьгизайм"><div class="o-top"><span class="o-num">27</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="1" aria-hidden="true">Б</span><div class="o-title"><h3>Быстроденьги</h3></div></div><div class="o-pay"><small>Вы получите</small><b>920 ₽</b></div><a class="btn o-go" href="https://t.me/m/PGAsbWCRZjc6" target="_blank" rel="noopener noreferrer" aria-label="Оформить Быстроденьги — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="деньгисразузайм"><div class="o-top"><span class="o-num">28</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">ДС</span><div class="o-title"><h3>Деньги Сразу</h3></div></div><div class="o-pay"><small>Вы получите</small><b>782 ₽</b></div><a class="btn o-go" href="https://t.me/m/gL4yJCNTNTky" target="_blank" rel="noopener noreferrer" aria-label="Оформить Деньги Сразу — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="credit7кредит7кредитсемьзайм"><div class="o-top"><span class="o-num">29</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">C7</span><div class="o-title"><h3>Credit7</h3></div></div><div class="o-pay"><small>Вы получите</small><b>675 ₽</b></div><a class="btn o-go" href="https://t.me/m/N0-qUL9dZTQ6" target="_blank" rel="noopener noreferrer" aria-label="Оформить Credit7 — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+<article class="offer tilt ok" data-group="loans" data-q="fin5фин5финпятьзайм"><div class="o-top"><span class="o-num">30</span><span class="o-cat">Займ</span></div><div class="o-name"><span class="o-logo" data-len="2" aria-hidden="true">F5</span><div class="o-title"><h3>Fin5</h3></div></div><div class="o-pay"><small>Вы получите</small><b>500 ₽</b></div><a class="btn o-go" href="https://t.me/m/LkQlEJWvY2Ey" target="_blank" rel="noopener noreferrer" aria-label="Оформить Fin5 — чат в Telegram, откроется в новой вкладке"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-.9.4-.9 1.6 0 1.9l4.6 1.6 1.7 5.4c.2.8 1.2 1 1.8.4l2.6-2.5 4.6 3.4c.7.5 1.6.1 1.8-.7l3.1-14.6c.2-1.1-.8-1.9-1.7-1.6Zm-4.3 4.2-7.7 7a.7.7 0 0 0-.2.4l-.4 2.6-1-3.3 9-6.9c.3-.2.6.1.3.2Z" fill="currentColor"/></svg><span>Оформить</span><span class="arr" aria-hidden="true">↗</span></a></article>
+      </div>
+
+      <div class="tbl-box glass" id="tableView" hidden>
+        <table>
+          <caption class="sr">Все предложения: тип, выплата, механика и ссылка на чат</caption>
+          <thead><tr><th scope="col">Компания</th><th scope="col">Тип</th><th scope="col">Вы получите</th><th scope="col">Механика</th><th scope="col"><span class="sr">Ссылка на чат</span></th></tr></thead>
+          <tbody id="rows">
+<tr data-group="biz" data-q="озонрегбизozonозонрегистрацияипооорегбиздлябизнеса"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="4" aria-hidden="true">ОЗОН</span><span class="t-name"><b>ОЗОН РЕГ Биз</b><small class="t-type">Для бизнеса</small></span></span></td><td class="c-type">Для бизнеса</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">2 300 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="loans" data-q="бустраboostraбустразайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="1" aria-hidden="true">Б</span><span class="t-name"><b>Бустра</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 025 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="loans" data-q="рублионrublionзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="1" aria-hidden="true">Р</span><span class="t-name"><b>Рублион</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">750 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="cards" data-q="псбдебетpsbпромсвязьбанкдебетоваядебетоваякарта"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="3" aria-hidden="true">ПСБ</span><span class="t-name"><b>ПСБ Дебет</b><small class="t-type">Дебетовая карта</small></span></span></td><td class="c-type">Дебетовая карта</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">550 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/n3qkk6osNGZi" target="_blank" rel="noopener noreferrer" aria-label="Оформить ПСБ Дебет — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="cards" data-q="втбстикерvtbстикерплатежныйплатежныйстикер"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="3" aria-hidden="true">ВТБ</span><span class="t-name"><b>ВТБ Стикер</b><small class="t-type">Платёжный стикер</small></span></span></td><td class="c-type">Платёжный стикер</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">500 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="cards" data-q="отпдебетotpотпбанкдебетоваядебетоваякарта"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="3" aria-hidden="true">ОТП</span><span class="t-name"><b>ОТП Дебет</b><small class="t-type">Дебетовая карта</small></span></span></td><td class="c-type">Дебетовая карта</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">375 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/OuN0f0mhYmM6" target="_blank" rel="noopener noreferrer" aria-label="Оформить ОТП Дебет — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="cards" data-q="яндекспэйyandexpayяндекспейяндекспейкартакарта"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">ЯП</span><span class="t-name"><b>Яндекс Пэй</b><small class="t-type">Карта</small></span></span></td><td class="c-type">Карта</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 219 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="cards" data-q="тбанккредиткатбанктинькоффtbankкредитнаякредитнаякарта"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">ТК</span><span class="t-name"><b>Т-Банк Кредитка</b><small class="t-type">Кредитная карта</small></span></span></td><td class="c-type">Кредитная карта</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">920 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="loans" data-q="простойвопросзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">ПВ</span><span class="t-name"><b>Простой вопрос</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 100 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="loans" data-q="деньгинадомденьгинадомзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">ДН</span><span class="t-name"><b>Деньги на Дом</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 225 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="biz" data-q="втбркоvtbрасчетныйсчетипдлябизнеса"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="3" aria-hidden="true">ВТБ</span><span class="t-name"><b>ВТБ РКО</b><small class="t-type">Для бизнеса</small></span></span></td><td class="c-type">Для бизнеса</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 125 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/vAMoCxZ4MjEy" target="_blank" rel="noopener noreferrer" aria-label="Оформить ВТБ РКО — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="biz" data-q="втбрегбизркоvtbрегистрацияипооорасчетныйсчетрегбиздлябизнеса"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="3" aria-hidden="true">ВТБ</span><span class="t-name"><b>ВТБ РЕГБИЗ+<wbr>РКО</b><small class="t-type">Для бизнеса</small></span></span></td><td class="c-type">Для бизнеса</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">2 500 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/XZBiSO0AYTky" target="_blank" rel="noopener noreferrer" aria-label="Оформить ВТБ РЕГБИЗ+РКО — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="cards" data-q="втбдебетvtbдебетоваядебетоваякарта"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="3" aria-hidden="true">ВТБ</span><span class="t-name"><b>ВТБ Дебет</b><small class="t-type">Дебетовая карта</small></span></span></td><td class="c-type">Дебетовая карта</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">475 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="loans" data-q="бережныйзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="1" aria-hidden="true">Б</span><span class="t-name"><b>Бережный</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">750 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="biz" data-q="альфаркоальфабанкalfaрасчетныйсчетипдлябизнеса"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">АР</span><span class="t-name"><b>Альфа РКО</b><small class="t-type">Для бизнеса</small></span></span></td><td class="c-type">Для бизнеса</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">2 550 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="cards" data-q="альфакредиткаальфабанкalfaкредитнаякредитнаякарта"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">АК</span><span class="t-name"><b>Альфа Кредитка</b><small class="t-type">Кредитная карта</small></span></span></td><td class="c-type">Кредитная карта</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">828 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="loans" data-q="moneymanманименманимэнманимензайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">MM</span><span class="t-name"><b>MoneyMan</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 000 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/uaPlIaPLYjMy" target="_blank" rel="noopener noreferrer" aria-label="Оформить MoneyMan — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="лайкзаймлайкзаймlikezaimзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">ЛЗ</span><span class="t-name"><b>ЛайкЗайм</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">920 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/37aDP9q6YzMy" target="_blank" rel="noopener noreferrer" aria-label="Оформить ЛайкЗайм — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="мегаденьгимегаденьгизайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">МД</span><span class="t-name"><b>Мега Деньги</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">575 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/FB2q3Tn2ZDYy" target="_blank" rel="noopener noreferrer" aria-label="Оформить Мега Деньги — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="своилюдизайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">СЛ</span><span class="t-name"><b>Свои люди</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">667 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/XE782axpODJi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Свои люди — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="cards" data-q="совкомбанкдебетсовкомsovcomдебетоваяхалвадебетоваякарта"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">СД</span><span class="t-name"><b>Совкомбанк Дебет</b><small class="t-type">Дебетовая карта</small></span></span></td><td class="c-type">Дебетовая карта</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">345 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><span class="t-soon">Скоро</span></td></tr>
+<tr data-group="loans" data-q="умныеналичныезайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">УН</span><span class="t-name"><b>Умные Наличные</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 150 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/6OtqyvNBM2Fi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Умные Наличные — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="финмоллfinmollфинмолзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="1" aria-hidden="true">Ф</span><span class="t-name"><b>Финмолл</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 495 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/Luj-ZfD4MjIy" target="_blank" rel="noopener noreferrer" aria-label="Оформить Финмолл — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="maxcreditмакскредитмакскредитзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">MC</span><span class="t-name"><b>Max.Credit</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">1 035 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/SKak0bbTYzIy" target="_blank" rel="noopener noreferrer" aria-label="Оформить Max.Credit — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="rocketmanрокетменрокетмэнзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="1" aria-hidden="true">R</span><span class="t-name"><b>Rocketman</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">667 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/rhhBv4U8ZTZi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Rocketman — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="альфаденьгиаденьгиadengiзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">АД</span><span class="t-name"><b>Альфа Деньги</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">759 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/wEbLVDZpMmZi" target="_blank" rel="noopener noreferrer" aria-label="Оформить Альфа Деньги — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="быстроденьгибыстроденьгизайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="1" aria-hidden="true">Б</span><span class="t-name"><b>Быстроденьги</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">920 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/PGAsbWCRZjc6" target="_blank" rel="noopener noreferrer" aria-label="Оформить Быстроденьги — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="деньгисразузайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">ДС</span><span class="t-name"><b>Деньги Сразу</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">782 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/gL4yJCNTNTky" target="_blank" rel="noopener noreferrer" aria-label="Оформить Деньги Сразу — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="credit7кредит7кредитсемьзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">C7</span><span class="t-name"><b>Credit7</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">675 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/N0-qUL9dZTQ6" target="_blank" rel="noopener noreferrer" aria-label="Оформить Credit7 — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+<tr data-group="loans" data-q="fin5фин5финпятьзайм"><td class="c-brand"><span class="t-brand"><span class="t-logo" data-len="2" aria-hidden="true">F5</span><span class="t-name"><b>Fin5</b><small class="t-type">Займ</small></span></span></td><td class="c-type">Займ</td><td class="c-pay"><span class="t-lbl" aria-hidden="true">Вы получите · </span><b class="t-pay">500 ₽</b></td><td class="c-mech"><span class="pend">Уточняется</span></td><td class="c-act"><a class="t-link" href="https://t.me/m/LkQlEJWvY2Ey" target="_blank" rel="noopener noreferrer" aria-label="Оформить Fin5 — чат в Telegram, откроется в новой вкладке">Оформить <span class="arr" aria-hidden="true">↗</span></a></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="empty glass" id="empty" hidden>
+        <b>Ничего не нашли</b>
+        <span>Проверьте название или посмотрите все предложения.</span>
+        <button type="button" class="reset" id="reset">Показать все</button>
+      </div>
+
+      <div class="bottom">
+        <div class="tile glass important">
+          <span class="tag">Важно</span>
+          <div>
+            <b>Перед оформлением ознакомьтесь с условиями</b>
+            <p>Параметры продукта, требования к заявке, решение по ней и возможные расходы проверяйте в официальных материалах компании. Наличие предложения в каталоге не гарантирует одобрение или получение денег. Условия выплаты уточняйте у менеджера в чате.</p>
+          </div>
+        </div>
+        <a class="tile glass t-back tilt" href="#top"><span><b>В начало</b><br><span>К обложке каталога</span></span><span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap"><div class="foot-in glass">
+    <a class="brand" href="#top" aria-label="Финансовый каталог — в начало"><span class="mark" aria-hidden="true">F</span><span aria-hidden="true">Финансовый <em>каталог</em></span></a>
+    <p>Информационный каталог. Решение о предоставлении продукта принимает соответствующая компания. Перед оформлением изучите индивидуальные условия, полную стоимость и документы на официальном сайте поставщика.</p>
+    <div class="foot-r"><span class="age" aria-label="Для лиц от 18 лет">18+</span><span class="c">© 2026</span></div>
+  </div></div>
+</footer>
+
+
+<script>
+/* каталог: поиск, фильтры, вид «карточки / таблица», клик по всей карточке */
+(function(){
+  var d=document;
+  var cards=[].slice.call(d.querySelectorAll('#cards .offer')), rows=[].slice.call(d.querySelectorAll('#rows tr'));
+  var input=d.getElementById('search'), clear=d.getElementById('sClear'), shown=d.getElementById('shownCount'), empty=d.getElementById('empty');
+  var chips=[].slice.call(d.querySelectorAll('.chip')), views=[].slice.call(d.querySelectorAll('.views button'));
+  var grid=d.getElementById('cards'), table=d.getElementById('tableView'), view='cards';
+  var st={q:'',g:'all'};
+  function norm(s){return (s||'').toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9]+/g,'')}
+  function apply(){
+    var q=norm(st.q), n=0;
+    cards.forEach(function(c,i){
+      var ok=(st.g==='all'||c.getAttribute('data-group')===st.g)&&(!q||c.getAttribute('data-q').indexOf(q)>-1);
+      c.hidden=!ok; if(rows[i])rows[i].hidden=!ok; if(ok)n++;
+    });
+    shown.textContent=n; empty.hidden=n>0;
+    grid.hidden=view!=='cards'||n===0; table.hidden=view!=='table'||n===0;
+    clear.hidden=!st.q;
+    chips.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-g')===st.g?'true':'false')});
+  }
+  function setView(v,save){
+    view=v==='table'?'table':'cards';
+    views.forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-v')===view?'true':'false')});
+    if(save){try{localStorage.setItem('fc-view',view)}catch(_){}}
+    apply();
+  }
+  input.addEventListener('input',function(){st.q=input.value;apply();if(window.fcSfx)window.fcSfx('tick')});
+  input.addEventListener('keydown',function(e){if(e.key==='Escape'&&input.value){input.value='';st.q='';apply()}});
+  clear.addEventListener('click',function(){input.value='';st.q='';apply();input.focus()});
+  chips.forEach(function(b){b.addEventListener('click',function(){st.g=b.getAttribute('data-g');apply()})});
+  views.forEach(function(b){b.addEventListener('click',function(){setView(b.getAttribute('data-v'),true)})});
+  d.getElementById('reset').addEventListener('click',function(){input.value='';st.q='';st.g='all';apply()});
+  [].forEach.call(d.querySelectorAll('[data-go]'),function(a){a.addEventListener('click',function(){st.g=a.getAttribute('data-go');input.value='';st.q='';apply()})});
+  /* вся карточка открывает чат, а не только кнопка */
+  cards.forEach(function(c){
+    var a=c.querySelector('a.o-go'); if(!a)return;
+    c.addEventListener('click',function(e){
+      if(e.target.closest('a,button'))return;
+      if(window.getSelection&&String(window.getSelection()))return;
+      a.click();
+    });
+  });
+  var saved='cards'; try{saved=localStorage.getItem('fc-view')||'cards'}catch(_){}
+  setView(saved,false);
+})();
+
+/* шапка на телефоне прячется при прокрутке вниз и возвращается при прокрутке вверх — как на сайте кейсов */
+(function(){
+  var bar=document.querySelector('.bar'); if(!bar||!window.matchMedia)return;
+  var mq=matchMedia('(max-width:820px)'), lastY=window.scrollY||0, acc=0, ticking=false, lockUntil=0;
+  function onScroll(){
+    ticking=false; var y=window.scrollY||0, dy=y-lastY; lastY=y;
+    if(!mq.matches||y<80||performance.now()<lockUntil){bar.classList.remove('bar-hide');acc=0;return}
+    if((dy>0&&acc<0)||(dy<0&&acc>0))acc=0;
+    acc+=dy;
+    if(acc>28)bar.classList.add('bar-hide'); else if(acc<-28)bar.classList.remove('bar-hide');
+  }
+  addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});
+  document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a[href^="#"]')){lockUntil=performance.now()+1200;bar.classList.remove('bar-hide')}});
+  bar.addEventListener('focusin',function(){bar.classList.remove('bar-hide')});
+})();
+
+/* мягкие звуки интерфейса — тот же «клик клавиши», что на сайте кейсов */
+(function(){
+  var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
+  var ctx=null,out=null,last=0,NB=null;
+  function ready(){
+    if(!ctx){ctx=new AC();out=ctx.createGain();out.gain.value=.9;var comp=ctx.createDynamicsCompressor();out.connect(comp);comp.connect(ctx.destination)}
+    if(ctx.state==='suspended')ctx.resume();
+    return ctx;
+  }
+  function noise(){if(NB)return NB;NB=ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);var d=NB.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;return NB}
+  function key(o){o=o||{};
+    var t=ctx.currentTime+(o.d||0),v=(o.v||1)*.85*(.9+Math.random()*.2),p=(o.p||1)*(.96+Math.random()*.08),nb=noise();
+    var n=ctx.createBufferSource();n.buffer=nb;
+    var bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=620*p;bp.Q.value=1.1;
+    var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1900*p;
+    var g=ctx.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.42*v,t+.0012);g.gain.exponentialRampToValueAtTime(.0008,t+.048);
+    n.connect(bp);bp.connect(lp);lp.connect(g);g.connect(out);n.start(t,Math.random()*.8);n.stop(t+.06);
+    var f=(1040+Math.random()*120)*p;
+    [[f,.11,.026],[f*2.62,.03,.014]].forEach(function(q){
+      var o2=ctx.createOscillator();o2.type='sine';o2.frequency.setValueAtTime(q[0],t);o2.frequency.exponentialRampToValueAtTime(q[0]*.9,t+q[2]);
+      var g2=ctx.createGain();g2.gain.setValueAtTime(0,t);g2.gain.linearRampToValueAtTime(q[1]*v,t+.001);g2.gain.exponentialRampToValueAtTime(.0005,t+q[2]);
+      o2.connect(g2);g2.connect(out);o2.start(t);o2.stop(t+q[2]+.01);
+    });
+    var o3=ctx.createOscillator();o3.type='sine';o3.frequency.setValueAtTime(165*p,t);o3.frequency.exponentialRampToValueAtTime(105*p,t+.045);
+    var g3=ctx.createGain();g3.gain.setValueAtTime(.2*v,t);g3.gain.exponentialRampToValueAtTime(.0008,t+.055);o3.connect(g3);g3.connect(out);o3.start(t);o3.stop(t+.06);
+    var c=ctx.createBufferSource();c.buffer=nb;var hp=ctx.createBiquadFilter();hp.type='highpass';hp.frequency.value=5200;
+    var gc=ctx.createGain();gc.gain.setValueAtTime(.05*v,t);gc.gain.exponentialRampToValueAtTime(.0005,t+.004);c.connect(hp);hp.connect(gc);gc.connect(out);c.start(t,Math.random()*.8);c.stop(t+.01);
+  }
+  var S={tap:function(){key()},tick:function(){key({v:.4,p:1.15})},open:function(){key({p:.8,v:1.1})},welcome:function(){key({p:.8,v:1.1})}};
+  function play(n){var now=performance.now();if(now-last<45)return;last=now;try{ready();S[n]()}catch(_){}}
+  window.fcSfx=play;
+  document.addEventListener('click',function(e){
+    var t=e.target; if(!t||!t.closest)return;
+    var el=t.closest('a,button,input,.offer.ok');
+    if(!el)return;
+    var first=false; try{first=sessionStorage.getItem('fc-hi')!=='1';sessionStorage.setItem('fc-hi','1')}catch(_){}
+    if(first){play('welcome');return}
+    if(el.tagName==='INPUT'){play('tick');return}
+    if(el.matches('.offer.ok')||/^https?:/.test(el.getAttribute('href')||'')){play('open');return}
+    play('tap');
+  },true);
+})();
+</script>
+
+<script>
+/* 3D-наклон плиток за курсором + блик на стекле; сцена с монетой поворачивается вслед за мышью */
+(function(){
+  if(!window.matchMedia||!matchMedia('(hover:hover) and (pointer:fine)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var MAX=7;
+  [].forEach.call(document.querySelectorAll('.tilt'),function(el){
+    var raf=0,stage=el.querySelector('.stage');
+    var max=el.classList.contains('offer')?5:(el.hasAttribute('data-scene')?4:MAX);
+    function move(e){
+      var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+      cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){
+        el.classList.add('is-tilting');
+        el.style.transform='perspective(1000px) rotateX('+((.5-y)*max).toFixed(2)+'deg) rotateY('+((x-.5)*max).toFixed(2)+'deg) translateZ(0)';
+        el.style.setProperty('--mx',(x*100).toFixed(1)+'%');el.style.setProperty('--my',(y*100).toFixed(1)+'%');el.style.setProperty('--shine','1');
+        if(stage){stage.style.setProperty('--sx',((.5-y)*16).toFixed(1)+'deg');stage.style.setProperty('--sy',((x-.5)*22).toFixed(1)+'deg')}
+      });
+    }
+    function leave(){cancelAnimationFrame(raf);el.classList.remove('is-tilting');el.style.transform='';el.style.setProperty('--shine','0');if(stage){stage.style.setProperty('--sx','0deg');stage.style.setProperty('--sy','0deg')}}
+    el.addEventListener('pointermove',move);el.addEventListener('pointerleave',leave);
+  });
+})();
+</script>
+
+<script>
+/* приятные тапы: волна из точки касания, пружинистое нажатие, лёгкая вибрация на Android */
+(function(){
+  var SEL='.btn:not(.is-off),.chip,.views button,.bar-link,.t-link,.reset,.s-clear,.cat,a.top-row,.offer.ok,.t-back';
+  var calm=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms)}catch(_){}}
+  document.addEventListener('pointerdown',function(e){
+    if(e.button>0)return;
+    var el=e.target.closest&&e.target.closest(SEL); if(!el)return;
+    if(el.matches('.offer')&&e.target.closest('a,button')&&e.target.closest('a,button')!==el)return;
+    el.classList.remove('springback');el.classList.add('pressed');
+    if(!calm){
+      var r=el.getBoundingClientRect(),d=Math.max(r.width,r.height)*2.2,s=document.createElement('span');
+      s.className='rip';s.style.width=s.style.height=d+'px';s.style.left=(e.clientX-r.left)+'px';s.style.top=(e.clientY-r.top)+'px';
+      el.appendChild(s);setTimeout(function(){s.remove()},650);
+    }
+    if(e.pointerType!=='mouse')buzz(8);
+    function up(){el.classList.remove('pressed');el.classList.add('springback');setTimeout(function(){el.classList.remove('springback')},520);
+      removeEventListener('pointerup',up,true);removeEventListener('pointercancel',up,true)}
+    addEventListener('pointerup',up,true);addEventListener('pointercancel',up,true);
+  },{passive:true});
+})();
+</script>
+
+</body>
+</html>
