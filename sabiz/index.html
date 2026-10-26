@@ -243,6 +243,67 @@ p{margin:0}
   .c-reel .media,.c-cash .media,.c-shot .media{aspect-ratio:3/4}
 }
 
+/* автор: фото внутри панели */
+.bento > .c-author{grid-column:1/-1}
+.c-author{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(20px,3.4vw,52px);padding:clamp(10px,1.1vw,14px);align-items:stretch}
+.au-photo{position:relative;border-radius:calc(var(--r) - 4px);overflow:hidden;min-height:420px;box-shadow:0 0 0 1px rgba(124,92,255,.35),0 0 60px -20px rgba(124,92,255,.7)}
+.au-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.au-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(6,7,22,.55)),linear-gradient(90deg,transparent 70%,rgba(124,92,255,.18))}
+.au-body{display:flex;flex-direction:column;gap:16px;justify-content:center;padding:clamp(12px,2.4vw,36px) clamp(10px,2.4vw,36px) clamp(12px,2.4vw,36px) 0;min-width:0}
+.regalia{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column}
+.regalia li{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:center;padding:13px 0;border-top:1px solid var(--edge)}
+.regalia li:last-child{border-bottom:1px solid var(--edge)}
+.regalia b{justify-self:start;font:600 13px/1 var(--mono);letter-spacing:.02em;color:#fff;padding:8px 10px;border-radius:9px;background:rgba(124,92,255,.18);border:1px solid rgba(124,92,255,.55);box-shadow:0 0 16px -4px rgba(124,92,255,.7)}
+.regalia li:last-child b{background:var(--grad);border-color:transparent}
+.regalia span{font-size:clamp(15px,1.2vw,17px);color:var(--ink);line-height:1.4}
+@media (max-width:760px){
+  .c-author{grid-template-columns:1fr;gap:4px}
+  .au-photo{min-height:0;aspect-ratio:1/1}
+  .au-body{padding:16px 8px 10px}
+}
+
+/* пруфы: одна панель */
+.c-proofs{display:flex;flex-direction:column;gap:16px}
+.pr-nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pr-nums div{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:var(--r-md);background:var(--glass);border:1px solid var(--edge)}
+.pr-nums b{font:600 clamp(24px,2.4vw,34px)/1 var(--display);letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;align-self:flex-start;filter:drop-shadow(0 0 12px rgba(124,92,255,.4))}
+.pr-nums span{font-size:14px;color:var(--muted);line-height:1.45}
+.pr-thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:auto}
+.thumb{position:relative;padding:0;border:1px solid var(--edge2);border-radius:var(--r-md);overflow:hidden;cursor:zoom-in;aspect-ratio:4/3;background:#000;font:inherit;color:inherit;transition:transform .2s,border-color .2s}
+.thumb.light{background:#fff}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:0 0}
+.thumb span{position:absolute;left:6px;right:6px;bottom:6px;font:500 10px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:6px 8px;border-radius:7px;background:rgba(4,5,15,.72);text-align:left}
+@media (hover:hover){.thumb:hover{transform:translateY(-2px);border-color:rgba(124,92,255,.8)}}
+.pr-hint{font:500 11px/1.3 var(--mono);letter-spacing:.06em;color:var(--dim)}
+@media (max-width:600px){.pr-nums{grid-template-columns:1fr}}
+.c-reel .media{aspect-ratio:3/4}
+@media (min-width:1025px){.bento > .c-proofs{grid-column:span 8}.bento > .c-reel{grid-column:span 4}}
+@media (max-width:1024px){.bento > .c-reel{grid-column:1/-1}.c-reel .media{aspect-ratio:4/5}}
+
+/* фото внутри плиток */
+.of-photo,.fq-photo{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:21/9;box-shadow:0 0 0 1px var(--edge2)}
+.of-photo img,.fq-photo img,.st-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.of-photo img{object-position:50% 28%}
+.fq-photo img{object-position:62% 35%}
+.fq-photo{aspect-ratio:4/3}
+.thumb.plan img{object-fit:contain;object-position:50% 50%;padding:6px}
+.cell.c-steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr);gap:clamp(14px,2vw,24px)}
+.st-body{display:flex;flex-direction:column;gap:14px;min-width:0}
+.st-photo{position:relative;order:2;border-radius:var(--r-md);overflow:hidden;min-height:220px;box-shadow:0 0 0 1px var(--edge2)}
+.st-photo img{object-position:50% 55%}
+@media (max-width:760px){.cell.c-steps{grid-template-columns:1fr}.st-photo{order:0;min-height:0;aspect-ratio:16/9}}
+
+/* просмотр скриншота */
+.lb{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:max(20px,env(safe-area-inset-top,0px)) 16px max(20px,env(safe-area-inset-bottom,0px));background:rgba(4,5,15,.88);cursor:zoom-out;animation:slide .2s ease-out}
+.lb img{max-width:min(100%,1000px);max-height:100%;border-radius:12px;box-shadow:0 0 0 1px var(--edge2),0 30px 80px rgba(0,0,0,.8)}
+.lb-x{position:absolute;top:max(14px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));width:44px;height:44px;border-radius:12px;border:1px solid var(--edge2);background:var(--glass2);color:#fff;font:400 26px/1 var(--body);cursor:pointer}
+
+/* кнопки на телефоне: не обрезаются */
+@media (max-width:600px){
+  .btns{flex-direction:column}
+  .btns .btn{width:100%;white-space:normal;text-align:center;line-height:1.25;padding:14px 20px}
+}
+
 /* неон и движение */
 @property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
 .neon{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 60px -30px rgba(0,0,0,.75),0 0 50px -18px rgba(124,92,255,.55)}
@@ -505,41 +566,24 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
 <!-- 1. АВТОР -->
 <section class="sec hero" id="author">
   <div class="in bento">
-    <div class="cell c-photo hin">
-      <div class="photo has-img"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" loading="lazy" decoding="async"></div>
-    </div>
-    <div class="cell c-about neon hin tilt">
-      <div class="meta"><span class="live"><i></i>Бесплатный урок</span><span>~25 минут</span><span>Опыт не нужен</span></div>
-      <span class="label">Автор урока</span>
-      <h1>Александр <em>Сабиз</em></h1>
-      <p class="lead">Продюсер экспертов и блогеров. Веду запуски под ключ: от упаковки продукта до продаж. На уроке показываю путь, который прошёл сам.</p>
-      <div class="btns">
-        <a class="btn accent" href="#lesson">Смотреть урок
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-        <a class="btn" href="#consult">Записаться на консультацию</a>
-      </div>
-    </div>
-    <div class="cell c-coin hin" aria-hidden="true">
-      <div class="coin-stage">
-        <div class="cube cube-a"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="cube cube-b"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="cube cube-c"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="coin-float">
-          <div class="coin">
-            <i class="ed" style="transform:translateZ(-8px)"></i><i class="ed" style="transform:translateZ(-7px)"></i><i class="ed" style="transform:translateZ(-6px)"></i><i class="ed" style="transform:translateZ(-5px)"></i><i class="ed" style="transform:translateZ(-4px)"></i><i class="ed" style="transform:translateZ(-3px)"></i><i class="ed" style="transform:translateZ(-2px)"></i><i class="ed" style="transform:translateZ(-1px)"></i><i class="ed" style="transform:translateZ(0px)"></i><i class="ed" style="transform:translateZ(1px)"></i><i class="ed" style="transform:translateZ(2px)"></i><i class="ed" style="transform:translateZ(3px)"></i><i class="ed" style="transform:translateZ(4px)"></i><i class="ed" style="transform:translateZ(5px)"></i><i class="ed" style="transform:translateZ(6px)"></i><i class="ed" style="transform:translateZ(7px)"></i><i class="ed" style="transform:translateZ(8px)"></i>
-            <div class="face ff"><div class="ring"></div><span>$</span></div>
-            <div class="face fb"><div class="ring"></div><span>S</span></div>
-          </div>
+    <div class="cell c-author neon hin">
+      <div class="au-photo"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" decoding="async"></div>
+      <div class="au-body">
+        <div class="meta"><span class="live"><i></i>Бесплатный урок</span><span>~25 минут</span><span>Опыт не нужен</span></div>
+        <span class="label">Автор урока</span>
+        <h1>Александр <em>Сабиз</em></h1>
+        <p class="lead">Продюсер экспертов и блогеров. Веду запуски под ключ: от упаковки продукта до продаж. На уроке показываю путь, который прошёл сам.</p>
+        <ul class="regalia">
+          <li><b>14 лет</b><span>Заработал первый миллион рублей</span></li>
+          <li><b>15 лет</b><span>Один переехал в Москву</span></li>
+          <li><b>16 лет</b><span>Вышел на стабильные 700&nbsp;000&nbsp;₽ в&nbsp;месяц</span></li>
+        </ul>
+        <div class="btns">
+          <a class="btn accent" href="#lesson">Смотреть урок
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+          <a class="btn" href="#consult">Записаться на консультацию</a>
         </div>
-        <div class="coin-shadow"></div>
       </div>
-      <div class="cap"><b>SABIZ</b><span>ТОП-1 ХАСЛЕР СНГ</span></div>
-    </div>
-
-    <div class="cell c-stats c-regalia hin">
-      <div class="st"><b>14<small> лет</small></b><span>Первый миллион рублей</span></div>
-      <div class="st"><b>15<small> лет</small></b><span>Один переехал в Москву</span></div>
-      <div class="st hl"><b>16<small> лет</small></b><span>Стабильные 700 тыс. ₽ в месяц</span></div>
     </div>
   </div>
 </section>
@@ -573,51 +617,32 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
   </div>
 </section>
 
-<!-- 4. ЛАЙФСТАЙЛ -->
-<section class="sec" id="life">
+<!-- 4. ПРУФЫ -->
+<section class="sec" id="proofs">
   <div class="in bento">
-    <div class="cell c-gallery neon">
-      <div class="gal-head">
-        <div class="gal-title"><span class="label">Лайфстайл</span><h2 class="h2">Как я живу сейчас</h2></div>
-        <a class="btn accent" href="#consult">Хочу так же
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <div class="cell c-proofs tilt">
+      <span class="label">Пруфы</span>
+      <h2 class="h2">Цифры, а не обещания</h2>
+      <div class="pr-nums">
+        <div><b>1 280 513 ₽</b><span>доход за октябрь</span></div>
+        <div><b>146%</b><span>плана по оплатам на запуске: 747 964 ₽ при плане 510 370 ₽</span></div>
       </div>
-      <div class="gal">
-        <figure class="media">
-          <video id="reel" src="media/reel.mp4" poster="media/reel.jpg" muted loop playsinline preload="metadata" aria-label="Видео SABIZ"></video>
-          <span class="media-tag"><span class="live"><i></i></span>Reels</span>
-          <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
+      <div class="pr-thumbs">
+        <button type="button" class="thumb dark" data-full="media/proof-bank.jpg"><img src="media/proof-bank.jpg" alt="Скриншот банка: доходы за октябрь 1 280 513 ₽" loading="lazy" decoding="async"><span>Банк · октябрь</span></button>
+        <button type="button" class="thumb light plan" data-full="media/proof-plan.jpg"><img src="media/proof-plan.jpg" alt="Таблица запуска: план и оплаты" loading="lazy" decoding="async"><span>План / факт</span></button>
+        <button type="button" class="thumb light" data-full="media/proof-rev.jpg"><img src="media/proof-rev.jpg" alt="Таблица выручки по запуску" loading="lazy" decoding="async"><span>Выручка</span></button>
+      </div>
+      <p class="pr-hint">Нажми на скриншот, чтобы открыть целиком</p>
+    </div>
+    <div class="cell c-reel">
+      <figure class="media">
+        <video id="reel" src="media/reel.mp4" poster="media/reel.jpg" muted loop playsinline preload="metadata" aria-label="Видео SABIZ"></video>
+        <span class="media-tag"><span class="live"><i></i></span>Reels</span>
+        <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
           <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
           <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
         </button>
-        </figure>
-        <figure class="media"><img src="media/city.jpg" alt="Александр Сабиз на балконе в центре Москвы" width="800" height="998" loading="lazy" decoding="async"><span class="media-tag">Москва</span></figure>
-        <figure class="media"><img src="media/cash.jpg" alt="Пачка купюр по 5000 ₽ на руке" width="720" height="1273" loading="lazy" decoding="async" style="object-position:50% 55%"><span class="media-tag">Кэш</span></figure>
-        <figure class="media"><img src="media/night.jpg" alt="Александр Сабиз на вечеринке" width="800" height="1067" loading="lazy" decoding="async" style="object-position:62% 40%"><span class="media-tag">Вечер</span></figure>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3.7 ПРУФЫ -->
-<section class="sec" id="proofs">
-  <div class="in bento">
-    <div class="cell c-ptext tilt">
-      <span class="label">Пруфы</span>
-      <h2 class="h2">Цифры, а не обещания</h2>
-      <ul class="pnums">
-        <li><b>1 280 513 ₽</b><span>доход за октябрь</span></li>
-        <li><b>146%</b><span>плана по оплатам на запуске: 747 964 ₽ при плане 510 370 ₽</span></li>
-      </ul>
-      <div class="pimg plan"><img src="media/proof-plan.jpg" alt="Таблица запуска: ожидалось 510 370 ₽, оплат 747 964 ₽, получено 698 089 ₽" loading="lazy" decoding="async"></div>
-    </div>
-    <div class="cell c-proof">
-      <div class="pimg dark"><img src="media/proof-bank.jpg" alt="Скриншот банка: доходы за октябрь 1 280 513 ₽" loading="lazy" decoding="async"></div>
-      <div class="pcap"><span>Банк · октябрь</span><b>1 280 513 ₽</b></div>
-    </div>
-    <div class="cell c-proof">
-      <div class="pimg light"><img src="media/proof-rev.jpg" alt="Таблица выручки по запуску" loading="lazy" decoding="async"></div>
-      <div class="pcap"><span>Таблица запуска</span><b>Выручка</b></div>
+      </figure>
     </div>
   </div>
 </section>
@@ -626,6 +651,7 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
 <section class="sec" id="consult">
   <div class="in bento">
     <div class="cell c-offer">
+      <div class="of-photo"><img src="media/city.jpg" alt="Александр Сабиз на балконе в центре Москвы" width="800" height="998" loading="lazy" decoding="async"></div>
       <span class="label">Бесплатная консультация</span>
       <h2>Составим твой личный план входа в продюсирование</h2>
       <p class="lead">30 минут созвона один на один. Чтобы консультация была полезной, ответь на 4 коротких вопроса.</p>
@@ -731,6 +757,8 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
     </div>
 
     <div class="cell c-steps tilt">
+      <div class="st-photo"><img src="media/cash.jpg" alt="Пачка купюр по 5000 ₽ на руке" width="720" height="1273" loading="lazy" decoding="async"></div>
+      <div class="st-body">
       <span class="label">Как проходит запись</span>
       <ol class="steps3">
         <li><b>01</b><div><h3>Ответь на 4 вопроса</h3><p>Анкета занимает меньше минуты.</p></div></li>
@@ -739,6 +767,7 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
       </ol>
       <div class="btns"><a class="btn" href="#quiz">Перейти к анкете
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a></div>
+      </div>
     </div>
   </div>
 </section>
@@ -750,6 +779,7 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
       <span class="label">Вопросы</span>
       <h2 class="h2">Частые вопросы</h2>
       <p class="lead">Не нашёл ответ? Задай его лично на консультации.</p>
+      <div class="fq-photo"><img src="media/night.jpg" alt="Александр Сабиз на вечеринке" width="800" height="1067" loading="lazy" decoding="async"></div>
       <div class="btns"><a class="btn accent" href="#consult">Записаться</a></div>
     </div>
     <div class="cell c-faq">
@@ -760,6 +790,8 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
     </div>
   </div>
 </section>
+
+<div class="lb" id="lb" hidden><button type="button" class="lb-x" aria-label="Закрыть">×</button><img alt=""></div>
 
 <footer>
   <div class="in">
@@ -1017,6 +1049,20 @@ document.addEventListener("click", function(e){
     if (!v.muted) { v.currentTime = 0; tryPlay(); }
     sfx.play("tap");
   });
+})();
+
+/* ===== Скриншоты пруфов: открыть целиком ===== */
+(function(){
+  var lb = document.getElementById("lb"); if (!lb) return;
+  var img = lb.querySelector("img");
+  var th = document.querySelectorAll(".thumb");
+  for (var i = 0; i < th.length; i++) th[i].addEventListener("click", function(){
+    img.src = this.getAttribute("data-full"); img.alt = this.querySelector("img").alt;
+    lb.hidden = false; sfx.play("open");
+  });
+  function close(){ if (!lb.hidden) { lb.hidden = true; sfx.play("close"); } }
+  lb.addEventListener("click", close);
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") close(); });
 })();
 
 /* ===== Анкета ===== */
