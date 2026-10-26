@@ -1130,14 +1130,28 @@ var TG_LINK = "https://t.me/YakimovichI";
 var sfx = (function(){
   var AC = window.AudioContext || window.webkitAudioContext;
   var ctx = null, out = null, last = 0, NB = null, enabled = true;
-  try { enabled = localStorage.getItem("sab-snd") !== "off"; } catch(e) {}
-  function ready(){
-    if (!ctx) {
-      ctx = new AC(); out = ctx.createGain(); out.gain.value = .9;
-      var comp = ctx.createDynamicsCompressor(); out.connect(comp); comp.connect(ctx.destination);
-    }
-    if (ctx.state === "suspended") ctx.resume();
+  /* звук кнопки «Звук» убран из шапки — тапы всегда включены */
+  function build(){
+    ctx = new AC(); out = ctx.createGain(); out.gain.value = .9; NB = null;
+    var comp = ctx.createDynamicsCompressor(); out.connect(comp); comp.connect(ctx.destination);
   }
+  function ready(){
+    if (!ctx || ctx.state === "closed") build();
+    /* iPhone переводит звук в «interrupted», когда играет видео со звуком — будим его снова */
+    if (ctx.state !== "running") { try { ctx.resume(); } catch(e) {} }
+  }
+  /* разблокировка звука на iPhone: в момент касания будим контекст и проигрываем тишину */
+  function unlock(){
+    if (!AC) return;
+    try {
+      ready();
+      var b = ctx.createBuffer(1, 1, 22050), src = ctx.createBufferSource();
+      src.buffer = b; src.connect(ctx.destination); src.start(0);
+    } catch(e) {}
+  }
+  document.addEventListener("touchstart", unlock, { passive: true, capture: true });
+  document.addEventListener("pointerdown", unlock, { passive: true, capture: true });
+  document.addEventListener("visibilitychange", function(){ if (!document.hidden && ctx && ctx.state !== "running") { try { ctx.resume(); } catch(e) {} } });
   function noise(){
     if (NB) return NB;
     NB = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
@@ -1187,7 +1201,8 @@ var sfx = (function(){
   }
   function set(v){ enabled = v; try { localStorage.setItem("sab-snd", v ? "on" : "off"); } catch(e) {} }
   var hold = false;
-  function pause(on){ hold = on; try { if (ctx) { if (on) ctx.suspend(); else ctx.resume(); } } catch(e) {} }
+  /* пока Reels играет со звуком — тапы молчат, но звук не «усыпляем», чтобы он сразу вернулся */
+  function pause(on){ hold = on; }
   return { play: function(n, f){ if (!hold) play(n, f); }, set: set, on: function(){ return enabled; }, ok: !!AC, pause: pause };
 })();
 
