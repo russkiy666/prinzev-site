@@ -262,6 +262,13 @@ p{margin:0}
   .au-body{padding:16px 8px 10px}
 }
 
+.au-reel{position:absolute;z-index:1;right:12px;bottom:12px;width:32%;max-width:190px;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:var(--night);
+  border:1px solid rgba(255,255,255,.28);box-shadow:0 0 0 1px rgba(124,92,255,.5),0 0 34px -6px rgba(124,92,255,.8),0 20px 40px -12px rgba(0,0,0,.8)}
+.au-reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.au-reel .media-tag{left:8px;top:8px;padding:6px 8px;font-size:10px}
+.au-reel .reel-snd{right:8px;bottom:8px;width:36px;height:36px;border-radius:10px}
+.au-reel .reel-snd svg{width:17px;height:17px}
+
 /* пруфы: одна панель */
 .c-proofs{display:flex;flex-direction:column;gap:16px}
 .pr-nums{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -277,7 +284,9 @@ p{margin:0}
 .pr-hint{font:500 11px/1.3 var(--mono);letter-spacing:.06em;color:var(--dim)}
 @media (max-width:600px){.pr-nums{grid-template-columns:1fr}}
 .c-reel .media{aspect-ratio:3/4}
-@media (min-width:1025px){.bento > .c-proofs{grid-column:span 8}.bento > .c-reel{grid-column:span 4}}
+.bento > .c-proofs{grid-column:1/-1}
+.pr-left,.pr-right{display:flex;flex-direction:column;gap:16px;min-width:0}
+@media (min-width:1025px){.cell.c-proofs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:clamp(20px,3vw,40px);align-items:center}.pr-thumbs{margin-top:0}}
 @media (max-width:1024px){.bento > .c-reel{grid-column:1/-1}.c-reel .media{aspect-ratio:4/5}}
 
 /* фото внутри плиток */
@@ -567,7 +576,16 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
 <section class="sec hero" id="author">
   <div class="in bento">
     <div class="cell c-author neon hin">
-      <div class="au-photo"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" decoding="async"></div>
+      <div class="au-photo"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" decoding="async">
+        <div class="au-reel">
+          <video id="reel" src="media/reel.mp4" poster="media/reel.jpg" muted loop playsinline preload="metadata" aria-label="Видео SABIZ"></video>
+          <span class="media-tag"><span class="live"><i></i></span>Reels</span>
+          <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
+          <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+          <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        </button>
+        </div>
+      </div>
       <div class="au-body">
         <div class="meta"><span class="live"><i></i>Бесплатный урок</span><span>~25 минут</span><span>Опыт не нужен</span></div>
         <span class="label">Автор урока</span>
@@ -587,8 +605,6 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
     </div>
   </div>
 </section>
-
-<div class="ticker" aria-hidden="true"><div class="track"><span>ТОП-1 ХАСЛЕР СНГ</span><i></i><span>Первый миллион в 14</span><i></i><span>Москва в 15</span><i></i><span>700 тыс. ₽ в месяц в 16</span><i></i><span>Бесплатный урок</span><i></i><span>Консультация 1 на 1</span><i></i><span>ТОП-1 ХАСЛЕР СНГ</span><i></i><span>Первый миллион в 14</span><i></i><span>Москва в 15</span><i></i><span>700 тыс. ₽ в месяц в 16</span><i></i><span>Бесплатный урок</span><i></i><span>Консультация 1 на 1</span><i></i></div></div>
 
 <!-- 3. ВИДЕОУРОК -->
 <section class="sec" id="lesson">
@@ -621,28 +637,22 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
 <section class="sec" id="proofs">
   <div class="in bento">
     <div class="cell c-proofs tilt">
+      <div class="pr-left">
       <span class="label">Пруфы</span>
       <h2 class="h2">Цифры, а не обещания</h2>
       <div class="pr-nums">
         <div><b>1 280 513 ₽</b><span>доход за октябрь</span></div>
         <div><b>146%</b><span>плана по оплатам на запуске: 747 964 ₽ при плане 510 370 ₽</span></div>
       </div>
+      </div>
+      <div class="pr-right">
       <div class="pr-thumbs">
         <button type="button" class="thumb dark" data-full="media/proof-bank.jpg"><img src="media/proof-bank.jpg" alt="Скриншот банка: доходы за октябрь 1 280 513 ₽" loading="lazy" decoding="async"><span>Банк · октябрь</span></button>
         <button type="button" class="thumb light plan" data-full="media/proof-plan.jpg"><img src="media/proof-plan.jpg" alt="Таблица запуска: план и оплаты" loading="lazy" decoding="async"><span>План / факт</span></button>
         <button type="button" class="thumb light" data-full="media/proof-rev.jpg"><img src="media/proof-rev.jpg" alt="Таблица выручки по запуску" loading="lazy" decoding="async"><span>Выручка</span></button>
       </div>
       <p class="pr-hint">Нажми на скриншот, чтобы открыть целиком</p>
-    </div>
-    <div class="cell c-reel">
-      <figure class="media">
-        <video id="reel" src="media/reel.mp4" poster="media/reel.jpg" muted loop playsinline preload="metadata" aria-label="Видео SABIZ"></video>
-        <span class="media-tag"><span class="live"><i></i></span>Reels</span>
-        <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
-          <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
-          <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-        </button>
-      </figure>
+      </div>
     </div>
   </div>
 </section>
