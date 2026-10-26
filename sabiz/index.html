@@ -16,7 +16,7 @@
 <script>(function(h){h.className+=" js";var seen=false;try{seen=sessionStorage.getItem("sab-ld")==="1"}catch(e){}if(seen)h.className+=" no-ld";else h.className+=" ld-gate"})(document.documentElement)</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@500;600;700&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <style>
 /* Layout: бенто — сетка стеклянных плиток (12 колонок на десктопе, 2 на телефоне) поверх медленно плывущих фиолетово-голубых сфер и звёзд; 3D: монета, стеклянные кубы, объёмный график цели */
 @property --h{syntax:'<length>';inherits:true;initial-value:0px}
@@ -585,6 +585,88 @@ html.js:not(.no-ld) .hero h1 .w{opacity:0;transform:translateY(.3em)}
 html.js .hero h1 .w.on{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tt-d,.lw-line{stroke-dashoffset:0}.lw{fill-opacity:1;stroke-dashoffset:0}.lw-spark{opacity:1}.iso .b3{--h:var(--t)}}
+
+/* ===== iOS-слой: шрифт SF, материалы, сегменты, списки ===== */
+:root{
+  --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,sans-serif;
+  --body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
+  --mono:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
+  --bg:#000; --ink:#F5F5F7; --muted:#98989F; --soft:#D1D1D6; --dim:#6E6E73;
+  --r:26px; --r-md:14px; --r-sm:10px;
+  --card:rgba(28,28,30,.74); --fill:rgba(118,118,128,.24); --fill2:rgba(118,118,128,.12); --sep:rgba(84,84,88,.5);
+}
+body{letter-spacing:-.011em;font-feature-settings:"tnum" 0}
+h1,h2,h3{font-weight:700;letter-spacing:-.024em}
+.hero h1{font-weight:700;letter-spacing:-.035em;line-height:1.04}
+.label,.kicker{font:600 13px/1.2 var(--body);letter-spacing:.01em;text-transform:uppercase;color:var(--muted)}
+.meta{font:500 13px/1.3 var(--body);letter-spacing:0;text-transform:none;color:var(--muted)}
+.lead{color:var(--soft)}
+time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
+/* карточки = материал iOS */
+.cell{background:var(--card);border:.5px solid rgba(255,255,255,.12);box-shadow:inset 0 .5px 0 rgba(255,255,255,.08),0 24px 60px -34px rgba(0,0,0,.9);border-radius:var(--r)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.cell{-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%)}}
+.cell::before{display:none}
+.neon::after{display:none}
+.neon{box-shadow:inset 0 .5px 0 rgba(255,255,255,.08),0 24px 60px -34px rgba(0,0,0,.9)}
+.c-offer{background:var(--card)}
+/* кнопки */
+.btn{min-height:52px;border-radius:14px;font:600 17px/1 var(--body);letter-spacing:-.02em;background:var(--fill);border:0;color:var(--ink);transition:transform .15s,opacity .15s,background-color .2s}
+.btn.accent,.btn.next{color:#000;box-shadow:none}
+.btn:active{transform:scale(.97);opacity:.85}
+@media (hover:hover){.btn:hover{transform:none;background:rgba(118,118,128,.32)}.btn.accent:hover,.btn.next:hover{box-shadow:0 10px 30px -14px rgba(255,170,0,.7)}}
+.ripple{display:none}
+/* сегменты этапов */
+.bar{padding-top:max(10px,env(safe-area-inset-top,0px));background:linear-gradient(180deg,rgba(0,0,0,.92) 0,rgba(0,0,0,.92) calc(100% - 14px),transparent)}
+.steps{margin-top:0;padding:3px;gap:2px;border:0;border-radius:12px;background:var(--fill)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.steps{background:rgba(58,58,62,.6);-webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}}
+.stp{flex-direction:row;min-height:38px;gap:6px;border-radius:9px;font:600 14px/1 var(--body);letter-spacing:-.01em;color:var(--ink)}
+.stp i{border:0;padding:0;font:600 12px/1 var(--body);color:var(--dim)}
+.stp.on{background:#636366;animation:none;color:#fff;box-shadow:0 3px 8px rgba(0,0,0,.35),0 3px 1px rgba(0,0,0,.12)}
+.stp.on i{color:var(--accent);border:0}
+.stp.past i{color:var(--accent)}
+@media (max-width:420px){.stp{flex-direction:row;min-height:36px;font-size:13px;gap:4px}.stp i{font-size:11px;padding:0}}
+@media (max-width:360px){.stp i{display:none}}
+/* регалии — строки как в настройках iOS */
+.regalia{margin:4px 0 0;background:var(--fill2);border-radius:14px;overflow:hidden}
+.regalia li{grid-template-columns:30px 1fr auto;gap:12px;padding:11px 14px;border:0;position:relative}
+.regalia li+li::before{content:"";position:absolute;left:56px;right:0;top:0;height:.5px;background:var(--sep)}
+.regalia li:last-child{border:0}
+.regalia .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#000}
+.regalia .ic svg{width:18px;height:18px}
+.regalia .i1{background:linear-gradient(180deg,#FFD66B,#FFB020)}
+.regalia .i2{background:linear-gradient(180deg,#FFB35C,#FF8A1F)}
+.regalia .i3{background:linear-gradient(180deg,#FFE9A6,#FFC23D)}
+.regalia .tx{font-size:16px;font-weight:500;color:var(--ink);line-height:1.3}
+.regalia b,.regalia li:last-child b{font:500 15px/1 var(--body);color:var(--muted);background:none;border:0;padding:0;box-shadow:none;animation:none;white-space:nowrap}
+/* мелкие подписи */
+.media-tag{font:600 12px/1 var(--body);letter-spacing:0;text-transform:none;border-radius:999px;padding:7px 11px;background:rgba(0,0,0,.45);border:0}
+.thumb span{font:600 11px/1.2 var(--body);letter-spacing:0;text-transform:none;border-radius:8px}
+.pr-hint,.scale-hint,.field,.iso-legend span,.free em,.ld-hint{font-family:var(--body);letter-spacing:0;text-transform:none;font-size:13px}
+.field{font-weight:500}
+.gets li b,.chapters time{font:600 13px/1.5 var(--body);color:var(--accent)}
+.pr-nums div{background:var(--fill2);border:0}
+.opt,.emo,.field input{background:var(--fill2);border:.5px solid rgba(255,255,255,.08);border-radius:14px}
+.opt{font-size:17px;min-height:52px}
+.opt .rad{border-width:2px}
+.steps3 b{border-radius:10px;font:600 14px/1 var(--body);background:var(--fill);border:0;box-shadow:none}
+.progress i{height:4px;border-radius:4px}
+/* FAQ — сгруппированный список */
+.c-faq{padding:4px 20px}
+.faq-i+.faq-i{border-top:.5px solid var(--sep)}
+.faq-i summary{font:500 17px/1.35 var(--body);letter-spacing:-.015em;padding:18px 0}
+.faq-i summary .pl{width:22px;height:22px;border:0;background:none;color:var(--dim)}
+.faq-i summary .pl svg{width:16px;height:16px}
+.faq-i[open] summary .pl{transform:rotate(90deg);color:var(--accent);border:0}
+.faq-i p{font-size:16px}
+/* панель этапа */
+.stage-nav{border-radius:var(--r)}
+.sn-txt b{font:700 19px/1.25 var(--display);letter-spacing:-.02em}
+/* телефон */
+@media (max-width:760px),(hover:none){
+  .cell{background:rgba(28,28,30,.94)!important}
+  .c-author{padding:8px}
+  .au-photo{border-radius:20px}
+}
 </style>
 
 <div class="loader" id="ld" aria-hidden="true">
@@ -606,13 +688,6 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
 
 <div class="bar">
   <div class="in">
-    <div class="bar-pill">
-      <div class="brand"><span class="mark">S</span><span><em>SABIZ</em><span class="full"> · ТОП-1 ХАСЛЕР СНГ</span></span></div>
-      <div class="bar-r">
-        <button type="button" class="snd on" id="snd" aria-pressed="true" aria-label="Звук нажатий"><span class="snd-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="snd-lbl">Звук</span></button>
-        <a class="bar-link" href="#quiz" data-go="3">Записаться</a>
-      </div>
-    </div>
     <nav class="steps" aria-label="Этапы">
       <button type="button" class="stp on" data-go="1"><i>01</i><span>Автор</span></button>
       <button type="button" class="stp" data-go="2"><i>02</i><span>Урок</span></button>
@@ -644,14 +719,13 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
         <h1>Александр <em>Сабиз</em></h1>
         <p class="lead">Продюсер экспертов и блогеров. Веду запуски под ключ: от упаковки продукта до продаж. На уроке показываю путь, который прошёл сам.</p>
         <ul class="regalia">
-          <li><b>14 лет</b><span>Заработал первый миллион рублей</span></li>
-          <li><b>15 лет</b><span>Один переехал в Москву</span></li>
-          <li><b>16 лет</b><span>Вышел на стабильные 700&nbsp;000&nbsp;₽ в&nbsp;месяц</span></li>
+          <li><span class="ic i1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10 17V7h3.5a2.5 2.5 0 0 1 0 5H8.5M8.5 14.5H14"/></svg></span><span class="tx">Первый миллион рублей</span><b>в 14 лет</b></li>
+          <li><span class="ic i2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span class="tx">Один переехал в Москву</span><b>в 15 лет</b></li>
+          <li><span class="ic i3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span><span class="tx">Стабильные 700&nbsp;000&nbsp;₽ в&nbsp;месяц</span><b>в 16 лет</b></li>
         </ul>
         <div class="btns">
           <a class="btn accent" href="#lesson" data-go="2">Перейти к уроку
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-          <a class="btn" href="#consult" data-go="3">Записаться на консультацию</a>
         </div>
       </div>
     </div>
@@ -866,10 +940,10 @@ html.js .hero h1 .w.on{opacity:1;transform:none}
       <div class="btns"><a class="btn accent" href="#quiz" data-go="3">Записаться на консультацию</a></div>
     </div>
     <div class="cell c-faq">
-      <details class="faq-i"><summary>Консультация правда бесплатная?<span class="pl">+</span></summary><p>Да. 30 минут разбора твоей ситуации без оплаты и обязательств.</p></details>
-      <details class="faq-i"><summary>У меня нет опыта и кейсов. Это для меня?<span class="pl">+</span></summary><p>Да. Урок рассчитан на тех, кто только начинает. На консультации разберём, как получить первого эксперта без портфолио.</p></details>
-      <details class="faq-i"><summary>Нужны ли вложения, чтобы начать?<span class="pl">+</span></summary><p>Нет. Продюсер зарабатывает процент с запуска эксперта, стартовый бюджет для этого не нужен.</p></details>
-      <details class="faq-i"><summary>Что будет после консультации?<span class="pl">+</span></summary><p>У тебя будет личный план на 3 месяца. Если захочешь, расскажу про формат обучения со мной.</p></details>
+      <details class="faq-i"><summary>Консультация правда бесплатная?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>Да. 30 минут разбора твоей ситуации без оплаты и обязательств.</p></details>
+      <details class="faq-i"><summary>У меня нет опыта и кейсов. Это для меня?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>Да. Урок рассчитан на тех, кто только начинает. На консультации разберём, как получить первого эксперта без портфолио.</p></details>
+      <details class="faq-i"><summary>Нужны ли вложения, чтобы начать?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>Нет. Продюсер зарабатывает процент с запуска эксперта, стартовый бюджет для этого не нужен.</p></details>
+      <details class="faq-i"><summary>Что будет после консультации?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>У тебя будет личный план на 3 месяца. Если захочешь, расскажу про формат обучения со мной.</p></details>
     </div>
   </div>
 </section>
@@ -1013,7 +1087,7 @@ var sfx = (function(){
 
 /* ===== Кнопка звука ===== */
 (function(){
-  var b = document.getElementById("snd");
+  var b = document.getElementById("snd"); if (!b) return;
   function paint(){ var on = sfx.on(); b.className = "snd" + (on ? " on" : ""); b.setAttribute("aria-pressed", on ? "true" : "false"); }
   if (!sfx.ok) { b.hidden = true; return; }
   paint();
