@@ -316,16 +316,6 @@ body{background:#EEF3FB}
     <section class="card author neon" id="author">
       <div class="au-photo">
         <img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" decoding="async" fetchpriority="high">
-        <div class="au-reel" id="reel-box">
-          <video id="reel" poster="media/reel.jpg" playsinline webkit-playsinline preload="metadata" disablepictureinpicture aria-label="Видео SABIZ"><source src="media/reel.mp4" type="video/mp4"></video>
-          <span class="reel-bar" aria-hidden="true"><i id="reel-prog"></i></span>
-          <span class="media-tag">Reels</span>
-          <button type="button" class="reel-start" id="reel-play" aria-label="Смотреть видео со звуком">
-            <span class="rs-ring" aria-hidden="true"></span>
-            <span class="rs-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z"/></svg></span>
-            <span class="rs-txt" id="reel-txt">Смотреть</span>
-          </button>
-        </div>
       </div>
       <div class="au-body">
         <span class="label">Автор урока</span>
@@ -662,33 +652,6 @@ document.addEventListener("click", function(e){
     });
   }
   setTimeout(gate, 4400);
-})();
-
-
-/* ===== Reels: стартует только по кнопке, сразу со звуком и с начала ===== */
-(function(){
-  var v = document.getElementById("reel"), box = document.getElementById("reel-box"),
-      btn = document.getElementById("reel-play"), txt = document.getElementById("reel-txt"), bar = document.getElementById("reel-prog");
-  if (!v) return;
-  var raf = 0;
-  function cls(){ var c = "au-reel"; if (!v.paused || v.__started) c += " playing"; if (v.paused && v.__started && !v.ended) c += " paused"; box.className = c; }
-  function tick(){ if (v.duration) bar.style.transform = "scaleX(" + (v.currentTime / v.duration) + ")"; if (!v.paused) raf = requestAnimationFrame(tick); }
-  function start(fromZero){
-    if (fromZero) { try { v.currentTime = 0; } catch(e) {} }
-    v.muted = false; v.__started = true;
-    sfx.pause && sfx.pause(true);
-    var pr = v.play();
-    if (pr && pr.catch) pr.catch(function(){ v.muted = true; var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){ v.__started = false; cls(); }); });
-  }
-  btn.addEventListener("click", function(e){ e.stopPropagation(); start(!v.__started || v.ended); });
-  /* тап по видео во время показа — пауза; ещё тап — продолжить */
-  box.addEventListener("click", function(){ if (!v.__started) return; if (v.paused) start(false); else v.pause(); });
-  v.addEventListener("play", function(){ cls(); cancelAnimationFrame(raf); tick(); });
-  v.addEventListener("pause", function(){ cls(); sfx.pause && sfx.pause(false); txt.textContent = "Продолжить"; });
-  v.addEventListener("ended", function(){ v.__started = false; cls(); sfx.pause && sfx.pause(false); txt.textContent = "Ещё раз"; bar.style.transform = "scaleX(0)"; try { v.currentTime = 0; } catch(e) {} });
-  /* ушёл с экрана — пауза */
-  if ("IntersectionObserver" in window) new IntersectionObserver(function(es){ for (var i = 0; i < es.length; i++) if (!es[i].isIntersecting && !v.paused) v.pause(); }, { threshold: .1 }).observe(box);
-  cls();
 })();
 
 
