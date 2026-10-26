@@ -265,7 +265,8 @@ p{margin:0}
 .au-reel{position:absolute;z-index:1;right:12px;bottom:12px;width:32%;max-width:190px;border-radius:14px;overflow:hidden;background:var(--night);
   border:1px solid rgba(255,255,255,.28);box-shadow:0 0 0 1px rgba(255,190,46,.5),0 0 34px -6px rgba(255,190,46,.8),0 20px 40px -12px rgba(0,0,0,.8)}
 .au-reel::before{content:"";display:block;padding-top:177.78%}
-.au-reel video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;background:#000}
+.au-reel{background:#111 url(media/reel.jpg) center/cover no-repeat}
+.au-reel video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;background:transparent;transform:translateZ(0)}
 .au-reel .play-ov{position:absolute;inset:0;z-index:1;display:grid;place-items:center;border:0;padding:0;background:rgba(5,5,7,.25);color:#fff;cursor:pointer}
 .au-reel .play-ov span{width:44px;height:44px;border-radius:50%;background:var(--grad);color:#1A1000;display:grid;place-items:center;box-shadow:0 0 24px rgba(255,190,46,.8)}
 .au-reel .play-ov svg{width:16px;height:16px;margin-left:3px;fill:currentColor}
@@ -704,7 +705,7 @@ time,.chapters time,.dur,.free s{font-variant-numeric:tabular-nums}
     <div class="cell c-author neon hin">
       <div class="au-photo"><img src="media/about.jpg" alt="Александр Сабиз" width="900" height="1200" decoding="async" fetchpriority="high">
         <div class="au-reel">
-          <video id="reel" poster="media/reel.jpg" muted autoplay loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture aria-label="Видео SABIZ"><source src="media/reel.mp4" type="video/mp4"></video>
+          <video id="reel" poster="media/reel.jpg" muted autoplay loop playsinline webkit-playsinline preload="auto" disablepictureinpicture aria-label="Видео SABIZ"><source src="media/reel.mp4" type="video/mp4"></video>
           <button type="button" class="play-ov" id="reel-play" aria-label="Включить видео"><span><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></span></button>
           <span class="media-tag"><span class="live"><i></i></span>Reels</span>
           <button type="button" class="reel-snd" id="reel-snd" aria-pressed="false" aria-label="Включить звук видео">
@@ -1100,6 +1101,7 @@ document.addEventListener("click", function(e){
   if (!t.closest) return;
   var s = t.closest(".faq-i summary");
   if (s) { sfx.play(s.parentNode.open ? "close" : "open"); return; }
+  if (t.closest(".reel-snd, .play-ov")) return;
   if (t.closest(".play")) { sfx.play("open"); return; }
   if (t.closest(".bar-link, .btns .btn, #tg-link")) sfx.play("tap");
 }, true);
@@ -1195,27 +1197,42 @@ document.addEventListener("click", function(e){
   io.observe(iso);
 })();
 
-/* ===== Видео в панели автора: без звука по кругу; если телефон не дал автозапуск — запуск по тапу ===== */
+/* ===== Видео в панели автора: без звука по кругу; звук по кнопке без перезапуска ===== */
 (function(){
   var v = document.getElementById("reel"), b = document.getElementById("reel-snd"), pl = document.getElementById("reel-play");
   if (!v) return;
-  var box = v.parentNode;
+  var box = v.parentNode, wantPlay = false;
   v.muted = true; v.defaultMuted = true; v.setAttribute("muted", "");
-  function mark(){ box.className = box.className.replace(/\s*playing/g, "") + (v.paused ? "" : " playing"); }
-  v.addEventListener("playing", mark); v.addEventListener("pause", mark);
-  function tryPlay(){ var pr = v.play(); if (pr && pr.catch) pr.catch(function(){ mark(); }); }
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function(es){
-      for (var i = 0; i < es.length; i++) { if (es[i].isIntersecting) tryPlay(); else if (!v.paused) v.pause(); }
-    }, { threshold: .2 }).observe(box);
-  } else tryPlay();
-  pl.addEventListener("click", function(){ tryPlay(); sfx.play("open"); });
-  b.addEventListener("click", function(){
-    v.muted = !v.muted;
+  function setPlaying(on){ box.className = box.className.replace(/\s*playing/g, "") + (on ? " playing" : ""); }
+  v.addEventListener("playing", function(){ setPlaying(true); });
+  /* кнопку ▶ показываем, только если видео реально остановилось само, а не на долю секунды при переключении звука */
+  v.addEventListener("pause", function(){ setTimeout(function(){ if (v.paused && wantPlay) setPlaying(false); }, 400); });
+  function tryPlay(){
+    wantPlay = true;
+    var pr = v.play();
+    if (pr && pr.catch) pr.catch(function(){
+      if (!v.muted) { v.muted = true; paintSnd(); var p2 = v.play(); if (p2 && p2.catch) p2.catch(function(){ setPlaying(false); }); }
+      else setPlaying(false);
+    });
+  }
+  function paintSnd(){
     b.setAttribute("aria-pressed", v.muted ? "false" : "true");
     b.setAttribute("aria-label", v.muted ? "Включить звук видео" : "Выключить звук видео");
-    if (!v.muted) { try { v.currentTime = 0; } catch(e) {} }
-    tryPlay(); sfx.play("tap");
+  }
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function(es){
+      for (var i = 0; i < es.length; i++) {
+        if (es[i].isIntersecting) tryPlay();
+        else if (!v.paused) { wantPlay = false; v.pause(); }
+      }
+    }, { threshold: .2 }).observe(box);
+  } else tryPlay();
+  pl.addEventListener("click", function(){ tryPlay(); });
+  b.addEventListener("click", function(e){
+    e.stopPropagation();
+    v.muted = !v.muted;
+    paintSnd();
+    if (v.paused) tryPlay();
   });
 })();
 
