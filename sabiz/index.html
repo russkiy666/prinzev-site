@@ -125,7 +125,24 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .ldbar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,#4C86FF,#8DB3FF);transition:width .25s linear}
 .ldbar.done i{background:#3DDC84}
 .player small{color:#A9B3C7;font-size:13px}
-.chapters{list-style:none;margin:0;padding:0}
+.chap{position:relative;height:186px;margin-top:14px;overflow:hidden;border-radius:16px;background:var(--fill);box-shadow:0 0 0 1px rgba(29,92,255,.08) inset}
+.chap::before,.chap::after{content:"";position:absolute;left:0;right:0;height:14px;z-index:2;pointer-events:none}
+.chap::before{top:0;background:linear-gradient(var(--fill),rgba(238,242,248,0))}
+.chap::after{bottom:0;background:linear-gradient(rgba(238,242,248,0),var(--fill))}
+.chap-in{transition:transform .6s cubic-bezier(.22,.8,.24,1);will-change:transform}
+.cr{position:relative;height:62px;display:flex;align-items:center;gap:12px;padding:0 14px;cursor:pointer;overflow:hidden;transition:opacity .4s,background .3s;-webkit-tap-highlight-color:transparent}
+.cr + .cr{border-top:1px solid rgba(29,92,255,.07)}
+.cr time{flex:none;min-width:48px;text-align:center;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;color:var(--blue);background:var(--blue-soft);border-radius:9px;padding:6px 8px;position:relative;z-index:1}
+.cr span{position:relative;z-index:1;flex:1;min-width:0;font-size:15.5px;line-height:1.25;font-weight:500}
+.cr i{position:absolute;left:0;top:0;bottom:0;width:var(--p,0%);background:linear-gradient(90deg,rgba(76,134,255,.16),rgba(76,134,255,.28));transition:width .4s linear}
+.cr b{position:relative;z-index:1;flex:none;width:8px;height:8px;border-radius:50%;background:transparent}
+.cr.past{opacity:.5}
+.cr.past b{background:#3DDC84}
+.cr.now{background:rgba(255,255,255,.75)}
+.cr.now time{background:var(--blue);color:#fff;box-shadow:0 4px 12px rgba(29,92,255,.35)}
+.cr.now span{font-weight:700}
+.cr.now b{background:var(--blue);animation:pls 1.4s ease-in-out infinite}
+@keyframes pls{50%{transform:scale(1.7);opacity:.4}}
 .chapters li{display:grid;grid-template-columns:56px 1fr;gap:8px;padding:12px 0;font-size:16px}
 .chapters li + li{border-top:1px solid var(--line)}
 .chapters time{font-weight:600;color:var(--blue);font-variant-numeric:tabular-nums}
@@ -348,7 +365,7 @@ body{background:#EEF3FB}
 <main class="stage" data-stage="2" id="s2">
   <div class="wrap stack">
     <section class="card" id="lesson">
-      <span class="label">Бесплатный урок · 25 минут</span>
+      <span class="label">Бесплатный урок · 7 минут</span>
       <h2>Как начать зарабатывать на продюсировании экспертов</h2>
       <div class="player" id="video-slot">
         <div class="inner">
@@ -356,12 +373,7 @@ body{background:#EEF3FB}
           <small>Загружаю урок… 0%</small>
         </div>
       </div>
-      <ol class="chapters">
-        <li><time>00:00</time><span>Кто такой продюсер экспертов и сколько он зарабатывает</span></li>
-        <li><time>06:30</time><span>Где найти первого эксперта, если у тебя ноль кейсов</span></li>
-        <li><time>14:00</time><span>Разбор реального запуска с цифрами</span></li>
-        <li><time>21:00</time><span>План на первые 3 месяца и запись на консультацию</span></li>
-      </ol>
+      <div class="chap" id="chap" aria-label="Тайм-коды урока"><div class="chap-in" id="chap-in"></div></div>
     </section>
     <div class="actions">
       <a class="btn primary" href="#consult" data-go="3">Посмотрел урок — записаться <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -852,6 +864,52 @@ var goStage = (function(){
   v.addEventListener("timeupdate", function(){
     if (!sentWatched && v.duration && v.currentTime / v.duration > 0.8) { sentWatched = true; track("watched"); }
   });
+
+  /* ----- тайм-коды: окно из трёх строк, которое едет вместе с просмотром ----- */
+  var CH = [
+    [0,    "Привет! О чём этот урок"],
+    [43,   "Как на этом заработать"],
+    [85,   "Точка А → Точка Б"],
+    [97,   "Этап 0: обрести всю базу"],
+    [120,  "Шаг 1: фундамент"],
+    [151,  "Шаг 2: закрытие проекта"],
+    [221,  "Шаг 3: фундамент проекта"],
+    [302,  "Шаг 4: прогрев и контент-план"],
+    [345,  "Шаг 5: заработок в проекте"],
+    [405,  "Результаты учеников"],
+    [418,  "Бесплатная консультация"]
+  ];
+  var chIn = document.getElementById("chap-in"), rows = [], curCh = -1, ROW = 62;
+  function fmt(t){ var m = Math.floor(t / 60), q = Math.floor(t % 60); return m + ":" + (q < 10 ? "0" : "") + q; }
+  CH.forEach(function(c, k){
+    var r = document.createElement("div"); r.className = "cr";
+    r.innerHTML = '<i></i><time>' + fmt(c[0]) + '</time><span>' + c[1] + '</span><b></b>';
+    r.addEventListener("click", function(){
+      if (!started) { inner.style.display = "none"; v.controls = true; started = true; track("lesson"); }
+      var go = function(){ try { v.currentTime = c[0]; } catch (e) {} var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); };
+      if (v.readyState >= 1) go(); else { v.preload = "auto"; try { v.load(); } catch (e) {} v.addEventListener("loadedmetadata", go, { once: true }); }
+      if (window.sfx) sfx.play("tap");
+    });
+    chIn.appendChild(r); rows.push(r);
+  });
+  function paintCh(){
+    var t = v.currentTime || 0, idx = 0;
+    for (var k = 0; k < CH.length; k++) if (t >= CH[k][0]) idx = k;
+    var end = idx + 1 < CH.length ? CH[idx + 1][0] : (v.duration || CH[idx][0] + 30);
+    var frac = Math.max(0, Math.min(1, (t - CH[idx][0]) / Math.max(1, end - CH[idx][0])));
+    for (var i = 0; i < rows.length; i++) {
+      rows[i].className = "cr" + (i < idx ? " past" : (i === idx ? " now" : ""));
+      rows[i].firstChild.style.setProperty("--p", i === idx ? Math.round(frac * 100) + "%" : (i < idx ? "100%" : "0%"));
+    }
+    if (idx !== curCh) {
+      curCh = idx;
+      var first = Math.max(0, Math.min(idx, CH.length - 3));
+      chIn.style.transform = "translateY(" + (-first * ROW) + "px)";
+    }
+  }
+  v.addEventListener("timeupdate", paintCh);
+  v.addEventListener("seeked", paintCh);
+  paintCh();
   window.__lessonPreload = preload;
   paint();
   var st = document.getElementById("s2");
