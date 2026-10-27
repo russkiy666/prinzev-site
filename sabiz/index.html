@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F3F6FB">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <meta name="description" content="Бесплатный видеоурок SABIZ: как в 16–20 лет начать зарабатывать на продюсировании экспертов. В конце — бесплатная консультация.">
 <meta property="og:title" content="SABIZ — бесплатный урок по продюсированию экспертов">
 <meta property="og:description" content="Как начать зарабатывать на продюсировании экспертов без вложений. Бесплатная консультация после урока.">
@@ -504,7 +505,50 @@ body{background:#EEF3FB}
 /* ===== НАСТРОЙКИ =====
    SHEET_URL — адрес веб-приложения Google Apps Script (см. apps-script.gs).
    Пока пусто, заявки не отправляются, форма работает в демо-режиме. */
-var SHEET_URL = "";
+var SHEET_URL = "";   /* URL веб-приложения Apps Script (бот + заявки) */
+
+/* ===== Telegram Mini App: если сайт открыт внутри Telegram ===== */
+var TG = (function(){
+  var w = window.Telegram && window.Telegram.WebApp;
+  if (!w || !w.initData) return null;
+  try {
+    w.ready(); w.expand();
+    if (w.setHeaderColor) w.setHeaderColor("#EEF3FB");
+    if (w.setBackgroundColor) w.setBackgroundColor("#EEF3FB");
+    if (w.disableVerticalSwipes) w.disableVerticalSwipes();
+  } catch(e) {}
+  document.documentElement.className += " in-tg";
+  return w;
+})();
+function haptic(kind){
+  try {
+    if (!TG || !TG.HapticFeedback) return;
+    if (kind === "ok") TG.HapticFeedback.notificationOccurred("success");
+    else if (kind === "err") TG.HapticFeedback.notificationOccurred("error");
+    else if (kind === "pick") TG.HapticFeedback.selectionChanged();
+    else TG.HapticFeedback.impactOccurred("light");
+  } catch(e) {}
+}
+
+/* ===== Отслеживание шагов для бота-дожима ===== */
+var UID = (function(){
+  if (TG && TG.initDataUnsafe && TG.initDataUnsafe.user) return String(TG.initDataUnsafe.user.id);
+  var m = /[?&]u=([A-Za-z0-9_-]{4,40})/.exec(location.search), u = m ? m[1] : "";
+  try { if (u) localStorage.setItem("sab-uid", u); else u = localStorage.getItem("sab-uid") || ""; } catch(e) {}
+  return u;
+})();
+var track = (function(){
+  var sent = {};
+  return function(ev){
+    if (!UID || !SHEET_URL || sent[ev]) return; sent[ev] = 1;
+    var body = JSON.stringify({ type: "event", uid: UID, ev: ev, init: TG ? TG.initData : "" });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(SHEET_URL, new Blob([body], { type: "text/plain" }))) return;
+      fetch(SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body, keepalive: true });
+    } catch(e) {}
+  };
+})();
+track("open");
 var TG_LINK = "https://t.me/YakimovichI";
 
 
@@ -585,7 +629,10 @@ var sfx = (function(){
   var hold = false;
   /* пока Reels играет со звуком — тапы молчат, но звук не «усыпляем», чтобы он сразу вернулся */
   function pause(on){ hold = on; }
-  return { play: function(n, f){ if (!hold) play(n, f); }, set: set, on: function(){ return enabled; }, ok: !!AC, pause: pause };
+  return { play: function(n, f){
+      haptic(n === "win" ? "ok" : n === "err" ? "err" : n === "pick" ? "pick" : "tap");
+      if (!hold) play(n, f);
+    }, set: set, on: function(){ return enabled; }, ok: !!AC, pause: pause };
 })();
 
 
@@ -686,13 +733,15 @@ var goStage = (function(){
       if (t === n) tabs[k].setAttribute("aria-current", "step"); else tabs[k].removeAttribute("aria-current");
     }
     var changed = n !== cur; cur = n;
+    if (TG && TG.BackButton) { try { if (n > 1) TG.BackButton.show(); else TG.BackButton.hide(); } catch(e) {} }
+    if (n === 2) track("lesson"); else if (n >= 3) track("watched");
     var el = target ? document.getElementById(target) : null;
     if (el && stageOf(el) === n && target !== names[n]) {
       setTimeout(function(){ el.scrollIntoView({ behavior: changed ? "auto" : "smooth", block: "start" }); }, changed ? 30 : 0);
     } else if (changed) window.scrollTo(0, 0);
     if (changed && !silent) {
       sfx.play("next");
-      try { if (location.hash !== "#" + names[n]) history.pushState(null, "", "#" + names[n]); } catch(e) {}
+      if (!TG) { try { if (location.hash !== "#" + names[n]) history.pushState(null, "", "#" + names[n]); } catch(e) {} }
     }
   }
   document.addEventListener("click", function(e){
@@ -710,7 +759,9 @@ var goStage = (function(){
   }
   window.addEventListener("hashchange", function(){ fromHash(true); });
   window.addEventListener("popstate", function(){ fromHash(true); if (!location.hash) go(1, null, true); });
-  fromHash(true);
+  var qs = /[?&]s=([1-4])/.exec(location.search);
+  if (qs) go(+qs[1], +qs[1] === 3 ? "quiz" : null, true); else if (!TG) fromHash(true);
+  if (TG && TG.BackButton) TG.BackButton.onClick(function(){ go(cur - 1); });
   return go;
 })();
 
@@ -748,6 +799,7 @@ var goStage = (function(){
     r.addEventListener("change", function(){
       err.textContent = "";
       if (r.name === "q1") route();
+      track("quiz");
       sfx.play("pick");
     });
   });
@@ -795,7 +847,9 @@ var goStage = (function(){
       telegram: "@" + text("tg").replace(/^@/, ""),
       q1: radio("q1"), q2: radio("q2"), q3: radio("q3"),
       budget: minor() ? radio("qb") : "",
-      q4: radio("q4")
+      q4: radio("q4"),
+      uid: UID,
+      init: TG ? TG.initData : ""
     };
     if (SHEET_URL && window.fetch) {
       next.disabled = true; next.textContent = "Отправляю…";
@@ -807,6 +861,12 @@ var goStage = (function(){
     }
   });
 
+  if (TG && TG.initDataUnsafe && TG.initDataUnsafe.user) {
+    var u = TG.initDataUnsafe.user;
+    if (u.first_name) document.getElementById("name").value = u.first_name;
+    if (u.username) document.getElementById("tg").value = "@" + u.username;
+    document.getElementById("tg-link").addEventListener("click", function(e){ e.preventDefault(); TG.openTelegramLink(TG_LINK); });
+  }
   route();
   show(0, false);
   quiz.className += " ready";
