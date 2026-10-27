@@ -464,10 +464,9 @@ body{background:#EEF3FB}
       <div class="done" id="done" hidden>
         <div class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
         <h3>Заявка принята</h3>
-        <p>Последний шаг: напиши мне в Telegram слово «КОНСУЛЬТАЦИЯ», и я пришлю свободные слоты для созвона.</p>
+        <p>Последний шаг: нажми кнопку ниже и отправь сообщение в чат — пришлю свободное время для созвона.</p>
         <a class="btn primary" id="tg-link" href="https://t.me/YakimovichI" target="_blank" rel="noopener">Перейти в Telegram
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <span class="handle">Не открылось? Найди в Telegram: <b>@YakimovichI</b></span>
       </div>
     </section>
 
@@ -549,7 +548,9 @@ var track = (function(){
   };
 })();
 track("open");
-var TG_LINK = "https://t.me/YakimovichI";
+var TG_LINK_ADULT = "https://t.me/m/ihvAYwdaNTQ6";   /* 18 лет и старше */
+var TG_LINK_MINOR = "https://t.me/m/bVjtDEDGYmJi";   /* младше 18 */
+var TG_LINK = TG_LINK_ADULT;
 
 
 /* ===== Звук нажатий: синтезированный «мягкий клик клавиатуры», без файлов ===== */
@@ -827,6 +828,8 @@ var goStage = (function(){
     return "";
   }
   function finish(){
+    TG_LINK = minor() ? TG_LINK_MINOR : TG_LINK_ADULT;
+    document.getElementById("tg-link").href = TG_LINK;
     each(all, function(s){ s.hidden = true; });
     document.getElementById("nav").hidden = true;
     err.textContent = "";
