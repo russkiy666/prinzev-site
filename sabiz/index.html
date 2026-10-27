@@ -116,6 +116,7 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .player .inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;text-align:center;padding:16px}
 .play{width:60px;height:60px;border-radius:50%;border:0;background:var(--blue);color:#fff;display:grid;place-items:center;cursor:pointer}
 .play svg{width:22px;height:22px;margin-left:3px;fill:currentColor}
+.player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
 .player small{color:#A9B3C7;font-size:13px}
 .chapters{list-style:none;margin:0;padding:0}
 .chapters li{display:grid;grid-template-columns:56px 1fr;gap:8px;padding:12px 0;font-size:16px}
@@ -345,7 +346,7 @@ body{background:#EEF3FB}
       <div class="player" id="video-slot">
         <div class="inner">
           <button type="button" class="play" aria-label="Смотреть урок"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></button>
-          <small>Место под видеоурок</small>
+          <small>Нажми, чтобы начать урок</small>
         </div>
       </div>
       <ol class="chapters">
@@ -759,6 +760,23 @@ var goStage = (function(){
   return go;
 })();
 
+
+/* ===== Видеоурок (Rutube): плеер подгружается по нажатию, чтобы страница не тормозила ===== */
+(function(){
+  var slot = document.getElementById("video-slot");
+  var btn = slot && slot.querySelector(".play");
+  if (!btn) return;
+  btn.addEventListener("click", function(){
+    var f = document.createElement("iframe");
+    f.src = "https://rutube.ru/play/embed/2f8ef1b8c685b5472ba5888e3e3cf2cb?skinColor=2563FF&autoStart=true";
+    f.setAttribute("allow", "clipboard-write; autoplay; fullscreen; picture-in-picture");
+    f.setAttribute("allowfullscreen", "");
+    f.setAttribute("title", "Видеоурок");
+    slot.innerHTML = "";
+    slot.appendChild(f);
+    track("lesson");
+  });
+})();
 
 /* ===== Анкета: две ветки — до 18 лет добавляется вопрос про бюджет на старт ===== */
 (function(){
