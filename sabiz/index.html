@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#F3F6FB">
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://rutube.ru"><link rel="dns-prefetch" href="https://rutube.ru"><script src="https://telegram.org/js/telegram-web-app.js"></script>
 <meta name="description" content="Бесплатный видеоурок SABIZ: как в 16–20 лет начать зарабатывать на продюсировании экспертов. В конце — бесплатная консультация.">
 <meta property="og:title" content="SABIZ — бесплатный урок по продюсированию экспертов">
 <meta property="og:description" content="Как начать зарабатывать на продюсировании экспертов без вложений. Бесплатная консультация после урока.">
@@ -121,6 +121,10 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .play{width:60px;height:60px;border-radius:50%;border:0;background:var(--blue);color:#fff;display:grid;place-items:center;cursor:pointer}
 .play svg{width:22px;height:22px;margin-left:3px;fill:currentColor}
 .player iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.player iframe.hid{opacity:0;pointer-events:none;z-index:-1}
+.ldbar{width:min(220px,70%);height:5px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden}
+.ldbar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,#4C86FF,#8DB3FF);transition:width .25s linear}
+.ldbar.done i{background:#3DDC84}
 .player small{color:#A9B3C7;font-size:13px}
 .chapters{list-style:none;margin:0;padding:0}
 .chapters li{display:grid;grid-template-columns:56px 1fr;gap:8px;padding:12px 0;font-size:16px}
@@ -350,7 +354,7 @@ body{background:#EEF3FB}
       <div class="player" id="video-slot">
         <div class="inner">
           <button type="button" class="play" aria-label="Смотреть урок"><svg viewBox="0 0 24 24"><path d="M5 3l16 9-16 9z"/></svg></button>
-          <small>Нажми, чтобы начать урок</small>
+          <small>Загружаю урок… 0%</small>
         </div>
       </div>
       <ol class="chapters">
@@ -762,7 +766,7 @@ var goStage = (function(){
     }
     var changed = n !== cur; cur = n;
     if (TG && TG.BackButton) { try { if (n > 1) TG.BackButton.show(); else TG.BackButton.hide(); } catch(e) {} }
-    if (n === 2) track("lesson"); else if (n >= 3) track("watched");
+    if (n === 2) { track("lesson"); if (window.__lessonPreload) window.__lessonPreload(); } else if (n >= 3) track("watched");
     var el = target ? document.getElementById(target) : null;
     if (el && stageOf(el) === n && target !== names[n]) {
       setTimeout(function(){ el.scrollIntoView({ behavior: changed ? "auto" : "smooth", block: "start" }); }, changed ? 30 : 0);
@@ -794,21 +798,68 @@ var goStage = (function(){
 })();
 
 
-/* ===== Видеоурок (Rutube): плеер подгружается по нажатию, чтобы страница не тормозила ===== */
+/* ===== Видеоурок (Rutube): плеер догружается заранее, пока человек читает, а на экране виден прогресс ===== */
 (function(){
   var slot = document.getElementById("video-slot");
   var btn = slot && slot.querySelector(".play");
   if (!btn) return;
-  btn.addEventListener("click", function(){
-    var f = document.createElement("iframe");
-    f.src = "https://rutube.ru/play/embed/2f8ef1b8c685b5472ba5888e3e3cf2cb?skinColor=2563FF&autoStart=true";
-    f.setAttribute("allow", "clipboard-write; autoplay; fullscreen; picture-in-picture");
-    f.setAttribute("allowfullscreen", "");
-    f.setAttribute("title", "Видеоурок");
-    slot.innerHTML = "";
-    slot.appendChild(f);
+  var VID = "2f8ef1b8c685b5472ba5888e3e3cf2cb";
+  var inner = slot.querySelector(".inner");
+  var hint = inner.querySelector("small");
+  var bar = document.createElement("div");
+  bar.className = "ldbar"; bar.innerHTML = "<i></i>";
+  inner.appendChild(bar);
+  var frame = null, loaded = false, wantPlay = false, pct = 0, timer = null, t0 = 0;
+
+  function paint(){
+    bar.firstChild.style.width = pct + "%";
+    if (loaded) hint.textContent = "Урок готов — нажми ▶";
+    else hint.textContent = "Загружаю урок… " + Math.round(pct) + "%";
+    if (wantPlay && !loaded) hint.textContent = "Урок загружается… " + Math.round(pct) + "% — стартует сам";
+  }
+  /* Rutube не сообщает точный процент, поэтому полоса плавно идёт к 90% и добирает до 100% в момент, когда плеер реально загрузился */
+  function tick(){
+    var sec = (Date.now() - t0) / 1000;
+    pct = Math.min(90, 90 * (1 - Math.exp(-sec / 4)));
+    paint();
+  }
+  function ready(){
+    if (loaded) return;
+    try { if (frame.contentWindow.location.href === "about:blank") return; } catch (e) {}   /* пустая заготовка — не считаем */
+    loaded = true; clearInterval(timer); pct = 100; paint();
+    bar.className += " done";
+    if (wantPlay) show();
+  }
+  function preload(){
+    if (frame) return;
+    frame = document.createElement("iframe");
+    frame.src = "https://rutube.ru/play/embed/" + VID + "?skinColor=2563FF";
+    frame.setAttribute("allow", "clipboard-write; autoplay; fullscreen; picture-in-picture");
+    frame.setAttribute("allowfullscreen", "");
+    frame.setAttribute("title", "Видеоурок");
+    frame.className = "hid";
+    frame.addEventListener("load", ready);
+    slot.appendChild(frame);
+    t0 = Date.now(); timer = setInterval(tick, 200); tick();
+  }
+  function show(){
+    inner.style.display = "none";
+    frame.className = "";
     track("lesson");
+    /* команда «играть» плееру Rutube; если браузер не даст автозапуск — человек нажмёт ▶ в самом плеере */
+    var go = function(){ try { frame.contentWindow.postMessage(JSON.stringify({ type: "player:play", data: {} }), "*"); } catch (e) {} };
+    go(); setTimeout(go, 400);
+  }
+  btn.addEventListener("click", function(){
+    if (!frame) preload();
+    if (loaded) show(); else { wantPlay = true; paint(); }
   });
+  window.__lessonPreload = preload;
+  paint();
+  var st = document.getElementById("s2");
+  if (st && /\bon\b/.test(st.className)) preload();
+  /* пока человек читает про автора, урок уже грузится в фоне */
+  setTimeout(preload, 5000);
 })();
 
 /* ===== Анкета: две ветки — до 18 лет добавляется вопрос про бюджет на старт ===== */
