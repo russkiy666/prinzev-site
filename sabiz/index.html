@@ -125,6 +125,10 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .ldbar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,#4C86FF,#8DB3FF);transition:width .25s linear}
 .ldbar.done i{background:#3DDC84}
 .player small{color:#A9B3C7;font-size:13px}
+.c-photo{margin:12px 0 14px;border-radius:16px;overflow:hidden;position:relative;background:#0B1324;box-shadow:0 8px 24px rgba(11,19,36,.18)}
+.c-photo img{display:block;width:100%;height:auto}
+.c-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,92,255,0) 55%,rgba(11,19,36,.55));pointer-events:none}
+.c-photo b{position:absolute;left:14px;bottom:11px;z-index:1;color:#fff;font-size:14px;font-weight:600;letter-spacing:.2px}
 .chap{position:relative;height:186px;margin-top:14px;overflow:hidden;border-radius:16px;background:var(--fill);box-shadow:0 0 0 1px rgba(29,92,255,.08) inset}
 .chap::before,.chap::after{content:"";position:absolute;left:0;right:0;height:14px;z-index:2;pointer-events:none}
 .chap::before{top:0;background:linear-gradient(var(--fill),rgba(238,242,248,0))}
@@ -388,6 +392,7 @@ body{background:#EEF3FB}
     <section class="card" id="consult">
       <span class="label">Бесплатная консультация · 30 минут</span>
       <h2>Составим твой личный план входа в продюсирование</h2>
+      <div class="c-photo"><img src="media/consult.jpg" alt="Александр Сабиз" width="900" height="675" loading="lazy" decoding="async"><b>Александр Сабиз · ТОП-1 ХАСЛЕР СНГ</b></div>
       <ul class="gets">
         <li>Разберём, с чего начать именно тебе</li>
         <li>Посчитаем, как выйти на твою цель по доходу за 3 месяца</li>
