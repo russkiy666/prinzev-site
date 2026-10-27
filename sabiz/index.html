@@ -405,9 +405,8 @@ body{background:#EEF3FB}
         <span class="label">Вопрос</span>
         <h3 class="q">Сколько ты уже интересуешься продюсированием экспертов?</h3>
         <div class="opts">
-          <label class="opt"><input type="radio" name="q2" id="q2a" value="Только начал"><span class="rad"></span>Только-только начал (пару недель)</label>
+          <label class="opt"><input type="radio" name="q2" id="q2a" value="Пару недель"><span class="rad"></span>Пару недель</label>
           <label class="opt"><input type="radio" name="q2" id="q2b" value="Около месяца"><span class="rad"></span>Около месяца</label>
-          <label class="opt"><input type="radio" name="q2" id="q2c" value="2–3 месяца"><span class="rad"></span>2–3 месяца</label>
           <label class="opt"><input type="radio" name="q2" id="q2d" value="3–6 месяцев"><span class="rad"></span>3–6 месяцев</label>
           <label class="opt"><input type="radio" name="q2" id="q2e" value="6–12 месяцев"><span class="rad"></span>6–12 месяцев</label>
           <label class="opt"><input type="radio" name="q2" id="q2f" value="Больше года"><span class="rad"></span>Больше года</label>
@@ -877,6 +876,22 @@ var goStage = (function(){
     sfx.play("win");
   }
 
+  /* открыть чат: в Telegram — родным способом, а если приложение не среагировало за секунду — запасным */
+  function openChat(){
+    var url = TG_LINK;
+    if (!TG) { if (!window.open(url, "_blank")) location.href = url; return; }
+    var moved = false;
+    function mark(){ moved = true; }
+    document.addEventListener("visibilitychange", mark);
+    window.addEventListener("blur", mark);
+    try { TG.openTelegramLink(url); } catch (x) { moved = false; }
+    setTimeout(function(){
+      document.removeEventListener("visibilitychange", mark);
+      window.removeEventListener("blur", mark);
+      if (!moved) { try { TG.openLink(url); } catch (y) { location.href = url; } }
+    }, 1000);
+  }
+
   back.addEventListener("click", function(){ if (cur > 0) { cur--; show(cur, true); sfx.play("close"); } });
   next.addEventListener("click", function(){
     var e = check(steps[cur]);
@@ -905,12 +920,10 @@ var goStage = (function(){
     }
     finish();
     /* ссылка на чат вшита в саму кнопку: открываем сразу, в том же нажатии */
-    if (TG) TG.openTelegramLink(TG_LINK); else window.open(TG_LINK, "_blank");
+    openChat();
   });
 
-  if (TG) {
-    document.getElementById("tg-link").addEventListener("click", function(e){ e.preventDefault(); TG.openTelegramLink(TG_LINK); });
-  }
+  document.getElementById("tg-link").addEventListener("click", function(e){ e.preventDefault(); openChat(); });
   route();
   show(0, false);
   quiz.className += " ready";
