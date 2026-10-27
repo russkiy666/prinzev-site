@@ -853,8 +853,8 @@ var goStage = (function(){
         headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
     }
     finish();
-    /* в Telegram сразу открываем чат — человек пишет сообщение без лишних шагов */
-    if (TG) setTimeout(function(){ TG.openTelegramLink(TG_LINK); }, 450);
+    /* ссылка на чат вшита в саму кнопку: открываем сразу, в том же нажатии */
+    if (TG) TG.openTelegramLink(TG_LINK); else window.open(TG_LINK, "_blank");
   });
 
   if (TG) {
