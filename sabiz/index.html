@@ -444,13 +444,6 @@ body{background:#EEF3FB}
         <div class="scale-hint"><span>Слабо</span><span>Сильно</span></div>
       </fieldset>
 
-      <fieldset class="step" data-step="5">
-        <span class="label">Последний шаг</span>
-        <h3 class="q">Куда тебе написать?</h3>
-        <label class="field">Имя<input type="text" id="name" name="name" autocomplete="given-name" placeholder="Как к тебе обращаться"></label>
-        <label class="field">Telegram<input type="text" id="tg" name="tg" autocapitalize="off" autocorrect="off" placeholder="@username"></label>
-      </fieldset>
-
       <div class="err" id="err" role="alert"></div>
       <div class="nojs">
         <p>Отметь ответы и напиши их мне в Telegram — пришлю свободные слоты для созвона.</p>
@@ -464,8 +457,8 @@ body{background:#EEF3FB}
       <div class="done" id="done" hidden>
         <div class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
         <h3>Заявка принята</h3>
-        <p>Последний шаг: нажми кнопку ниже и отправь сообщение в чат — пришлю свободное время для созвона.</p>
-        <a class="btn primary" id="tg-link" href="https://t.me/YakimovichI" target="_blank" rel="noopener">Перейти в Telegram
+        <p>Последний шаг: напиши сообщение в чат — пришлю свободное время для созвона.</p>
+        <a class="btn primary" id="tg-link" href="https://t.me/YakimovichI" target="_blank" rel="noopener">Написать в чат
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </section>
@@ -787,7 +780,7 @@ var goStage = (function(){
   function route(){
     var isMinor = minor();
     steps = all.filter(function(s){ return s.getAttribute("data-only") !== "minor" || isMinor; });
-    var nQ = steps.length - 1, html = "";
+    var nQ = steps.length, html = "";
     for (var i = 0; i < steps.length; i++) html += "<i></i>";
     prog.innerHTML = html;
     each(steps, function(s, k){
@@ -821,10 +814,6 @@ var goStage = (function(){
     if (id === "3" && !radio("q3")) return "Выбери вариант, чтобы продолжить";
     if (id === "budget" && !radio("qb")) return "Выбери вариант, чтобы продолжить";
     if (id === "4" && !radio("q4")) return "Выбери смайлик, чтобы продолжить";
-    if (id === "5") {
-      if (!text("name")) return "Укажи имя";
-      if (!/^@?[A-Za-z0-9_]{4,32}$/.test(text("tg"))) return "Укажи Telegram в формате @username";
-    }
     return "";
   }
   function finish(){
@@ -844,30 +833,31 @@ var goStage = (function(){
     if (e) { err.textContent = e; sfx.play("err"); return; }
     if (cur < steps.length - 1) { cur++; show(cur, true); sfx.play("next"); return; }
 
+    var u = TG && TG.initDataUnsafe && TG.initDataUnsafe.user;
     var lead = {
       date: new Date().toLocaleString("ru-RU"),
-      name: text("name"),
-      telegram: "@" + text("tg").replace(/^@/, ""),
+      name: u ? [u.first_name, u.last_name].filter(Boolean).join(" ") : "",
+      telegram: u ? (u.username ? "@" + u.username : "id:" + u.id) : "",
       q1: radio("q1"), q2: radio("q2"), q3: radio("q3"),
       budget: minor() ? radio("qb") : "",
       q4: radio("q4"),
       uid: UID,
       init: TG ? TG.initData : ""
     };
-    if (SHEET_URL && window.fetch) {
-      next.disabled = true; next.textContent = "Отправляю…";
-      fetch(SHEET_URL, { method: "POST", mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(lead) }).then(finish, finish);
-    } else {
-      finish();
+    var body = JSON.stringify(lead), sent = false;
+    if (SHEET_URL && navigator.sendBeacon) {
+      try { sent = navigator.sendBeacon(SHEET_URL, new Blob([body], { type: "text/plain;charset=utf-8" })); } catch (x) {}
     }
+    if (SHEET_URL && !sent && window.fetch) {
+      fetch(SHEET_URL, { method: "POST", mode: "no-cors", keepalive: true,
+        headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
+    }
+    finish();
+    /* в Telegram сразу открываем чат — человек пишет сообщение без лишних шагов */
+    if (TG) setTimeout(function(){ TG.openTelegramLink(TG_LINK); }, 450);
   });
 
-  if (TG && TG.initDataUnsafe && TG.initDataUnsafe.user) {
-    var u = TG.initDataUnsafe.user;
-    if (u.first_name) document.getElementById("name").value = u.first_name;
-    if (u.username) document.getElementById("tg").value = "@" + u.username;
+  if (TG) {
     document.getElementById("tg-link").addEventListener("click", function(e){ e.preventDefault(); TG.openTelegramLink(TG_LINK); });
   }
   route();
