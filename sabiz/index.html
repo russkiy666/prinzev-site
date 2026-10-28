@@ -530,6 +530,7 @@ body{background:#EEF3FB}
 <main class="stage" data-stage="4" id="s4">
   <div class="wrap stack">
     <section class="card neon" id="cashup">
+      <div class="c-photo"><img src="media/cashup.jpg" alt="Сабиз" width="900" height="896" loading="lazy" decoding="async"></div>
       <span class="label">Закрытое комьюнити</span>
       <h2>КЭШАП: начни с нуля в&nbsp;продюсировании</h2>
       <p class="cu-lead">Система, по которой я вышел на 500&nbsp;000 – 1&nbsp;000&nbsp;000&nbsp;₽ в месяц в 16 лет. Теперь по ней работают десятки ребят.</p>
@@ -537,14 +538,8 @@ body{background:#EEF3FB}
         <div><b>6,5 млн+</b><span>заработано чистыми за год</span></div>
         <div><b>2,8 млн</b><span>рекордная выручка проекта</span></div>
         <div><b>200+</b><span>участников в закрытой группе</span></div>
-        <div><b>30–50%</b><span>с продаж эксперта + фикс</span></div>
+        <div><b>15 лет</b><span>переезд в Москву</span></div>
       </div>
-      <h3 class="cu-h">Как это работает</h3>
-      <ul class="gets">
-        <li>Ты за кулисами: эксперт светит лицом, а ты делаешь прогревы, воронки и запуски</li>
-        <li>Не нужно вести блог и быть медийным</li>
-        <li>Пять шагов: изучил базу, нашёл эксперта, договорился, запустил, поделил кассу</li>
-      </ul>
       <h3 class="cu-h">Что внутри</h3>
       <ul class="gets">
         <li>Видеоуроки, записи эфиров, шаблоны и скрипты переговоров</li>
@@ -555,17 +550,15 @@ body{background:#EEF3FB}
 
     <section class="card c-lead" id="cu-form">
       <span class="label">Подробности о КЭШАП</span>
-      <h2>Оставь заявку — расскажу всё лично</h2>
+      <h2>Оставь заявку — расскажу подробности лично</h2>
       <div class="cu-fields" id="cu-fields">
-        <label class="field">Как тебя зовут<input type="text" id="cu-name" autocomplete="name" placeholder="Имя"></label>
-        <label class="field">Твой Telegram<input type="text" id="cu-tg" autocomplete="off" autocapitalize="off" placeholder="@username"></label>
-        <div class="err" id="cu-err" role="alert"></div>
         <button type="button" class="btn primary" id="cu-send">Оставить заявку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
       <div class="done" id="cu-done" hidden>
         <div class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
         <h3>Заявка принята</h3>
-        <p>Я напишу тебе в Telegram и расскажу подробности про КЭШАП.</p>
+        <p>Напиши мне в чат — расскажу подробности про КЭШАП.</p>
+        <a class="btn primary" id="cu-chat" href="https://t.me/m/ihvAYwdaNTQ6" target="_blank" rel="noopener">Написать в чат <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </section>
 
@@ -1076,28 +1069,41 @@ var goStage = (function(){
   quiz.className += " ready";
 })();
 
-/* ===== КЭШАП: короткая заявка ===== */
+/* ===== КЭШАП: заявка одним нажатием + чат ===== */
 (function(){
   var btn = document.getElementById("cu-send"); if (!btn) return;
-  var nm = document.getElementById("cu-name"), tg = document.getElementById("cu-tg"), er = document.getElementById("cu-err");
-  var u = TG && TG.initDataUnsafe && TG.initDataUnsafe.user;
-  if (u) { nm.value = u.first_name || ""; if (u.username) tg.value = "@" + u.username; }
-  var busy = false;
+  var u = TG && TG.initDataUnsafe && TG.initDataUnsafe.user, busy = false;
+  function chatUrl(){
+    var r = document.querySelector('input[name="q1"]:checked'), v = r ? r.value : "";
+    return (v === "14–15" || v === "16–17") ? TG_LINK_MINOR : TG_LINK_ADULT;
+  }
+  function open(url){
+    if (!TG) { if (!window.open(url, "_blank")) location.href = url; return; }
+    var moved = false; function mark(){ moved = true; }
+    document.addEventListener("visibilitychange", mark); window.addEventListener("blur", mark);
+    try { TG.openTelegramLink(url); } catch (x) { moved = false; }
+    setTimeout(function(){
+      document.removeEventListener("visibilitychange", mark); window.removeEventListener("blur", mark);
+      if (!moved) { try { TG.openLink(url); } catch (y) { location.href = url; } }
+    }, 1000);
+  }
+  var url = chatUrl();
   btn.addEventListener("click", function(){
-    if (busy) return;
-    var n = nm.value.trim(), t = tg.value.trim();
-    if (!n) { er.textContent = "Напиши, как тебя зовут"; nm.focus(); return; }
-    if (!t && !(u && u.id)) { er.textContent = "Напиши свой Telegram, чтобы я мог с тобой связаться"; tg.focus(); return; }
-    if (t && t.charAt(0) !== "@") t = "@" + t.replace(/^https?:\/\/t\.me\//, "");
-    er.textContent = ""; busy = true;
-    var body = JSON.stringify({ type: "cashup", date: new Date().toLocaleString("ru-RU"), name: n, telegram: t || ("id:" + u.id), uid: UID, init: TG ? TG.initData : "" });
+    if (busy) return; busy = true; url = chatUrl();
+    var body = JSON.stringify({ type: "cashup", date: new Date().toLocaleString("ru-RU"),
+      name: u ? [u.first_name, u.last_name].filter(Boolean).join(" ") : "",
+      telegram: u ? (u.username ? "@" + u.username : "id:" + u.id) : "",
+      uid: UID, init: TG ? TG.initData : "" });
     var sent = false;
     if (SHEET_URL && navigator.sendBeacon) { try { sent = navigator.sendBeacon(SHEET_URL, new Blob([body], { type: "text/plain;charset=utf-8" })); } catch (x) {} }
     if (SHEET_URL && !sent && window.fetch) fetch(SHEET_URL, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
     document.getElementById("cu-fields").hidden = true;
+    var c = document.getElementById("cu-chat"); c.href = url;
     document.getElementById("cu-done").hidden = false;
     haptic("ok"); sfx.play("win");
+    open(url);
   });
+  document.getElementById("cu-chat").addEventListener("click", function(e){ e.preventDefault(); open(chatUrl()); });
 })();
 
 /* ===== Синие звёзды-точки на фоне: на телефоне рисуются один раз ===== */
