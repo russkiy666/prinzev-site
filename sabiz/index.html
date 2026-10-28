@@ -39,7 +39,7 @@ p{margin:0}
 /* этапы */
 .bar{position:sticky;top:0;z-index:20;padding-top:max(10px,env(safe-area-inset-top,0px));padding-bottom:10px;background:rgba(243,246,251,.9)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.bar{background:rgba(243,246,251,.75);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}}
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;padding:3px;border-radius:12px;background:#E4E9F2}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:3px;border-radius:12px;background:#E4E9F2}
 .stp{display:flex;align-items:center;justify-content:center;gap:5px;min-height:38px;padding:0 4px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:600 14px/1 var(--font);cursor:pointer;transition:background-color .2s,color .2s}
 .stp i{font-style:normal;font-size:12px;color:#97A0B1}
 .stp.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(15,30,60,.12),0 1px 1px rgba(15,30,60,.06)}
@@ -192,6 +192,11 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .err{color:var(--err);font-size:14px;min-height:1.3em;margin-top:10px}
 .nav{display:flex;gap:8px}
 .nav .btn.next{flex:1}
+
+.cu-lead{margin:10px 0 16px;color:var(--muted);font-size:16px;line-height:1.45}
+.cu-h{font-size:18px;margin:22px 0 4px}
+.cu-fields{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.c-lead h2{margin-top:8px}
 .done{display:flex;flex-direction:column;gap:12px;margin-top:16px}
 .done .ok{width:52px;height:52px;border-radius:50%;background:var(--blue);display:grid;place-items:center}
 .done .ok svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
@@ -334,6 +339,7 @@ body{background:#EEF3FB}
       <button type="button" class="stp on" data-go="1"><i>1</i>Автор</button>
       <button type="button" class="stp" data-go="2"><i>2</i>Урок</button>
       <button type="button" class="stp" data-go="3"><i>3</i>Запись</button>
+      <button type="button" class="stp" data-go="4"><i>4</i>Кэшап</button>
     </nav>
   </div>
 </div>
@@ -514,7 +520,57 @@ body{background:#EEF3FB}
     </section>
 
     <div class="actions">
+      <a class="btn" href="#cashup" data-go="4">Узнать про КЭШАП <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn" href="#lesson" data-go="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a>
+    </div>
+  </div>
+</main>
+
+<!-- ЭТАП 4. КЭШАП -->
+<main class="stage" data-stage="4" id="s4">
+  <div class="wrap stack">
+    <section class="card neon" id="cashup">
+      <span class="label">Закрытое комьюнити</span>
+      <h2>КЭШАП: начни с нуля в&nbsp;продюсировании</h2>
+      <p class="cu-lead">Система, по которой я вышел на 500&nbsp;000 – 1&nbsp;000&nbsp;000&nbsp;₽ в месяц в 16 лет. Теперь по ней работают десятки ребят.</p>
+      <div class="nums">
+        <div><b>6,5 млн+</b><span>заработано чистыми за год</span></div>
+        <div><b>2,8 млн</b><span>рекордная выручка проекта</span></div>
+        <div><b>200+</b><span>участников в закрытой группе</span></div>
+        <div><b>30–50%</b><span>с продаж эксперта + фикс</span></div>
+      </div>
+      <h3 class="cu-h">Как это работает</h3>
+      <ul class="gets">
+        <li>Ты за кулисами: эксперт светит лицом, а ты делаешь прогревы, воронки и запуски</li>
+        <li>Не нужно вести блог и быть медийным</li>
+        <li>Пять шагов: изучил базу, нашёл эксперта, договорился, запустил, поделил кассу</li>
+      </ul>
+      <h3 class="cu-h">Что внутри</h3>
+      <ul class="gets">
+        <li>Видеоуроки, записи эфиров, шаблоны и скрипты переговоров</li>
+        <li>Закрытый чат и моя личная обратная связь</li>
+        <li>Бонусы: профессия менеджера отдела продаж и быстрые стратегии запуска</li>
+      </ul>
+    </section>
+
+    <section class="card c-lead" id="cu-form">
+      <span class="label">Подробности о КЭШАП</span>
+      <h2>Оставь заявку — расскажу всё лично</h2>
+      <div class="cu-fields" id="cu-fields">
+        <label class="field">Как тебя зовут<input type="text" id="cu-name" autocomplete="name" placeholder="Имя"></label>
+        <label class="field">Твой Telegram<input type="text" id="cu-tg" autocomplete="off" autocapitalize="off" placeholder="@username"></label>
+        <div class="err" id="cu-err" role="alert"></div>
+        <button type="button" class="btn primary" id="cu-send">Оставить заявку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <div class="done" id="cu-done" hidden>
+        <div class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h3>Заявка принята</h3>
+        <p>Я напишу тебе в Telegram и расскажу подробности про КЭШАП.</p>
+      </div>
+    </section>
+
+    <div class="actions">
+      <a class="btn" href="#consult" data-go="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a>
     </div>
   </div>
 </main>
@@ -743,7 +799,7 @@ document.addEventListener("click", function(e){
 /* ===== Этапы: переключение страниц ===== */
 var goStage = (function(){
   var stages = document.querySelectorAll(".stage"), tabs = document.querySelectorAll(".stp"), cur = 1;
-  var names = { "1":"author", "2":"lesson", "3":"consult", "4":"faq" };
+  var names = { "1":"author", "2":"lesson", "3":"consult", "4":"cashup" };
   function stageOf(el){ while (el && !(typeof el.className === "string" && (" " + el.className + " ").indexOf(" stage ") > -1)) el = el.parentNode; return el ? +el.getAttribute("data-stage") : 0; }
   function go(n, target, silent){
     n = Math.max(1, Math.min(4, n|0));
@@ -1018,6 +1074,30 @@ var goStage = (function(){
   route();
   show(0, false);
   quiz.className += " ready";
+})();
+
+/* ===== КЭШАП: короткая заявка ===== */
+(function(){
+  var btn = document.getElementById("cu-send"); if (!btn) return;
+  var nm = document.getElementById("cu-name"), tg = document.getElementById("cu-tg"), er = document.getElementById("cu-err");
+  var u = TG && TG.initDataUnsafe && TG.initDataUnsafe.user;
+  if (u) { nm.value = u.first_name || ""; if (u.username) tg.value = "@" + u.username; }
+  var busy = false;
+  btn.addEventListener("click", function(){
+    if (busy) return;
+    var n = nm.value.trim(), t = tg.value.trim();
+    if (!n) { er.textContent = "Напиши, как тебя зовут"; nm.focus(); return; }
+    if (!t && !(u && u.id)) { er.textContent = "Напиши свой Telegram, чтобы я мог с тобой связаться"; tg.focus(); return; }
+    if (t && t.charAt(0) !== "@") t = "@" + t.replace(/^https?:\/\/t\.me\//, "");
+    er.textContent = ""; busy = true;
+    var body = JSON.stringify({ type: "cashup", date: new Date().toLocaleString("ru-RU"), name: n, telegram: t || ("id:" + u.id), uid: UID, init: TG ? TG.initData : "" });
+    var sent = false;
+    if (SHEET_URL && navigator.sendBeacon) { try { sent = navigator.sendBeacon(SHEET_URL, new Blob([body], { type: "text/plain;charset=utf-8" })); } catch (x) {} }
+    if (SHEET_URL && !sent && window.fetch) fetch(SHEET_URL, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
+    document.getElementById("cu-fields").hidden = true;
+    document.getElementById("cu-done").hidden = false;
+    haptic("ok"); sfx.play("win");
+  });
 })();
 
 /* ===== Синие звёзды-точки на фоне: на телефоне рисуются один раз ===== */
