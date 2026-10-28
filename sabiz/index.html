@@ -39,7 +39,7 @@ p{margin:0}
 /* этапы */
 .bar{position:sticky;top:0;z-index:20;padding-top:max(10px,env(safe-area-inset-top,0px));padding-bottom:10px;background:rgba(243,246,251,.9)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.bar{background:rgba(243,246,251,.75);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:3px;border-radius:12px;background:#E4E9F2}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;padding:3px;border-radius:12px;background:#E4E9F2}
 .stp{display:flex;align-items:center;justify-content:center;gap:5px;min-height:38px;padding:0 4px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:600 14px/1 var(--font);cursor:pointer;transition:background-color .2s,color .2s}
 .stp i{font-style:normal;font-size:12px;color:#97A0B1}
 .stp.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(15,30,60,.12),0 1px 1px rgba(15,30,60,.06)}
@@ -321,13 +321,10 @@ body{background:#EEF3FB}
 <div class="loader" id="ld" aria-hidden="true">
   <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
   <svg class="tt" viewBox="60 110 435 900" aria-hidden="true"><g class="tt-track"><path d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
-  <svg class="ld-words" viewBox="0 0 640 200" role="img" aria-label="SABIZ — ТОП-1 ХАСЛЕР СНГ">
+  <svg class="ld-words" viewBox="0 0 640 200" role="img" aria-label="SABIZ">
     <text class="lw lw-name" x="327" y="100" text-anchor="middle">SABIZ</text>
-    <text class="lw lw-tag" x="323" y="146" text-anchor="middle">ТОП-1 ХАСЛЕР СНГ</text>
     <path class="lw-line" pathLength="1" d="M200 176H440"/>
   </svg>
-  <button type="button" class="ld-enter" tabindex="-1">Начать <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-  <span class="ld-hint">со звуком</span>
 </div>
 
 <div class="bar">
@@ -336,7 +333,6 @@ body{background:#EEF3FB}
       <button type="button" class="stp on" data-go="1"><i>1</i>Автор</button>
       <button type="button" class="stp" data-go="2"><i>2</i>Урок</button>
       <button type="button" class="stp" data-go="3"><i>3</i>Запись</button>
-      <button type="button" class="stp" data-go="4"><i>4</i>Ответы</button>
     </nav>
   </div>
 </div>
@@ -390,7 +386,7 @@ body{background:#EEF3FB}
 <main class="stage" data-stage="3" id="s3">
   <div class="wrap stack">
     <section class="card" id="consult">
-      <div class="c-photo"><img src="media/consult.jpg" alt="Сабиз" width="900" height="675" loading="lazy" decoding="async"><b>Сабиз · ТОП-1 ХАСЛЕР СНГ</b></div>
+      <div class="c-photo"><img src="media/consult.jpg" alt="Сабиз" width="900" height="675" loading="lazy" decoding="async"><b>Сабиз</b></div>
       <span class="label">Бесплатная консультация · 30 минут</span>
       <h2>Составим твой личный план входа в продюсирование</h2>
       <ul class="gets">
@@ -518,27 +514,7 @@ body{background:#EEF3FB}
     </section>
 
     <div class="actions">
-      <a class="btn" href="#faq" data-go="4">Ответы на вопросы <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn" href="#lesson" data-go="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a>
-    </div>
-  </div>
-</main>
-
-<!-- ЭТАП 4. ОТВЕТЫ -->
-<main class="stage" data-stage="4" id="s4">
-  <div class="wrap stack">
-    <section class="card" id="faq">
-      <span class="label">Частые вопросы</span>
-      <div class="c-faq">
-      <details class="faq-i"><summary>Консультация правда бесплатная?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>Да. 30 минут разбора твоей ситуации без оплаты и обязательств.</p></details>
-      <details class="faq-i"><summary>У меня нет опыта и кейсов. Это для меня?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>Да. Урок рассчитан на тех, кто только начинает. На консультации разберём, как получить первого эксперта без портфолио.</p></details>
-      <details class="faq-i"><summary>Нужны ли вложения, чтобы начать?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>Нет. Продюсер зарабатывает процент с запуска эксперта, стартовый бюджет для этого не нужен.</p></details>
-      <details class="faq-i"><summary>Что будет после консультации?<span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></summary><p>У тебя будет личный план на 3 месяца. Если захочешь, расскажу про формат обучения со мной.</p></details>
-      </div>
-    </section>
-    <div class="actions">
-      <a class="btn primary" href="#quiz" data-go="3">Записаться на консультацию <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="btn" href="#consult" data-go="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a>
     </div>
   </div>
 </main>
@@ -745,7 +721,7 @@ document.addEventListener("click", function(e){
       if (e.key === "Enter" || e.key === " " || e.key === "Escape") { document.removeEventListener("keydown", k); e.preventDefault(); finish(); }
     });
   }
-  setTimeout(gate, 4400);
+  setTimeout(finish, 4400);
 })();
 
 
