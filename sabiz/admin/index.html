@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Заявки</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#fff;--ink:#0B1324;--muted:#6B7385;--line:#E3E8F1;--head:#F3F6FB;--blue:#1D5CFF;--row:#F8FAFE}
+@media (prefers-color-scheme:dark){:root{--bg:#0F1523;--ink:#E8EDF8;--muted:#8E98AE;--line:#232C40;--head:#18202F;--blue:#5E93FF;--row:#131B2A}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.35 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 12px 8px;border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+.tabs button{flex:1;padding:9px 0;border:0;border-radius:10px;background:var(--head);color:var(--muted);font:600 14px/1 inherit;cursor:pointer}
+.tabs button.on{background:var(--blue);color:#fff}
+.q{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:15px/1.2 inherit}
+.cnt{margin-top:6px;color:var(--muted);font-size:12px}
+.wrap{overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 118px)}
+table{border-collapse:separate;border-spacing:0;min-width:100%}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);white-space:nowrap;text-align:left;vertical-align:top}
+th{position:sticky;top:0;background:var(--head);font-size:12px;color:var(--muted);font-weight:600;z-index:2}
+td:first-child,th:first-child{position:sticky;left:0;background:var(--bg);z-index:1}
+th:first-child{background:var(--head);z-index:3}
+tbody tr:nth-child(even) td{background:var(--row)}
+td a{color:var(--blue);text-decoration:none;font-weight:600}
+.msg{padding:40px 20px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="tabs"><button id="t1" class="on">Заявки</button><button id="t2">КЭШАП</button></div>
+  <input class="q" id="q" type="search" placeholder="Поиск" autocomplete="off">
+  <div class="cnt" id="cnt"></div>
+</div>
+<div class="wrap" id="wrap"><div class="msg">Загрузка…</div></div>
+<script>
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbzaMF7xUUsjTN_fR_UOJMixdH55grtLMlBCi7ZQ5oXCEEEqwWMdFk4Nekekyh_N9sDy/exec";
+var TG = window.Telegram && Telegram.WebApp;
+if (TG) { try { TG.ready(); TG.expand(); } catch(e){} }
+var data = null, tab = 1;
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+function cell(v, h){
+  if (/^Telegram$/.test(h) && /^@/.test(v)) return '<a href="https://t.me/' + esc(v.slice(1)) + '" target="_blank" rel="noopener">' + esc(v) + '</a>';
+  return esc(v);
+}
+function render(){
+  var wrap = document.getElementById("wrap");
+  if (!data) return;
+  var T = tab === 1 ? data.leads : data.cashup;
+  var q = document.getElementById("q").value.trim().toLowerCase();
+  var rows = T.rows.filter(function(r){ return !q || r.join(" ").toLowerCase().indexOf(q) > -1; });
+  document.getElementById("cnt").textContent = "Строк: " + rows.length + (q ? " из " + T.rows.length : "");
+  if (!T.rows.length) { wrap.innerHTML = '<div class="msg">Пока пусто</div>'; return; }
+  var h = '<table><thead><tr>' + T.head.map(function(x){ return "<th>" + esc(x) + "</th>"; }).join("") + '</tr></thead><tbody>';
+  rows.forEach(function(r){ h += "<tr>" + r.map(function(v, i){ return "<td>" + cell(v, T.head[i]) + "</td>"; }).join("") + "</tr>"; });
+  wrap.innerHTML = h + "</tbody></table>";
+}
+function setTab(n){ tab = n; document.getElementById("t1").className = n === 1 ? "on" : ""; document.getElementById("t2").className = n === 2 ? "on" : ""; render(); }
+document.getElementById("t1").onclick = function(){ setTab(1); };
+document.getElementById("t2").onclick = function(){ setTab(2); };
+document.getElementById("q").oninput = render;
+if (!TG || !TG.initData) {
+  document.getElementById("wrap").innerHTML = '<div class="msg">Открой таблицу из бота командой /table</div>';
+} else {
+  fetch(SHEET_URL + "?a=admin&init=" + encodeURIComponent(TG.initData))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d.ok) { document.getElementById("wrap").innerHTML = '<div class="msg">Нет доступа</div>'; return; }
+      data = d; document.getElementById("t1").textContent = "Заявки · " + d.leads.rows.length; document.getElementById("t2").textContent = "КЭШАП · " + d.cashup.rows.length; render();
+    })
+    .catch(function(){ document.getElementById("wrap").innerHTML = '<div class="msg">Не удалось загрузить. Попробуй ещё раз</div>'; });
+}
+</script>
+</body>
+</html>
