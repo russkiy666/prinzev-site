@@ -1002,9 +1002,18 @@ var goStage = (function(){
     if (id === "4" && !radio("q4")) return "Выбери смайлик, чтобы продолжить";
     return "";
   }
+  /* младше 18 и без стартового капитала (0 ₽ или до 10 000 ₽) — не на консультацию, а в закрытый канал */
+  var CHANNEL = "https://t.me/+vybpsS1W20I3NmMy";
+  function low(){ var b = radio("qb"); return minor() && (b === "Нет, 0 ₽" || b === "До 10 000 ₽"); }
   function finish(){
-    TG_LINK = minor() ? TG_LINK_MINOR : TG_LINK_ADULT;
+    TG_LINK = low() ? CHANNEL : (minor() ? TG_LINK_MINOR : TG_LINK_ADULT);
     document.getElementById("tg-link").href = TG_LINK;
+    if (low()) {
+      var dn = document.getElementById("done"), lk = document.getElementById("tg-link");
+      dn.querySelector("h3").textContent = "Сейчас тебе рано на консультацию — и это нормально";
+      dn.querySelector("p").textContent = "Личные разборы я провожу с теми, кто уже может вложиться в старт. Тебе сейчас полезнее другое: в закрытом канале я выкладываю материалы для старта с нуля. Начни с них. Появится первый капитал или результат — напишешь, и мы вернёмся к консультации.";
+      lk.firstChild.nodeValue = "Перейти в закрытый канал ";
+    }
     each(all, function(s){ s.hidden = true; });
     document.getElementById("nav").hidden = true;
     err.textContent = "";
@@ -1045,6 +1054,7 @@ var goStage = (function(){
       pain: radio("qp"), result: radio("qr"),
       work: radio("qw"), cur: radio("qc"),
       q4: radio("q4"),
+      low: low() ? 1 : 0,
       uid: UID,
       init: TG ? TG.initData : ""
     };
@@ -1056,9 +1066,10 @@ var goStage = (function(){
       fetch(SHEET_URL, { method: "POST", mode: "no-cors", keepalive: true,
         headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
     }
+    var isLow = low();
     finish();
-    /* ссылка на чат вшита в саму кнопку: открываем сразу, в том же нажатии */
-    openChat();
+    /* ссылка на чат вшита в саму кнопку: открываем сразу, в том же нажатии (для «канала» — только по кнопке) */
+    if (!isLow) openChat();
   });
 
   document.getElementById("tg-link").addEventListener("click", function(e){ e.preventDefault(); openChat(); });
