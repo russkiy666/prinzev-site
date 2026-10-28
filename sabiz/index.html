@@ -458,7 +458,7 @@ body{background:#EEF3FB}
         </div>
       </fieldset>
 
-      <fieldset class="step" data-step="budget" data-only="minor">
+      <fieldset class="step" data-step="budget">
         <span class="label">Вопрос</span>
         <h3 class="q">Есть ли у тебя деньги на старт — чтобы вложить в себя или в проекты?</h3>
         <div class="opts">
@@ -539,33 +539,9 @@ body{background:#EEF3FB}
     <section class="card neon" id="cashup">
       <div class="c-photo"><img src="media/cashup3.jpg" alt="КЭШАП открыт" width="1000" height="846" loading="lazy" decoding="async"></div>
       <span class="label">Закрытое комьюнити</span>
-      <h2>КЭШАП: начни с нуля в&nbsp;продюсировании</h2>
-      <p class="cu-lead">Система, по которой я вышел на 500&nbsp;000 – 1&nbsp;000&nbsp;000&nbsp;₽ в месяц в 16 лет. Теперь по ней работают десятки ребят.</p>
-      <div class="nums">
-        <div><b>6,5 млн+</b><span>заработано чистыми за год</span></div>
-        <div><b>2,8 млн</b><span>рекордная выручка проекта</span></div>
-        <div><b>400+</b><span>участников в закрытой группе</span></div>
-        <div><b>15 лет</b><span>переезд в Москву</span></div>
-      </div>
-      <h3 class="cu-h">Что внутри</h3>
-      <ul class="gets">
-        <li>Видеоуроки, записи эфиров, шаблоны и скрипты переговоров</li>
-        <li>Закрытый чат и моя личная обратная связь</li>
-        <li>Бонусы: профессия менеджера отдела продаж и быстрые стратегии запуска</li>
-      </ul>
-    </section>
-
-    <section class="card c-lead" id="cu-form">
-      <span class="label">Подробности о КЭШАП</span>
-      <h2>Оставь заявку — расскажу подробности лично</h2>
+      <h2>КЭШАП</h2>
       <div class="cu-fields" id="cu-fields">
-        <button type="button" class="btn primary" id="cu-send">Оставить заявку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
-      <div class="done" id="cu-done" hidden>
-        <div class="ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-        <h3>Заявка принята</h3>
-        <p>Напиши мне в чат — расскажу подробности про КЭШАП.</p>
-        <a class="btn primary" id="cu-chat" href="https://t.me/m/ihvAYwdaNTQ6" target="_blank" rel="noopener">Написать в чат <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button type="button" class="btn primary" id="cu-send">Ознакомиться с КЭШАП <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
     </section>
 
@@ -982,7 +958,7 @@ var goStage = (function(){
   function text(id){ var el = document.getElementById(id); return el ? el.value.replace(/^\s+|\s+$/g, "") : ""; }
   function minor(){ var a = radio("q1"); return a === "14–15" || a === "16–17"; }
 
-  /* какие шаги показываем: шаг про бюджет — только если человеку нет 18 */
+  /* какие шаги показываем: все (вопрос про капитал — для всех возрастов) */
   function route(){
     var isMinor = minor();
     steps = all.filter(function(s){ return s.getAttribute("data-only") !== "minor" || isMinor; });
@@ -1065,7 +1041,7 @@ var goStage = (function(){
       name: u ? [u.first_name, u.last_name].filter(Boolean).join(" ") : "",
       telegram: u ? (u.username ? "@" + u.username : "id:" + u.id) : "",
       q1: radio("q1"), q2: radio("q2"), q3: radio("q3"),
-      budget: minor() ? radio("qb") : "",
+      budget: radio("qb"),
       pain: radio("qp"), result: radio("qr"),
       work: radio("qw"), cur: radio("qc"),
       q4: radio("q4"),
@@ -1111,7 +1087,9 @@ var goStage = (function(){
   }
   var url = chatUrl();
   btn.addEventListener("click", function(){
-    if (busy) return; busy = true; url = chatUrl();
+    url = chatUrl();
+    if (busy) { open(url); return; }
+    busy = true;
     var body = JSON.stringify({ type: "cashup", date: new Date().toLocaleString("ru-RU"),
       name: u ? [u.first_name, u.last_name].filter(Boolean).join(" ") : "",
       telegram: u ? (u.username ? "@" + u.username : "id:" + u.id) : "",
@@ -1119,13 +1097,9 @@ var goStage = (function(){
     var sent = false;
     if (SHEET_URL && navigator.sendBeacon) { try { sent = navigator.sendBeacon(SHEET_URL, new Blob([body], { type: "text/plain;charset=utf-8" })); } catch (x) {} }
     if (SHEET_URL && !sent && window.fetch) fetch(SHEET_URL, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: body });
-    document.getElementById("cu-fields").hidden = true;
-    var c = document.getElementById("cu-chat"); c.href = url;
-    document.getElementById("cu-done").hidden = false;
     haptic("ok"); sfx.play("win");
     open(url);
   });
-  document.getElementById("cu-chat").addEventListener("click", function(e){ e.preventDefault(); open(chatUrl()); });
 })();
 
 /* ===== Ползунок «насколько ты в теме» ===== */
