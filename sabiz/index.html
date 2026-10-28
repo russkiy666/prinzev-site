@@ -39,7 +39,7 @@ p{margin:0}
 /* этапы */
 .bar{position:sticky;top:0;z-index:20;padding-top:max(10px,env(safe-area-inset-top,0px));padding-bottom:10px;background:rgba(243,246,251,.9)}
 @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.bar{background:rgba(243,246,251,.75);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;padding:3px;border-radius:12px;background:#E4E9F2}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;padding:3px;border-radius:12px;background:#E4E9F2}
 .stp{display:flex;align-items:center;justify-content:center;gap:5px;min-height:38px;padding:0 4px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:600 14px/1 var(--font);cursor:pointer;transition:background-color .2s,color .2s}
 .stp i{font-style:normal;font-size:12px;color:#97A0B1}
 .stp.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(15,30,60,.12),0 1px 1px rgba(15,30,60,.06)}
@@ -336,39 +336,15 @@ body{background:#EEF3FB}
 <div class="bar">
   <div class="wrap">
     <nav class="steps" aria-label="Этапы">
-      <button type="button" class="stp on" data-go="1"><i>1</i>Автор</button>
-      <button type="button" class="stp" data-go="2"><i>2</i>Урок</button>
-      <button type="button" class="stp" data-go="3"><i>3</i>Запись</button>
-      <button type="button" class="stp" data-go="4"><i>4</i>Кэшап</button>
+      <button type="button" class="stp on" data-go="2"><i>1</i>Урок</button>
+      <button type="button" class="stp" data-go="3"><i>2</i>Запись</button>
+      <button type="button" class="stp" data-go="4"><i>3</i>Кэшап</button>
     </nav>
   </div>
 </div>
 
-<!-- ЭТАП 1. АВТОР -->
-<main class="stage on" data-stage="1" id="s1">
-  <div class="wrap stack">
-    <section class="card author neon" id="author">
-      <div class="au-photo">
-        <img src="media/about.jpg" alt="Сабиз" width="900" height="1200" decoding="async" fetchpriority="high">
-      </div>
-      <div class="au-body">
-        <span class="label">Автор урока</span>
-        <h1>Сабиз</h1>
-        <ul class="facts">
-          <li><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M16.5 7.5C16 6 14.3 5.2 12 5.2c-2.6 0-4.3 1.2-4.3 3.1 0 4.2 8.9 2.2 8.9 6.5 0 2-1.9 3.5-4.6 3.5-2.3 0-4.1-.9-4.7-2.6"/></svg></i><span><em>в 14 лет</em>Первый миллион рублей</span></li>
-          <li><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21v-7h4v7M15 21v-9h4v9M11 21V10M12 3v3M12 6l-2 4h4z"/></svg></i><span><em>в 15 лет</em>Один переехал в Москву</span></li>
-          <li><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l5-5 4 3 8-9M15 6h5v5"/></svg></i><span><em>в 16 лет · стабильно</em><span style="white-space:nowrap;display:inline">500&nbsp;000 – 1&nbsp;000&nbsp;000&nbsp;₽</span> в&nbsp;месяц</span></li>
-        </ul>
-      </div>
-    </section>
-
-
-    <div class="actions"><a class="btn primary" href="#lesson" data-go="2">Перейти к уроку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-  </div>
-</main>
-
 <!-- ЭТАП 2. УРОК -->
-<main class="stage" data-stage="2" id="s2">
+<main class="stage on" data-stage="2" id="s2">
   <div class="wrap stack">
     <section class="card" id="lesson">
       <span class="label">Бесплатный урок · 7 минут</span>
@@ -383,7 +359,6 @@ body{background:#EEF3FB}
     </section>
     <div class="actions">
       <a class="btn primary" href="#consult" data-go="3">Посмотрел урок — записаться <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="btn" href="#author" data-go="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Назад</a>
     </div>
   </div>
 </main>
@@ -791,11 +766,11 @@ document.addEventListener("click", function(e){
 
 /* ===== Этапы: переключение страниц ===== */
 var goStage = (function(){
-  var stages = document.querySelectorAll(".stage"), tabs = document.querySelectorAll(".stp"), cur = 1;
+  var stages = document.querySelectorAll(".stage"), tabs = document.querySelectorAll(".stp"), cur = 2;
   var names = { "1":"author", "2":"lesson", "3":"consult", "4":"cashup" };
   function stageOf(el){ while (el && !(typeof el.className === "string" && (" " + el.className + " ").indexOf(" stage ") > -1)) el = el.parentNode; return el ? +el.getAttribute("data-stage") : 0; }
   function go(n, target, silent){
-    n = Math.max(1, Math.min(4, n|0));
+    n = Math.max(2, Math.min(4, n|0));
     for (var i = 0; i < stages.length; i++) {
       var on = +stages[i].getAttribute("data-stage") === n;
       stages[i].className = stages[i].className.replace(/\s*on\b/g, "") + (on ? " on" : "");
@@ -806,7 +781,7 @@ var goStage = (function(){
       if (t === n) tabs[k].setAttribute("aria-current", "step"); else tabs[k].removeAttribute("aria-current");
     }
     var changed = n !== cur; cur = n;
-    if (TG && TG.BackButton) { try { if (n > 1) TG.BackButton.show(); else TG.BackButton.hide(); } catch(e) {} }
+    if (TG && TG.BackButton) { try { if (n > 2) TG.BackButton.show(); else TG.BackButton.hide(); } catch(e) {} }
     if (n === 2) { track("lesson"); if (window.__lessonPreload) window.__lessonPreload(); } else if (n >= 3) track("watched");
     var el = target ? document.getElementById(target) : null;
     if (el && stageOf(el) === n && target !== names[n]) {
@@ -828,13 +803,14 @@ var goStage = (function(){
     var h = (location.hash || "").slice(1);
     for (var n in names) if (names[n] === h) { go(+n, null, silent); return; }
     var el = h ? document.getElementById(h) : null;
-    if (el) go(stageOf(el) || 1, h, silent);
+    if (el) go(stageOf(el) || 2, h, silent);
   }
   window.addEventListener("hashchange", function(){ fromHash(true); });
-  window.addEventListener("popstate", function(){ fromHash(true); if (!location.hash) go(1, null, true); });
+  window.addEventListener("popstate", function(){ fromHash(true); if (!location.hash) go(2, null, true); });
   var qs = /[?&]s=([1-4])/.exec(location.search);
   if (qs) go(+qs[1], +qs[1] === 3 ? "quiz" : null, true); else if (!TG) fromHash(true);
   if (TG && TG.BackButton) TG.BackButton.onClick(function(){ go(cur - 1); });
+  setTimeout(function(){ if (cur === 2) { track("lesson"); if (window.__lessonPreload) window.__lessonPreload(); } }, 0);
   return go;
 })();
 
