@@ -411,6 +411,17 @@ body{background:#EEF3FB}
         </div>
       </fieldset>
 
+      <fieldset class="step" data-step="2">
+        <span class="label">Вопрос</span>
+        <h3 class="q">Насколько ты уже в теме запусков и продюсирования?</h3>
+        <div class="aw" id="aw">
+          <input type="radio" name="q2" id="q2v" value="" checked hidden>
+          <div class="aw-val"><b id="awn">?</b><span id="awe">❄️</span></div>
+          <input class="aw-range" type="range" id="awr" min="1" max="10" step="1" value="5" aria-label="Насколько ты в теме запусков, от 1 до 10">
+          <div class="aw-ends"><span>❄️ 1 — вообще не в теме</span><span>10 — шарю! 🔥</span></div>
+        </div>
+      </fieldset>
+
       <fieldset class="step" data-step="work">
         <span class="label">Вопрос</span>
         <h3 class="q">Чем ты сейчас занимаешься?</h3>
@@ -994,6 +1005,7 @@ var goStage = (function(){
   function check(st){
     var id = st.getAttribute("data-step");
     if (id === "1" && !radio("q1")) return "Выбери вариант, чтобы продолжить";
+    if (id === "2" && !radio("q2")) return "Передвинь ползунок, чтобы продолжить";
     if (id === "work" && !radio("qw")) return "Выбери вариант, чтобы продолжить";
     if (id === "cur" && !radio("qc")) return "Выбери вариант, чтобы продолжить";
     if (id === "3" && !radio("q3")) return "Выбери вариант, чтобы продолжить";
