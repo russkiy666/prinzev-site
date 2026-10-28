@@ -286,21 +286,14 @@ body{background:#EEF3FB}
 .opt input:checked + .rad::before,.emo input:checked ~ .l::before{box-shadow:0 0 16px -4px rgba(29,92,255,.6)}
 /* 3D-график */
 .goal{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
-.iso-wrap{height:200px;display:grid;place-items:center}
-.iso{position:relative;width:260px;height:66px;transform:rotateX(58deg) rotateZ(-36deg) scale(.92);transform-style:preserve-3d;margin-top:96px;
-  background-image:linear-gradient(rgba(29,92,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(29,92,255,.12) 1px,transparent 1px);background-size:13px 13px;border:1px solid rgba(29,92,255,.18);border-radius:4px}
-.b3{position:absolute;top:11px;left:calc(var(--i) * 62px + 11px);width:44px;height:44px;transform-style:preserve-3d;--h:0px;transition:--h 1.3s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i) * .16s)}
-.iso.grow .b3{--h:var(--t)}
-.b3 .f{position:absolute;border:1px solid rgba(29,92,255,.45);background:rgba(29,92,255,.12)}
-.b3 .t{inset:0;transform:translateZ(var(--h));background:rgba(59,130,246,.45);border-color:rgba(29,92,255,.7)}
-.b3 .y0,.b3 .y1{left:0;width:100%;height:var(--h);transform-origin:top;transform:rotateX(90deg)}
-.b3 .y0{top:0}.b3 .y1{top:100%}
-.b3 .x0,.b3 .x1{top:0;height:100%;width:var(--h);transform-origin:left;transform:rotateY(-90deg)}
-.b3 .x0{left:0}.b3 .x1{left:100%}
-.b3.hi .f{border-color:rgba(14,165,233,.6);background:rgba(56,189,248,.18)}
-.b3.hi .t{background:rgba(56,189,248,.6);border-color:rgba(14,165,233,.9);box-shadow:0 0 24px rgba(56,189,248,.7)}
+.iso-wrap{margin:6px 0 4px}
+.iso2{width:100%}
+.iso2 svg{display:block;width:100%;height:auto;overflow:visible}
+.iso2 .br{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(.04);transition:transform 1.2s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i) * .16s)}
+.iso2.grow .br{transform:scaleY(1)}
+.iso2 .hi{filter:drop-shadow(0 6px 14px rgba(56,189,248,.55))}
 .iso-legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.iso-legend span{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.iso-legend span{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;font-size:12px;color:var(--muted)}
 .iso-legend b{font-size:16px;color:var(--ink)}
 .iso-legend .hi b{color:var(--blue)}
 /* интро: синие точки */
@@ -367,22 +360,23 @@ body{background:#EEF3FB}
 <main class="stage" data-stage="3" id="s3">
   <div class="wrap stack">
     <section class="card" id="consult">
-      <div class="c-photo"><img src="media/consult2.jpg" alt="Сабиз" width="900" height="675" loading="lazy" decoding="async"><b>Сабиз</b></div>
+      <div class="c-photo"><img src="media/consult2.jpg" alt="Сабиз" width="900" height="675" loading="lazy" decoding="async"></div>
       <span class="label">Бесплатная консультация · 30 минут</span>
       <h2>Составим твой индивидуальный план входа в продюсирование</h2>
       <ul class="gets">
-        <li>Получишь весь фундамент: изучишь базу и найдёшь ответы на все свои вопросы</li>
-        <li>Поймёшь, как выйти на твою цель по доходу</li>
-        <li>Уйдёшь со связкой, на которой заработаешь первые деньги уже в течение месяца</li>
+        <li>Разберём, как именно в твоей ситуации легче всего начать</li>
+        <li>Покажем ключевые действия, чтобы закрыть первый проект</li>
+        <li>Заработаешь первый кэш уже в течение месяца</li>
       </ul>
       <div class="goal">
         <span class="label">Твоя цель на 3 месяца</span>
-        <div class="iso-wrap" aria-hidden="true"><div class="iso" id="iso">
-          <div class="b3" style="--i:0;--t:10px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
-          <div class="b3" style="--i:1;--t:42px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
-          <div class="b3" style="--i:2;--t:88px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
-          <div class="b3 hi" style="--i:3;--t:150px"><i class="f y0"></i><i class="f x0"></i><i class="f y1"></i><i class="f x1"></i><i class="f t"></i></div>
-        </div></div>
+        <div class="iso-wrap" aria-hidden="true"><div class="iso2" id="iso"><svg viewBox="0 0 320 190"><defs><linearGradient id="gfa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E93FF"/><stop offset="1" stop-color="#1D5CFF"/></linearGradient><linearGradient id="gfb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5CCBFB"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient></defs>
+      <line x1="6" y1="180.5" x2="314" y2="180.5" stroke="rgba(29,92,255,.25)" stroke-width="1.5" stroke-linecap="round"/>
+      <g class="br" style="--i:0"><rect x="17" y="170" width="46" height="10" fill="url(#gfa)"/><polygon points="63,170 77,161 77,171 63,180" fill="#1546C9"/><polygon points="17,170 31,161 77,161 63,170" fill="#9CC0FF"/></g>
+      <g class="br" style="--i:1"><rect x="97" y="135" width="46" height="45" fill="url(#gfa)"/><polygon points="143,135 157,126 157,171 143,180" fill="#1546C9"/><polygon points="97,135 111,126 157,126 143,135" fill="#9CC0FF"/></g>
+      <g class="br" style="--i:2"><rect x="177" y="85" width="46" height="95" fill="url(#gfa)"/><polygon points="223,85 237,76 237,171 223,180" fill="#1546C9"/><polygon points="177,85 191,76 237,76 223,85" fill="#9CC0FF"/></g>
+      <g class="br hi" style="--i:3"><rect x="257" y="30" width="46" height="150" fill="url(#gfb)"/><polygon points="303,30 317,21 317,171 303,180" fill="#0B86C2"/><polygon points="257,30 271,21 317,21 303,30" fill="#B4E8FF"/></g>
+    </svg></div></div>
         <div class="iso-legend"><span>Старт<b>0 ₽</b></span><span>1 мес<b>50к</b></span><span>2 мес<b>150к</b></span><span class="hi">3 мес<b>300к</b></span></div>
       </div>
     </section>
