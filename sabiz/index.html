@@ -700,6 +700,17 @@ var sfx = (function(){
     welcome: function(){ key({p:.8, v:1.1}); tone(523,.9,.035,.05); tone(784,1,.03,.14); tone(1046,1.2,.025,.24); tone(1568,1.4,.015,.34); },
     win:   function(){ key({p:1.05}); tone(659,.6,.04,.08); tone(988,.8,.035,.16); tone(1319,.9,.025,.24); }
   };
+  /* ползунок: мягкая «стеклянная» нота пентатоники, чем выше значение — тем выше и ярче */
+  var PENT = [392, 440, 523, 587, 659, 784, 880, 1047, 1175, 1319];
+  function slide(x){
+    if (!AC || !enabled || hold) return;
+    var now = Date.now(); if (now - last < 45) return; last = now;
+    try {
+      ready(); var f = PENT[Math.max(0, Math.min(9, x - 1))];
+      tone(f, .45, .05); tone(f*2, .22, .014, .005);
+      if (x >= 9) tone(f*3, .3, .01, .03);
+    } catch(e) {}
+  }
   function play(n, force){
     if (!AC || (!enabled && !force)) return;
     var now = Date.now(); if (now - last < 40) return; last = now;
@@ -712,7 +723,7 @@ var sfx = (function(){
   return { play: function(n, f){
       haptic(n === "win" ? "ok" : n === "err" ? "err" : n === "pick" ? "pick" : "tap");
       if (!hold) play(n, f);
-    }, set: set, on: function(){ return enabled; }, ok: !!AC, pause: pause };
+    }, set: set, slide: slide, on: function(){ return enabled; }, ok: !!AC, pause: pause };
 })();
 
 
@@ -1130,7 +1141,9 @@ var goStage = (function(){
     n.className = ""; n.textContent = x; e.textContent = emo(x);
     var er = document.getElementById("err"); if (er) er.textContent = "";
     try { haptic("pick"); } catch(err) {}
+    if (x !== lastX) { lastX = x; try { sfx.slide(x); } catch(err) {} }
   }
+  var lastX = 0;
   r.addEventListener("input", function(){ upd(true); });
   r.addEventListener("change", function(){ upd(true); });
   upd(false);
