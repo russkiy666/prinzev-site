@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#EEF3FB">
 <title>Анкета</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>(function(h){h.className+=" js";var seen=false;try{seen=sessionStorage.getItem("ank-ld")==="1"}catch(e){}if(seen)h.className+=" no-ld";else h.className+=" ld-gate"})(document.documentElement)</script>
+<script>document.documentElement.className+=" js"</script>
 <style>
 /* бело-синий стиль — один в один с лендингом SABIZ */
 :root{
@@ -125,57 +125,26 @@ body{background:radial-gradient(60vmax 60vmax at 0 0,rgba(29,92,255,.22),transpa
 html{background:#EEF3FB}
 #stars{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 
-/* интро */
-.loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:24px;text-align:center;background:radial-gradient(70vw 55vh at 50% 42%,rgba(29,92,255,.08),transparent 65%),#fff;transition:opacity .5s ease,visibility .5s ease}
-html:not(.js) .loader,html.no-ld .loader{display:none!important}
-html.ld-gate,html.ld-gate body{overflow:hidden}
-.loader.done{opacity:0;visibility:hidden}
-.ld-fx{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.loader > *:not(.ld-fx){position:relative;z-index:1}
-.tt{display:block;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:34;height:clamp(90px,14vh,120px);width:auto;margin-bottom:10px}
-.tt-track{stroke:#EEF2F8}
-.tt-ink{stroke:var(--blue)}
-.tt-d{stroke-dasharray:1 1.2;stroke-dashoffset:1.05;animation:draw 1.1s cubic-bezier(.55,.1,.35,1) .2s forwards}
-.tt-d2{animation-duration:.4s;animation-delay:1.2s}
-.tt-d3{animation-duration:.4s;animation-delay:1.4s}
-@keyframes draw{to{stroke-dashoffset:0}}
-.ld-words{display:block;width:min(520px,86vw);height:auto;overflow:visible}
-.lw{font-family:var(--font);fill-opacity:0;stroke-linejoin:round}
-.lw-name{font-size:96px;font-weight:700;letter-spacing:14px;fill:var(--ink);stroke:var(--ink);stroke-width:1.4;stroke-dasharray:480;stroke-dashoffset:480;animation:lwd 1.3s cubic-bezier(.55,.1,.35,1) 1.4s forwards,lwf .6s ease 2.5s forwards}
-.lw-line{fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-dasharray:1 1.2;stroke-dashoffset:1.05;animation:draw .6s ease 3.5s forwards}
-@keyframes lwd{to{stroke-dashoffset:0}}
-@keyframes lwf{to{fill-opacity:1}}
-
 /* телефон: максимально лёгкий режим */
 @media (hover:none),(max-width:760px){
-  #stars,.ld-fx{display:none}
+  #stars{display:none}
   .neon::after{display:none}
   .neon{box-shadow:0 0 0 1.5px rgba(29,92,255,.45),0 8px 20px -10px rgba(29,92,255,.4)}
   .btn.primary{animation:none;background:#1D5CFF;box-shadow:0 6px 16px -8px rgba(29,92,255,.7)}
   .card{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(255,255,255,.88);box-shadow:0 6px 18px -12px rgba(29,60,140,.25);animation:none}
   .step.enter{animation-duration:.18s}
   .opt input:checked + .rad::before,.emo input:checked ~ .l::before{box-shadow:none}
-  /* интро: только transform/opacity — рисуется на GPU, без перерисовки каждый кадр */
-  .loader{background:#fff}
-  .tt-d{animation:none;stroke-dashoffset:0}
-  .tt{animation:ldpop .6s cubic-bezier(.2,1.2,.4,1) both;will-change:transform,opacity}
-  .loader.done{transition-duration:.3s}
   /* смайлики: без filter-переходов (тяжёлые для телефона) */
   .emo .e{filter:none;transition:opacity .15s,transform .15s}
   .emo input:checked + .e{transform:none}
   .step.enter{animation:none}
 }
-@keyframes ldpop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tt-d,.lw-line{stroke-dashoffset:0}.lw{fill-opacity:1;stroke-dashoffset:0}}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <canvas id="stars" aria-hidden="true"></canvas>
-
-<div class="loader" id="ld" aria-hidden="true">
-  <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
-  <svg class="tt" viewBox="60 110 435 900" aria-hidden="true"><g class="tt-track"><path d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
-</div>
 
 <main>
   <div class="wrap stack">
@@ -384,23 +353,6 @@ var sfx = (function(){
 
 
 
-/* ===== Интро: знак рисуется → название → плавно уходит само ===== */
-(function(){
-  var root = document.documentElement, ld = $("ld");
-  if (!ld || /\bno-ld\b/.test(root.className)) return;
-  var finished = false;
-  function finish(){
-    if (finished) return; finished = true;
-    root.className = root.className.replace(/\s*ld-gate/g, "");
-    try { sessionStorage.setItem("ank-ld", "1"); } catch(e) {}
-    sfx.play("welcome");
-    ld.className += " done";
-    setTimeout(function(){ if (ld.parentNode) ld.parentNode.removeChild(ld); }, 800);
-  }
-  ld.addEventListener("click", finish);
-  setTimeout(finish, (matchMedia("(hover: none)").matches ? 1500 : 2600));
-})();
-
 /* ===== Анкета ===== */
 (function(){
   var box = $("steps"), prog = $("prog"), err = $("err"), back = $("back"), next = $("next");
@@ -571,48 +523,6 @@ function confetti(){
   var t; window.addEventListener("resize", function(){ clearTimeout(t); t = setTimeout(function(){ size(); draw(false); loop(); }, 200); });
 })();
 
-/* ===== Интро: синие точки плывут и соединяются линиями ===== */
-(function(){
-  var c = document.getElementById("ldfx"), ld = document.getElementById("ld");
-  if (!c || !c.getContext || !ld || /\bno-ld\b/.test(document.documentElement.className)) return;
-  try { if (matchMedia("(hover: none)").matches || innerWidth < 760) { c.parentNode.removeChild(c); return; } } catch(e) {}
-  var x = c.getContext("2d"), W, H, P = [], run = true, mob = false, raf = 0, last = 0;
-  var COLORS = ["29,92,255", "56,189,248", "99,102,241"], SPR = [];
-  for (var ci = 0; ci < COLORS.length; ci++) {
-    var sc = document.createElement("canvas"); sc.width = sc.height = 32;
-    var g = sc.getContext("2d"), gr = g.createRadialGradient(16, 16, 0, 16, 16, 16);
-    gr.addColorStop(0, "rgba(" + COLORS[ci] + ",1)"); gr.addColorStop(.2, "rgba(" + COLORS[ci] + ",.9)");
-    gr.addColorStop(.45, "rgba(" + COLORS[ci] + ",.2)"); gr.addColorStop(1, "rgba(" + COLORS[ci] + ",0)");
-    g.fillStyle = gr; g.fillRect(0, 0, 32, 32); SPR.push(sc);
-  }
-  function size(){
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    W = c.clientWidth; H = c.clientHeight; mob = W < 760;
-    c.width = Math.round(W * dpr); c.height = Math.round(H * dpr); x.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var n = mob ? 30 : 60; P = [];
-    for (var i = 0; i < n; i++) { var an = Math.random() * 6.283, sp = .15 + Math.random() * .3;
-      P.push({ x: Math.random() * W, y: Math.random() * H, vx: Math.cos(an) * sp, vy: Math.sin(an) * sp, s: 6 + Math.random() * 9, ph: Math.random() * 6.283, tw: .015 + Math.random() * .02, k: (Math.random() * 3) | 0 }); }
-  }
-  function frame(t){
-    if (!run) return; raf = requestAnimationFrame(frame);
-    var dt = last ? Math.min(3, (t - last) / 16.7) : 1; last = t;
-    x.clearRect(0, 0, W, H);
-    var L = mob ? 85 : 120, L2 = L * L, i, j, p, q;
-    for (i = 0; i < P.length; i++) { p = P[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.ph += p.tw * dt;
-      if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12; if (p.y < -12) p.y = H + 12; else if (p.y > H + 12) p.y = -12; }
-    var near = new Path2D(), far = new Path2D();
-    for (i = 0; i < P.length; i++) for (j = i + 1; j < P.length; j++) { p = P[i]; q = P[j];
-      var dx = p.x - q.x; if (dx > L || dx < -L) continue; var dy = p.y - q.y; if (dy > L || dy < -L) continue;
-      var d2 = dx * dx + dy * dy; if (d2 > L2) continue; var path = d2 < L2 * .35 ? near : far; path.moveTo(p.x, p.y); path.lineTo(q.x, q.y); }
-    x.lineWidth = .7; x.strokeStyle = "rgba(29,92,255,.08)"; x.stroke(far); x.strokeStyle = "rgba(29,92,255,.18)"; x.stroke(near);
-    for (i = 0; i < P.length; i++) { p = P[i]; x.globalAlpha = .45 + .55 * Math.abs(Math.sin(p.ph)); x.drawImage(SPR[p.k], p.x - p.s / 2, p.y - p.s / 2, p.s, p.s); }
-    x.globalAlpha = 1;
-  }
-  size(); raf = requestAnimationFrame(frame);
-  window.addEventListener("resize", size);
-  document.addEventListener("visibilitychange", function(){ if (document.hidden) { cancelAnimationFrame(raf); last = 0; } else if (run) raf = requestAnimationFrame(frame); });
-  new MutationObserver(function(){ if (/\bdone\b/.test(ld.className)) { run = false; cancelAnimationFrame(raf); c.width = c.height = 0; } }).observe(ld, { attributes: true, attributeFilter: ["class"] });
-})();
 </script>
 </body>
 </html>
