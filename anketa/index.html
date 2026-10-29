@@ -171,10 +171,6 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 <div class="loader" id="ld" aria-hidden="true">
   <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
   <svg class="tt" viewBox="60 110 435 900" aria-hidden="true"><g class="tt-track"><path d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
-  <svg class="ld-words" viewBox="0 0 640 200" role="img" aria-label="">
-    <text class="lw lw-name" id="ld-brand" x="327" y="100" text-anchor="middle"></text>
-    <path class="lw-line" pathLength="1" d="M200 176H440"/>
-  </svg>
 </div>
 
 <main>
@@ -211,14 +207,13 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
   </div>
 </main>
 <canvas id="confetti" aria-hidden="true"></canvas>
-<footer id="foot"></footer>
+
 
 <script>
 /* =====================================================================
    НАСТРОЙКИ — всё, что меняется под проект, только здесь
    ===================================================================== */
 var CONFIG = {
-  brand:     "SABIZ",                          /* слово в интро и в подвале */
   sheetUrl:  "https://script.google.com/macros/s/AKfycbzpm3MNtht3BNr-0SY2jniU1D3Bem31jn9yrZM7ZOQUcvg-lVdFwicz0d6p0ngPw6FF/exec",                               /* URL веб-приложения Google Apps Script (см. apps-script.gs). Пусто = демо, ответы никуда не уходят */
   giftUrl:   "https://t.me/+SG26gYKLAuk0Mjgy",  /* пригласительная ссылка в закрытый канал */
 
@@ -286,8 +281,6 @@ function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return { "&":"
   var map = { "intro-label":"introLabel", "intro-title":"introTitle", "intro-text":"introText",
               "done-title":"doneTitle", "done-text":"doneText", "gift-btn":"doneBtn", "done-note":"doneNote" };
   for (var k in map) $(k).textContent = CONFIG[map[k]] || "";
-  $("ld-brand").textContent = CONFIG.brand;
-  $("foot").textContent = "© " + new Date().getFullYear() + " " + CONFIG.brand;
   $("gift-link").href = CONFIG.giftUrl;
 })();
 
@@ -401,7 +394,7 @@ var sfx = (function(){
     setTimeout(function(){ if (ld.parentNode) ld.parentNode.removeChild(ld); }, 800);
   }
   ld.addEventListener("click", finish);
-  setTimeout(finish, 4200);
+  setTimeout(finish, 2600);
 })();
 
 /* ===== Анкета ===== */
