@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#07080C">
+<meta name="theme-color" content="#0A0A0A">
 <title>Анкета</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>document.documentElement.className+=" js"</script>
@@ -142,28 +142,34 @@ html{background:#EEF3FB}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-/* ===== ТЁМНАЯ ТЕМА: чёрный + синий ===== */
-:root{--bg:#07080C;--card:#11131A;--ink:#F2F5FB;--muted:#8E97AA;--line:rgba(255,255,255,.09);--fill:rgba(255,255,255,.05);--blue:#2F6BFF;--blue-soft:rgba(47,107,255,.16);--err:#FF5C66;color-scheme:dark}
-html{background:#07080C}
-body{background:radial-gradient(70vmax 50vmax at 0 0,rgba(47,107,255,.20),transparent 60%),radial-gradient(60vmax 50vmax at 100% 100%,rgba(56,189,248,.10),transparent 60%),#07080C;background-repeat:no-repeat;color:var(--ink)}
-.card{background:#10121A!important;border:1px solid rgba(255,255,255,.07)!important;box-shadow:0 12px 32px -16px rgba(0,0,0,.8)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
-.neon{box-shadow:0 0 0 1px rgba(47,107,255,.35),0 16px 40px -18px rgba(47,107,255,.55)!important}
+/* ===== ЧЁРНЫЙ + ЛАЙМ ===== */
+:root{--bg:#0A0A0A;--card:#141414;--ink:#F5F5F0;--muted:#8F9189;--line:rgba(255,255,255,.09);--fill:rgba(255,255,255,.05);--blue:#C6FF3D;--blue-soft:rgba(198,255,61,.14);--err:#FF6B6B;color-scheme:dark}
+html{background:#0A0A0A}
+body{background:radial-gradient(70vmax 45vmax at 0 0,rgba(198,255,61,.12),transparent 60%),#0A0A0A;background-repeat:no-repeat;color:var(--ink)}
+.card{background:#141414!important;border:1px solid rgba(255,255,255,.07)!important;box-shadow:0 12px 32px -16px rgba(0,0,0,.9)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.neon{box-shadow:0 0 0 1px rgba(198,255,61,.35),0 16px 40px -20px rgba(198,255,61,.4)!important}
+.neon::after{background:conic-gradient(from var(--ang),transparent 0 60%,#C6FF3D 72%,#F1FF9E 80%,transparent 90% 100%)}
 .opt,.emo,.btn:not(.primary),.field textarea,.field input{background:rgba(255,255,255,.05)!important;box-shadow:0 0 0 1px rgba(255,255,255,.08) inset!important;color:var(--ink)}
 .field textarea:focus,.field input:focus{background:rgba(255,255,255,.08)!important;border-color:var(--blue)}
-.field textarea::placeholder{color:#6B7488}
-.opt .rad{border-color:#4A5265}
-.opt input:checked + .rad::before,.emo input:checked ~ .l::before{background:rgba(47,107,255,.14)!important}
+.field textarea::placeholder{color:#6A6C66}
+.opt .rad{border-color:#51534D}
+.opt input:checked + .rad::after{background:var(--blue)}
+.opt input:checked + .rad::before,.emo input:checked ~ .l::before{background:rgba(198,255,61,.10)!important;box-shadow:none!important}
 .progress i{background:rgba(255,255,255,.1)}
 .progress i.on,.progress i.cur{background:var(--blue)}
 .emo .e{opacity:.5}
-.aw-val b.idle{color:#3A4256}
-.aw-range::-webkit-slider-runnable-track{background:linear-gradient(90deg,#38BDF8,var(--blue) var(--p),#232838 var(--p))}
-.aw-range::-moz-range-track{background:#232838}
-.aw-range::-webkit-slider-thumb{background:#07080C;box-shadow:0 0 0 6px rgba(47,107,255,.2),0 6px 18px rgba(47,107,255,.5)}
-.aw-range::-moz-range-thumb{background:#07080C}
-.btn.primary{background:var(--blue)!important;color:#fff}
-.hero .gift,.done .ok{box-shadow:0 8px 24px rgba(47,107,255,.45),inset 0 1px 0 rgba(255,255,255,.25)}
+.aw-val b.idle{color:#3A3B37}
+.aw-range::-webkit-slider-runnable-track{background:linear-gradient(90deg,#8BC71A,var(--blue) var(--p),#26272A var(--p))}
+.aw-range::-moz-range-track{background:#26272A}
+.aw-range::-moz-range-progress{background:linear-gradient(90deg,#8BC71A,var(--blue))}
+.aw-range::-webkit-slider-thumb{background:#0A0A0A;border-color:var(--blue);box-shadow:0 0 0 6px rgba(198,255,61,.18),0 6px 18px rgba(198,255,61,.35)}
+.aw-range::-moz-range-thumb{background:#0A0A0A;border-color:var(--blue)}
+.btn.primary{background:var(--blue)!important;color:#0A0A0A!important;box-shadow:0 8px 24px -10px rgba(198,255,61,.55)!important;animation:none}
+.hero .gift,.done .ok{background:var(--blue);box-shadow:0 8px 24px -6px rgba(198,255,61,.45)}
+.hero .gift svg,.done .ok svg{stroke:#0A0A0A}
+.done .ok::after{border-color:rgba(198,255,61,.4)}
 .done p,.hero-lead,.sub{color:var(--muted)}
+#stars{display:none}
 </style>
 </head>
 <body>
@@ -254,8 +260,8 @@ var TG = (function(){
   if (!w || !w.initData) return null;
   try {
     w.ready(); w.expand();
-    if (w.setHeaderColor) w.setHeaderColor("#07080C");
-    if (w.setBackgroundColor) w.setBackgroundColor("#07080C");
+    if (w.setHeaderColor) w.setHeaderColor("#0A0A0A");
+    if (w.setBackgroundColor) w.setBackgroundColor("#0A0A0A");
     if (w.disableVerticalSwipes) w.disableVerticalSwipes();
   } catch(e) {}
   return w;
@@ -509,7 +515,7 @@ function confetti(){
   try { if (matchMedia("(prefers-reduced-motion: reduce)").matches) return; } catch(e) {}
   var x = c.getContext("2d"), dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = c.clientWidth, H = c.clientHeight;
   c.width = W * dpr; c.height = H * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0);
-  var C = ["#1D5CFF", "#38BDF8", "#6366F1", "#8DB3FF", "#BFD3FF"], P = [];
+  var C = ["#C6FF3D", "#F1FF9E", "#8BC71A", "#FFFFFF", "#E4E4DD"], P = [];
   var NP = (matchMedia("(hover: none)").matches ? 45 : 110); for (var i = 0; i < NP; i++) P.push({ x: W / 2 + (Math.random() - .5) * 60, y: H * .35, vx: (Math.random() - .5) * 11, vy: -Math.random() * 11 - 4,
     w: 6 + Math.random() * 6, h: 4 + Math.random() * 4, r: Math.random() * 6.28, vr: (Math.random() - .5) * .3, c: C[(Math.random() * C.length) | 0] });
   var t0 = performance.now();
