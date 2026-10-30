@@ -397,12 +397,12 @@ body{background:radial-gradient(70vmax 45vmax at 0 0,rgba(198,255,61,.12),transp
 
 /* секретный канал: чёрный экран + знак вопроса рисуется (без анимации фильтров — ровно и легко на любых устройствах) */
 .qbox{position:relative;width:min(100%,340px);margin:0 auto 16px;aspect-ratio:1/1;border-radius:16px;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.06) inset;overflow:hidden;-webkit-transform:translateZ(0);transform:translateZ(0)}
-.qbox::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 48%,rgba(198,255,61,.10),transparent 70%);pointer-events:none}
+.qbox::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 48%,rgba(255,255,255,.08),transparent 70%);pointer-events:none}
 .qbox svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.q-hook,.q-glow{fill:none;stroke:var(--blue);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1.1;stroke-dashoffset:1.05;animation:qdraw 1.6s cubic-bezier(.55,.1,.35,1) .35s forwards}
+.q-hook,.q-glow{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1.1;stroke-dashoffset:1.05;animation:qdraw 1.6s cubic-bezier(.55,.1,.35,1) .35s forwards}
 .q-hook{stroke-width:9}
 .q-glow{stroke-width:15;opacity:.10;animation:qdraw 1.6s cubic-bezier(.55,.1,.35,1) .35s forwards,qpulse 3s ease-in-out 2.4s infinite}
-.q-dot,.q-dotglow{fill:var(--blue);opacity:0;transform-box:fill-box;transform-origin:center;animation:qdot .5s cubic-bezier(.2,1.6,.4,1) 1.95s forwards}
+.q-dot,.q-dotglow{fill:#fff;opacity:0;transform-box:fill-box;transform-origin:center;animation:qdot .5s cubic-bezier(.2,1.6,.4,1) 1.95s forwards}
 @keyframes qdraw{to{stroke-dashoffset:0}}
 @keyframes qdot{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
 @keyframes qpulse{50%{opacity:.22}}
