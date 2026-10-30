@@ -255,7 +255,7 @@ html.ld-gate,html.ld-gate body{overflow:hidden}
 @keyframes draw{to{stroke-dashoffset:0}}
 .ld-words{display:block;width:min(520px,86vw);height:auto;overflow:visible}
 .lw{font-family:var(--font);fill-opacity:0;stroke-linejoin:round}
-.lw-name{font-size:96px;font-weight:700;letter-spacing:14px;fill:var(--ink);stroke:var(--ink);stroke-width:1.4;stroke-dasharray:480;stroke-dashoffset:480;animation:lwd 1.3s cubic-bezier(.55,.1,.35,1) 1.4s forwards,lwf .6s ease 2.5s forwards}
+.lw-name{font-size:96px;font-weight:700;letter-spacing:34px;fill:var(--ink);stroke:var(--ink);stroke-width:1.4;stroke-dasharray:480;stroke-dashoffset:480;animation:lwd 1.3s cubic-bezier(.55,.1,.35,1) 1.4s forwards,lwf .6s ease 2.5s forwards}
 .lw-tag{font-size:19px;font-weight:600;letter-spacing:7px;fill:var(--blue);stroke:var(--blue);stroke-width:.6;stroke-dasharray:120;stroke-dashoffset:120;animation:lwd .9s ease 2.6s forwards,lwf .5s ease 3.3s forwards}
 .lw-line{fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round;stroke-dasharray:1 1.2;stroke-dashoffset:1.05;animation:draw .6s ease 3.5s forwards}
 @keyframes lwd{to{stroke-dashoffset:0}}
@@ -399,8 +399,8 @@ body{background:radial-gradient(70vmax 45vmax at 0 0,rgba(198,255,61,.12),transp
 <div class="loader" id="ld" aria-hidden="true">
   <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
   <svg class="tt" viewBox="60 110 435 900" aria-hidden="true"><g class="tt-track"><path d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M430 330C400 270 330 245 265 250C185 255 130 300 135 370C140 445 210 475 280 500C360 528 430 560 430 650C430 740 355 790 270 790C195 790 140 755 125 700"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
-  <svg class="ld-words" viewBox="0 0 640 200" role="img" aria-label="SABIZ">
-    <text class="lw lw-name" x="327" y="100" text-anchor="middle">SABIZ</text>
+  <svg class="ld-words" viewBox="0 0 640 200" role="img" aria-label="MARK">
+    <text class="lw lw-name" x="337" y="100" text-anchor="middle">MARK</text>
     <path class="lw-line" pathLength="1" d="M200 176H440"/>
   </svg>
 </div>
@@ -779,7 +779,7 @@ document.addEventListener("click", function(e){
 }, true);
 
 
-/* ===== Интро: неоновый знак рисуется → SABIZ → тап «Смотреть урок» ===== */
+/* ===== Интро: неоновый знак рисуется → MARK → тап «Смотреть урок» ===== */
 (function(){
   var root = document.documentElement, ld = document.getElementById("ld");
   var hero = document.querySelector(".hero");
@@ -821,7 +821,7 @@ document.addEventListener("click", function(e){
   function gate(){
     if (gated) return; gated = true;
     ld.className += " gate"; ld.removeAttribute("aria-hidden");
-    ld.setAttribute("role", "dialog"); ld.setAttribute("aria-label", "SABIZ");
+    ld.setAttribute("role", "dialog"); ld.setAttribute("aria-label", "MARK");
     var b = ld.querySelector(".ld-enter"); b.tabIndex = 0;
     ld.addEventListener("click", finish);
     document.addEventListener("keydown", function k(e){
