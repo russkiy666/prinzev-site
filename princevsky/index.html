@@ -1514,13 +1514,14 @@ html{scroll-padding-top:70px}
 .steps p{font-size:clamp(14px,1.1vw,18px);line-height:1.5;font-weight:600;color:var(--soft)}
 .apply-btn{align-self:flex-start}
 /* об Антоне */
-.about-g{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,80px);align-items:center}
+.about-g{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,80px);align-items:center}
 .about-ph{position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;background:#111;border:1px solid rgba(243,241,234,.12)}
 .about-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:grayscale(1) contrast(1.08) brightness(.95)}
 .about-ph::after{content:"";position:absolute;inset:0;background:#C8F03C;mix-blend-mode:multiply;opacity:.16;pointer-events:none}
 .about-b{display:flex;flex-direction:column;gap:clamp(16px,2vw,28px)}
 .about-b p{font-size:clamp(17px,1.5vw,25px);line-height:1.5;color:var(--onDarkMuted);font-weight:600;max-width:680px}
-.about-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.about-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:1100px){.about-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .about-facts div{padding:clamp(16px,1.6vw,24px);border-radius:var(--r-md);border:1px solid rgba(200,240,60,.28);background:rgba(243,241,234,.04)}
 .about-facts b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,40px);letter-spacing:-0.02em;color:var(--accent);line-height:1.1}
 .about-facts span{display:block;margin-top:6px;font-weight:700;font-size:clamp(13px,1vw,16px);color:var(--onDarkMuted)}
@@ -1736,13 +1737,12 @@ html{scroll-padding-top:70px}
 <section class="sec sec-dark" id="about">
   <div class="sec-in">
     <div class="about-g">
-      <div class="about-ph"><img src="../team/anton.webp" alt="Антон Принцевский" decoding="async"</div>
       <div class="about-b">
         <div><span class="kicker">Кто ведёт обучение</span><h2>АНТОН ПРИНЦЕВСКИЙ</h2></div>
         <p>Управляет командой продюсеров и масштабирует агентство. Учу тому, что делаю сам: запускать блогеров и строить на этом бизнес.</p>
         <div class="about-facts">
           <div><b>5+ лет</b><span>в маркетинге</span></div>
-          <div><b>100 000 000+ ₽</b><span>выручки в проектах</span></div>
+          <div><b>100 млн+ ₽</b><span>выручки в проектах</span></div>
           <div><b>50+</b><span>запусков блогеров у команды</span></div>
           <div><b>100%</b><span>в белую, через ИП</span></div>
         </div>
