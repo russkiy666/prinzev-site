@@ -382,7 +382,18 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .iso-legend .hi b{color:#8A6420}
 .lw-name{font-size:68px;font-weight:700;letter-spacing:6px;fill:#1A150C;stroke:#1A150C;stroke-dasharray:700;stroke-dashoffset:700}
 .lw-tag{font-size:17px;font-weight:500;letter-spacing:5px;fill:#A87A1F;stroke:#A87A1F;stroke-dasharray:160;stroke-dashoffset:160}
-.tt-ink{stroke:#C9962E}\n.lw-name{font-size:72px}
+.tt-track{stroke:rgba(184,137,43,.07)}
+.tt{position:relative}
+.tt-halo{stroke:#FFB627;stroke-width:110;opacity:.28;filter:blur(26px);animation:haloBreath 2.4s ease-in-out 2.4s infinite}
+.tt-ink{stroke:#F2B632;filter:drop-shadow(0 0 3px rgba(255,190,60,.95)) drop-shadow(0 0 12px rgba(245,165,30,.75)) drop-shadow(0 0 30px rgba(235,150,20,.5))}
+.tt-core{stroke:#FFF4CF;stroke-width:12}
+.tt-halo .tt-d,.tt-core .tt-d{stroke-dasharray:1 1.2;stroke-dashoffset:1.05;animation:draw 1.1s cubic-bezier(.55,.1,.35,1) .2s forwards}
+.tt-halo .tt-d2,.tt-core .tt-d2{animation-duration:.4s;animation-delay:1.2s}
+.tt-halo .tt-d3,.tt-core .tt-d3{animation-duration:.4s;animation-delay:1.4s}
+.tt{animation:neonFlick .7s steps(1) 1.8s both}
+@keyframes neonFlick{0%{opacity:1}12%{opacity:.35}22%{opacity:1}34%{opacity:.55}44%,100%{opacity:1}}
+@keyframes haloBreath{50%{opacity:.5}}
+@media (prefers-reduced-motion:reduce){.tt-halo .tt-d,.tt-core .tt-d{stroke-dashoffset:0}.tt-halo{animation:none}}\n.lw-name{font-size:72px}
 .done .handle{margin-top:2px}
 @media (prefers-reduced-motion:reduce){.gold,.pbar i{animation:none}}
 </style>
@@ -391,7 +402,7 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 
 <div class="loader" id="ld" aria-hidden="true">
   <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
-  <svg class="tt" viewBox="100 110 580 900" aria-hidden="true"><g class="tt-track"><path d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
+  <svg class="tt" viewBox="100 110 580 900" aria-hidden="true"><g class="tt-track"><path d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path d="M232 170C231 420 224 700 214 985"/><path d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-halo"><path class="tt-d tt-d1" pathLength="1" d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-ink"><path class="tt-d tt-d1" pathLength="1" d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g><g class="tt-core"><path class="tt-d tt-d1" pathLength="1" d="M150 740C175 800 260 815 335 805C410 790 440 700 435 620C432 575 420 555 400 545C330 512 230 505 165 480C115 455 115 360 160 320C195 288 240 272 300 268C340 266 375 262 395 288C405 255 450 230 510 228C580 228 625 260 640 330C655 400 640 460 600 490C550 522 470 535 420 552"/><path class="tt-d tt-d2" pathLength="1" d="M232 170C231 420 224 700 214 985"/><path class="tt-d tt-d3" pathLength="1" d="M318 140C336 190 334 240 330 310C322 560 312 790 302 982"/></g></svg>
   <svg class="ld-words" viewBox="0 0 760 200" role="img" aria-label="YAKIMOVICH">
     <text class="lw lw-name" x="384" y="100" text-anchor="middle">YAKIMOVICH</text>
     <text class="lw lw-tag" x="380" y="146" text-anchor="middle">БЕСПЛАТНЫЙ УРОК</text>
