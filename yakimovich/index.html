@@ -463,6 +463,9 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 @media (min-width:560px){.c-photo{max-width:420px;margin-left:auto;margin-right:auto}}
 @media (max-width:359px){.btn{font-size:15.5px;padding:0 14px;gap:6px}h2{font-size:clamp(20px,6.6vw,24px)}}
 @media (prefers-reduced-motion:reduce){.btn.primary::after,.btn.next::after,.btn.primary::before,.btn.next::before,.rate-title,.rate-title::after,.progress i.cur,.c-spark,.c-spark-w{animation:none!important}.btn.primary::before,.btn.next::before{display:none}}
+
+/* заголовок консультации — ровно в 2 строки на любом телефоне */
+.card h2.c-h2{font-size:clamp(12.5px,calc((100vw - 84px) / 17.6),24px);line-height:1.22;white-space:nowrap}
 </style>
 <div class="orbs" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
 <canvas id="stars" aria-hidden="true"></canvas>
@@ -512,11 +515,11 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
     <section class="card" id="consult">
       <div class="c-photo"><picture><source type="image/webp" srcset="media/consult-480.webp?v=8 480w, media/consult-800.webp?v=8 800w" sizes="(max-width:560px) 92vw, 520px"><img src="media/consult-800.jpg?v=8" srcset="media/consult-480.jpg?v=8 480w, media/consult-800.jpg?v=8 800w" sizes="(max-width:560px) 92vw, 520px" alt="YAKIMOVICH" width="800" height="1187" decoding="async" fetchpriority="low"></picture></div>
       <span class="label">Бесплатная консультация · 30 минут</span>
-      <h2>Соберём твой личный план выхода на <span class="gold">200.000 ₽</span></h2>
+      <h2 class="c-h2">Соберём твой личный план<br>выхода на <span class="gold">200.000 ₽</span></h2>
       <ul class="gets">
-        <li>Разберём твою ситуацию и с чего тебе проще всего начать</li>
+        <li>Разберём конкретно твою ситуацию и с чего тебе проще всего начать</li>
         <li>Покажем, где найти первого эксперта и как его закрыть</li>
-        <li>Посчитаем твой первый запуск в цифрах</li>
+        <li>Дам способ, как заработать первые 50.000 ₽ в рамках недели</li>
       </ul>
       <div class="goal">
         <h3 class="rate-title">Money Maxing Rate</h3>
