@@ -385,6 +385,25 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .tt-track{stroke:rgba(184,137,43,.12)}
 .tt-ink{stroke:#0F7A55;filter:drop-shadow(0 6px 14px rgba(15,122,85,.25))}
 .lw-name{font-size:72px}
+.goal-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.goal-num{font:700 clamp(22px,6.4vw,28px)/1 var(--display);letter-spacing:-.02em;color:#8A6420;font-variant-numeric:tabular-nums}
+.curve{margin-top:10px}
+.curve svg{display:block;width:100%;height:auto;overflow:visible}
+.c-grid line{stroke:rgba(168,122,31,.16);stroke-width:1;stroke-dasharray:3 5}
+.c-area{fill:url(#cg);opacity:0;transition:opacity .9s ease 1s}
+.c-line{fill:none;stroke:url(#cl);stroke-width:4;stroke-linecap:round;stroke-dasharray:1 1.2;stroke-dashoffset:1.05;transition:stroke-dashoffset 1.6s cubic-bezier(.45,.05,.25,1)}
+.c-pt{opacity:0;transform:translateY(6px);transform-box:fill-box;transition:opacity .4s ease,transform .4s ease;transition-delay:calc(var(--i) * .45s + .15s)}
+.c-pt circle{fill:#fff;stroke:#B8892B;stroke-width:2.5}
+.c-pt.hi circle{fill:#A87A1F;stroke:#fff;stroke-width:3}
+.c-pt .c-ring{fill:none;stroke:#C9962E;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:cRing 1.8s ease-out 2s infinite;opacity:0}
+.c-v{font:700 13px/1 var(--display);fill:#1A150C}
+.c-pt.hi .c-v{fill:#8A6420;font-size:15px}
+.c-m{font:500 12px/1 var(--font);fill:#6E6452}
+#iso.grow .c-line{stroke-dashoffset:0}
+#iso.grow .c-area{opacity:1}
+#iso.grow .c-pt{opacity:1;transform:none}
+@keyframes cRing{0%{opacity:.8;transform:scale(.7)}100%{opacity:0;transform:scale(2.2)}}
+@media (prefers-reduced-motion:reduce){.c-line{stroke-dashoffset:0}.c-area,.c-pt{opacity:1;transform:none}}
 .done .handle{margin-top:2px}
 @media (prefers-reduced-motion:reduce){.gold,.pbar i{animation:none}}
 </style>
@@ -442,15 +461,19 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
         <li>Посчитаем твой первый запуск в цифрах</li>
       </ul>
       <div class="goal">
-        <span class="label">Твоя цель на 3 месяца</span>
-        <div class="iso-wrap" aria-hidden="true"><div class="iso2" id="iso"><svg viewBox="0 0 320 190"><defs><linearGradient id="gfa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E2C27A"/><stop offset="1" stop-color="#B8892B"/></linearGradient><linearGradient id="gfb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4DC93"/><stop offset="1" stop-color="#C9962E"/></linearGradient></defs>
-      <line x1="6" y1="180.5" x2="314" y2="180.5" stroke="rgba(168,122,31,.3)" stroke-width="1.5" stroke-linecap="round"/>
-      <g class="br" style="--i:0"><rect x="17" y="170" width="46" height="10" fill="url(#gfa)"/><polygon points="63,170 77,161 77,171 63,180" fill="#8A6420"/><polygon points="17,170 31,161 77,161 63,170" fill="#F0D58C"/></g>
-      <g class="br" style="--i:1"><rect x="97" y="140" width="46" height="40" fill="url(#gfa)"/><polygon points="143,140 157,131 157,171 143,180" fill="#8A6420"/><polygon points="97,140 111,131 157,131 143,140" fill="#F0D58C"/></g>
-      <g class="br" style="--i:2"><rect x="177" y="95" width="46" height="85" fill="url(#gfa)"/><polygon points="223,95 237,86 237,171 223,180" fill="#8A6420"/><polygon points="177,95 191,86 237,86 223,95" fill="#F0D58C"/></g>
-      <g class="br hi" style="--i:3"><rect x="257" y="30" width="46" height="150" fill="url(#gfb)"/><polygon points="303,30 317,21 317,171 303,180" fill="#7A5716"/><polygon points="257,30 271,21 317,21 303,30" fill="#FBEBC0"/></g>
-    </svg></div></div>
-        <div class="iso-legend"><span>Старт<b>0 ₽</b></span><span>1 мес<b>30к</b></span><span>2 мес<b>90к</b></span><span class="hi">3 мес<b>200к</b></span></div>
+        <div class="goal-top"><span class="label">Твоя цель на 3 месяца</span><b class="goal-num" id="goalNum">0 ₽</b></div>
+        <div class="curve" id="iso" aria-hidden="true"><svg viewBox="0 0 320 180">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9962E" stop-opacity=".32"/><stop offset="1" stop-color="#C9962E" stop-opacity="0"/></linearGradient>
+      <linearGradient id="cl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E2C27A"/><stop offset="1" stop-color="#8A6420"/></linearGradient></defs>
+      <g class="c-grid"><line x1="14" y1="150.5" x2="312" y2="150.5"/><line x1="14" y1="92.5" x2="312" y2="92.5"/><line x1="14" y1="22.5" x2="312" y2="22.5"/></g>
+      <path class="c-area" d="M22 150C60 148 86 136 118 131C150 126 180 110 214 92C246 75 272 48 300 22L300 150L22 150Z"/>
+      <path class="c-line" pathLength="1" d="M22 150C60 148 86 136 118 131C150 126 180 110 214 92C246 75 272 48 300 22"/>
+      <g class="c-pt" style="--i:0"><circle cx="22" cy="150" r="4.5"/><text class="c-v" x="24" y="136" text-anchor="middle">0</text></g>
+      <g class="c-pt" style="--i:1"><circle cx="118" cy="131" r="4.5"/><text class="c-v" x="118" y="117" text-anchor="middle">30к</text></g>
+      <g class="c-pt" style="--i:2"><circle cx="214" cy="92" r="4.5"/><text class="c-v" x="214" y="78" text-anchor="middle">90к</text></g>
+      <g class="c-pt hi" style="--i:3"><circle class="c-ring" cx="300" cy="22" r="9"/><circle cx="300" cy="22" r="6"/><text class="c-v" x="300" y="8" text-anchor="end">200к</text></g>
+      <text class="c-m" x="22" y="174" text-anchor="start">Старт</text><text class="c-m" x="118" y="174" text-anchor="middle">1 мес</text><text class="c-m" x="214" y="174" text-anchor="middle">2 мес</text><text class="c-m" x="300" y="174" text-anchor="end">3 мес</text>
+    </svg></div>
       </div>
     </section>
 
@@ -1137,7 +1160,15 @@ var goStage = (function(){
 /* ===== 3D-график растёт, когда виден ===== */
 (function(){
   var iso = document.getElementById("iso"); if (!iso) return;
-  function grow(){ if (iso.className.indexOf("grow") < 0) iso.className += " grow"; }
+  function grow(){
+    if (iso.className.indexOf("grow") >= 0) return; iso.className += " grow";
+    var num = document.getElementById("goalNum"), T = 200000, t0 = 0;
+    if (!num || !window.requestAnimationFrame) { if (num) num.textContent = "200.000 ₽"; return; }
+    function f(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+    function step(t){ if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 1700), e = 1 - Math.pow(1 - k, 3);
+      num.textContent = f(Math.round(T * e / 1000) * 1000) + " ₽"; if (k < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
   if (!("IntersectionObserver" in window)) { grow(); return; }
   var io = new IntersectionObserver(function(es){ for (var i = 0; i < es.length; i++) if (es[i].isIntersecting) { setTimeout(grow, 250); io.disconnect(); } }, { threshold: .4 });
   io.observe(iso);
