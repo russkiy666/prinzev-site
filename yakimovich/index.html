@@ -385,6 +385,12 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .tt-track{stroke:rgba(184,137,43,.12)}
 .tt-ink{stroke:#0F7A55;filter:drop-shadow(0 6px 14px rgba(15,122,85,.25))}
 .lw-name{font-size:72px}
+.aw-val b{font-family:var(--display);font-size:46px}
+.aw-ends.r3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.aw-ends.r3 button{border:0;background:none;padding:6px 0;font:700 13px/1.2 var(--display);letter-spacing:.02em;color:var(--muted);cursor:pointer;text-align:center}
+.aw-ends.r3 button:first-child{text-align:left}.aw-ends.r3 button:last-child{text-align:right}
+.aw-ends.r3 button.on{color:#8A6420}
+.aw-ends.r3 button:focus-visible{outline:2px solid #A87A1F;outline-offset:2px;border-radius:6px}
 .goal-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .goal-num{font:700 clamp(22px,6.4vw,28px)/1 var(--display);letter-spacing:-.02em;color:#8A6420;font-variant-numeric:tabular-nums}
 .curve{margin-top:10px}
@@ -491,12 +497,12 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 
       <fieldset class="step" data-step="2">
         <span class="label">Вопрос</span>
-        <h3 class="q">Насколько ты уже в теме заработка в онлайне?</h3>
+        <h3 class="q">Какой у тебя MONEYMAXXING РЕЙТ?</h3>
         <div class="aw" id="aw">
           <input type="radio" name="q2" id="q2v" value="" checked hidden>
           <div class="aw-val"><b id="awn">?</b><span id="awe">❄️</span></div>
-          <input class="aw-range" type="range" id="awr" min="1" max="10" step="1" value="5" aria-label="Насколько ты в теме, от 1 до 10">
-          <div class="aw-ends"><span>❄️ 1 — вообще не в теме</span><span>10 — шарю! 🔥</span></div>
+          <input class="aw-range" type="range" id="awr" min="1" max="3" step="1" value="2" aria-label="MONEYMAXXING РЕЙТ: SUB-3, LTN или CHAD">
+          <div class="aw-ends r3"><button type="button" data-v="1">1. SUB-3</button><button type="button" data-v="2">2. LTN</button><button type="button" data-v="3">3. CHAD</button></div>
         </div>
       </fieldset>
 
@@ -1075,15 +1081,18 @@ var goStage = (function(){
   var r = document.getElementById("awr"), v = document.getElementById("q2v"), n = document.getElementById("awn"), e = document.getElementById("awe");
   if (!r) return;
   n.className = "idle"; n.textContent = "?"; 
-  function emo(x){ return x <= 3 ? "❄️" : x <= 7 ? "⚡️" : "🔥"; }
+  var RATE = ["SUB-3", "LTN", "CHAD"], tabs = document.querySelectorAll(".aw-ends.r3 button");
+  function emo(x){ return x === 1 ? "❄️" : x === 2 ? "⚡️" : "🔥"; }
+  for (var ti = 0; ti < tabs.length; ti++) tabs[ti].addEventListener("click", function(){ r.value = this.getAttribute("data-v"); upd(true); });
   function upd(touch){
-    var x = +r.value; r.style.setProperty("--p", ((x - 1) / 9 * 100) + "%");
+    var x = +r.value; r.style.setProperty("--p", ((x - 1) / 2 * 100) + "%");
     if (!touch) return;
-    v.value = String(x); v.checked = true;
-    n.className = ""; n.textContent = x; e.textContent = emo(x);
+    v.value = x + ". " + RATE[x - 1]; v.checked = true;
+    n.className = ""; n.textContent = RATE[x - 1]; e.textContent = emo(x);
+    for (var ti = 0; ti < tabs.length; ti++) tabs[ti].className = +tabs[ti].getAttribute("data-v") === x ? "on" : "";
     var er = document.getElementById("err"); if (er) er.textContent = "";
     try { haptic("pick"); } catch(err) {}
-    if (x !== lastX) { lastX = x; try { sfx.slide(x); } catch(err) {} }
+    if (x !== lastX) { lastX = x; try { sfx.slide(x * 3); } catch(err) {} }
   }
   var lastX = 0;
   r.addEventListener("input", function(){ upd(true); });
