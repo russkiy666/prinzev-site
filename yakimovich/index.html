@@ -385,12 +385,13 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .tt-track{stroke:rgba(184,137,43,.12)}
 .tt-ink{stroke:#0F7A55;filter:drop-shadow(0 6px 14px rgba(15,122,85,.25))}
 .lw-name{font-size:72px}
-.aw-val b{font-family:var(--display);font-size:46px}
-.aw-ends.r3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-.aw-ends.r3 button{border:0;background:none;padding:6px 0;font:700 13px/1.2 var(--display);letter-spacing:.02em;color:var(--muted);cursor:pointer;text-align:center}
-.aw-ends.r3 button:first-child{text-align:left}.aw-ends.r3 button:last-child{text-align:right}
-.aw-ends.r3 button.on{color:#8A6420}
-.aw-ends.r3 button:focus-visible{outline:2px solid #A87A1F;outline-offset:2px;border-radius:6px}
+.rate{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:2px}
+.rc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;min-width:0}
+.rc span{font-size:11.5px;font-weight:600;color:var(--muted)}
+.rc b{font:700 clamp(13px,3.6vw,15px)/1.1 var(--display);letter-spacing:-.01em;color:#1A150C}
+.rc small{font-size:11.5px;line-height:1.3;color:var(--muted)}
+.rc.hi b{color:#8A6420}
+
 .goal-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .goal-num{font:700 clamp(22px,6.4vw,28px)/1 var(--display);letter-spacing:-.02em;color:#8A6420;font-variant-numeric:tabular-nums}
 .curve{margin-top:10px}
@@ -399,8 +400,9 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .c-area{fill:url(#cg);opacity:0;transition:opacity .9s ease 1s}
 .c-line{fill:none;stroke:url(#cl);stroke-width:4;stroke-linecap:round;stroke-dasharray:1 1.2;stroke-dashoffset:1.05;transition:stroke-dashoffset 1.6s cubic-bezier(.45,.05,.25,1)}
 .c-pt{opacity:0;transform:translateY(6px);transform-box:fill-box;transition:opacity .4s ease,transform .4s ease;transition-delay:calc(var(--i) * .45s + .15s)}
-.c-pt circle{fill:#fff;stroke:#B8892B;stroke-width:2.5}
-.c-pt.hi circle{fill:#A87A1F;stroke:#fff;stroke-width:3}
+.c-dot{fill:#fff;stroke:#B8892B;stroke-width:2.5}
+.c-face-bg{fill:#FFF8E6;stroke:#B8892B;stroke-width:2.5;filter:drop-shadow(0 4px 8px rgba(138,100,32,.35))}
+.c-pt.hi .c-face-bg{stroke:#8A6420;stroke-width:3}
 .c-pt .c-ring{fill:none;stroke:#C9962E;stroke-width:2;transform-box:fill-box;transform-origin:center;animation:cRing 1.8s ease-out 2s infinite;opacity:0}
 .c-v{font:700 13px/1 var(--display);fill:#1A150C}
 .c-pt.hi .c-v{fill:#8A6420;font-size:15px}
@@ -468,18 +470,18 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
       </ul>
       <div class="goal">
         <div class="goal-top"><span class="label">Твоя цель на 3 месяца</span><b class="goal-num" id="goalNum">0 ₽</b></div>
-        <div class="curve" id="iso" aria-hidden="true"><svg viewBox="0 0 320 180">
+        <div class="curve" id="iso"><svg viewBox="0 0 320 190" aria-hidden="true">
       <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9962E" stop-opacity=".32"/><stop offset="1" stop-color="#C9962E" stop-opacity="0"/></linearGradient>
       <linearGradient id="cl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E2C27A"/><stop offset="1" stop-color="#8A6420"/></linearGradient></defs>
-      <g class="c-grid"><line x1="14" y1="150.5" x2="312" y2="150.5"/><line x1="14" y1="92.5" x2="312" y2="92.5"/><line x1="14" y1="22.5" x2="312" y2="22.5"/></g>
-      <path class="c-area" d="M22 150C60 148 86 136 118 131C150 126 180 110 214 92C246 75 272 48 300 22L300 150L22 150Z"/>
-      <path class="c-line" pathLength="1" d="M22 150C60 148 86 136 118 131C150 126 180 110 214 92C246 75 272 48 300 22"/>
-      <g class="c-pt" style="--i:0"><circle cx="22" cy="150" r="4.5"/><text class="c-v" x="24" y="136" text-anchor="middle">0</text></g>
-      <g class="c-pt" style="--i:1"><circle cx="118" cy="131" r="4.5"/><text class="c-v" x="118" y="117" text-anchor="middle">30к</text></g>
-      <g class="c-pt" style="--i:2"><circle cx="214" cy="92" r="4.5"/><text class="c-v" x="214" y="78" text-anchor="middle">90к</text></g>
-      <g class="c-pt hi" style="--i:3"><circle class="c-ring" cx="300" cy="22" r="9"/><circle cx="300" cy="22" r="6"/><text class="c-v" x="300" y="8" text-anchor="end">200к</text></g>
-      <text class="c-m" x="22" y="174" text-anchor="start">Старт</text><text class="c-m" x="118" y="174" text-anchor="middle">1 мес</text><text class="c-m" x="214" y="174" text-anchor="middle">2 мес</text><text class="c-m" x="300" y="174" text-anchor="end">3 мес</text>
-    </svg></div>
+      <g class="c-grid"><line x1="0" y1="160.5" x2="320" y2="160.5"/><line x1="0" y1="86.5" x2="320" y2="86.5"/><line x1="0" y1="38.5" x2="320" y2="38.5"/></g>
+      <path class="c-area" d="M40 160C70 156 92 144 120 128C148 112 170 100 200 86C230 72 252 56 280 38L280 160L40 160Z"/>
+      <path class="c-line" pathLength="1" d="M40 160C70 156 92 144 120 128C148 112 170 100 200 86C230 72 252 56 280 38"/>
+      <g class="c-pt c0" style="--i:0"><circle class="c-dot" cx="40" cy="160" r="5"/><text class="c-v" x="40" y="140" text-anchor="middle">0</text></g>
+      <g class="c-pt" style="--i:1"><circle class="c-face-bg" cx="120" cy="128" r="21"/><g transform="translate(120 128)"><path d="M-10,-4C-10,-15 10,-15 10,-4C10,5 7,12 0,13C-7,12 -10,5 -10,-4Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.4"/><path d="M-10,-6C-8,-14 6,-16 10,-7C4,-10 -4,-9 -10,-6Z" fill="#3A2A14"/><path d="M-7,-3.5h4.5M2.5,-3.5h4.5" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/><path d="M-6.5,-1.2Q-4.8,0 -3,-1.2M3,-1.2Q4.8,0 6.5,-1.2" fill="none" stroke="#B7977A" stroke-width="1" stroke-linecap="round"/><path d="M-4,8.5Q0,6.2 4,8.5" fill="none" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/></g><text class="c-v" x="120" y="98" text-anchor="middle">30к</text></g>
+      <g class="c-pt" style="--i:2"><circle class="c-face-bg" cx="200" cy="86" r="21"/><g transform="translate(200 86)"><path d="M-10.5,-5C-10.5,-16 10.5,-16 10.5,-5C10.5,5 8,13 0,14C-8,13 -10.5,5 -10.5,-5Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.4"/><path d="M-10.5,-6C-9,-15 9,-15 10.5,-6C5,-9.5 -5,-9.5 -10.5,-6Z" fill="#3A2A14"/><circle cx="-4.8" cy="-2.5" r="1.5" fill="#3A2A14"/><circle cx="4.8" cy="-2.5" r="1.5" fill="#3A2A14"/><path d="M-4,7.5Q0,10.5 4,7.5" fill="none" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/></g><text class="c-v" x="200" y="56" text-anchor="middle">90к</text></g>
+      <g class="c-pt hi" style="--i:3"><circle class="c-ring" cx="280" cy="38" r="21"/><circle class="c-face-bg" cx="280" cy="38" r="21"/><g transform="translate(280 38)"><path d="M-12,-7C-12,-17 12,-17 12,-7L12,3C12,11 7,15.5 0,15.5C-7,15.5 -12,11 -12,3Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.5"/><path d="M-12,-7C-11,-17 11,-17 12,-7C8,-12 -2,-13.5 -12,-7Z" fill="#3A2A14"/><path d="M-9,-6.5L-2,-4.8M9,-6.5L2,-4.8" stroke="#3A2A14" stroke-width="2" stroke-linecap="round"/><path d="M-8,-2.6h5M3,-2.6h5" stroke="#3A2A14" stroke-width="1.7" stroke-linecap="round"/><path d="M-5,8.2Q0,10.8 6,6.2" fill="none" stroke="#3A2A14" stroke-width="1.6" stroke-linecap="round"/><path d="M-12,2.5L-7.5,11M12,2.5L7.5,11" stroke="rgba(58,42,20,.35)" stroke-width="1" stroke-linecap="round"/><path d="M0,12.2v1.4" stroke="rgba(58,42,20,.4)" stroke-width="1" stroke-linecap="round"/></g><text class="c-v" x="280" y="8" text-anchor="middle">200к</text></g>
+    </svg>
+        <div class="rate" aria-label="Путь по рейтингу: Старт, SUB-3, LTN, CHAD"><div class="rc"><span>сейчас</span><b>Старт</b><small>0 ₽,<br>нет опыта</small></div><div class="rc"><span>1 мес</span><b>SUB-3</b><small>ниже 3 из 10,<br>старт с нуля</small></div><div class="rc"><span>2 мес</span><b>LTN</b><small>Low-Tier Normie,<br>~4 из 10</small></div><div class="rc hi"><span>3 мес</span><b>CHAD</b><small>топ-уровень,<br>8+ из 10</small></div></div></div>
       </div>
     </section>
 
@@ -497,12 +499,12 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 
       <fieldset class="step" data-step="2">
         <span class="label">Вопрос</span>
-        <h3 class="q">Какой у тебя MONEYMAXXING РЕЙТ?</h3>
+        <h3 class="q">Насколько ты уже в теме заработка в онлайне?</h3>
         <div class="aw" id="aw">
           <input type="radio" name="q2" id="q2v" value="" checked hidden>
           <div class="aw-val"><b id="awn">?</b><span id="awe">❄️</span></div>
-          <input class="aw-range" type="range" id="awr" min="1" max="3" step="1" value="2" aria-label="MONEYMAXXING РЕЙТ: SUB-3, LTN или CHAD">
-          <div class="aw-ends r3"><button type="button" data-v="1">1. SUB-3</button><button type="button" data-v="2">2. LTN</button><button type="button" data-v="3">3. CHAD</button></div>
+          <input class="aw-range" type="range" id="awr" min="1" max="10" step="1" value="5" aria-label="Насколько ты в теме, от 1 до 10">
+          <div class="aw-ends"><span>❄️ 1 — вообще не в теме</span><span>10 — шарю! 🔥</span></div>
         </div>
       </fieldset>
 
@@ -1081,18 +1083,15 @@ var goStage = (function(){
   var r = document.getElementById("awr"), v = document.getElementById("q2v"), n = document.getElementById("awn"), e = document.getElementById("awe");
   if (!r) return;
   n.className = "idle"; n.textContent = "?"; 
-  var RATE = ["SUB-3", "LTN", "CHAD"], tabs = document.querySelectorAll(".aw-ends.r3 button");
-  function emo(x){ return x === 1 ? "❄️" : x === 2 ? "⚡️" : "🔥"; }
-  for (var ti = 0; ti < tabs.length; ti++) tabs[ti].addEventListener("click", function(){ r.value = this.getAttribute("data-v"); upd(true); });
+  function emo(x){ return x <= 3 ? "❄️" : x <= 7 ? "⚡️" : "🔥"; }
   function upd(touch){
-    var x = +r.value; r.style.setProperty("--p", ((x - 1) / 2 * 100) + "%");
+    var x = +r.value; r.style.setProperty("--p", ((x - 1) / 9 * 100) + "%");
     if (!touch) return;
-    v.value = x + ". " + RATE[x - 1]; v.checked = true;
-    n.className = ""; n.textContent = RATE[x - 1]; e.textContent = emo(x);
-    for (var ti = 0; ti < tabs.length; ti++) tabs[ti].className = +tabs[ti].getAttribute("data-v") === x ? "on" : "";
+    v.value = String(x); v.checked = true;
+    n.className = ""; n.textContent = x; e.textContent = emo(x);
     var er = document.getElementById("err"); if (er) er.textContent = "";
     try { haptic("pick"); } catch(err) {}
-    if (x !== lastX) { lastX = x; try { sfx.slide(x * 3); } catch(err) {} }
+    if (x !== lastX) { lastX = x; try { sfx.slide(x); } catch(err) {} }
   }
   var lastX = 0;
   r.addEventListener("input", function(){ upd(true); });
