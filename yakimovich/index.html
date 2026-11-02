@@ -671,6 +671,7 @@ track("open");
 var TG_LINK_ADULT = "https://t.me/YakimovichI";   /* чат для записи (18+) */
 var TG_LINK_MINOR = "https://t.me/YakimovichI";   /* чат для записи (младше 18) */
 var TG_LINK = TG_LINK_ADULT;
+var CHANNEL_LINK = "https://t.me/+MmiYGcS3dKQ4M2Fi";   /* закрытый канал (вход по заявке): до 18 лет и бюджет 0 ₽ */
 
 
 /* ===== Звук нажатий: синтезированный «мягкий клик клавиатуры», без файлов ===== */
@@ -1059,9 +1060,17 @@ var goStage = (function(){
     if (id === "4" && !radio("q4")) return "Выбери смайлик, чтобы продолжить";
     return "";
   }
-  function low(){ return false; }
+  function low(){ return minor() && radio("qb") === "Вообще 0 ₽"; }
   function finish(){
-    TG_LINK = minor() ? TG_LINK_MINOR : TG_LINK_ADULT;
+    var isLow = low();
+    TG_LINK = isLow ? CHANNEL_LINK : (minor() ? TG_LINK_MINOR : TG_LINK_ADULT);
+    var dn = document.getElementById("done");
+    dn.querySelector("h3").textContent = isLow ? "Тебе — в закрытый канал" : "Заявка принята";
+    dn.querySelector("p").textContent = isLow
+      ? "Консультации — для тех, кто старше 18 и готов вложиться. Зато в закрытом канале я разбираю, как начать с нуля. Подай заявку — одобрю."
+      : "Последний шаг: напиши в чат — пришлю свободное время для созвона.";
+    dn.querySelector("#tg-link").firstChild.nodeValue = isLow ? "Подать заявку в канал\n          " : "Написать в чат\n          ";
+    var hd = dn.querySelector(".handle"); if (hd) hd.hidden = isLow;
     document.getElementById("tg-link").href = TG_LINK;
     each(all, function(s){ s.hidden = true; });
     document.getElementById("nav").hidden = true;
