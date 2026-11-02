@@ -385,6 +385,12 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .tt-track{stroke:rgba(184,137,43,.12)}
 .tt-ink{stroke:#0F7A55;filter:drop-shadow(0 6px 14px rgba(15,122,85,.25))}
 .lw-name{font-size:72px}
+.rate-title{margin:0;text-align:center;font:700 clamp(24px,7.2vw,32px)/1.05 var(--display);letter-spacing:-.02em;text-transform:uppercase;background:var(--gold-grad);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:gsh 6s linear infinite;padding-bottom:12px;position:relative}
+.rate-title::after{content:"";position:absolute;left:50%;bottom:0;width:64px;height:3px;margin-left:-32px;border-radius:3px;background:var(--gold-grad)}
+.amt{display:block;margin-top:5px;font:800 clamp(12.5px,3.5vw,14.5px)/1.1 var(--font);letter-spacing:-.01em;color:#6E5A2E;font-variant-numeric:tabular-nums;white-space:nowrap}
+.amt.big{margin-top:6px;padding:4px 5px;font-size:clamp(11.5px,3.2vw,13.5px);border-radius:10px;color:#6B4A0E;background:linear-gradient(150deg,#FFF8E6,#F3E0AE);box-shadow:0 0 0 1px rgba(168,122,31,.35) inset,0 8px 18px -10px rgba(168,122,31,.7)}
+.opt .oe{margin-left:auto;font-size:30px;line-height:1}
+.opts .opt:has(.oe){min-height:68px}
 .c-photo img{aspect-ratio:4/5;object-fit:cover;object-position:50% 0%}
 .rate{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:2px}
 .rc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;min-width:0}
@@ -474,19 +480,19 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
         <li>Посчитаем твой первый запуск в цифрах</li>
       </ul>
       <div class="goal">
-        <div class="goal-top"><span class="label">Money Maxing Rate</span><b class="goal-num" id="goalNum">0 ₽</b></div>
+        <h3 class="rate-title">Money Maxing Rate</h3>
         <div class="curve" id="iso"><svg viewBox="0 0 320 190" aria-hidden="true">
       <defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9962E" stop-opacity=".32"/><stop offset="1" stop-color="#C9962E" stop-opacity="0"/></linearGradient>
       <linearGradient id="cl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E2C27A"/><stop offset="1" stop-color="#8A6420"/></linearGradient></defs>
       <g class="c-grid"><line x1="0" y1="160.5" x2="320" y2="160.5"/><line x1="0" y1="86.5" x2="320" y2="86.5"/><line x1="0" y1="38.5" x2="320" y2="38.5"/></g>
       <path class="c-area" d="M40 160C70 156 92 144 120 128C148 112 170 100 200 86C230 72 252 56 280 38L280 160L40 160Z"/>
       <path class="c-line" pathLength="1" d="M40 160C70 156 92 144 120 128C148 112 170 100 200 86C230 72 252 56 280 38"/>
-      <g class="c-pt c0" style="--i:0"><circle class="c-dot" cx="40" cy="160" r="5"/><text class="c-v" x="40" y="140" text-anchor="middle">0</text></g>
-      <g class="c-pt" style="--i:1"><circle class="c-face-bg" cx="120" cy="128" r="21"/><g transform="translate(120 128)"><path d="M-10,-4C-10,-15 10,-15 10,-4C10,5 7,12 0,13C-7,12 -10,5 -10,-4Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.4"/><path d="M-10,-6C-8,-14 6,-16 10,-7C4,-10 -4,-9 -10,-6Z" fill="#3A2A14"/><path d="M-7,-3.5h4.5M2.5,-3.5h4.5" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/><path d="M-6.5,-1.2Q-4.8,0 -3,-1.2M3,-1.2Q4.8,0 6.5,-1.2" fill="none" stroke="#B7977A" stroke-width="1" stroke-linecap="round"/><path d="M-4,8.5Q0,6.2 4,8.5" fill="none" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/></g><text class="c-v" x="120" y="98" text-anchor="middle">30к</text></g>
-      <g class="c-pt" style="--i:2"><circle class="c-face-bg" cx="200" cy="86" r="21"/><g transform="translate(200 86)"><path d="M-10.5,-5C-10.5,-16 10.5,-16 10.5,-5C10.5,5 8,13 0,14C-8,13 -10.5,5 -10.5,-5Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.4"/><path d="M-10.5,-6C-9,-15 9,-15 10.5,-6C5,-9.5 -5,-9.5 -10.5,-6Z" fill="#3A2A14"/><circle cx="-4.8" cy="-2.5" r="1.5" fill="#3A2A14"/><circle cx="4.8" cy="-2.5" r="1.5" fill="#3A2A14"/><path d="M-4,7.5Q0,10.5 4,7.5" fill="none" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/></g><text class="c-v" x="200" y="56" text-anchor="middle">90к</text></g>
+      <g class="c-pt c0" style="--i:0"><circle class="c-dot" cx="40" cy="160" r="5"/></g>
+      <g class="c-pt" style="--i:1"><circle class="c-face-bg" cx="120" cy="128" r="21"/><g transform="translate(120 128)"><path d="M-10,-4C-10,-15 10,-15 10,-4C10,5 7,12 0,13C-7,12 -10,5 -10,-4Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.4"/><path d="M-10,-6C-8,-14 6,-16 10,-7C4,-10 -4,-9 -10,-6Z" fill="#3A2A14"/><path d="M-7,-3.5h4.5M2.5,-3.5h4.5" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/><path d="M-6.5,-1.2Q-4.8,0 -3,-1.2M3,-1.2Q4.8,0 6.5,-1.2" fill="none" stroke="#B7977A" stroke-width="1" stroke-linecap="round"/><path d="M-4,8.5Q0,6.2 4,8.5" fill="none" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/></g></g>
+      <g class="c-pt" style="--i:2"><circle class="c-face-bg" cx="200" cy="86" r="21"/><g transform="translate(200 86)"><path d="M-10.5,-5C-10.5,-16 10.5,-16 10.5,-5C10.5,5 8,13 0,14C-8,13 -10.5,5 -10.5,-5Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.4"/><path d="M-10.5,-6C-9,-15 9,-15 10.5,-6C5,-9.5 -5,-9.5 -10.5,-6Z" fill="#3A2A14"/><circle cx="-4.8" cy="-2.5" r="1.5" fill="#3A2A14"/><circle cx="4.8" cy="-2.5" r="1.5" fill="#3A2A14"/><path d="M-4,7.5Q0,10.5 4,7.5" fill="none" stroke="#3A2A14" stroke-width="1.5" stroke-linecap="round"/></g></g>
       <g class="c-pt hi" style="--i:3"><circle class="c-ring" cx="280" cy="38" r="21"/><circle class="c-face-bg" cx="280" cy="38" r="21"/><g transform="translate(280 38)"><path d="M-12,-7C-12,-17 12,-17 12,-7L12,3C12,11 7,15.5 0,15.5C-7,15.5 -12,11 -12,3Z" fill="#F6E3C3" stroke="#3A2A14" stroke-width="1.5"/><path d="M-12,-7C-11,-17 11,-17 12,-7C8,-12 -2,-13.5 -12,-7Z" fill="#3A2A14"/><path d="M-9,-6.5L-2,-4.8M9,-6.5L2,-4.8" stroke="#3A2A14" stroke-width="2" stroke-linecap="round"/><path d="M-8,-2.6h5M3,-2.6h5" stroke="#3A2A14" stroke-width="1.7" stroke-linecap="round"/><path d="M-5,8.2Q0,10.8 6,6.2" fill="none" stroke="#3A2A14" stroke-width="1.6" stroke-linecap="round"/><path d="M-12,2.5L-7.5,11M12,2.5L7.5,11" stroke="rgba(58,42,20,.35)" stroke-width="1" stroke-linecap="round"/><path d="M0,12.2v1.4" stroke="rgba(58,42,20,.4)" stroke-width="1" stroke-linecap="round"/></g></g>
     </svg>
-        <div class="rate" aria-label="Путь по рейтингу: Старт, SUB-3, LTN, CHAD"><div class="rc"><span>сейчас</span><b>Старт</b></div><div class="rc"><span>1 мес</span><b>SUB-3</b></div><div class="rc"><span>2 мес</span><b>LTN</b></div><div class="rc hi"><span>3 мес</span><b>CHAD</b></div></div></div>
+        <div class="rate" aria-label="Путь по рейтингу: Старт, SUB-3, LTN, CHAD"><div class="rc"><span>сейчас</span><b>Старт</b><strong class="amt">0 ₽</strong></div><div class="rc"><span>1 мес</span><b>SUB-3</b><strong class="amt">30.000 ₽</strong></div><div class="rc"><span>2 мес</span><b>LTN</b><strong class="amt">90.000 ₽</strong></div><div class="rc hi"><span>3 мес</span><b>CHAD</b><strong class="amt big" id="goalNum">0 ₽</strong></div></div></div>
       </div>
     </section>
 
@@ -497,8 +503,8 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
         <span class="label">Вопрос</span>
         <h3 class="q">Сколько тебе лет?</h3>
         <div class="opts">
-          <label class="opt"><input type="radio" name="q1" id="q1a" value="До 18 лет"><span class="rad"></span>До 18 лет</label>
-          <label class="opt"><input type="radio" name="q1" id="q1b" value="Старше 18"><span class="rad"></span>Старше 18</label>
+          <label class="opt"><input type="radio" name="q1" id="q1a" value="До 18 лет"><span class="rad"></span>До 18 лет<span class="oe" aria-hidden="true">👶</span></label>
+          <label class="opt"><input type="radio" name="q1" id="q1b" value="Старше 18"><span class="rad"></span>Старше 18<span class="oe" aria-hidden="true">😎</span></label>
         </div>
       </fieldset>
 
