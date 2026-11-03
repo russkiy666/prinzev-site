@@ -509,6 +509,7 @@ td.num{white-space:nowrap}
     <div class="err" id="adminErr"></div>
     <button class="btn" type="submit">Войти в админку</button>
     <div class="demo-note" id="adminDemoNote" hidden>Демо-режим: пароль <b class="num">admin2026</b></div>
+    <p class="hint" id="adminLiveNote" hidden>При самом первом входе придумай пароль от 6 символов: он станет паролем админки.</p>
   </form>
 </section>
 <div id="scrAdmin" hidden></div>
@@ -523,6 +524,7 @@ td.num{white-space:nowrap}
    Пока пусто, платформа работает в демо-режиме: коды хранятся только в этом браузере. */
 const CONFIG = {
   API_URL: '',
+  SHEET_URL: '',
   SITE_URL: 'https://russkiy666.github.io/prinzev-site/kurs/',
   DEMO_ADMIN_KEY: 'admin2026'
 };
@@ -566,7 +568,12 @@ const Remote = {
   admin(key){ return this.call('adminCheck',{key}) },
   list(key){ return this.call('list',{key}) },
   create(key,d){ return this.call('create',{key,...d}) },
-  toggle(key,code){ return this.call('toggle',{key,code}) }
+  toggle(key,code){ return this.call('toggle',{key,code}) },
+  pull(code){ return this.call('pull',{code}) },
+  saveProgress(code,data){ return this.call('saveProgress',{code,data}) },
+  saveDay(code,date,entry){ return this.call('saveDay',{code,date,entry}) },
+  submitTask(code,taskId,task,answer){ return this.call('submitTask',{code,taskId,task,answer}) },
+  sendRequest(code,num,text,photos){ return this.call('sendRequest',{code,num,text,photos}) }
 };
 const API = DEMO ? Local : Remote;
 
@@ -643,6 +650,28 @@ function loadState(){ S = ls.get(stateKey()); const demo = ME.code==='DEMO-2026'
   S.requests.forEach((r,i,a)=>{ if(!r.num) r.num=a.length-i; });
   save(); }
 const save = () => ls.set(stateKey(), S);
+/* ---------- синхронизация с таблицей ---------- */
+const LIVE = !DEMO;
+function syncProgress(){ if(LIVE && ME) API.saveProgress(ME.code,{lessons:S.lessons,current:S.current}); }
+let dayTimer;
+function syncDay(){ if(!LIVE || !ME) return; clearTimeout(dayTimer); const k=dkey(new Date());
+  dayTimer=setTimeout(()=>API.saveDay(ME.code,k,S.journal[k]||{tasks:[]}),700); }
+function applyServer(d){
+  const k=dkey(new Date()), localToday=S.journal&&S.journal[k];
+  if(d.progress){ S.lessons=d.progress.lessons||{}; if(d.progress.current) S.current=d.progress.current; }
+  S.journal=d.journal||{};
+  if(localToday && JSON.stringify(localToday)!==JSON.stringify(S.journal[k]||null)){ S.journal[k]=localToday; syncDay(); }
+  S.reviews=d.reviews||[];
+  S.requests=d.requests||[];
+  S.tasks={};
+  (d.submissions||[]).forEach(x=>{ const t=S.tasks[x.taskId]||(S.tasks[x.taskId]={status:'todo',thread:[]});
+    t.thread.push(['me',x.answer,x.sentAt]); if(x.comment) t.thread.push(['cur',x.comment,x.commentAt||'']);
+    t.status=x.status; if(x.score) t.score=x.score; });
+  save();
+}
+async function pullServer(){ if(!LIVE || !ME) return false; const d=await API.pull(ME.code); if(!d.ok) return false; applyServer(d); return true; }
+function busy(){ const a=document.activeElement; return !document.getElementById('overlay').hidden || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName)); }
+document.addEventListener('visibilitychange',async()=>{ if(document.visibilityState==='visible' && ME && ME.name && await pullServer() && !busy() && !document.getElementById('scrApp').hidden) renderApp(); });
 const initials = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 const firstName = n => (n||'').trim().split(/\s+/)[0];
 
@@ -873,7 +902,7 @@ function addTask(){ const inp=document.getElementById('tkIn'); if(!inp) return; 
   if(!v){ inp.focus(); haptic('warning'); return; }
   const j=todayEntry(); j.tasks.push({id:uid(),text:v,done:null,why:''}); if(!j.planAt) j.planAt=hm();
   if(j.reported) j.reported=false;
-  save(); renderApp(); haptic('success'); const n=document.getElementById('tkIn'); if(n) n.focus(); }
+  save(); syncDay(); renderApp(); haptic('success'); const n=document.getElementById('tkIn'); if(n) n.focus(); }
 function todayCard(){
   const now=new Date(), k=dkey(now), j=S.journal[k]||{tasks:[]}, mon=monday(now), st=streak(), T=j.tasks||[];
   const days=[...Array(7)].map((_,i)=>{ const d=addDays(mon,i), kk=dkey(d), s=dayState(kk), fut=kk>k;
@@ -971,7 +1000,7 @@ function renderAdmin(){
   document.getElementById('scrAdmin').innerHTML = `
   <div class="admin">
     <div class="head" style="margin:0"><div class="logo"><div class="logo-mark">П</div><div><b>Админ-панель</b><span>Продюсер с нуля${DEMO?' · демо-режим':''}</span></div></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn line sm" href="#path">Кабинет ученика</a><button class="btn line sm" id="admOut">Выйти</button></div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">${CONFIG.SHEET_URL?`<a class="btn sm" href="${CONFIG.SHEET_URL}" target="_blank" rel="noopener">Открыть таблицу</a>`:''}<a class="btn line sm" href="#path">Кабинет ученика</a><button class="btn line sm" id="admOut">Выйти</button></div></div>
     ${DEMO?'<div class="demo-note">Демо-режим: коды сохраняются только в этом браузере. Чтобы ученики входили со своих устройств, подключаем таблицу Google (файл apps-script.gs).</div>':''}
     <div class="grid g-3">
       <div class="card stat"><span class="eyebrow">Кодов выдано</span><b class="num">${st.length}</b></div>
@@ -1061,7 +1090,7 @@ function renderApp(){
 async function route(){
   closeDrawer();
   if(location.hash==='#admin'){
-    if(ADMIN_KEY){ show('scrAdmin'); renderAdmin(); adminLoad(); } else { show('scrAdminLogin'); document.getElementById('adminDemoNote').hidden=!DEMO; }
+    if(ADMIN_KEY){ show('scrAdmin'); renderAdmin(); adminLoad(); } else { show('scrAdminLogin'); document.getElementById('adminDemoNote').hidden=!DEMO; document.getElementById('adminLiveNote').hidden=DEMO; }
     return;
   }
   if(!ME){ show('scrLogin'); document.getElementById('demoNote').hidden=!DEMO; return; }
@@ -1081,7 +1110,7 @@ document.getElementById('loginForm').addEventListener('submit',async e=>{
   const r = await API.verify(code); btn.disabled=false; btn.textContent='Войти';
   if(!r.ok){ err.textContent=r.error||'Код не подошёл.'; haptic('error'); return; }
   haptic('success');
-  ME = r.student; ls.set('kurs-session',{code:ME.code,name:ME.name}); loadState();
+  ME = r.student; ls.set('kurs-session',{code:ME.code,name:ME.name}); loadState(); await pullServer();
   if(!location.hash || location.hash==='#admin') location.hash='#path';
   route(); if(ME.name) toast('С возвращением, '+firstName(ME.name)+'!');
 });
@@ -1095,7 +1124,7 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{ ls.del('kurs
 document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
   e.preventDefault(); const k=document.getElementById('adminKey').value; const r=await API.admin(k);
   if(!r.ok){ document.getElementById('adminErr').textContent=r.error||'Неверный пароль'; haptic('error'); return; }
-  ADMIN_KEY=k; try{ sessionStorage.setItem('kurs-admin',k) }catch(_){} route();
+  ADMIN_KEY=k; try{ sessionStorage.setItem('kurs-admin',k) }catch(_){} if(r.created) toast('Пароль админки сохранён'); route();
 });
 
 document.addEventListener('click',async e=>{
@@ -1105,13 +1134,13 @@ document.addEventListener('click',async e=>{
   if(el.dataset.rmph){ PHOTOS.splice(+el.dataset.rmph,1); renderPhotos(); return; }
   if(el.dataset.edit){ EDIT.report=true; renderApp(); return; }
   if(el.hasAttribute('data-addtask')){ addTask(); return; }
-  if(el.dataset.rmtask){ const j=todayEntry(); j.tasks=j.tasks.filter(t=>t.id!==el.dataset.rmtask); save(); renderApp(); return; }
-  if(el.dataset.mark){ const t=todayEntry().tasks.find(x=>x.id===el.dataset.mark); if(t){ t.done = el.dataset.v==='1'; if(t.done) t.why=''; save(); renderApp();
+  if(el.dataset.rmtask){ const j=todayEntry(); j.tasks=j.tasks.filter(t=>t.id!==el.dataset.rmtask); save(); syncDay(); renderApp(); return; }
+  if(el.dataset.mark){ const t=todayEntry().tasks.find(x=>x.id===el.dataset.mark); if(t){ t.done = el.dataset.v==='1'; if(t.done) t.why=''; save(); syncDay(); renderApp();
       if(!t.done){ const w=document.querySelector(`[data-why="${t.id}"]`); if(w) w.focus(); } } return; }
   if(el.hasAttribute('data-sendrep')){ const j=todayEntry();
     const open=j.tasks.find(t=>t.done!==true&&t.done!==false); if(open){ toast('Отметь каждую задачу: выполнил или нет'); haptic('warning'); return; }
     const noWhy=j.tasks.find(t=>t.done===false&&!t.why.trim()); if(noWhy){ const w=document.querySelector(`[data-why="${noWhy.id}"]`); if(w) w.focus(); toast('Напиши, почему задача не получилась'); haptic('warning'); return; }
-    j.reported=true; if(!j.reportAt) j.reportAt=hm(); EDIT.report=false; save(); renderApp(); haptic('success'); toast('Отчёт за день отправлен'); return; }
+    j.reported=true; if(!j.reportAt) j.reportAt=hm(); EDIT.report=false; save(); syncDay(); renderApp(); haptic('success'); toast('Отчёт за день отправлен'); return; }
   if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; route(); return; }
   if(el.dataset.copy){ const n=document.getElementById(el.dataset.copy); copyText(n.textContent,n); return; }
   if(el.dataset.copyinv){ const s=ADM.students.find(x=>x.code===el.dataset.copyinv); copyText(inviteText(s)); return; }
@@ -1119,20 +1148,25 @@ document.addEventListener('click',async e=>{
   if(el.dataset.pre){ PRE=el.dataset.pre; closeDrawer(); if(location.hash==='#feedback'){e.preventDefault();renderApp();} return; }
   if(el.hasAttribute('data-close')) return closeDrawer();
   if(el.dataset.go==='task') return openTask(el.dataset.id);
-  if(el.dataset.go==='lesson'){ S.current=el.dataset.id; save(); location.hash='#lessons'; return; }
-  if(el.dataset.lesson){ S.current=el.dataset.lesson; save(); renderApp(); return; }
+  if(el.dataset.go==='lesson'){ S.current=el.dataset.id; save(); syncProgress(); location.hash='#lessons'; return; }
+  if(el.dataset.lesson){ S.current=el.dataset.lesson; save(); syncProgress(); renderApp(); return; }
   if(el.dataset.filter){ FILTER=el.dataset.filter; renderApp(); return; }
   if(el.id==='markLesson'){ const id=el.dataset.id; if(S.lessons[id]) delete S.lessons[id]; else { S.lessons[id]=1; JUST=id; haptic('success'); toast('Урок отмечен пройденным'); }
     const idx=ALL_LESSONS.findIndex(l=>l.id===id); const nx=ALL_LESSONS[idx+1];
-    if(S.lessons[id] && nx && !stageLocked(nx.stage)) S.current=nx.id; save(); renderApp(); return; }
+    if(S.lessons[id] && nx && !stageLocked(nx.stage)) S.current=nx.id; save(); syncProgress(); renderApp(); return; }
   if(el.id==='sendTask'){ const ta=document.getElementById('ans'); const v=ta.value.trim();
     if(!v){ ta.focus(); ta.placeholder='Напиши ответ или вставь ссылку, чтобы отправить'; haptic('warning'); return; }
-    const ts=taskState(el.dataset.id); ts.status='review'; ts.thread.push(['me',v,today()]); save(); closeDrawer(); renderApp(); haptic('success'); toast('Задание отправлено на проверку'); }
+    const ts=taskState(el.dataset.id); ts.status='review'; ts.thread.push(['me',v,today()]); save();
+    if(LIVE){ const tt=ALL_TASKS.find(x=>x.id===el.dataset.id); API.submitTask(ME.code,el.dataset.id,tt?tt.title:'',v).then(r=>{ if(!r.ok) toast('Не удалось отправить задание: '+(r.error||'нет связи')); }); } closeDrawer(); renderApp(); haptic('success'); toast('Задание отправлено на проверку'); }
 });
 document.addEventListener('submit',async e=>{
   if(e.target.id==='reqForm'){ e.preventDefault();
     const ta=document.getElementById('rqText'), text=ta.value.trim(); if(!text){ ta.focus(); haptic('warning'); return; }
     const num=S.requests.reduce((m,r)=>Math.max(m,r.num||0),0)+1;
+    if(LIVE){ const btn=e.target.querySelector('button[type=submit]'); btn.disabled=true; btn.textContent='Отправляю…';
+      const r=await API.sendRequest(ME.code,num,text,PHOTOS); btn.disabled=false; btn.textContent='Отправить куратору';
+      if(!r.ok){ toast(r.error||'Не удалось отправить, попробуй ещё раз'); haptic('error'); return; }
+      S.requests.unshift(r.request); save(); PHOTOS=[]; renderApp(); haptic('success'); toast('Запрос №'+num+' отправлен куратору'); return; }
     S.requests.unshift({id:Date.now(),num,text,photos:PHOTOS.slice(),date:today(),status:'waiting'});
     if(!save()){ S.requests.shift(); toast('Фото слишком тяжёлые, убери одно-два и отправь ещё раз'); haptic('error'); return; }
     PHOTOS=[]; renderApp(); haptic('success'); toast('Запрос №'+num+' отправлен куратору'); }
@@ -1150,7 +1184,7 @@ document.addEventListener('change',async e=>{
   e.target.value=''; renderPhotos(); haptic('light');
 });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); if(e.key==='Enter' && e.target.id==='tkIn'){ e.preventDefault(); addTask(); } });
-document.addEventListener('input',e=>{ const id=e.target.dataset&&e.target.dataset.why; if(!id) return; const t=todayEntry().tasks.find(x=>x.id===id); if(t){ t.why=e.target.value; save(); } });
+document.addEventListener('input',e=>{ const id=e.target.dataset&&e.target.dataset.why; if(!id) return; const t=todayEntry().tasks.find(x=>x.id===id); if(t){ t.why=e.target.value; save(); syncDay(); } });
 
 /* ================= СТАРТ ================= */
 document.querySelectorAll('.js-st').forEach(e=>e.textContent=COURSE.stages.length);
@@ -1166,6 +1200,7 @@ document.querySelectorAll('.js-ls-l').forEach(e=>e.textContent=plural(ALL_LESSON
     if(ME) loadState();
   }
   route();
+  if(ME && LIVE && await pullServer() && ME.name && !busy() && !document.getElementById('scrApp').hidden) renderApp();
 })();
 </script>
 </body>
