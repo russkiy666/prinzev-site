@@ -433,6 +433,41 @@ td.num{white-space:nowrap}
 .mk-btn[aria-pressed="true"]{animation:pop .4s var(--ease)}
 .mk-btn[aria-pressed="true"] .rip{background:rgba(255,255,255,.35)}
 .why{padding:9px 12px!important;font-size:14px}
+
+/* путь: одна сетка; на телефоне «Сегодня» сразу под прогрессом */
+.pg{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);grid-template-areas:"hero next" "stages side";gap:20px;align-items:start}
+.pg-hero{grid-area:hero;align-self:stretch}
+.pg-next{grid-area:next;align-self:stretch}
+.pg-stages{grid-area:stages}
+.pg-side{grid-area:side;display:grid;gap:20px;align-content:start}
+.nav .sh{display:none}
+.confirm{position:fixed;inset:0;margin:auto;height:fit-content;z-index:41;width:min(380px,calc(100% - 32px));background:var(--surface);border-radius:18px;padding:24px;display:grid;gap:12px;box-shadow:var(--sh-2);animation:pop .3s var(--ease)}
+.confirm-b{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+#overlay.closing .scrim{animation:fadeOut .22s ease forwards}
+#overlay.closing .drawer{animation:slideOut .22s var(--ease) forwards}
+#overlay.closing .confirm{animation:fadeOut .18s ease forwards}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes slideOut{to{transform:translateX(100%)}}
+@keyframes slideDown{to{transform:translateY(100%)}}
+@media (max-width:1040px){
+  .pg{display:flex;flex-direction:column;align-items:stretch}
+  .pg-side{display:contents}
+  .pg-hero{order:1}.pg-side > .today{order:2}.pg-next{order:3}.pg-stages{order:4}.pg-side > .review{order:5}
+  .jr-side{order:-1}
+  .player{order:-1}
+}
+@media (max-width:860px){
+  .hide-m{display:none}
+  .nav .lg{display:none}.nav .sh{display:inline}
+  #overlay.closing .drawer{animation:slideDown .22s var(--ease) forwards}
+  .hero{--ring-at:70px 70px;grid-template-columns:auto minmax(0,1fr);gap:16px 18px;padding:18px;justify-items:stretch}
+  .hero .ring{width:104px;height:104px}
+  .hero .ring b span{font-size:26px}
+  .hero .ring b small{font-size:9px;margin-top:5px}
+  .hero-r{display:contents}
+  .hero-r > div:first-child{align-self:center}
+  .hero-stats{grid-column:1/-1}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rip{display:none}.check.pop svg path{stroke-dashoffset:0}}
 </style>
 </head>
@@ -480,11 +515,11 @@ td.num{white-space:nowrap}
     <div class="me"><div class="ava" id="meAva"></div><div class="me-info"><b id="meName"></b><span class="num" id="meCode"></span></div>
       <button class="icon-btn" id="logoutBtn" title="Выйти" aria-label="Выйти"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/></svg></button></div>
     <nav class="nav" id="nav">
-      <a href="#path" data-v="path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/></svg>Мой путь</a>
+      <a href="#path" data-v="path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/></svg><span class="lg">Мой путь</span><span class="sh">Путь</span></a>
       <a href="#lessons" data-v="lessons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>Уроки</a>
       <a href="#tasks" data-v="tasks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Задания<span class="badge" id="navBadge" hidden></span></a>
       <a href="#journal" data-v="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16M8 14h3M8 17h6"/></svg>Дневник</a>
-      <a href="#feedback" data-v="feedback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Обратная связь</a>
+      <a href="#feedback" data-v="feedback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span class="lg">Обратная связь</span><span class="sh">Вопросы</span></a>
     </nav>
     <div class="side-foot">
       <span class="eyebrow">Прогресс курса</span>
@@ -652,10 +687,17 @@ function loadState(){ S = ls.get(stateKey()); const demo = ME.code==='DEMO-2026'
 const save = () => ls.set(stateKey(), S);
 /* ---------- синхронизация с таблицей ---------- */
 const LIVE = !DEMO;
-function syncProgress(){ if(LIVE && ME) API.saveProgress(ME.code,{lessons:S.lessons,current:S.current}); }
+const pend = () => ls.get('kurs-pending') || {days:[],progress:false};
+let offlineToast=0;
+function markPending(kind,k){ const p=pend(); if(kind==='day'){ if(!p.days.includes(k)) p.days.push(k); } else p.progress=true; ls.set('kurs-pending',p);
+  if(Date.now()-offlineToast>60000){ offlineToast=Date.now(); toast('Нет связи. Всё сохранено на устройстве и отправится само'); } }
+function clearPending(kind,k){ const p=pend(); if(kind==='day') p.days=p.days.filter(x=>x!==k); else p.progress=false; ls.set('kurs-pending',p); }
+function syncProgress(){ if(!LIVE || !ME) return; API.saveProgress(ME.code,{lessons:S.lessons,current:S.current}).then(r=>r.ok?clearPending('progress'):markPending('progress')); }
 let dayTimer;
-function syncDay(){ if(!LIVE || !ME) return; clearTimeout(dayTimer); const k=dkey(new Date());
-  dayTimer=setTimeout(()=>API.saveDay(ME.code,k,S.journal[k]||{tasks:[]}),700); }
+function pushDay(k){ return API.saveDay(ME.code,k,S.journal[k]||{tasks:[]}).then(r=>r.ok?clearPending('day',k):markPending('day',k)); }
+function syncDay(){ if(!LIVE || !ME) return; clearTimeout(dayTimer); const k=dkey(new Date()); dayTimer=setTimeout(()=>pushDay(k),600); }
+async function flushPending(){ if(!LIVE || !ME || !S) return; const p=pend(); for(const k of p.days) await pushDay(k); if(p.progress) syncProgress(); }
+window.addEventListener('online',flushPending);
 function applyServer(d){
   const k=dkey(new Date()), localToday=S.journal&&S.journal[k];
   if(d.progress){ S.lessons=d.progress.lessons||{}; if(d.progress.current) S.current=d.progress.current; }
@@ -669,7 +711,7 @@ function applyServer(d){
     t.status=x.status; if(x.score) t.score=x.score; });
   save();
 }
-async function pullServer(){ if(!LIVE || !ME) return false; const d=await API.pull(ME.code); if(!d.ok) return false; applyServer(d); return true; }
+async function pullServer(){ if(!LIVE || !ME) return false; await flushPending(); const d=await API.pull(ME.code); if(!d.ok) return false; applyServer(d); return true; }
 function busy(){ const a=document.activeElement; return !document.getElementById('overlay').hidden || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName)); }
 document.addEventListener('visibilitychange',async()=>{ if(document.visibilityState==='visible' && ME && ME.name && await pullServer() && !busy() && !document.getElementById('scrApp').hidden) renderApp(); });
 const initials = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
@@ -747,9 +789,9 @@ function vPath(){
   const C = 2*Math.PI*62;
   return `
   <div class="head"><div><div class="eyebrow">${greet()}, ${esc(firstName(ME.name))}</div><h1>Твой путь в курсе</h1></div>
-    <a class="btn line" href="#lessons">Все уроки ${I.arrow}</a></div>
-  <div class="grid g-hero">
-    <section class="card hero">
+    <a class="btn line hide-m" href="#lessons">Все уроки ${I.arrow}</a></div>
+  <div class="pg">
+    <section class="card hero pg-hero">
       <div class="ring"><svg viewBox="0 0 140 140"><circle class="trk" cx="70" cy="70" r="62" fill="none" stroke-width="10"/>
         <circle class="val" cx="70" cy="70" r="62" fill="none" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" data-to="${C*(1-T.pct/100)}"/></svg>
         <b><span class="num">${T.pct}%<small>пройдено</small></span></b></div>
@@ -758,12 +800,12 @@ function vPath(){
         <div class="hero-stats">
           <div><b>${T.ld}/${ALL_LESSONS.length}</b><span>уроков</span></div>
           <div><b>${T.ta}/${ALL_TASKS.length}</b><span>принято</span></div>
-          <div><b>${T.rv}</b><span>на проверке</span></div>
-          <div><b>${T.rw}</b><span>доработать</span></div>
+          <div><b>${T.rv}</b><span>проверка</span></div>
+          <div><b>${T.rw}</b><span>доработка</span></div>
         </div>
       </div>
     </section>
-    <section class="card next">
+    <section class="card next pg-next">
       <div class="eyebrow">Следующий шаг</div>
       ${next ? `<span class="kind">${next.k==='lesson'?'Урок · '+next.o.min+' мин':'Задание · до '+next.o.deadline}</span>
         <h2>${esc(next.o.title)}</h2>
@@ -772,9 +814,7 @@ function vPath(){
         <button class="btn" style="justify-self:start" data-go="${next.k}" data-id="${next.o.id}">${next.k==='lesson'?'Смотреть урок':'Открыть задание'} ${I.arrow}</button>`
       : `<h2>Курс пройден</h2><p class="muted">Все этапы закрыты. Запроси финальный разбор у куратора.</p>`}
     </section>
-  </div>
-  <div class="grid g-2">
-    <section class="card">
+    <section class="card pg-stages">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;gap:12px;flex-wrap:wrap"><h2>Этапы обучения</h2><span class="muted" style="font-size:13px">Этап открывается после принятия заданий</span></div>
       <div class="track">${COURSE.stages.map((s,i)=>{const n=stageInfo(i);const cls=n.done?'done':n.locked?'locked':'current';
         return `<div class="stage ${cls}"><div class="node">${n.done?I.check:n.locked?I.lock:i+1}</div>
@@ -785,7 +825,7 @@ function vPath(){
           <div class="stage-meta"><span class="num">Уроки ${n.ld}/${s.lessons.length}</span><span class="num">Задания ${n.ta}/${s.tasks.length}</span><span class="num">${n.min} мин видео</span></div>
         </div></div>`}).join('')}</div>
     </section>
-    <div class="grid" style="align-content:start">
+    <div class="pg-side">
       ${todayCard()}
       ${reviewCard()}
     </div>
@@ -888,7 +928,7 @@ function openRequest(id){
     </div>
     <div class="d-foot"><button class="btn line" data-close>Закрыть</button></div>
   </aside>`;
-  ov.hidden = false; ov.querySelector('.x').focus();
+  clearTimeout(closeDrawer.t); ov.classList.remove('closing'); ov.hidden = false; ov.querySelector('.x').focus();
 }
 function compress(file){ return new Promise((res,rej)=>{ const fr=new FileReader(); fr.onerror=rej;
   fr.onload=()=>{ const img=new Image(); img.onerror=rej; img.onload=()=>{ const k=Math.min(1,1000/Math.max(img.width,img.height));
@@ -951,10 +991,10 @@ function vJournal(){
     rows.push(`<div class="jday"><div class="jday-h"><b>${cap(fmtDay(d))}</b>${p}</div>
       ${j&&j.tasks&&j.tasks.length?`<ul class="rep-list sm">${j.tasks.map(t=>`<li class="${!j.reported?'is-wait':t.done?'is-ok':'is-no'}"><span class="mk">${!j.reported?'':t.done?I.check:I.x}</span><div><span>${esc(t.text)}</span>${j.reported&&!t.done&&t.why?`<small>${esc(t.why)}</small>`:''}</div></li>`).join('')}</ul>`:''}</div>`); }
   return `
-  <div class="head"><div><div class="eyebrow">Задачи утром · отчёт вечером · разбор в воскресенье</div><h1>Дневник</h1></div></div>
-  <div class="grid g-2">
+  <div class="head"><div><div class="eyebrow">Ежедневный ритм</div><h1>Дневник</h1></div></div>
+  <div class="grid g-2 jr">
     <section class="card"><h2 style="margin-bottom:18px">Последние дни</h2>${rows.join('')}</section>
-    <div class="grid" style="align-content:start">${todayCard()}
+    <div class="grid jr-side" style="align-content:start">${todayCard()}
       ${S.reviews.length?S.reviews.map((r,i)=>`<section class="card review"><div class="today-top"><div><div class="eyebrow">${i===0?'Последний разбор':'Разбор'} · ИИ</div><h2>${esc(r.week)}</h2></div><span class="pill s-todo">${esc(r.done)}</span></div>${reviewHTML(r)}</section>`).join(''):reviewCard()}
     </div>
   </div>`;
@@ -981,9 +1021,18 @@ function openTask(id){
       <a class="btn ghost" href="#feedback" data-pre="${id}">Запросить обратную связь</a>
     </div>
   </aside>`;
-  ov.hidden = false; ov.querySelector('.x').focus();
+  clearTimeout(closeDrawer.t); ov.classList.remove('closing'); ov.hidden = false; ov.querySelector('.x').focus();
 }
-function closeDrawer(){ const ov=document.getElementById('overlay'); ov.hidden=true; ov.innerHTML=''; }
+function closeDrawer(now){ const ov=document.getElementById('overlay'); if(ov.hidden) return; clearTimeout(closeDrawer.t);
+  if(now===true || reduceMotion.matches){ ov.hidden=true; ov.innerHTML=''; ov.classList.remove('closing'); return; }
+  ov.classList.add('closing'); closeDrawer.t=setTimeout(()=>{ ov.hidden=true; ov.innerHTML=''; ov.classList.remove('closing'); },220); }
+/* свайп вниз закрывает шторку на телефоне */
+(function(){ let y0=null, el=null;
+  document.addEventListener('pointerdown',e=>{ const h=e.target.closest('.drawer .d-head'); if(!h || e.pointerType!=='touch' || innerWidth>860) return; el=h.closest('.drawer'); y0=e.clientY; el.style.transition='none'; },{passive:true});
+  document.addEventListener('pointermove',e=>{ if(y0===null) return; const dy=Math.max(0,e.clientY-y0); el.style.transform=`translateY(${dy}px)`; },{passive:true});
+  const end=e=>{ if(y0===null) return; const dy=e.clientY-y0; el.style.transition='transform .25s var(--ease)';
+    if(dy>90){ haptic('light'); closeDrawer(); } else el.style.transform=''; y0=null; };
+  document.addEventListener('pointerup',end); document.addEventListener('pointercancel',end); })();
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.hidden=false; clearTimeout(toast.h); toast.h=setTimeout(()=>t.hidden=true,2600); }
 const today = () => new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'short'}).replace('.','');
 async function copyText(txt,el){ try{ await navigator.clipboard.writeText(txt); toast('Скопировано'); }catch(e){ if(el){ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r);} toast('Выделено — нажми «Копировать»'); } }
@@ -1097,7 +1146,7 @@ async function route(){
   if(!ME.name){ show('scrName'); document.getElementById('nameIn').focus(); return; }
   show('scrApp'); renderApp();
 }
-window.addEventListener('hashchange',()=>{route();window.scrollTo(0,0)});
+window.addEventListener('hashchange',()=>{ closeDrawer(true); route(); window.scrollTo(0,0); });
 
 /* ================= СОБЫТИЯ ================= */
 const codeIn = document.getElementById('codeIn');
@@ -1120,7 +1169,14 @@ document.getElementById('nameForm').addEventListener('submit',async e=>{
   const r = await API.setName(ME.code,n); if(!r.ok){ document.getElementById('nameErr').textContent=r.error||'Не получилось сохранить имя, попробуй ещё раз.'; return; }
   ME.name=n; ls.set('kurs-session',{code:ME.code,name:ME.name}); haptic('success'); route(); toast('Добро пожаловать, '+firstName(n)+'!');
 });
-document.getElementById('logoutBtn').addEventListener('click',()=>{ ls.del('kurs-session'); ME=null; S=null; codeIn.value=''; route(); });
+document.getElementById('logoutBtn').addEventListener('click',()=>{
+  const ov=document.getElementById('overlay'); clearTimeout(closeDrawer.t); ov.classList.remove('closing');
+  ov.innerHTML=`<div class="scrim" data-close></div><div class="confirm" role="alertdialog" aria-modal="true" aria-labelledby="cfT">
+    <h2 id="cfT">Выйти из кабинета?</h2><p class="muted" style="margin:0">Чтобы войти снова, понадобится твой код доступа.</p>
+    <div class="confirm-b"><button class="btn line" data-close>Остаться</button><button class="btn" id="doLogout">Выйти</button></div></div>`;
+  ov.hidden=false; document.getElementById('doLogout').focus();
+});
+document.addEventListener('click',e=>{ if(e.target.id!=='doLogout') return; closeDrawer(true); ls.del('kurs-session'); ME=null; S=null; codeIn.value=''; route(); });
 document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
   e.preventDefault(); const k=document.getElementById('adminKey').value; const r=await API.admin(k);
   if(!r.ok){ document.getElementById('adminErr').textContent=r.error||'Неверный пароль'; haptic('error'); return; }
@@ -1149,7 +1205,7 @@ document.addEventListener('click',async e=>{
   if(el.hasAttribute('data-close')) return closeDrawer();
   if(el.dataset.go==='task') return openTask(el.dataset.id);
   if(el.dataset.go==='lesson'){ S.current=el.dataset.id; save(); syncProgress(); location.hash='#lessons'; return; }
-  if(el.dataset.lesson){ S.current=el.dataset.lesson; save(); syncProgress(); renderApp(); return; }
+  if(el.dataset.lesson){ S.current=el.dataset.lesson; save(); syncProgress(); renderApp(); if(innerWidth<=1040) scrollTo({top:0,behavior:reduceMotion.matches?'auto':'smooth'}); return; }
   if(el.dataset.filter){ FILTER=el.dataset.filter; renderApp(); return; }
   if(el.id==='markLesson'){ const id=el.dataset.id; if(S.lessons[id]) delete S.lessons[id]; else { S.lessons[id]=1; JUST=id; haptic('success'); toast('Урок отмечен пройденным'); }
     const idx=ALL_LESSONS.findIndex(l=>l.id===id); const nx=ALL_LESSONS[idx+1];
