@@ -278,7 +278,7 @@ label.f{display:grid;gap:7px;font-size:13px;font-weight:600;color:var(--ink-2)}
 .issued .btn.ghost{background:rgba(255,255,255,.12);color:var(--on-deep)}
 .issued .btn.ghost .rip{background:rgba(255,255,255,.3)}
 .tbl-wrap{overflow-x:auto;margin:0 -24px;padding:0 24px}
-table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:820px}
 th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
 td{padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
@@ -468,6 +468,85 @@ td.num{white-space:nowrap}
   .hero-r > div:first-child{align-self:center}
   .hero-stats{grid-column:1/-1}
 }
+
+/* кабинет куратора */
+.adm-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.adm-actions{display:flex;gap:8px;flex-wrap:wrap}
+.adm-actions svg{width:15px;height:15px}
+.is-busy svg{animation:spin .8s linear infinite}
+.adm-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat b small{font-size:15px;color:var(--muted);font-weight:500;margin-left:6px;letter-spacing:0}
+.stat > .muted{font-size:12px}
+.stat-btn{text-align:left;font:inherit;color:inherit;cursor:pointer;position:relative;overflow:hidden;transition:transform .18s var(--ease),border-color .18s,box-shadow .18s}
+.stat-btn:hover{border-color:var(--line-2);box-shadow:var(--sh-2)}
+.stat-btn:active{transform:scale(.98)}
+.adm-tabs{display:flex;gap:4px;padding:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;width:fit-content;max-width:100%;overflow-x:auto}
+.adm-tab{border:none;background:none;padding:9px 16px;border-radius:9px;font-weight:600;font-size:14px;color:var(--muted);display:flex;gap:8px;align-items:center;white-space:nowrap;position:relative;overflow:hidden;transition:background-color .18s,color .18s,transform .18s var(--ease)}
+.adm-tab b{font-size:12px;background:var(--accent);color:#fff;border-radius:99px;min-width:20px;height:20px;padding:0 6px;display:grid;place-items:center}
+.adm-tab[aria-selected="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--sh-1)}
+.adm-tab:active{transform:scale(.96)}
+.adm-issue{display:grid;gap:16px}
+.issue-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:12px;align-items:end}
+.issue-row .btn{height:46px}
+.adm-h{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.who{display:flex;gap:10px;align-items:center;min-width:0}
+.who > div,.who > span:last-child{min-width:0}
+.who b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who small{display:block;color:var(--muted);font-size:12px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog{display:flex;align-items:center;gap:8px;min-width:120px}
+.prog .bar{flex:1;height:5px}
+.prog span{font-size:13px;font-weight:600}
+td small{display:block;font-size:12px;margin-top:3px}
+tr.is-off td{opacity:.55}
+.row-act{white-space:nowrap;text-align:right}
+.row-act .icon-btn{display:inline-grid;vertical-align:middle;margin-right:4px}
+.dots{display:flex;gap:4px}
+.dd{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line-2);display:block;flex:none}
+.dd.full{background:var(--accent);border-color:var(--accent)}
+.dd.half{border-color:var(--accent);background:linear-gradient(90deg,var(--accent) 50%,transparent 50%)}
+.dots.lg{gap:6px}.dots.lg .dd{width:14px;height:14px}
+.adm-list{display:grid;gap:14px}
+.rv-item{display:grid;gap:14px}
+.rv-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.answer{font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--surface-2);border-radius:12px;padding:14px 16px;line-height:1.6}
+.answer a{color:var(--accent-ink)}
+.crit summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent-ink);list-style:none;width:fit-content}
+.crit summary::-webkit-details-marker{display:none}
+.crit .criteria{margin-top:8px;font-size:14px}
+.score{display:flex;gap:6px;flex-wrap:wrap}
+.sc{width:38px;height:38px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);font-weight:600;font-variant-numeric:tabular-nums;position:relative;overflow:hidden;transition:transform .18s var(--ease),background-color .18s,border-color .18s,color .18s}
+.sc:hover{border-color:var(--muted)}
+.sc:active{transform:scale(.9)}
+.sc[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;animation:pop .35s var(--ease)}
+.sc[aria-pressed="true"] .rip{background:rgba(255,255,255,.35)}
+.cm{min-height:84px}
+.rv-btns{display:flex;gap:10px;flex-wrap:wrap}
+.ok-btn{background:var(--ok)}
+.ok-btn:hover{background:#0E6644}
+.leaving{animation:leave .23s var(--ease) forwards}
+@keyframes leave{to{opacity:0;transform:translateY(-6px) scale(.98)}}
+.qa{border-top:1px solid var(--line);padding:12px 0 0;margin-top:12px}
+.qa summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary svg{flex:none;color:var(--muted);transition:transform .25s var(--ease)}
+.qa[open] summary svg{transform:rotate(180deg)}
+.qa > .answer,.qa > .msg{margin-top:10px}
+.jr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.jr-card{display:grid;gap:14px;align-content:start}
+.adm-empty{display:grid;justify-items:center;text-align:center;gap:10px;padding-block:44px}
+.empty-ic{width:46px;height:46px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.empty-ic svg{width:20px;height:20px}
+.spin{width:26px;height:26px;border-radius:50%;border:3px solid var(--accent-soft);border-top-color:var(--accent);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.issued .eyebrow{color:var(--deep-muted)}
+@media (max-width:860px){
+  .adm-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .issue-row{grid-template-columns:minmax(0,1fr)}
+  .issue-row .btn{width:100%}
+  .adm-tabs{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .adm-tab{justify-content:center;padding:10px 8px}
+  .jr-grid{grid-template-columns:minmax(0,1fr)}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rip{display:none}.check.pop svg path{stroke-dashoffset:0}}
 </style>
 </head>
@@ -591,7 +670,16 @@ const Local = {
   async list(){ return {ok:true,students:this.db().students.slice().reverse()}; },
   async create(key,{tg,note}){ const d=this.db(); let c; do{c=genCode()}while(d.students.some(x=>x.code===c));
     const s={code:c,name:'',tg,note,created:nowStr(),last:'',status:'active'}; d.students.push(s); this.save(d); return {ok:true,student:s}; },
-  async toggle(key,code){ const d=this.db(); const s=d.students.find(x=>x.code===code); s.status=s.status==='active'?'blocked':'active'; this.save(d); return {ok:true}; }
+  async toggle(key,code){ const d=this.db(); const s=d.students.find(x=>x.code===code); s.status=s.status==='active'?'blocked':'active'; this.save(d); return {ok:true}; },
+  async adminData(){ const d=this.db();
+    if(!d.pending){ d.pending=[{id:'p1',code:'K7QM-4XPA',name:'Анна Иванова',taskId:'t4',task:'Проведи распаковку',answer:'Пример сдачи. Конспект распаковки: https://docs.google.com/document/d/primer\n7 болей аудитории, 3 смысла для прогрева.',sentAt:'03.11.2026, 18:20'}];
+      d.questions=[{id:'q1',code:'K7QM-4XPA',name:'Анна Иванова',num:3,date:'3 ноя',text:'Пример вопроса. Как построить прогрев, если у эксперта всего 2 000 подписчиков?',photos:[]}]; d.answered=[]; this.save(d); }
+    const students=d.students.slice().reverse().map(s=>{ const st=ls.get('kurs-state-'+s.code)||{}, js=st.journal||{}, tk=st.tasks||{};
+      return {...s, lessons:Object.keys(st.lessons||{}).length, accepted:Object.values(tk).filter(t=>t.status==='accepted').length, rework:Object.values(tk).filter(t=>t.status==='rework').length,
+        days:Object.keys(js).sort().reverse().slice(0,7).map(k=>({date:k,entry:js[k]}))}; });
+    return {ok:true,students,pending:d.pending,questions:d.questions,answered:d.answered}; },
+  async review(key,id){ const d=this.db(); d.pending=(d.pending||[]).filter(x=>x.id!==id); this.save(d); return {ok:true}; },
+  async reply(key,id,text){ const d=this.db(); const q=(d.questions||[]).find(x=>x.id===id); d.questions=(d.questions||[]).filter(x=>x.id!==id); if(q) d.answered.unshift({...q,reply:text,replyDate:nowStr()}); this.save(d); return {ok:true}; }
 };
 /* Боевой бэкенд: Google Apps Script */
 const Remote = {
@@ -608,7 +696,10 @@ const Remote = {
   saveProgress(code,data){ return this.call('saveProgress',{code,data}) },
   saveDay(code,date,entry){ return this.call('saveDay',{code,date,entry}) },
   submitTask(code,taskId,task,answer){ return this.call('submitTask',{code,taskId,task,answer}) },
-  sendRequest(code,num,text,photos){ return this.call('sendRequest',{code,num,text,photos}) }
+  sendRequest(code,num,text,photos){ return this.call('sendRequest',{code,num,text,photos}) },
+  adminData(key){ return this.call('adminData',{key}) },
+  review(key,id,status,score,comment){ return this.call('review',{key,id,status,score,comment}) },
+  reply(key,id,text){ return this.call('reply',{key,id,text}) }
 };
 const API = DEMO ? Local : Remote;
 
@@ -624,6 +715,9 @@ const I = {
   copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',
   cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
   img:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/></svg>',
+  sheet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 10h16M4 15h16M10 4v16"/></svg>',
+  refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>',
   plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
 };
 const STATUS = {accepted:'Принято', review:'На проверке', rework:'На доработке', todo:'Нужно сдать', locked:'Закрыто'};
@@ -713,6 +807,7 @@ function applyServer(d){
 }
 async function pullServer(){ if(!LIVE || !ME) return false; await flushPending(); const d=await API.pull(ME.code); if(!d.ok) return false; applyServer(d); return true; }
 function busy(){ const a=document.activeElement; return !document.getElementById('overlay').hidden || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName)); }
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && ADMIN_KEY && !document.getElementById('scrAdmin').hidden) adminLoad(); });
 document.addEventListener('visibilitychange',async()=>{ if(document.visibilityState==='visible' && ME && ME.name && await pullServer() && !busy() && !document.getElementById('scrApp').hidden) renderApp(); });
 const initials = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 const firstName = n => (n||'').trim().split(/\s+/)[0];
@@ -1039,55 +1134,116 @@ async function copyText(txt,el){ try{ await navigator.clipboard.writeText(txt); 
 
 /* ================= АДМИНКА ================= */
 let ADMIN_KEY = ''; try{ ADMIN_KEY = sessionStorage.getItem('kurs-admin') || '' }catch(e){}
-let ADM = {students:[],issued:null,q:''};
-async function adminLoad(){ const r=await API.list(ADMIN_KEY); if(r.ok){ ADM.students=r.students; } else toast(r.error||'Не удалось загрузить учеников'); renderAdmin(); }
+let ADM = {students:[],pending:[],questions:[],answered:[],issued:null,q:'',tab:'students',loaded:false,legacy:false,err:''};
+async function adminLoad(){
+  let r = await API.adminData(ADMIN_KEY);
+  if(!r.ok && /Неизвестное действие/.test(r.error||'')){ ADM.legacy=true; r = await API.list(ADMIN_KEY); if(r.ok){ r.pending=[]; r.questions=[]; r.answered=[]; } }
+  if(r.ok){ Object.assign(ADM,{students:r.students||[],pending:r.pending||[],questions:r.questions||[],answered:r.answered||[],err:''}); }
+  else if(/Нет доступа/.test(r.error||'')){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} toast('Войди в админку ещё раз'); route(); return; }
+  else ADM.err = r.error || 'Не удалось загрузить данные';
+  ADM.loaded=true; if(!document.getElementById('scrAdmin').hidden && !busy()) renderAdmin();
+}
 function inviteText(s){ return `Привет! Твой доступ к платформе «Продюсер с нуля».\n\nСсылка: ${CONFIG.SITE_URL}\nКод для входа: ${s.code}\n\nКод личный, не передавай его другим.`; }
-function renderAdmin(){
-  const st = ADM.students; const q = ADM.q.toLowerCase();
-  const list = st.filter(s=>!q || [s.name,s.tg,s.code,s.note].join(' ').toLowerCase().includes(q));
-  const active = st.filter(s=>s.status==='active').length, entered = st.filter(s=>s.name).length;
-  document.getElementById('scrAdmin').innerHTML = `
-  <div class="admin">
-    <div class="head" style="margin:0"><div class="logo"><div class="logo-mark">П</div><div><b>Админ-панель</b><span>Продюсер с нуля${DEMO?' · демо-режим':''}</span></div></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">${CONFIG.SHEET_URL?`<a class="btn sm" href="${CONFIG.SHEET_URL}" target="_blank" rel="noopener">Открыть таблицу</a>`:''}<a class="btn line sm" href="#path">Кабинет ученика</a><button class="btn line sm" id="admOut">Выйти</button></div></div>
-    ${DEMO?'<div class="demo-note">Демо-режим: коды сохраняются только в этом браузере. Чтобы ученики входили со своих устройств, подключаем таблицу Google (файл apps-script.gs).</div>':''}
-    <div class="grid g-3">
-      <div class="card stat"><span class="eyebrow">Кодов выдано</span><b class="num">${st.length}</b></div>
-      <div class="card stat"><span class="eyebrow">Уже вошли</span><b class="num neon-text">${entered}</b></div>
-      <div class="card stat"><span class="eyebrow">Активных доступов</span><b class="num">${active}</b></div>
-    </div>
-    <div class="grid g-2">
-      <section class="card" style="display:grid;gap:16px;align-content:start">
-        <h2>Выдать код ученику</h2>
-        <form id="issueForm" style="display:grid;gap:14px">
-          <label class="f" for="isTg">Telegram ученика<input type="text" id="isTg" placeholder="@username" required></label>
-          <label class="f" for="isNote">Тариф или заметка<input type="text" id="isNote" placeholder="С куратором, поток №4"></label>
-          <button class="btn" type="submit" style="justify-self:start">${I.plus} Сгенерировать код</button>
-        </form>
-      </section>
-      ${ADM.issued?`<section class="issued">
-        <span class="eyebrow" style="color:rgba(255,255,255,.7)">Код для ${esc(ADM.issued.tg)}</span>
-        <div class="big" id="issuedCode">${ADM.issued.code}</div>
+const linkify = t => t.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+const pctOf = s => Math.round(((s.lessons||0)+(s.accepted||0))/(ALL_LESSONS.length+ALL_TASKS.length)*100);
+function todayOf(s){ const k=dkey(new Date()), d=(s.days||[]).find(x=>x.date===k); return d ? d.entry : null; }
+function dayDots(days){ const map={}; (days||[]).forEach(d=>map[d.date]=d.entry); const now=new Date();
+  return [...Array(7)].map((_,i)=>{ const d=addDays(now,i-6), e=map[dkey(d)]; const st=!e?'none':e.reported?'full':(e.tasks&&e.tasks.length)?'half':'none';
+    return `<i class="dd ${st}" title="${cap(fmtDay(d))}"></i>`; }).join(''); }
+function todayBadge(s){ const e=todayOf(s); if(!e||!e.tasks||!e.tasks.length) return '<span class="muted">—</span>';
+  if(e.reported){ const ok=e.tasks.filter(t=>t.done).length; return `<span class="pill ${ok===e.tasks.length?'s-accepted':'s-review'}">Отчёт ${ok}/${e.tasks.length}</span>`; }
+  return `<span class="pill s-todo">${e.tasks.length} ${plural(e.tasks.length,['задача','задачи','задач'])}</span>`; }
+function emptyCard(t,d,ic){ return `<section class="card adm-empty"><span class="empty-ic">${ic||I.check}</span><h2>${t}</h2><p class="muted" style="margin:0">${d}</p></section>`; }
+
+function admStudents(q){
+  const list = ADM.students.filter(s=>!q || [s.name,s.tg,s.code,s.note].join(' ').toLowerCase().includes(q));
+  return `<section class="card adm-issue">
+      <div><h2>Выдать доступ</h2><p class="muted" style="margin:4px 0 0;font-size:14px">Код появится сразу, ученик войдёт по нему с любого устройства.</p></div>
+      <form id="issueForm" class="issue-row" autocomplete="off">
+        <label class="f" for="isTg">Telegram ученика<input type="text" id="isTg" placeholder="@username" required></label>
+        <label class="f" for="isNote">Тариф или заметка<input type="text" id="isNote" placeholder="С куратором, поток №4"></label>
+        <button class="btn" type="submit" id="issueBtn">${I.plus} Создать код</button>
+      </form>
+      ${ADM.issued?`<div class="issued">
+        <span class="eyebrow">Код для ${esc(ADM.issued.tg)}</span>
+        <div class="big" id="issuedCode">${esc(ADM.issued.code)}</div>
         <pre id="issuedMsg">${esc(inviteText(ADM.issued))}</pre>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost sm" data-copy="issuedCode">${I.copy} Код</button><button class="btn ghost sm" data-copy="issuedMsg">${I.copy} Сообщение ученику</button></div>
-      </section>`:`<section class="card" style="display:grid;gap:10px;align-content:center;justify-items:start">
-        <span class="eyebrow">Как это работает</span>
-        <p style="margin:0">Сгенерируй код и отправь ученику готовое сообщение. При первом входе он введёт код и своё имя, и оно появится в таблице ниже.</p></section>`}
-    </div>
-    <section class="card" style="display:grid;gap:14px">
-      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><h2>Ученики</h2>
-        <input type="text" id="admQ" class="search" placeholder="Поиск по имени, нику, коду" value="${esc(ADM.q)}"></div>
-      <div class="tbl-wrap"><table>
-        <thead><tr><th>Ученик</th><th>Telegram</th><th>Код</th><th>Тариф</th><th>Выдан</th><th>Последний вход</th><th>Статус</th><th></th></tr></thead>
-        <tbody>${list.map(s=>`<tr>
-          <td>${s.name?`<div style="display:flex;gap:10px;align-items:center"><span class="ava sm">${esc(initials(s.name))}</span><b>${esc(s.name)}</b></div>`:'<span class="muted">Ещё не входил</span>'}</td>
-          <td>${esc(s.tg)}</td><td class="codecell">${esc(s.code)}</td><td class="muted">${esc(s.note)}</td>
-          <td class="num muted" style="font-size:13px">${esc(s.created)}</td><td class="num muted" style="font-size:13px">${esc(s.last)||'—'}</td>
-          <td>${s.status==='active'?'<span class="pill s-accepted">Активен</span>':'<span class="pill s-rework">Заблокирован</span>'}</td>
-          <td style="white-space:nowrap"><button class="btn line sm" data-copyinv="${esc(s.code)}">${I.copy}</button> <button class="btn line sm" data-toggle="${esc(s.code)}">${s.status==='active'?'Заблокировать':'Вернуть доступ'}</button></td>
-        </tr>`).join('') || '<tr><td colspan="8" class="muted">Никого не нашли</td></tr>'}</tbody>
-      </table></div>
+      </div>`:''}
     </section>
+    <section class="card" style="display:grid;gap:14px">
+      <div class="adm-h"><h2>Ученики</h2><input type="text" id="admQ" class="search" placeholder="Поиск по имени, нику, коду" value="${esc(ADM.q)}"></div>
+      ${list.length?`<div class="tbl-wrap"><table>
+        <thead><tr><th>Ученик</th><th>Прогресс</th><th>7 дней</th><th>Сегодня</th><th>Код</th><th>Статус</th><th></th></tr></thead>
+        <tbody>${list.map(s=>{ const p=pctOf(s); return `<tr class="${s.status!=='active'?'is-off':''}">
+          <td><div class="who">${s.name?`<span class="ava sm">${esc(initials(s.name))}</span>`:'<span class="ava sm cur">?</span>'}<div><b>${s.name?esc(s.name):'<span class="muted">Ещё не входил</span>'}</b><small>${esc(s.tg)}${s.note?' · '+esc(s.note):''}</small></div></div></td>
+          <td><div class="prog"><div class="bar"><i style="width:${p}%"></i></div><span class="num">${p}%</span></div><small class="muted num">${s.lessons||0} ур. · ${s.accepted||0} зад.${s.rework?` · ${s.rework} дораб.`:''}</small></td>
+          <td><div class="dots">${dayDots(s.days)}</div></td>
+          <td>${todayBadge(s)}</td>
+          <td class="codecell">${esc(s.code)}</td>
+          <td>${s.status==='active'?'<span class="pill s-accepted">Активен</span>':'<span class="pill s-rework">Заблокирован</span>'}<small class="muted num">${s.last?'вход '+esc(s.last):'ещё не входил'}</small></td>
+          <td class="row-act"><button class="icon-btn" data-copyinv="${esc(s.code)}" title="Скопировать сообщение с кодом" aria-label="Скопировать сообщение с кодом">${I.copy}</button><button class="btn line sm" data-toggle="${esc(s.code)}">${s.status==='active'?'Заблокировать':'Вернуть'}</button></td>
+        </tr>`; }).join('')}</tbody></table></div>`
+      :`<p class="muted" style="margin:0">${ADM.students.length?'Никого не нашли по этому запросу.':'Учеников пока нет. Создай первый код выше.'}</p>`}
+    </section>`;
+}
+function admReview(){
+  if(!ADM.pending.length) return emptyCard('Всё проверено','Новые сдачи заданий появятся здесь.');
+  return `<div class="adm-list">${ADM.pending.map(x=>{ const t=ALL_TASKS.find(a=>a.id===x.taskId);
+    return `<article class="card rv-item" data-sub="${esc(x.id)}">
+      <div class="rv-head"><div class="who"><span class="ava sm">${esc(initials(x.name||'?'))}</span><div><b>${esc(x.name||x.code)}</b><small>${t?'Этап '+(t.stage+1)+' · ':''}${esc(x.sentAt)}</small></div></div><span class="pill s-review">На проверке</span></div>
+      <h3>${esc(x.task||(t&&t.title)||x.taskId)}</h3>
+      ${t?`<details class="crit"><summary>Критерии приёма · ${t.criteria.length}</summary><ul class="criteria">${t.criteria.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></details>`:''}
+      <div class="answer">${linkify(esc(x.answer))}</div>
+      <div class="f"><span>Оценка <span class="muted" style="font-weight:400">· необязательно</span></span><div class="score" role="group" aria-label="Оценка">${[...Array(10)].map((_,i)=>`<button class="sc" data-score="${i+1}" aria-pressed="false">${i+1}</button>`).join('')}</div></div>
+      <textarea class="cm" placeholder="Комментарий ученику: что получилось и что поправить"></textarea>
+      <div class="rv-btns"><button class="btn ok-btn" data-review="accepted">${I.check} Принять</button><button class="btn line" data-review="rework">На доработку</button></div>
+    </article>`; }).join('')}</div>`;
+}
+function admQuestions(){
+  const open = ADM.questions.length ? `<div class="adm-list">${ADM.questions.map(x=>`<article class="card rv-item" data-q="${esc(x.id)}">
+      <div class="rv-head"><div class="who"><span class="ava sm">${esc(initials(x.name||'?'))}</span><div><b>${esc(x.name||x.code)}</b><small>Запрос №${esc(x.num)} · ${esc(x.date)}</small></div></div><span class="pill s-review">Ждёт ответа</span></div>
+      <div class="answer">${linkify(esc(x.text))}</div>
+      ${x.photos&&x.photos.length?`<div class="ph-grid">${x.photos.map((p,i)=>`<a href="${esc(p)}" target="_blank" rel="noopener"><img src="${esc(p)}" alt="Фото ${i+1} к вопросу" loading="lazy"></a>`).join('')}</div>`:''}
+      <textarea class="cm" placeholder="Ответ ученику"></textarea>
+      <div class="rv-btns"><button class="btn" data-reply>Ответить</button></div>
+    </article>`).join('')}</div>` : emptyCard('Все вопросы отвечены','Новые вопросы учеников появятся здесь.');
+  const done = ADM.answered.length ? `<section class="card" style="display:grid;gap:4px"><h2 style="margin-bottom:8px">Недавние ответы</h2>${ADM.answered.map(x=>`<details class="qa">
+      <summary><span class="who"><span class="ava sm">${esc(initials(x.name||'?'))}</span><span><b>${esc(x.name||x.code)} · №${esc(x.num)}</b><small>${esc(x.text).slice(0,90)}</small></span></span>${I.chev}</summary>
+      <div class="answer">${linkify(esc(x.text))}</div><div class="msg answer"><div style="font-size:14px;white-space:pre-wrap">${linkify(esc(x.reply))}</div></div></details>`).join('')}</section>` : '';
+  return open + done;
+}
+function admJournal(){
+  const act = ADM.students.filter(s=>s.status==='active' && s.name);
+  if(!act.length) return emptyCard('Пока пусто','Когда ученики начнут вести дневник, здесь появятся их задачи и отчёты за сегодня.',I.cal);
+  return `<div class="jr-grid">${act.map(s=>{ const e=todayOf(s), T=(e&&e.tasks)||[];
+    return `<article class="card jr-card"><div class="rv-head"><div class="who"><span class="ava sm">${esc(initials(s.name))}</span><div><b>${esc(s.name)}</b><small>${esc(s.tg)}</small></div></div>${todayBadge(s)}</div>
+      <div class="dots lg" aria-label="Последние 7 дней">${dayDots(s.days)}</div>
+      ${T.length?`<ul class="rep-list sm">${T.map(t=>`<li class="${!e.reported?'is-wait':t.done?'is-ok':'is-no'}"><span class="mk">${!e.reported?'':t.done?I.check:I.x}</span><div><span>${esc(t.text)}</span>${e.reported&&!t.done&&t.why?`<small>${esc(t.why)}</small>`:''}</div></li>`).join('')}</ul>`
+        :'<p class="muted" style="margin:0;font-size:14px">Сегодня задач пока нет.</p>'}
+    </article>`; }).join('')}</div>`;
+}
+function renderAdmin(){
+  const st=ADM.students, q=ADM.q.toLowerCase(), active=st.filter(s=>s.status==='active');
+  const entered=st.filter(s=>s.name).length, reported=active.filter(s=>{ const e=todayOf(s); return e && e.reported; }).length;
+  const tabs=[['students','Ученики',0],['review','Проверка',ADM.pending.length],['questions','Вопросы',ADM.questions.length],['journal','Дневники',0]];
+  const body = !ADM.loaded ? `<section class="card adm-empty"><span class="spin"></span><p class="muted" style="margin:0">Загружаю данные из таблицы…</p></section>`
+    : ADM.err && !st.length ? emptyCard('Не получилось загрузить',esc(ADM.err)+'. Нажми «Обновить».',I.x)
+    : ADM.tab==='review' ? admReview() : ADM.tab==='questions' ? admQuestions() : ADM.tab==='journal' ? admJournal() : admStudents(q);
+  document.getElementById('scrAdmin').innerHTML = `
+  <div class="admin">
+    <div class="adm-top"><div class="logo"><div class="logo-mark">П</div><div><b>Кабинет куратора</b><span>Продюсер с нуля${DEMO?' · демо-режим':''}</span></div></div>
+      <div class="adm-actions">${CONFIG.SHEET_URL?`<a class="btn line sm" href="${CONFIG.SHEET_URL}" target="_blank" rel="noopener">${I.sheet} Таблица</a>`:''}<button class="btn line sm" id="admRefresh">${I.refresh} Обновить</button><button class="btn line sm" id="admOut">Выйти</button></div></div>
+    ${DEMO?'<div class="demo-note">Демо-режим: данные хранятся только в этом браузере.</div>':''}
+    ${ADM.legacy?'<div class="demo-note">Сервер старой версии: чтобы проверять задания и отвечать на вопросы здесь, его нужно обновить.</div>':''}
+    <div class="adm-stats">
+      <button class="card stat stat-btn" data-tab="students"><span class="eyebrow">Ученики</span><b class="num">${entered}<small>из ${st.length}</small></b><span class="muted">вошли в кабинет</span></button>
+      <button class="card stat stat-btn" data-tab="review"><span class="eyebrow">Проверка</span><b class="num ${ADM.pending.length?'neon-text':''}">${ADM.pending.length}</b><span class="muted">${plural(ADM.pending.length,['задание ждёт','задания ждут','заданий ждут'])}</span></button>
+      <button class="card stat stat-btn" data-tab="questions"><span class="eyebrow">Вопросы</span><b class="num ${ADM.questions.length?'neon-text':''}">${ADM.questions.length}</b><span class="muted">без ответа</span></button>
+      <button class="card stat stat-btn" data-tab="journal"><span class="eyebrow">Отчёты сегодня</span><b class="num">${reported}<small>из ${active.length}</small></b><span class="muted">сдали отчёт</span></button>
+    </div>
+    <div class="adm-tabs" role="tablist">${tabs.map(t=>`<button class="adm-tab" role="tab" data-tab="${t[0]}" aria-selected="${ADM.tab===t[0]}">${t[1]}${t[2]?`<b class="num">${t[2]}</b>`:''}</button>`).join('')}</div>
+    ${body}
   </div>`;
 }
 
@@ -1105,7 +1261,7 @@ function haptic(kind){
     if(navigator.vibrate) navigator.vibrate(kind==='success'?[12,50,18]:kind==='error'||kind==='warning'?[24,60,24]:kind==='select'?6:10);
   }catch(e){}
 }
-const TAP_SEL = '.mk-btn,.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.x,.mat,.mod summary,.screen button,.reqrow,.ph-add,.linkbtn';
+const TAP_SEL = '.adm-tab,.sc,.stat-btn,.mk-btn,.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.x,.mat,.mod summary,.screen button,.reqrow,.ph-add,.linkbtn';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 document.addEventListener('pointerdown',e=>{
   const el = e.target.closest(TAP_SEL); if(!el || el.disabled) return;
@@ -1184,8 +1340,25 @@ document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
 });
 
 document.addEventListener('click',async e=>{
-  const el = e.target.closest('[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
+  const el = e.target.closest('[data-tab],#admRefresh,[data-score],[data-review],[data-reply],[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
   if(!el) return;
+  if(el.dataset.tab){ ADM.tab=el.dataset.tab; renderAdmin(); return; }
+  if(el.id==='admRefresh'){ el.disabled=true; el.classList.add('is-busy'); await adminLoad(); toast('Данные обновлены'); return; }
+  if(el.dataset.score){ const on=el.getAttribute('aria-pressed')==='true'; el.parentElement.querySelectorAll('.sc').forEach(b=>b.setAttribute('aria-pressed','false')); if(!on) el.setAttribute('aria-pressed','true'); return; }
+  if(el.dataset.review){ const card=el.closest('[data-sub]'), id=card.dataset.sub, status=el.dataset.review, cmEl=card.querySelector('.cm'), cm=cmEl.value.trim(), sc=card.querySelector('.sc[aria-pressed="true"]');
+    if(status==='rework' && !cm){ cmEl.focus(); toast('Напиши, что нужно поправить'); haptic('warning'); return; }
+    const btns=card.querySelectorAll('button'); btns.forEach(b=>b.disabled=true); const html=el.innerHTML; el.textContent='Сохраняю…';
+    const r=await API.review(ADMIN_KEY,id,status,sc?sc.dataset.score:'',cm);
+    if(!r.ok){ btns.forEach(b=>b.disabled=false); el.innerHTML=html; toast(r.error||'Не удалось сохранить'); haptic('error'); return; }
+    ADM.pending=ADM.pending.filter(x=>x.id!==id); haptic('success'); toast(status==='accepted'?'Задание принято':'Отправлено на доработку');
+    card.classList.add('leaving'); setTimeout(renderAdmin,230); return; }
+  if(el.hasAttribute('data-reply')){ const card=el.closest('[data-q]'), id=card.dataset.q, cmEl=card.querySelector('.cm'), text=cmEl.value.trim();
+    if(!text){ cmEl.focus(); haptic('warning'); return; }
+    const btns=card.querySelectorAll('button'); btns.forEach(b=>b.disabled=true); el.textContent='Отправляю…';
+    const r=await API.reply(ADMIN_KEY,id,text);
+    if(!r.ok){ btns.forEach(b=>b.disabled=false); el.textContent='Ответить'; toast(r.error||'Не удалось отправить'); haptic('error'); return; }
+    const qq=ADM.questions.find(x=>x.id===id); ADM.questions=ADM.questions.filter(x=>x.id!==id); if(qq) ADM.answered.unshift({...qq,reply:text,replyDate:nowStr()});
+    haptic('success'); toast('Ответ отправлен ученику'); card.classList.add('leaving'); setTimeout(renderAdmin,230); return; }
   if(el.dataset.req){ openRequest(el.dataset.req); return; }
   if(el.dataset.rmph){ PHOTOS.splice(+el.dataset.rmph,1); renderPhotos(); return; }
   if(el.dataset.edit){ EDIT.report=true; renderApp(); return; }
@@ -1197,7 +1370,7 @@ document.addEventListener('click',async e=>{
     const open=j.tasks.find(t=>t.done!==true&&t.done!==false); if(open){ toast('Отметь каждую задачу: выполнил или нет'); haptic('warning'); return; }
     const noWhy=j.tasks.find(t=>t.done===false&&!t.why.trim()); if(noWhy){ const w=document.querySelector(`[data-why="${noWhy.id}"]`); if(w) w.focus(); toast('Напиши, почему задача не получилась'); haptic('warning'); return; }
     j.reported=true; if(!j.reportAt) j.reportAt=hm(); EDIT.report=false; save(); syncDay(); renderApp(); haptic('success'); toast('Отчёт за день отправлен'); return; }
-  if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; route(); return; }
+  if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; ADM.loaded=false; route(); return; }
   if(el.dataset.copy){ const n=document.getElementById(el.dataset.copy); copyText(n.textContent,n); return; }
   if(el.dataset.copyinv){ const s=ADM.students.find(x=>x.code===el.dataset.copyinv); copyText(inviteText(s)); return; }
   if(el.dataset.toggle){ el.disabled=true; await API.toggle(ADMIN_KEY,el.dataset.toggle); adminLoad(); return; }
@@ -1228,8 +1401,10 @@ document.addEventListener('submit',async e=>{
     PHOTOS=[]; renderApp(); haptic('success'); toast('Запрос №'+num+' отправлен куратору'); }
   if(e.target.id==='issueForm'){ e.preventDefault();
     let tg=document.getElementById('isTg').value.trim(); if(!tg) return; if(!tg.startsWith('@')) tg='@'+tg;
+    const ib=document.getElementById('issueBtn'); ib.disabled=true; ib.textContent='Создаю…';
     const r=await API.create(ADMIN_KEY,{tg,note:document.getElementById('isNote').value.trim()});
-    if(!r.ok){ toast(r.error||'Не удалось создать код'); return; }
+    ib.disabled=false; ib.innerHTML=I.plus+' Создать код';
+    if(!r.ok){ toast(r.error||'Не удалось создать код'); haptic('error'); return; }
     ADM.issued=r.student; haptic('success'); toast('Код создан'); adminLoad(); }
 });
 document.addEventListener('input',e=>{ if(e.target.id==='admQ'){ ADM.q=e.target.value; const p=e.target.selectionStart; renderAdmin(); const n=document.getElementById('admQ'); n.focus(); n.setSelectionRange(p,p); } });

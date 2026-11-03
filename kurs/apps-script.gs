@@ -129,6 +129,35 @@ function savePhotos_(list, code) {
   }).filter(Boolean);
 }
 
+/* ---------- кабинет куратора ---------- */
+function json_(v) { try { return JSON.parse(v); } catch (e) { return null; } }
+function adminData_() {
+  const studs = rows_('students').map(x => ({ code: x.v[0], name: x.v[1], tg: x.v[2], note: x.v[3], created: str_(x.v[4]), last: str_(x.v[5]), status: x.v[6] || 'active' }));
+  const subs = rows_('submissions').map(x => ({ id: String(x.v[0]), code: x.v[1], name: x.v[2], taskId: x.v[3], task: x.v[4], answer: x.v[5], sentAt: str_(x.v[6]), status: x.v[7] || 'На проверке', score: x.v[8], comment: x.v[9] }));
+  const reqs = rows_('requests').map(x => ({ id: String(x.v[0]), code: x.v[1], name: x.v[2], num: x.v[3], date: str_(x.v[4]), text: x.v[5], photos: String(x.v[6] || '').split('\n').filter(Boolean), reply: x.v[7], replyDate: str_(x.v[8]) }));
+  const prog = {}; rows_('progress').forEach(x => { const p = json_(x.v[3]); if (p) prog[x.v[0]] = p; });
+  const jr = {}; rows_('journal').forEach(x => { (jr[x.v[0]] = jr[x.v[0]] || []).push({ date: str_(x.v[2]).slice(0, 10), entry: json_(x.v[8]) || { tasks: [] } }); });
+  const latest = {}; subs.forEach(s => { latest[s.code + '|' + s.taskId] = s; });
+  const last = Object.values(latest);
+  const students = studs.map(st => {
+    const mine = last.filter(s => s.code === st.code);
+    const days = (jr[st.code] || []).sort((a, b) => a.date < b.date ? 1 : -1).slice(0, 7);
+    return Object.assign(st, {
+      lessons: Object.keys((prog[st.code] || {}).lessons || {}).length,
+      accepted: mine.filter(s => s.status === 'Принято').length,
+      review: mine.filter(s => s.status === 'На проверке').length,
+      rework: mine.filter(s => s.status === 'На доработке').length,
+      days: days
+    });
+  }).reverse();
+  return {
+    students: students,
+    pending: last.filter(s => s.status === 'На проверке').reverse(),
+    questions: reqs.filter(r => !r.reply).reverse(),
+    answered: reqs.filter(r => r.reply).slice(-20).reverse()
+  };
+}
+
 /* ---------- точка входа ---------- */
 function doGet() { return out_({ ok: true, service: 'kurs' }); }
 
@@ -186,6 +215,26 @@ function doPost(e) {
         if (!isAdmin) return out_({ ok: false, error: 'Нет доступа' });
         const s = student_(d.code); if (!s) return out_({ ok: false, error: 'Код не найден' });
         set_('students', s.row, 7, s.status === 'active' ? 'blocked' : 'active');
+        return out_({ ok: true });
+      }
+      case 'adminData':
+        if (!isAdmin) return out_({ ok: false, error: 'Нет доступа' });
+        return out_(Object.assign({ ok: true }, adminData_()));
+      case 'review': {
+        if (!isAdmin) return out_({ ok: false, error: 'Нет доступа' });
+        const r = rows_('submissions').find(x => String(x.v[0]) === String(d.id));
+        if (!r) return out_({ ok: false, error: 'Сдача не найдена' });
+        const score = Number(d.score) >= 1 && Number(d.score) <= 10 ? Number(d.score) : '';
+        sh_('submissions').getRange(r.row, 8, 1, 4).setValues([[d.status === 'accepted' ? 'Принято' : 'На доработке', score, String(d.comment || '').slice(0, 3000), now_()]]);
+        return out_({ ok: true });
+      }
+      case 'reply': {
+        if (!isAdmin) return out_({ ok: false, error: 'Нет доступа' });
+        const r = rows_('requests').find(x => String(x.v[0]) === String(d.id));
+        if (!r) return out_({ ok: false, error: 'Вопрос не найден' });
+        const text = String(d.text || '').trim().slice(0, 5000);
+        if (!text) return out_({ ok: false, error: 'Пустой ответ' });
+        sh_('requests').getRange(r.row, 8, 1, 2).setValues([[text, now_()]]);
         return out_({ ok: true });
       }
       case 'saveReview':
