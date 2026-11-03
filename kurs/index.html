@@ -334,6 +334,69 @@ td.num{white-space:nowrap}
   .tbl-wrap{margin:0 -18px;padding:0 18px}
   .g-3{grid-template-columns:minmax(0,1fr)}
 }
+
+.f{display:grid;gap:7px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.reqrow,.ph-add{position:relative;overflow:hidden;transition:transform .18s var(--ease),border-color .18s,box-shadow .18s}
+.reqrow:active,.ph-add:active{transform:scale(.97)}
+/* дневник */
+.today,.review{display:grid;gap:18px;align-content:start}
+.today-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.today-top h2{margin-top:4px}
+.streak{font-size:12px;font-weight:600;color:var(--accent-ink);background:var(--accent-soft);border-radius:99px;padding:4px 10px;white-space:nowrap}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.wd{display:grid;justify-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600}
+.wd i{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;color:#fff}
+.wd i svg{width:13px;height:13px}
+.wd.full i{background:var(--accent);border-color:var(--accent)}
+.wd.half i{border-color:var(--accent);background:linear-gradient(90deg,var(--accent) 50%,transparent 50%)}
+.wd.fut i{border-style:dashed}
+.wd.today span{color:var(--accent-ink)}
+.wd.today i{box-shadow:0 0 0 4px var(--accent-soft)}
+.step{display:grid;gap:10px;padding:14px;border-radius:12px;border:1px solid var(--line)}
+.step.is-done{background:var(--surface-2);border-color:transparent}
+.step.is-locked{opacity:.6}
+.step-h{display:flex;gap:12px;align-items:center}
+.step-h b{display:block;font-size:14px}
+.step-h small{display:block;font-size:12px;color:var(--muted)}
+.step-time{margin-left:auto;font-size:12px}
+.step-n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;background:var(--accent-soft);color:var(--accent-ink);flex:none}
+.step.is-done .step-n{background:var(--ok);color:#fff}
+.step-n svg{width:12px;height:12px}
+.step-t{margin:0;font-size:14px;white-space:pre-wrap}
+.step textarea{min-height:84px}
+.linkbtn{border:none;background:none;padding:0;color:var(--accent-ink);font-weight:600;font-size:13px;justify-self:start;position:relative}
+.rv-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.rv{margin:8px 0 0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.rv li::marker{color:var(--ok)}
+.rv.focus li::marker{color:var(--accent)}
+.rv-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.jday{display:grid;gap:8px;padding:16px 0;border-top:1px solid var(--line)}
+.jday:first-of-type{border-top:none;padding-top:0}
+.jday-h{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.jrow{display:grid;grid-template-columns:64px minmax(0,1fr);gap:10px;font-size:14px}
+.jrow span:first-child{font-size:12px;color:var(--muted);font-weight:600;padding-top:2px}
+/* запросы и фото */
+.photos{display:flex;gap:10px;flex-wrap:wrap}
+.ph{position:relative;width:84px;height:84px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph-x{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:none;background:rgba(11,21,48,.62);color:#fff;display:grid;place-items:center}
+.ph-x svg{width:12px;height:12px}
+.ph-add{width:84px;height:84px;border-radius:12px;border:1.5px dashed var(--line-2);display:grid;place-items:center;align-content:center;gap:4px;color:var(--muted);font-size:12px;font-weight:500;cursor:pointer}
+.ph-add:hover{border-color:var(--accent);color:var(--accent-ink)}
+.ph-add svg{width:22px;height:22px}
+.reqlist{display:grid;gap:10px}
+.reqrow{display:grid;gap:6px;text-align:left;width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.reqrow:hover{border-color:var(--line-2);box-shadow:var(--sh-2)}
+.rq-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.rq-top b{font-family:var(--f-display);font-weight:600;letter-spacing:-.01em}
+.rq-text{font-size:14px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rq-meta{font-size:12px;display:flex;gap:6px;align-items:center}
+.rq-meta svg{width:13px;height:13px}
+.ph-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.ph-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.msg.answer{background:var(--accent-soft)}
+@media (max-width:860px){.nav{grid-template-columns:repeat(5,minmax(0,1fr))}.nav a{font-size:10.5px}}
+@media (max-width:560px){.rv-cols{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rip{display:none}.check.pop svg path{stroke-dashoffset:0}}
 </style>
 </head>
@@ -384,6 +447,7 @@ td.num{white-space:nowrap}
       <a href="#path" data-v="path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/></svg>Мой путь</a>
       <a href="#lessons" data-v="lessons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>Уроки</a>
       <a href="#tasks" data-v="tasks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Задания<span class="badge" id="navBadge" hidden></span></a>
+      <a href="#journal" data-v="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16M8 14h3M8 17h6"/></svg>Дневник</a>
       <a href="#feedback" data-v="feedback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Обратная связь</a>
     </nav>
     <div class="side-foot">
@@ -431,7 +495,7 @@ const DEMO = !CONFIG.API_URL;
 /* ================= ХРАНИЛИЩЕ ================= */
 const ls = {
   get(k){ try{ return JSON.parse(localStorage.getItem(k)) }catch(e){ return null } },
-  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){} },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true }catch(e){ return false } },
   del(k){ try{ localStorage.removeItem(k) }catch(e){} }
 };
 const ALPH = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -480,6 +544,8 @@ const I = {
   x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
   chev:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>',
   copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',
+  cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+  img:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/></svg>',
   plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
 };
 const STATUS = {accepted:'Принято', review:'На проверке', rework:'На доработке', todo:'Нужно сдать', locked:'Закрыто'};
@@ -519,7 +585,10 @@ const DEMO_PROGRESS = {
     t5:{status:'todo',thread:[]}
   },
   current:'l9',
-  requests:[{id:1,type:'Вопрос по уроку',task:'',text:'Как считать ER, если у эксперта закрытый аккаунт?',date:'16 окт',status:'answered',reply:'Бери охваты сторис за 7 дней и дели на число подписчиков.'}]
+  requests:[
+    {id:2,num:2,text:'Посмотрите таблицу тарифов: не слишком ли большой разрыв между базовым и VIP?',photos:[],date:'1 ноя',status:'waiting'},
+    {id:1,num:1,text:'Как считать ER, если у эксперта закрытый аккаунт?',photos:[],date:'16 окт',status:'answered',replyDate:'16 окт',reply:'Бери охваты сторис за 7 дней и дели на число подписчиков. Если сторис мало, смотри средние охваты последних 10 постов. В таблицу записывай оба числа, чтобы сравнивать экспертов одинаково.'}
+  ]
 };
 
 const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -530,7 +599,12 @@ const ALL_LESSONS = COURSE.stages.flatMap((st,i)=>st.lessons.map(l=>({id:l[0],ti
 let ME = null;   // {code,name,...}
 let S = null;    // прогресс ученика
 const stateKey = () => 'kurs-state-'+ME.code;
-function loadState(){ S = ls.get(stateKey()); if(!S||!S.tasks){ S = ME.code==='DEMO-2026' ? structuredClone(DEMO_PROGRESS) : {lessons:{},tasks:{},current:'l1',requests:[]}; } }
+function loadState(){ S = ls.get(stateKey()); const demo = ME.code==='DEMO-2026';
+  if(!S||!S.tasks){ S = demo ? structuredClone(DEMO_PROGRESS) : {lessons:{},tasks:{},current:'l1',requests:[]}; }
+  if(!S.journal) S.journal = demo ? demoJournal() : {};
+  if(!S.reviews) S.reviews = demo ? demoReviews() : [];
+  S.requests.forEach((r,i,a)=>{ if(!r.num) r.num=a.length-i; });
+  save(); }
 const save = () => ls.set(stateKey(), S);
 const initials = n => (n||'?').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 const firstName = n => (n||'').trim().split(/\s+/)[0];
@@ -557,14 +631,46 @@ function totals(){
 const pill = s => `<span class="pill s-${s}">${STATUS[s]}</span>`;
 function greet(){ const h=new Date().getHours(); return h<5?'Доброй ночи':h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер'; }
 
+/* ================= ДАТЫ ================= */
+const pad = n => String(n).padStart(2,'0');
+const dkey = d => d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const addDays = (d,n) => { const x=new Date(d); x.setDate(x.getDate()+n); return x; };
+const monday = d => { const x=new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate()-((x.getDay()+6)%7)); return x; };
+const WD = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const cap = s => s ? s[0].toUpperCase()+s.slice(1) : s;
+const fmtDay = d => d.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
+const fmtShort = d => d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'}).replace('.','');
+const hm = () => new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+const plural=(n,f)=>{const a=n%100,b=n%10;return a>10&&a<20?f[2]:b===1?f[0]:b>1&&b<5?f[1]:f[2]};
+function dayState(k){ const j=S.journal[k]; return !j?'none':j.report?'full':j.plan?'half':'none'; }
+function streak(){ let n=0, d=new Date(); if(dayState(dkey(d))!=='full') d=addDays(d,-1); while(dayState(dkey(d))==='full'){ n++; d=addDays(d,-1); } return n; }
+function nextSunday(){ const d=new Date(); d.setDate(d.getDate()+(7-d.getDay())%7); return d; }
+function demoJournal(){
+  const PL=[['Досмотреть урок про ценообразование и посчитать 3 тарифа','Посчитала 3 тарифа: базовый 15 000 ₽, с куратором 35 000 ₽, VIP 90 000 ₽. С экспертом обсудить не успела.'],
+    ['Написать 3 экспертам из топа и договориться о созвоне','Написала троим, ответил один, созвон в четверг в 19:00.'],
+    ['Провести распаковку с экспертом','Созвон 1,5 часа, прошли 30 вопросов из 40. Остальное завтра.'],
+    ['Добить распаковку и собрать конспект','Конспект готов, 7 болей аудитории, отправила задание на проверку.'],
+    ['Пройти урок про продуктовую линейку','Урок прошла, набросала 3 продукта, цены пока под вопросом.'],
+    ['Разобрать возражения эксперта по цене','Созвонились, эксперт согласен на средний тариф 35 000 ₽.']];
+  const j={}, now=new Date();
+  for(let i=1;i<=9;i++){ if(i===4) continue; const p=PL[i%PL.length], d=addDays(now,-i);
+    j[dkey(d)]={plan:p[0],planAt:'09:'+pad(10+i*3),report:i===7?'':p[1],reportAt:i===7?'':'21:'+pad(5+i*4)}; }
+  return j;
+}
+function demoReviews(){
+  const sun=addDays(monday(new Date()),-1), mon=addDays(sun,-6);
+  return [{week:fmtShort(mon)+' – '+fmtShort(sun), done:'5 из 7 дней', date:fmtShort(sun),
+    summary:'Сильная неделя по действиям: ты провела распаковку и вышла на созвон с экспертом. Слабое место — отчёты без цифр: в трёх днях из пяти нет результата в числах, поэтому сложно понять прогресс.',
+    wins:['Распаковка проведена за 2 дня','Каждое утро была понятная задача на день','Эксперт согласился на средний тариф'],
+    focus:['В отчёте пиши результат цифрой: сколько написала, сколько ответили','Закрой доработку по заданию «Проведи распаковку» до среды','Не пропускай отчёт в выходные, хватит 2–3 строк']}];
+}
+
 /* ================= ЭКРАНЫ УЧЕНИКА ================= */
 function vPath(){
   const T = totals(); const st = COURSE.stages[T.cur];
   const nextLesson = ALL_LESSONS.find(l=>l.stage===T.cur && !S.lessons[l.id]);
   const nextTask = ALL_TASKS.find(t=>t.stage===T.cur && ['rework','todo'].includes(taskStatus(t)));
   const next = nextTask && taskStatus(nextTask)==='rework' ? {k:'task',o:nextTask} : nextLesson ? {k:'lesson',o:nextLesson} : nextTask ? {k:'task',o:nextTask} : null;
-  const lastCur = ALL_TASKS.flatMap(t=>taskState(t.id).thread.filter(m=>m[0]==='cur').map(m=>({t,m}))).pop();
-  const weeks = [['8.09',2.5],['15.09',4],['22.09',3],['29.09',5.5],['6.10',4.5],['13.10',6],['20.10',3.5],['27.10',5]];
   const C = 2*Math.PI*62;
   return `
   <div class="head"><div><div class="eyebrow">${greet()}, ${esc(firstName(ME.name))}</div><h1>Твой путь в курсе</h1></div>
@@ -607,17 +713,8 @@ function vPath(){
         </div></div>`}).join('')}</div>
     </section>
     <div class="grid" style="align-content:start">
-      <section class="card">
-        <div class="eyebrow" style="margin-bottom:12px">Последний ответ куратора</div>
-        ${lastCur?`<div class="msg"><div class="msg-who"><span class="ava sm cur">К</span><b>${esc(COURSE.curator)}</b><span class="muted">${lastCur.m[2]}</span></div>
-          <div style="font-size:14px">${esc(lastCur.m[1])}</div>
-          <button class="btn ghost sm" style="justify-self:start;margin-top:6px" data-go="task" data-id="${lastCur.t.id}">К заданию «${esc(lastCur.t.title)}»</button></div>`
-          :'<p class="muted" style="margin:0">Здесь появится ответ куратора, когда ты сдашь первое задание.</p>'}
-      </section>
-      <section class="card">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><div class="eyebrow">Часов обучения в неделю · пример</div><span class="num muted" style="font-size:12px">всего ${weeks.reduce((a,w)=>a+w[1],0)} ч</span></div>
-        <div class="chart">${weeks.map(w=>`<div><em>${w[1]}</em><i style="height:${w[1]/6*100}px"></i><span>${w[0]}</span></div>`).join('')}</div>
-      </section>
+      ${todayCard()}
+      ${reviewCard()}
     </div>
   </div>`;
 }
@@ -666,32 +763,116 @@ function vTasks(){
       <span class="dl">до ${t.deadline}</span>${pill(s)}</button>`}).join(''):'<div class="card muted">В этом статусе заданий нет.</div>'}</div>`;
 }
 
+/* ---------- Обратная связь ---------- */
+let PHOTOS = [];
+const reqPill = r => r.status==='answered' ? '<span class="pill s-accepted">Есть ответ</span>' : '<span class="pill s-review">Ждёт ответа</span>';
+function photosHTML(){
+  return PHOTOS.map((p,i)=>`<div class="ph"><img src="${p}" alt="Фото ${i+1}"><button type="button" class="ph-x" data-rmph="${i}" aria-label="Убрать фото">${I.x}</button></div>`).join('')
+    + (PHOTOS.length<5 ? `<label class="ph-add" for="phIn">${I.cam}<span>Добавить</span></label>` : '');
+}
+function renderPhotos(){ const el=document.getElementById('photos'); if(el) el.innerHTML=photosHTML(); }
 function vFeedback(pre){
-  const avail = ALL_TASKS.filter(t=>taskStatus(t)!=='locked');
+  const t = ALL_TASKS.find(x=>x.id===pre);
   return `
-  <div class="head"><div><div class="eyebrow">Отвечаем в течение суток</div><h1>Обратная связь</h1></div></div>
+  <div class="head"><div><div class="eyebrow">Куратор отвечает в течение суток</div><h1>Обратная связь</h1></div></div>
   <div class="grid g-2">
     <section class="card">
-      <h2 style="margin-bottom:16px">Запросить обратную связь</h2>
-      <form id="reqForm" style="display:grid;gap:16px">
-        <div class="seg" role="radiogroup" aria-label="Тип запроса">
-          ${['Разбор задания','Вопрос по уроку','Созвон с куратором'].map((x,i)=>`<label><input type="radio" name="type" id="rt${i}" value="${x}" ${i===0?'checked':''}>${x}</label>`).join('')}
-        </div>
-        <label class="f" for="rqTask">Задание или урок
-          <select id="rqTask"><option value="">Общий вопрос</option>${avail.map(t=>`<option value="${t.id}" ${pre===t.id?'selected':''}>Этап ${t.stage+1} · ${esc(t.title)}</option>`).join('')}</select></label>
-        <label class="f" for="rqText">Что разобрать<textarea id="rqText" placeholder="Опиши, что не получается или что хочешь проверить" required></textarea></label>
+      <h2 style="margin-bottom:16px">Вопрос куратору</h2>
+      <form id="reqForm" style="display:grid;gap:18px">
+        <label class="f" for="rqText">Что разобрать<textarea id="rqText" placeholder="Опиши вопрос или что хочешь, чтобы куратор проверил">${t?esc('По заданию «'+t.title+'»: '):''}</textarea></label>
+        <div class="f"><span>Фото <span class="muted" style="font-weight:400">· до 5 штук, необязательно</span></span>
+          <div class="photos" id="photos">${photosHTML()}</div>
+          <input type="file" id="phIn" accept="image/*" multiple hidden></div>
         <button class="btn" type="submit" style="justify-self:start">Отправить куратору</button>
       </form>
     </section>
-    <section class="card">
-      <h2 style="margin-bottom:16px">Мои запросы</h2>
-      <div>${S.requests.length?S.requests.map(r=>{const t=ALL_TASKS.find(x=>x.id===r.task);
-        return `<div class="req"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><span class="eyebrow">${esc(r.type)}${t?' · '+esc(t.title):''}</span>
-          <span class="pill ${r.status==='answered'?'s-accepted':'s-review'}">${r.status==='answered'?'Есть ответ':'Ждёт ответа'}</span></div>
-          <div class="msg-who"><span class="ava sm">${esc(initials(ME.name))}</span><span style="font-size:14px">${esc(r.text)}</span></div>
-          ${r.reply?`<div class="msg"><div class="msg-who"><span class="ava sm cur">К</span><b>${esc(COURSE.curator)}</b></div><div style="font-size:14px">${esc(r.reply)}</div></div>`:''}
-          <span class="muted num" style="font-size:12px">${r.date}</span></div>`}).join(''):'<p class="muted" style="margin:0">Запросов пока нет. Отправь первый слева.</p>'}</div>
+    <section class="card" style="display:grid;gap:16px;align-content:start">
+      <h2>Мои запросы</h2>
+      ${S.requests.length?`<div class="reqlist">${S.requests.map(r=>`<button class="reqrow" data-req="${r.id}">
+        <div class="rq-top"><b>Запрос №${r.num}</b>${reqPill(r)}</div>
+        <span class="rq-text">${esc(r.text)}</span>
+        <span class="rq-meta muted"><span class="num">${esc(r.date)}</span>${r.photos&&r.photos.length?` · ${I.img}${r.photos.length} фото`:''}</span>
+      </button>`).join('')}</div>`:'<p class="muted" style="margin:0">Запросов пока нет. Задай первый вопрос слева.</p>'}
     </section>
+  </div>`;
+}
+function openRequest(id){
+  const r = S.requests.find(x=>String(x.id)===String(id)); if(!r) return;
+  const ov = document.getElementById('overlay');
+  ov.innerHTML = `<div class="scrim" data-close></div>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="rTitle">
+    <div class="d-head"><div style="display:grid;gap:8px"><span class="eyebrow">Отправлен ${esc(r.date)}</span><h2 id="rTitle">Запрос №${r.num}</h2><div>${reqPill(r)}</div></div>
+      <button class="x" data-close aria-label="Закрыть">${I.x}</button></div>
+    <div class="d-body">
+      <div style="display:grid;gap:10px"><div class="eyebrow">Твой вопрос</div>
+        <div class="msg"><div class="msg-who"><span class="ava sm">${esc(initials(ME.name))}</span><b>Ты</b></div><div style="font-size:14px;white-space:pre-wrap">${esc(r.text)}</div></div>
+        ${r.photos&&r.photos.length?`<div class="ph-grid">${r.photos.map((p,i)=>`<img src="${p}" alt="Фото ${i+1} к запросу">`).join('')}</div>`:''}
+      </div>
+      <div style="display:grid;gap:10px"><div class="eyebrow">Ответ куратора</div>
+        ${r.reply?`<div class="msg answer"><div class="msg-who"><span class="ava sm cur">К</span><b>${esc(COURSE.curator)}</b>${r.replyDate?`<span class="muted">${esc(r.replyDate)}</span>`:''}</div><div style="font-size:14px;white-space:pre-wrap">${esc(r.reply)}</div></div>`
+          :'<p class="muted" style="margin:0">Куратор ещё не ответил. Обычно ответ приходит в течение суток, он появится здесь.</p>'}
+      </div>
+    </div>
+    <div class="d-foot"><button class="btn line" data-close>Закрыть</button></div>
+  </aside>`;
+  ov.hidden = false; ov.querySelector('.x').focus();
+}
+function compress(file){ return new Promise((res,rej)=>{ const fr=new FileReader(); fr.onerror=rej;
+  fr.onload=()=>{ const img=new Image(); img.onerror=rej; img.onload=()=>{ const k=Math.min(1,1000/Math.max(img.width,img.height));
+    const c=document.createElement('canvas'); c.width=Math.round(img.width*k); c.height=Math.round(img.height*k);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height); res(c.toDataURL('image/jpeg',.78)); }; img.src=fr.result; };
+  fr.readAsDataURL(file); }); }
+
+/* ---------- Дневник: задача утром, отчёт вечером, ИИ-разбор в воскресенье ---------- */
+let EDIT = {plan:false, report:false};
+function todayCard(){
+  const now=new Date(), k=dkey(now), j=S.journal[k]||{}, mon=monday(now), st=streak();
+  const days=[...Array(7)].map((_,i)=>{ const d=addDays(mon,i), kk=dkey(d), s=dayState(kk), fut=kk>k;
+    return `<div class="wd ${s} ${kk===k?'today':''} ${fut?'fut':''}" title="${cap(fmtDay(d))}"><span>${WD[i]}</span><i>${s==='full'?I.check:''}</i></div>`; }).join('');
+  const stepPlan = j.plan && !EDIT.plan
+    ? `<p class="step-t">${esc(j.plan)}</p><button class="linkbtn" data-edit="plan">Изменить</button>`
+    : `<textarea id="planIn" placeholder="Например: досмотреть урок про тарифы и посчитать 3 тарифа для эксперта">${esc(j.plan||'')}</textarea><button class="btn sm" data-save="plan" style="justify-self:start">Сохранить задачу</button>`;
+  const stepRep = !j.plan
+    ? `<p class="muted" style="margin:0;font-size:13px">Откроется, когда поставишь задачу на день.</p>`
+    : j.report && !EDIT.report
+      ? `<p class="step-t">${esc(j.report)}</p><button class="linkbtn" data-edit="report">Изменить</button>`
+      : `<textarea id="repIn" placeholder="Что сделал, какой результат в цифрах, что помешало">${esc(j.report||'')}</textarea><button class="btn sm" data-save="report" style="justify-self:start">Отправить отчёт</button>`;
+  return `<section class="card today">
+    <div class="today-top"><div><div class="eyebrow">Сегодня</div><h2>${cap(fmtDay(now))}</h2></div>
+      ${st?`<span class="streak num">${st} ${plural(st,['день','дня','дней'])} подряд</span>`:''}</div>
+    <div class="week">${days}</div>
+    <div class="step ${j.plan?'is-done':''}"><div class="step-h"><span class="step-n">${j.plan?I.check:'1'}</span><div><b>Задача на день</b><small>Утром: что сделаешь сегодня</small></div>${j.planAt?`<span class="muted num step-time">${j.planAt}</span>`:''}</div>${stepPlan}</div>
+    <div class="step ${j.report?'is-done':''} ${!j.plan?'is-locked':''}"><div class="step-h"><span class="step-n">${j.report?I.check:'2'}</span><div><b>Отчёт за день</b><small>Вечером: что получилось</small></div>${j.reportAt?`<span class="muted num step-time">${j.reportAt}</span>`:''}</div>${stepRep}</div>
+  </section>`;
+}
+function reviewHTML(r){
+  return `<p style="margin:0">${esc(r.summary)}</p>
+    <div class="rv-cols"><div><div class="eyebrow">Получилось</div><ul class="rv">${r.wins.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div><div class="eyebrow">Фокус на неделю</div><ul class="rv focus">${r.focus.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div>`;
+}
+function reviewCard(){
+  const r=S.reviews[0], ns=nextSunday(), nsTxt = dkey(ns)===dkey(new Date()) ? 'сегодня вечером' : 'в воскресенье, '+fmtShort(ns);
+  return `<section class="card review">
+    <div class="today-top"><div><div class="eyebrow">Итоги недели · ИИ-разбор</div><h2>${r?esc(r.week):'Первый разбор скоро'}</h2></div>${r?`<span class="pill s-todo">${esc(r.done)}</span>`:''}</div>
+    ${r?reviewHTML(r):`<p class="muted" style="margin:0">Каждое воскресенье ИИ читает твои задачи и отчёты за неделю и пишет разбор: что получилось и на чём сфокусироваться дальше.</p>`}
+    <div class="rv-foot"><span class="muted" style="font-size:13px">Следующий разбор ${nsTxt}</span><a class="btn ghost sm" href="#journal">Открыть дневник</a></div>
+  </section>`;
+}
+function vJournal(){
+  const now=new Date(), keys=Object.keys(S.journal).sort(), first=keys[0]||dkey(now), rows=[];
+  for(let i=0;i<14;i++){ const d=addDays(now,-i), k=dkey(d); if(k<first && i>0) break;
+    const j=S.journal[k], s=dayState(k);
+    const p = s==='full'?'<span class="pill s-accepted">Отчёт сдан</span>' : s==='half'?`<span class="pill s-review">${i===0?'Ждёт отчёта':'Без отчёта'}</span>` : i===0?'<span class="pill s-locked">Пока пусто</span>':'<span class="pill s-rework">Пропуск</span>';
+    rows.push(`<div class="jday"><div class="jday-h"><b>${cap(fmtDay(d))}</b>${p}</div>
+      ${j&&j.plan?`<div class="jrow"><span>Задача</span><span>${esc(j.plan)}</span></div>`:''}
+      ${j&&j.report?`<div class="jrow"><span>Отчёт</span><span>${esc(j.report)}</span></div>`:''}</div>`); }
+  return `
+  <div class="head"><div><div class="eyebrow">Задача утром · отчёт вечером · разбор в воскресенье</div><h1>Дневник</h1></div></div>
+  <div class="grid g-2">
+    <section class="card"><h2 style="margin-bottom:18px">Последние дни</h2>${rows.join('')}</section>
+    <div class="grid" style="align-content:start">${todayCard()}
+      ${S.reviews.length?S.reviews.map((r,i)=>`<section class="card review"><div class="today-top"><div><div class="eyebrow">${i===0?'Последний разбор':'Разбор'} · ИИ</div><h2>${esc(r.week)}</h2></div><span class="pill s-todo">${esc(r.done)}</span></div>${reviewHTML(r)}</section>`).join(''):reviewCard()}
+    </div>
   </div>`;
 }
 
@@ -791,7 +972,7 @@ function haptic(kind){
     if(navigator.vibrate) navigator.vibrate(kind==='success'?[12,50,18]:kind==='error'||kind==='warning'?[24,60,24]:kind==='select'?6:10);
   }catch(e){}
 }
-const TAP_SEL = '.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.seg label,.x,.mat,.mod summary,.screen button';
+const TAP_SEL = '.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.x,.mat,.mod summary,.screen button,.reqrow,.ph-add,.linkbtn';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 document.addEventListener('pointerdown',e=>{
   const el = e.target.closest(TAP_SEL); if(!el || el.disabled) return;
@@ -808,7 +989,7 @@ let PRE='', JUST='';
 function show(id){ ['scrLogin','scrName','scrApp','scrAdminLogin','scrAdmin'].forEach(s=>document.getElementById(s).hidden = s!==id); }
 function renderApp(){
   const v = (location.hash||'#path').slice(1);
-  const views = {path:vPath, lessons:vLessons, tasks:vTasks, feedback:()=>vFeedback(PRE)};
+  const views = {path:vPath, lessons:vLessons, tasks:vTasks, journal:vJournal, feedback:()=>vFeedback(PRE)};
   const key = views[v]?v:'path';
   document.getElementById('main').innerHTML = `<div class="view">${views[key]()}</div>`;
   PRE=''; JUST='';
@@ -863,8 +1044,15 @@ document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
 });
 
 document.addEventListener('click',async e=>{
-  const el = e.target.closest('[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut');
+  const el = e.target.closest('[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-save],[data-edit],[data-req],[data-rmph]');
   if(!el) return;
+  if(el.dataset.req){ openRequest(el.dataset.req); return; }
+  if(el.dataset.rmph){ PHOTOS.splice(+el.dataset.rmph,1); renderPhotos(); return; }
+  if(el.dataset.edit){ EDIT[el.dataset.edit]=true; renderApp(); const t=document.getElementById(el.dataset.edit==='plan'?'planIn':'repIn'); if(t){ t.focus(); t.setSelectionRange(t.value.length,t.value.length); } return; }
+  if(el.dataset.save){ const f=el.dataset.save, inp=document.getElementById(f==='plan'?'planIn':'repIn'), v=inp.value.trim(), k=dkey(new Date());
+    if(!v){ inp.focus(); haptic('warning'); return; }
+    const j=S.journal[k]||(S.journal[k]={}); j[f]=v; if(!j[f+'At']) j[f+'At']=hm(); EDIT[f]=false; save(); renderApp(); haptic('success');
+    toast(f==='plan'?'Задача на день сохранена':'Отчёт за день отправлен'); return; }
   if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; route(); return; }
   if(el.dataset.copy){ const n=document.getElementById(el.dataset.copy); copyText(n.textContent,n); return; }
   if(el.dataset.copyinv){ const s=ADM.students.find(x=>x.code===el.dataset.copyinv); copyText(inviteText(s)); return; }
@@ -884,9 +1072,11 @@ document.addEventListener('click',async e=>{
 });
 document.addEventListener('submit',async e=>{
   if(e.target.id==='reqForm'){ e.preventDefault();
-    const text=document.getElementById('rqText').value.trim(); if(!text) return;
-    S.requests.unshift({id:Date.now(),type:e.target.querySelector('input[name=type]:checked').value,task:document.getElementById('rqTask').value,text,date:today(),status:'waiting'});
-    save(); renderApp(); haptic('success'); toast('Запрос отправлен куратору'); }
+    const ta=document.getElementById('rqText'), text=ta.value.trim(); if(!text){ ta.focus(); haptic('warning'); return; }
+    const num=S.requests.reduce((m,r)=>Math.max(m,r.num||0),0)+1;
+    S.requests.unshift({id:Date.now(),num,text,photos:PHOTOS.slice(),date:today(),status:'waiting'});
+    if(!save()){ S.requests.shift(); toast('Фото слишком тяжёлые, убери одно-два и отправь ещё раз'); haptic('error'); return; }
+    PHOTOS=[]; renderApp(); haptic('success'); toast('Запрос №'+num+' отправлен куратору'); }
   if(e.target.id==='issueForm'){ e.preventDefault();
     let tg=document.getElementById('isTg').value.trim(); if(!tg) return; if(!tg.startsWith('@')) tg='@'+tg;
     const r=await API.create(ADMIN_KEY,{tg,note:document.getElementById('isNote').value.trim()});
@@ -894,10 +1084,15 @@ document.addEventListener('submit',async e=>{
     ADM.issued=r.student; haptic('success'); toast('Код создан'); adminLoad(); }
 });
 document.addEventListener('input',e=>{ if(e.target.id==='admQ'){ ADM.q=e.target.value; const p=e.target.selectionStart; renderAdmin(); const n=document.getElementById('admQ'); n.focus(); n.setSelectionRange(p,p); } });
+document.addEventListener('change',async e=>{
+  if(e.target.id!=='phIn') return;
+  const files=[...e.target.files].slice(0,5-PHOTOS.length);
+  for(const f of files){ try{ PHOTOS.push(await compress(f)); }catch(_){ toast('Не получилось открыть одно из фото'); } }
+  e.target.value=''; renderPhotos(); haptic('light');
+});
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); });
 
 /* ================= СТАРТ ================= */
-const plural=(n,f)=>{const a=n%100,b=n%10;return a>10&&a<20?f[2]:b===1?f[0]:b>1&&b<5?f[1]:f[2]};
 document.querySelectorAll('.js-st').forEach(e=>e.textContent=COURSE.stages.length);
 document.querySelectorAll('.js-st-l').forEach(e=>e.textContent=plural(COURSE.stages.length,['этап','этапа','этапов'])+' обучения');
 document.querySelectorAll('.js-ls').forEach(e=>e.textContent=ALL_LESSONS.length);
