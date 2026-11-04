@@ -74,6 +74,24 @@ h1.sm{font-size:41px;letter-spacing:-.05em}
 .or{font:700 13px/1 'Inter',sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .note{margin-top:10px;font-size:13px;color:var(--muted)}
 
+
+/* термины */
+.thead{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.thead h1{font-size:52px}
+.thead .grp{display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}
+.thead .grp b{font:800 22px/1.1 'Inter',sans-serif;letter-spacing:-.02em;color:var(--blue)}
+.tgrid{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr 1fr;gap:14px}
+.term{display:flex;flex-direction:column;gap:10px}
+.term .tt{display:flex;align-items:center;gap:10px}
+.term .tn{flex:none;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--soft);color:var(--blue);font:800 13px/1 'Inter',sans-serif}
+.term h3{font-size:24px;letter-spacing:-.03em}
+.term .ab{align-self:flex-start;font:700 11px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--fill);color:var(--muted)}
+.card.term p{margin-top:2px;font-size:18px;line-height:1.45}
+.card.term{padding:22px}
+.tdots{display:flex;gap:6px}
+.tdots b{width:22px;height:6px;border-radius:6px;background:#DCE3EE}
+.tdots b.on{background:var(--blue);box-shadow:0 0 10px rgba(76,134,255,.7)}
+
 /* обзор */
 .hero{position:relative;display:flex;flex-direction:column;gap:18px;margin-top:auto}
 .hero h1{font-size:62px;max-width:1040px}
@@ -215,10 +233,58 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
     <p class="lead a" style="--d:2">Пошаговый план по финансовой вертикали: от первых офферов до своей команды.</p>
   </div>
   <div class="road">
-    <div class="st a" style="--d:4" data-go="1"><span class="n">1</span><h3>Получение базы</h3><p>Офферы, целевые действия и как устроены процессы</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:5" data-go="2"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:6" data-go="3"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st last ring a" style="--d:7" data-go="4"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
+    <div class="st a" style="--d:4" data-go="4"><span class="n">1</span><h3>Получение базы</h3><p>Офферы, целевые действия и как устроены процессы</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st a" style="--d:5" data-go="5"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st a" style="--d:6" data-go="6"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st last ring a" style="--d:7" data-go="7"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
+  </div>
+</section>
+
+<!-- термины 1 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Термины · 1 из 3</span><div class="tdots"><b class="on"></b><b class=""></b><b class=""></b></div></div>
+  <div class="thead"><h1 class="a" style="--d:1">Основные термины в&nbsp;финках</h1><div class="grp a" style="--d:2"><span class="label">Блок 1</span><b>Кто участвует</b></div></div>
+  <div class="tgrid">
+<div class="card term a" style="--d:2"><div class="tt"><span class="tn">01</span><h3>Оффер</h3></div><p>Продукт или предложение, с которым ведётся работа.</p></div>
+<div class="card term a" style="--d:3"><div class="tt"><span class="tn">02</span><h3>Рекламодатель</h3></div><span class="ab">рекл</span><p>Компания или человек, который оплачивает трафик.</p></div>
+<div class="card term a" style="--d:4"><div class="tt"><span class="tn">03</span><h3>ПП</h3></div><span class="ab">партнёрская программа</span><p>Посредник между вебмастером и рекламодателем.</p></div>
+<div class="card term a" style="--d:5"><div class="tt"><span class="tn">04</span><h3>Вебмастеры</h3></div><span class="ab">арбитражники</span><p>Специалисты, которые занимаются привлечением трафика.</p></div>
+<div class="card term a" style="--d:6"><div class="tt"><span class="tn">05</span><h3>Карточка оффера</h3></div><p>Страница с подробной информацией об оффере.</p></div>
+<div class="card term a" style="--d:7"><div class="tt"><span class="tn">06</span><h3>Гео</h3></div><p>Страна или регион, на который ориентирован оффер.</p></div>
+<div class="card term a" style="--d:8"><div class="tt"><span class="tn">07</span><h3>Креатив</h3></div><span class="ab">крео</span><p>Рекламный материал: картинка, видео, гиф и т. д. Нужен, чтобы привлечь внимание.</p></div>
+<div class="card term a" style="--d:9"><div class="tt"><span class="tn">08</span><h3>Витрина</h3></div><span class="ab">лендинг</span><p>Одностраничный сайт с размещёнными ссылками или предложениями.</p></div>
+  </div>
+</section>
+
+<!-- термины 2 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Термины · 2 из 3</span><div class="tdots"><b class=""></b><b class="on"></b><b class=""></b></div></div>
+  <div class="thead"><h1 class="a" style="--d:1">Основные термины в&nbsp;финках</h1><div class="grp a" style="--d:2"><span class="label">Блок 2</span><b>Путь человека</b></div></div>
+  <div class="tgrid">
+<div class="card term a" style="--d:2"><div class="tt"><span class="tn">09</span><h3>Клики</h3></div><p>Переходы пользователей по рекламным ссылкам.</p></div>
+<div class="card term a" style="--d:3"><div class="tt"><span class="tn">10</span><h3>Referrer</h3></div><span class="ab">реферер</span><p>Источник, с которого пользователь перешёл на сайт.</p></div>
+<div class="card term a" style="--d:4"><div class="tt"><span class="tn">11</span><h3>Воронка</h3></div><p>Путь пользователя от первого контакта до выполнения целевого действия.</p></div>
+<div class="card term a" style="--d:5"><div class="tt"><span class="tn">12</span><h3>Лид</h3></div><p>Человек, который совершил нужное действие: оформил продукт или оставил заявку.</p></div>
+<div class="card term a" style="--d:6"><div class="tt"><span class="tn">13</span><h3>ЦД</h3></div><span class="ab">целевое действие</span><p>Действие, за которое начисляется вознаграждение.</p></div>
+<div class="card term a" style="--d:7"><div class="tt"><span class="tn">14</span><h3>Апрув</h3></div><p>Подтверждение заявки или действия.</p></div>
+<div class="card term a" style="--d:8"><div class="tt"><span class="tn">15</span><h3>Холд</h3></div><p>Период проверки качества трафика перед выплатой.</p></div>
+<div class="card term a" style="--d:9"><div class="tt"><span class="tn">16</span><h3>Сверки</h3></div><p>Проверка данных между партнёркой и рекламодателем.</p></div>
+  </div>
+</section>
+
+<!-- термины 3 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Термины · 3 из 3</span><div class="tdots"><b class=""></b><b class=""></b><b class="on"></b></div></div>
+  <div class="thead"><h1 class="a" style="--d:1">Основные термины в&nbsp;финках</h1><div class="grp a" style="--d:2"><span class="label">Блок 3</span><b>Метрики и риски</b></div></div>
+  <div class="tgrid">
+<div class="card term a" style="--d:2"><div class="tt"><span class="tn">17</span><h3>CR</h3></div><span class="ab">Conversion Rate</span><p>Процент пользователей, совершивших ЦД, от общего числа переходов.</p></div>
+<div class="card term a" style="--d:3"><div class="tt"><span class="tn">18</span><h3>EPC</h3></div><span class="ab">Earnings per Click</span><p>Средний заработок с одного клика.</p></div>
+<div class="card term a" style="--d:4"><div class="tt"><span class="tn">19</span><h3>EPL</h3></div><span class="ab">Earnings per Lead</span><p>Средний доход с одного лида.</p></div>
+<div class="card term a" style="--d:5"><div class="tt"><span class="tn">20</span><h3>AR</h3></div><span class="ab">Approval Rate</span><p>Процент подтверждённых заявок от общего количества.</p></div>
+<div class="card term a" style="--d:6"><div class="tt"><span class="tn">21</span><h3>Антифрод</h3></div><p>Система, которая отслеживает и блокирует подозрительный или некачественный трафик.</p></div>
+<div class="card term a" style="--d:7"><div class="tt"><span class="tn">22</span><h3>Фрод</h3></div><p>Запрещённый или некачественный трафик.</p></div>
+<div class="card term a" style="--d:8"><div class="tt"><span class="tn">23</span><h3>Фейки</h3></div><p>Искусственно созданные заявки для имитации активности.</p></div>
+<div class="card term a" style="--d:9"><div class="tt"><span class="tn">24</span><h3>Срез</h3></div><p>Отклонение заявок или списание средств.</p></div>
   </div>
 </section>
 
@@ -391,7 +457,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
     else if(k==='Home')go(0);else if(k==='End')go(slides.length-1);
     else if(k==='f'||k==='F'||k==='а'||k==='А')toggleFull();
     else if(k==='h'||k==='H'||k==='р'||k==='Р'){nav.classList.toggle('hide');tip.classList.toggle('hide');document.getElementById('mhint').classList.add('hide');bar.hidden=!bar.hidden}
-    else if(/^[1-6]$/.test(k))go(+k-1);
+    else if(/^[1-9]$/.test(k))go(+k-1);
   });
 
   // клик по краям экрана и свайп
