@@ -113,7 +113,7 @@ h1.sm{font-size:41px;letter-spacing:-.05em}
 
 /* банки */
 .banks{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.bank{display:flex;flex-direction:column;gap:16px;padding:24px}
+.bank{display:flex;flex-direction:column;gap:12px;padding:22px}
 .bank .bh{display:flex;align-items:center;gap:14px}
 .bank .lt{flex:none;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--grad);color:#fff;font:800 26px/1 'Inter',sans-serif;box-shadow:0 6px 14px rgba(29,92,255,.26),inset 0 1px 0 rgba(255,255,255,.35);animation:neon 3.4s ease-in-out infinite}
 .bank h3{font-size:30px;letter-spacing:-.035em}
@@ -121,7 +121,7 @@ h1.sm{font-size:41px;letter-spacing:-.05em}
 .bank .pay .label{display:block}
 .bank .pay b{display:block;margin-top:10px;font:800 40px/1 'Inter',sans-serif;letter-spacing:-.04em;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
 .bank .rows{display:flex;flex-direction:column;gap:8px}
-.bank .rows span{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:var(--fill);font-size:16px;color:var(--muted)}
+.bank .rows span{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:var(--fill);font-size:16px;color:var(--muted)}
 .bank .rows span b{color:var(--ink);font-weight:700;white-space:nowrap}
 .bank .age{display:inline-flex;padding:5px 10px;border-radius:999px;background:var(--ink);color:#fff;font:800 14px/1 'Inter',sans-serif}
 .bank .rows span b.age{color:#fff}
@@ -130,6 +130,33 @@ h1.sm{font-size:41px;letter-spacing:-.05em}
 .bank .age.hot{background:var(--blue);box-shadow:0 0 14px rgba(76,134,255,.75)}
 .bnote{position:relative;display:flex;align-items:center;gap:12px;font-size:15px;color:var(--muted)}
 .bnote svg{flex:none;width:18px;height:18px;fill:none;stroke:var(--blue);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+
+/* альфа only */
+.bnd.nogo{cursor:default}
+.bank .more{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:12px;background:var(--blue);color:#fff;font:700 15px/1 'Inter',sans-serif;cursor:pointer;box-shadow:0 0 0 0 rgba(76,134,255,.6);animation:pulse 2.4s ease-out infinite}
+.bank .more svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease)}
+.bank .more:hover svg{transform:translateX(4px)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(76,134,255,.55)}70%{box-shadow:0 0 0 12px rgba(76,134,255,0)}100%{box-shadow:0 0 0 0 rgba(76,134,255,0)}}
+.ao{display:flex;flex-direction:column;gap:14px}
+.ao p{margin-top:0}
+.ao .tag2{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;font:800 13px/1 'Inter',sans-serif}
+.ao .tag2.open{background:var(--soft);color:var(--blue)}
+.ao .tag2.lock{background:var(--ink);color:#fff}
+.ao .tag2 svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ao h3{font-size:22px}
+.ao .big{font:800 34px/1.05 'Inter',sans-serif;letter-spacing:-.04em;color:var(--blue)}
+.ao.locked{overflow:hidden}
+.blur{position:relative;display:flex;flex-direction:column;gap:10px;margin-top:auto;padding:16px;border-radius:14px;background:var(--fill);overflow:hidden}
+.blur i{display:block;height:11px;border-radius:6px;background:#CBD6E8;filter:blur(3px)}
+.blur i:nth-child(1){width:92%}.blur i:nth-child(2){width:78%}.blur i:nth-child(3){width:85%}.blur i:nth-child(4){width:60%}
+.blur::after{content:"";position:absolute;top:0;bottom:0;width:45%;left:-50%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);animation:scan 2.6s ease-in-out infinite}
+@keyframes scan{to{left:120%}}
+.blur .lk{position:absolute;inset:0;display:grid;place-items:center;z-index:1}
+.blur .lk span{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font:700 14px/1 'Inter',sans-serif;color:var(--ink);box-shadow:0 0 18px rgba(76,134,255,.35)}
+.blur .lk svg{width:15px;height:15px;fill:none;stroke:var(--blue);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ao.wide .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.ao.wide .row2 .blur{margin-top:0}
 
 /* обзор */
 .hero{position:relative;display:flex;flex-direction:column;gap:18px;margin-top:auto}
@@ -273,7 +300,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
   </div>
   <div class="road">
     <div class="st a" style="--d:4" data-go="4"><span class="n">1</span><h3>Получение базы</h3><p>Офферы, целевые действия и как устроены процессы</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:5" data-go="6"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st a" style="--d:5" data-go="7"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
     <div class="st a" style="--d:6" data-go="10"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
     <div class="st last ring a" style="--d:7" data-go="11"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
   </div>
@@ -354,8 +381,8 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
   <div class="thead"><h1 class="a" style="--d:1">Какие банки крутим сейчас</h1><div class="grp a" style="--d:2"><span class="label">Актуальные офферы</span><b>3 банка</b></div></div>
   <div class="banks">
 <div class="card bank a" style="--d:3"><div class="bh"><span class="lt">А</span><h3>Альфа</h3></div>
-      <div class="pay"><span class="label">Выплата за клиента</span><b><span data-count="2000">2 000</span>–<span data-count="4000">4 000</span> ₽</b></div>
-      <div class="rows"><span>Целевое действие<b>покупка на 1 ₽</b></span><span>Ставка<b>с Альфа Only</b></span><span>Возраст клиента<b class="age hot">14+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>13–25 ЦД</b></div></div>
+      <div class="pay"><span class="label">Выплата с Альфа Only</span><b><span data-count="2000">2 000</span>–<span data-count="4000">4 000</span> ₽</b></div>
+      <div class="rows"><span>Целевое действие<b>покупка на 1 ₽</b></span><span>Возраст клиента<b class="age hot">14+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>13–25 ЦД</b></div><span class="more" data-go="6">Как получить Альфа Only <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
 <div class="card bank a" style="--d:4"><div class="bh"><span class="lt">В</span><h3>ВТБ</h3></div>
       <div class="pay"><span class="label">Выплата за клиента</span><b><span data-count="2000">2 000</span> ₽</b></div>
       <div class="rows"><span>Целевое действие<b>покупка на 500 ₽</b></span><span>Возраст клиента<b class="age">18+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>25 ЦД</b></div></div>
@@ -364,6 +391,24 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
       <div class="rows"><span>Целевое действие<b>покупка на 150 ₽</b></span><span>Возраст клиента<b class="age">18+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>29 ЦД</b></div></div>
   </div>
   <p class="bnote a" style="--d:6"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Ставки и условия меняются. Перед запуском сверяй их в своей партнёрке.</p>
+</section>
+
+<!-- альфа only -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Этап 1 · Альфа подробнее</span><div class="dots"><b class="on"></b><b></b><b></b><b></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></div>
+      <h1 class="a" style="--d:1">Альфа Only</h1>
+      <p class="lead a" style="--d:2">Ставка по Альфе 2 000–4 000 ₽ идёт с подключённым Альфа Only. Разбираем, как клиенту его получить.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Что даёт</div><p>Максимальная выплата по Альфе, до 4 000 ₽ за клиента</p></div>
+    </div>
+    <div class="grid">
+      <div class="card ao a" style="--d:2"><span class="tag2 open"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Клиенту есть 18</span><h3>Подключает сам</h3><div class="big">2 клика</div><p>Альфа Only подключается прямо в личном кабинете Альфы. Клиент делает это сам, буквально за 2 клика.</p></div>
+      <div class="card ao locked a" style="--d:3"><span class="tag2 lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Клиенту 14–17</span><h3>Мой авторский способ</h3><p>Работает для клиентов младше 18 лет. Раскрываю только своим ученикам.</p><div class="blur"><i></i><i></i><i></i><i></i><div class="lk"><span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Только для учеников</span></div></div></div>
+      <div class="card ao wide locked a" style="--d:4"><span class="tag2 lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Экономия 3 000 ₽ в месяц</span><div class="row2"><div><h3>Как не платить за Альфа Only</h3><p style="margin-top:10px">Есть легальный способ возвращать деньги за подписку и не отдавать по 3 000 ₽ каждый месяц. Показываю на обучении.</p></div><div class="blur"><i></i><i></i><i></i><i></i><div class="lk"><span><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Только для учеников</span></div></div></div></div>
+    </div>
+  </div>
 </section>
 
 <!-- 2. Связка -->
@@ -377,8 +422,8 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
       <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Одна связка, которая стабильно приводит лидов в плюс</p></div>
     </div>
     <div class="grid g3">
-<div class="card bnd a" style="--d:2" data-go="7"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span><h3>Сарафанка</h3></div><p>Предлагаешь знакомым оформить продукт и делишься с ними частью выплаты.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>1 неделя</b></span><span>Масштаб<b>небольшой</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-<div class="card bnd a" style="--d:3" data-go="8"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></span><h3>Органика в Threads</h3></div><p>Бесплатно набираешь охваты постами и ведёшь людей в бот или личку.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>2–4 недели</b></span><span>Масштаб<b>средний</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:2" data-go="8"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span><h3>Сарафанка</h3></div><p>Предлагаешь знакомым оформить продукт и делишься с ними частью выплаты.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>1 неделя</b></span><span>Масштаб<b>небольшой</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd nogo a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></span><h3>Органика в Threads</h3></div><p>Бесплатно набираешь охваты постами и ведёшь людей в бот или личку.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>2–4 недели</b></span><span>Масштаб<b>средний</b></span></div></div>
 <div class="card bnd a" style="--d:4" data-go="9"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></span><h3>Закуп у блогеров</h3></div><p>Покупаешь рекламу у блогеров, у которых сидит твоя аудитория.</p><div class="kv"><span>Вложения<b>на тесты</b></span><span>Первые деньги<b>1–2 недели</b></span><span>Масштаб<b>высокий</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
 <div class="card wide a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><h3>С чего начать</h3></div><p>Нет денег и аудитории: начинай с сарафанки. Параллельно веди Threads, он раскачивается не сразу. Появились первые выплаты: заходи в закуп у блогеров и масштабируйся.</p></div>
     </div>
@@ -398,23 +443,6 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
     <div class="grid">
       <div class="card a" style="--d:2"><div class="hd"><span class="sn">1</span><h3>Составь список</h3></div><p>Друзья, родственники, одноклассники, коллеги. Все, у кого ещё нет нужной карты или продукта.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="sn">2</span><h3>Выбери простой оффер</h3></div><p>Карта с бесплатным обслуживанием и понятным ЦД: оформил, получил, сделал покупку.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="sn">3</span><h3>Предложи честно</h3></div><p>«Оформи карту по моей ссылке, сделай покупку, я переведу тебе 500 ₽». Перед этим проверь, что оффер разрешает делиться выплатой.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="sn">4</span><h3>Попроси передать дальше</h3></div><p>Кто получил деньги, зовёт своих знакомых. Так круг расширяется без твоего участия.</p></div>
       <div class="card wide a" style="--d:6"><div class="pc"><div><span class="label">Плюсы</span><p>0 ₽ вложений, высокая конверсия, деньги уже в первую неделю.</p></div><div class="minus"><span class="label">Минусы</span><p>Круг знакомых быстро заканчивается, дальше нужен второй канал.</p></div></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- связка 2 -->
-<section class="slide">
-  <div class="top a"><span class="pill"><i></i>Связка 2 из 3</span><div class="dots"><b class="on"></b><b class="on"></b><b></b><b></b></div></div>
-  <div class="body">
-    <div class="side">
-      <div class="num a"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></div>
-      <h1 class=" a" style="--d:1">Органика в&nbsp;Threads</h1>
-      <p class="lead a" style="--d:2">Ведёшь аккаунт в Threads и бесплатно набираешь охваты. Люди сами приходят к тебе за ссылкой.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Что даёт</div><p>Свой поток лидов без бюджета на рекламу</p></div>
-    </div>
-    <div class="grid">
-      <div class="card a" style="--d:2"><div class="hd"><span class="sn">1</span><h3>Упакуй профиль</h3></div><p>Аватар, имя и описание: про что аккаунт и какую выгоду тут можно найти. В шапке ссылка на бот или канал.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="sn">2</span><h3>Пиши каждый день</h3></div><p>3–5 коротких постов: подборки карт, кэшбэк, лайфхаки с банками, личный опыт. В конце вопрос для комментариев.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="sn">3</span><h3>Веди в бот или личку</h3></div><p>Не ставь ссылку в каждый пост. Предлагай написать слово в комментариях или забрать подборку в боте.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="sn">4</span><h3>Смотри цифры</h3></div><p>Какие посты дают охваты и заявки, такие и повторяй. Остальные форматы убирай.</p></div>
-      <div class="card wide a" style="--d:6"><div class="pc"><div><span class="label">Плюсы</span><p>Бесплатно, аккаунт растёт и копит аудиторию, которая потом покупает снова.</p></div><div class="minus"><span class="label">Минусы</span><p>Первые результаты через 2–4 недели, без регулярности не работает.</p></div></div></div>
     </div>
   </div>
 </section>
