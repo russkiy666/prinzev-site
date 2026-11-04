@@ -508,7 +508,7 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
       <div class="chap" id="chap" aria-label="Тайм-коды урока"><div class="chap-in" id="chap-in"></div></div>
     </section>
     <div class="actions">
-      <a class="btn primary" href="#consult" data-go="3"><span>Получить урок 🎁</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn primary" href="#consult" data-go="3"><span>Получить подарок 🎁</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 </main>
@@ -629,8 +629,8 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 /* SRC — метка воронки (для будущей отдельной таблицы MARK) */
 var SRC = "mark";
 /* VIDEO_URL — ссылка на mp4 видеоурока, VIDEO_POSTER — обложка. Пока пусто: в плеере заглушка */
-var VIDEO_URL = "media/lesson.mp4?v=1";
-var VIDEO_POSTER = "media/poster.jpg?v=1";
+var VIDEO_URL = "media/lesson.mp4?v=2";
+var VIDEO_POSTER = "media/poster.jpg?v=2";
 var SHEET_URL = "";   /* отдельный скрипт для MARK пока не подключён — никаких связей с другими ботами */
 
 /* ===== Telegram Mini App: если сайт открыт внутри Telegram ===== */
@@ -971,16 +971,16 @@ var goStage = (function(){
   /* ----- тайм-коды: окно из трёх строк, которое едет вместе с просмотром ----- */
   var CH = [   /* тайм-коды видео: [секунда, "название"] — заполнить, когда будет видео */
     [0, "Вступление"],
-    [30, "Основные термины в финках"],
-    [81, "Этап 1: Получение базы"],
-    [127, "Какие банки крутим сейчас"],
-    [187, "Альфа Only: как получать выплаты"],
-    [207, "Этап 2: Выбор связки"],
-    [243, "Связка: Сарафанка"],
-    [348, "Связка: Закуп у блогеров"],
-    [435, "Этап 3: Обработка лидов"],
-    [546, "Этап 4: Масштабирование"],
-    [640, "Итог: путь до 50–70 тысяч в месяц"]
+    [26, "Основные термины в финках"],
+    [77, "Этап 1: Получение базы"],
+    [123, "Какие банки крутим сейчас"],
+    [183, "Альфа Only: как получать выплаты"],
+    [203, "Этап 2: Выбор связки"],
+    [239, "Связка: Сарафанка"],
+    [344, "Связка: Закуп у блогеров"],
+    [431, "Этап 3: Обработка лидов"],
+    [542, "Этап 4: Масштабирование"],
+    [636, "Итог: путь до 50–70 тысяч в месяц"]
   ];
   var chIn = document.getElementById("chap-in"), rows = [], curCh = -1, ROW = 62;
   function fmt(t){ var m = Math.floor(t / 60), q = Math.floor(t % 60); return m + ":" + (q < 10 ? "0" : "") + q; }
