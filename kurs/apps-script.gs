@@ -18,17 +18,22 @@ const T = {
   students:    { title: 'Ученики',        cols: ['Код', 'Имя', 'Telegram', 'Тариф / заметка', 'Выдан', 'Последний вход', 'Статус'] },
   submissions: { title: 'Сдачи заданий',  cols: ['ID', 'Код', 'Ученик', 'ID задания', 'Задание', 'Ответ ученика', 'Отправлено', 'Статус', 'Оценка', 'Комментарий куратора', 'Дата комментария'] },
   requests:    { title: 'Вопросы',        cols: ['ID', 'Код', 'Ученик', '№', 'Дата', 'Вопрос', 'Фото', 'Ответ куратора', 'Дата ответа'] },
-  journal:     { title: 'Дневник',        cols: ['Код', 'Ученик', 'Дата', 'Задачи', 'Выполнено', 'Причины невыполнения', 'Задачи поставлены', 'Отчёт сдан', 'json'] },
+  journal:     { title: 'Дневник',        cols: ['Код', 'Ученик', 'Дата', 'Задачи', 'Выполнено', 'Причины невыполнения', 'Задачи поставлены', 'Отчёт сдан', 'json', 'Состояние', 'Мотивация', 'Энергия'] },
   reviews:     { title: 'Разборы недели', cols: ['Код', 'Ученик', 'Неделя', 'Дней с отчётом', 'Вывод', 'Получилось', 'Фокус на неделю', 'Дата'] },
   progress:    { title: 'Прогресс',       cols: ['Код', 'Ученик', 'Обновлено', 'json'] }
 };
 const SUB_STATUS = ['На проверке', 'Принято', 'На доработке'];
 
 /* ---------- таблица ---------- */
+const HDR_ = {};
 function sh_(key) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const t = T[key];
   let sh = ss.getSheetByName(t.title);
+  if (sh && !HDR_[key]) { // лист создан старой версией: дописываем новые колонки в шапку
+    HDR_[key] = 1;
+    if (sh.getLastColumn() < t.cols.length) sh.getRange(1, 1, 1, t.cols.length).setValues([t.cols]).setFontWeight('bold').setBackground('#EDF2FE').setFontColor('#0B1530');
+  }
   if (!sh) {
     sh = ss.insertSheet(t.title);
     sh.getRange(1, 1, 1, t.cols.length).setValues([t.cols]).setFontWeight('bold').setBackground('#EDF2FE').setFontColor('#0B1530');
@@ -38,7 +43,8 @@ function sh_(key) {
       sh.getRange('I2:I').setDataValidation(SpreadsheetApp.newDataValidation().requireNumberBetween(1, 10).build());
     }
     if (key === 'students') sh.getRange('G2:G').setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(['active', 'blocked'], true).build());
-    if (key === 'journal' || key === 'progress') sh.hideColumns(t.cols.length);
+    if (key === 'journal') sh.hideColumns(9);
+    if (key === 'progress') sh.hideColumns(t.cols.length);
     sh.getRange(1, 1, 1, t.cols.length).setWrap(true);
   }
   return sh;
@@ -110,7 +116,8 @@ function saveDay_(s, date, e) {
     const list = tasks.map((t, i) => (i + 1) + '. ' + t.text).join('\n');
     const done = e.reported ? tasks.filter(t => t.done).length + ' из ' + tasks.length : '';
     const why = e.reported ? tasks.filter(t => t.done === false).map(t => '• ' + t.text + ' — ' + (t.why || '')).join('\n') : '';
-    const vals = [s.code, s.name, "'" + date, list, done, why, e.planAt || '', e.reported ? (e.reportAt || 'да') : '', JSON.stringify(e)];
+    const m = e.mood || {};
+    const vals = [s.code, s.name, "'" + date, list, done, why, e.planAt || '', e.reported ? (e.reportAt || 'да') : '', JSON.stringify(e), m.mind || '', m.motivation || '', m.energy || ''];
     const r = rows_('journal').find(x => x.v[0] === s.code && str_(x.v[2]).slice(0, 10) === date);
     if (r) sh_('journal').getRange(r.row, 1, 1, vals.length).setValues([vals]);
     else append_('journal', vals);
@@ -147,6 +154,7 @@ function adminData_() {
       accepted: mine.filter(s => s.status === 'Принято').length,
       review: mine.filter(s => s.status === 'На проверке').length,
       rework: mine.filter(s => s.status === 'На доработке').length,
+      avgScore: (function () { const sc = mine.map(s => Number(s.score)).filter(n => n > 0); return sc.length ? Math.round(sc.reduce((a, b) => a + b, 0) / sc.length * 10) / 10 : null; })(),
       days: days
     });
   }).reverse();

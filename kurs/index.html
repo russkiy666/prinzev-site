@@ -547,6 +547,85 @@ tr.is-off td{opacity:.55}
   .adm-tab{justify-content:center;padding:10px 8px}
   .jr-grid{grid-template-columns:minmax(0,1fr)}
 }
+
+/* состояние: шкалы со стрелкой */
+.mood{display:grid;gap:10px;padding:14px 12px 10px;border-radius:12px;background:var(--surface);border:1px solid var(--line);transition:box-shadow .3s,border-color .3s}
+.mood.need{border-color:var(--warn);box-shadow:0 0 0 4px var(--warn-soft)}
+.mood-h{padding:0 4px}
+.mood-h b{display:block;font-size:14px}
+.mood-h small{display:block;font-size:12px;color:var(--muted)}
+.gauges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gauge{display:grid;justify-items:center;gap:2px;padding:8px 4px;border-radius:12px;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;outline:none;transition:background-color .18s,transform .18s var(--ease)}
+.gauge:hover{background:var(--surface-2)}
+.gauge.drag{cursor:grabbing;background:var(--accent-soft);transform:scale(1.04)}
+.gauge:focus-visible{box-shadow:0 0 0 2px var(--accent)}
+.gauge svg{width:100%;max-width:118px;display:block;--gc:var(--accent);margin-top:4px}
+.gauge.lo svg{--gc:var(--bad)}.gauge.mid svg{--gc:var(--warn)}.gauge.hi svg{--gc:var(--ok)}
+.g-ticks line{stroke:var(--line-2);stroke-width:1.6;stroke-linecap:round}
+.g-trk{fill:none;stroke:var(--idle-soft);stroke-width:9;stroke-linecap:round}
+.g-val{fill:none;stroke:var(--gc);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .18s var(--ease),stroke .2s}
+.gauge.none .g-val{stroke:transparent}
+.g-needle{transform-box:view-box;transform-origin:60px 60px;transition:transform .2s var(--ease)}
+.g-needle path{fill:var(--ink);transition:fill .2s}
+.g-hub{fill:var(--ink);stroke:var(--surface);stroke-width:3;transition:fill .2s}
+.gauge.none .g-needle path,.gauge.none .g-hub{fill:var(--line-2)}
+.g-lbl{font-size:12px;font-weight:600;color:var(--ink-2)}
+.g-num{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1;letter-spacing:-.02em;margin-top:-2px;transition:color .2s}
+.gauge.none .g-num{color:var(--line-2)}.gauge.lo .g-num{color:var(--bad)}.gauge.mid .g-num{color:var(--warn)}.gauge.hi .g-num{color:var(--ok)}
+.g-word{font-size:11px;color:var(--muted);white-space:nowrap}
+.mchips{display:flex;gap:6px;flex-wrap:wrap}
+.mchip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:4px 10px;border-radius:99px;background:var(--surface-2);color:var(--ink-2)}
+.mchip i{width:7px;height:7px;border-radius:50%;background:var(--muted);flex:none}
+.mchip b{font-weight:700;color:var(--ink)}
+.step .mchip{background:var(--surface)}
+.step .mchip.lo{background:var(--bad-soft)}
+.mchip.lo{background:var(--bad-soft)}.mchip.lo i{background:var(--bad)}.mchip.mid i{background:var(--warn)}.mchip.hi i{background:var(--ok)}
+
+/* ТОП, НУБ, обратить внимание */
+.spot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+.spot > .card{display:grid;gap:14px;align-content:start}
+.spot-h{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:22px}
+.spot-h svg{width:20px;height:20px}
+.spot-who{display:flex;gap:12px;align-items:center;border:none;background:none;padding:4px;margin:-4px;border-radius:12px;text-align:left;color:inherit;cursor:pointer;min-width:0;position:relative;overflow:hidden}
+.spot-who > span:last-child{min-width:0}
+.spot-who .ava{width:44px;height:44px;font-size:15px}
+.spot-who b{display:block;font-family:var(--f-display);font-weight:600;font-size:17px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spot-who small{display:block;font-size:12px;opacity:.7}
+.spot-r{display:flex;align-items:baseline;gap:8px}
+.spot-r b{font-family:var(--f-display);font-size:40px;font-weight:600;letter-spacing:-.03em;line-height:1}
+.spot-r span{font-size:13px;color:var(--muted)}
+.spot-m{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);padding-top:12px}
+.spot-m span{display:grid;gap:1px;font-size:11px;color:var(--muted);min-width:0}
+.spot-m span + span{border-left:1px solid var(--line);padding-left:10px}
+.spot-m b{font-size:15px;color:var(--ink);font-weight:600}
+.spot-top{background:radial-gradient(80% 120% at 100% 0%,var(--deep-2),transparent 65%),var(--deep);color:var(--on-deep);border:none;box-shadow:var(--sh-2)}
+.spot-top .eyebrow,.spot-top .spot-r span,.spot-top .spot-m span{color:var(--deep-muted)}
+.spot-top .spot-m,.spot-top .spot-m span + span{border-color:var(--deep-line)}
+.spot-top .spot-m b{color:var(--on-deep)}
+.spot-top .spot-h svg{color:#FFD66B}
+.spot-top .spot-who .rip{background:rgba(255,255,255,.2)}
+.ava.gold{background:#FFFFFF;color:var(--deep);box-shadow:0 0 0 3px rgba(255,214,107,.75)}
+.spot-top .mchip{background:rgba(255,255,255,.1);color:var(--deep-muted)}
+.spot-top .mchip b{color:var(--on-deep)}
+.spot-nub .spot-h svg{color:var(--warn)}
+.spot-tip{margin:0;font-size:13px;color:var(--ink-2);background:var(--warn-soft);border-radius:10px;padding:8px 12px}
+.spot-empty{margin:0;font-size:14px;opacity:.75}
+.att-n{font-size:12px;background:var(--bad);color:#fff;border-radius:99px;min-width:22px;height:22px;padding:0 7px;display:grid;place-items:center}
+.att-list{display:grid;gap:2px;margin:-6px -8px}
+.att-row{display:flex;gap:10px;align-items:flex-start;border:none;background:none;text-align:left;padding:8px;border-radius:10px;cursor:pointer;color:inherit;width:100%;position:relative;overflow:hidden;transition:background-color .18s,transform .18s var(--ease)}
+.att-row:hover{background:var(--surface-2)}
+.att-row:active,.spot-who:active{transform:scale(.98)}
+.att-b{display:grid;gap:5px;min-width:0}
+.att-b b{font-size:14px;font-weight:600}
+.att-r{display:flex;gap:4px;flex-wrap:wrap}
+.rs{font-style:normal;font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:99px;background:var(--warn-soft);color:var(--warn)}
+.rs.l2{background:var(--bad-soft);color:var(--bad)}
+.att-ok{display:flex;gap:10px;align-items:center;color:var(--ok);font-weight:500;font-size:14px}
+.att-ok svg{width:18px;height:18px}
+.jr-card.flash{animation:flash 1.6s var(--ease)}
+@keyframes flash{0%,45%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:var(--sh-1)}}
+@media (max-width:1100px){.spot{grid-template-columns:repeat(2,minmax(0,1fr))}.spot-att{grid-column:1/-1}}
+@media (max-width:860px){.spot{grid-template-columns:minmax(0,1fr)}.spot-r b{font-size:34px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rip{display:none}.check.pop svg path{stroke-dashoffset:0}}
 </style>
 </head>
@@ -660,7 +739,8 @@ const Local = {
   db(){ let d=ls.get('kurs-db'); if(!d){ d={students:[
       {code:'DEMO-2026',name:'',tg:'@demo',note:'Демо-доступ',created:'03.11.2026, 17:00',last:'',status:'active'},
       {code:'K7QM-4XPA',name:'Анна Иванова',tg:'@anna_iv',note:'Тариф «С куратором» · пример',created:'01.11.2026, 12:10',last:'03.11.2026, 09:42',status:'active'},
-      {code:'R2HD-9TWE',name:'',tg:'@max_prod',note:'Тариф «Базовый» · пример',created:'02.11.2026, 18:31',last:'',status:'active'}
+      {code:'R2HD-9TWE',name:'',tg:'@max_prod',note:'Тариф «Базовый» · пример',created:'01.11.2026, 18:31',last:'',status:'active'},
+      {code:'M3XV-8KQD',name:'Пётр Смирнов',tg:'@petr_sm',note:'Тариф «Базовый» · пример',created:'20.10.2026, 11:05',last:'30.10.2026, 22:14',status:'active'}
     ]}; ls.set('kurs-db',d);} return d; },
   save(d){ ls.set('kurs-db',d); },
   async verify(code){ const s=this.db().students.find(x=>x.code===code); if(!s) return {ok:false,error:'Код не найден. Проверь, что ввёл его без ошибок.'}; if(s.status!=='active') return {ok:false,error:'Доступ по этому коду приостановлен. Напиши куратору.'};
@@ -675,6 +755,12 @@ const Local = {
     if(!d.pending){ d.pending=[{id:'p1',code:'K7QM-4XPA',name:'Анна Иванова',taskId:'t4',task:'Проведи распаковку',answer:'Пример сдачи. Конспект распаковки: https://docs.google.com/document/d/primer\n7 болей аудитории, 3 смысла для прогрева.',sentAt:'03.11.2026, 18:20'}];
       d.questions=[{id:'q1',code:'K7QM-4XPA',name:'Анна Иванова',num:3,date:'3 ноя',text:'Пример вопроса. Как построить прогрев, если у эксперта всего 2 000 подписчиков?',photos:[]}]; d.answered=[]; this.save(d); }
     const students=d.students.slice().reverse().map(s=>{ const st=ls.get('kurs-state-'+s.code)||{}, js=st.journal||{}, tk=st.tasks||{};
+      const ex = s.code==='K7QM-4XPA' ? {lessons:13,accepted:5,rework:0,avgScore:9.2,good:true} : s.code==='M3XV-8KQD' ? {lessons:3,accepted:1,rework:1,avgScore:5.5,good:false} : null;
+      if(ex && !Object.keys(js).length){ const now=new Date(), days=[];
+        for(let i=0;i<7;i++){ if(!ex.good && i!==4 && i!==6) continue; const n=ex.good?3:2;
+          days.push({date:dkey(addDays(now,-i)),entry:{reported:true,tasks:[...Array(n)].map((_,t)=>({text:'Пример задачи '+(t+1),done:ex.good?!(i%3===0&&t===2):t===0,why:''})),
+            mood:ex.good?{mind:8,motivation:9,energy:7+(i%2)}:{mind:i===4?3:6,motivation:i===4?3:7,energy:4}}}); }
+        return {...s,lessons:ex.lessons,accepted:ex.accepted,rework:ex.rework,avgScore:ex.avgScore,days}; }
       return {...s, lessons:Object.keys(st.lessons||{}).length, accepted:Object.values(tk).filter(t=>t.status==='accepted').length, rework:Object.values(tk).filter(t=>t.status==='rework').length,
         days:Object.keys(js).sort().reverse().slice(0,7).map(k=>({date:k,entry:js[k]}))}; });
     return {ok:true,students,pending:d.pending,questions:d.questions,answered:d.answered}; },
@@ -715,6 +801,8 @@ const I = {
   copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>',
   cam:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
   img:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-9 9"/></svg>',
+  crown:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6 6 4-4 8 8M21 11v6h-6"/></svg>',
   sheet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 10h16M4 15h16M10 4v16"/></svg>',
   refresh:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4"/></svg>',
   cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>',
@@ -864,7 +952,7 @@ function demoJournal(){
   ];
   const j={}, now=new Date();
   for(let i=1;i<=9;i++){ if(i===4) continue; const t=DAYS[i%DAYS.length], d=addDays(now,-i), rep=i!==7;
-    j[dkey(d)]={tasks:t.map(x=>({id:uid(),text:x[0],done:rep?(x[1]===null?true:!!x[1]):null,why:rep&&x[1]===0?x[2]:''})),planAt:'09:'+pad(10+i*3),reported:rep,reportAt:rep?'21:'+pad(5+i*4):''}; }
+    j[dkey(d)]={tasks:t.map(x=>({id:uid(),text:x[0],done:rep?(x[1]===null?true:!!x[1]):null,why:rep&&x[1]===0?x[2]:''})),planAt:'09:'+pad(10+i*3),reported:rep,reportAt:rep?'21:'+pad(5+i*4):'',mood:rep?{mind:Math.min(10,5+(i%4)),motivation:Math.min(10,4+(i%5)),energy:Math.min(10,3+(i%6))}:undefined}; }
   return j;
 }
 function demoReviews(){
@@ -1038,6 +1126,44 @@ function addTask(){ const inp=document.getElementById('tkIn'); if(!inp) return; 
   const j=todayEntry(); j.tasks.push({id:uid(),text:v,done:null,why:''}); if(!j.planAt) j.planAt=hm();
   if(j.reported) j.reported=false;
   save(); syncDay(); renderApp(); haptic('success'); const n=document.getElementById('tkIn'); if(n) n.focus(); }
+/* ---------- состояние: шкалы со стрелкой ---------- */
+const MOOD = [['mind','Состояние'],['motivation','Мотивация'],['energy','Энергия']];
+const moodLvl = v => v==null ? 'none' : v<=3 ? 'lo' : v<=6 ? 'mid' : 'hi';
+const moodWord = v => v==null ? 'Выбери' : v<=2 ? 'Очень низко' : v<=4 ? 'Низко' : v<=6 ? 'Средне' : v<=8 ? 'Хорошо' : 'Отлично';
+const G = {cx:60, cy:60, r:46, len:Math.PI*46};
+const ARC = `M${G.cx-G.r} ${G.cy} A${G.r} ${G.r} 0 0 1 ${G.cx+G.r} ${G.cy}`;
+function gaugeSVG(v){ const f = v==null ? 0 : v/10;
+  const ticks=[...Array(11)].map((_,i)=>{ const a=Math.PI*(1-i/10), r1=G.r+9, r2=G.r+(i%5===0?15:12);
+    return `<line x1="${(G.cx+r1*Math.cos(a)).toFixed(1)}" y1="${(G.cy-r1*Math.sin(a)).toFixed(1)}" x2="${(G.cx+r2*Math.cos(a)).toFixed(1)}" y2="${(G.cy-r2*Math.sin(a)).toFixed(1)}"/>`; }).join('');
+  return `<svg viewBox="0 0 120 70" aria-hidden="true"><g class="g-ticks">${ticks}</g><path class="g-trk" d="${ARC}"/>
+    <path class="g-val" d="${ARC}" stroke-dasharray="${G.len.toFixed(2)}" style="stroke-dashoffset:${(G.len*(1-f)).toFixed(2)}"/>
+    <g class="g-needle" style="transform:rotate(${-90+f*180}deg)"><path d="M${G.cx} ${G.cy-G.r+3} L${G.cx-4.5} ${G.cy} L${G.cx+4.5} ${G.cy} Z"/></g>
+    <circle class="g-hub" cx="${G.cx}" cy="${G.cy}" r="6.5"/></svg>`; }
+function gauge(key,label,v){ return `<div class="gauge ${moodLvl(v)}" data-mood="${key}" role="slider" tabindex="0" aria-label="${label}" aria-valuemin="1" aria-valuemax="10"${v!=null?` aria-valuenow="${v}"`:''} aria-valuetext="${v!=null?v+' из 10, '+moodWord(v):'не выбрано'}">
+    <span class="g-lbl">${label}</span>${gaugeSVG(v)}<b class="g-num num">${v??'–'}</b><small class="g-word">${moodWord(v)}</small></div>`; }
+function moodBlock(m){ m=m||{}; return `<div class="mood" id="moodBlock"><div class="mood-h"><b>Как ты сегодня?</b><small>Потяни стрелку на каждой шкале: от 1 до 10</small></div>
+    <div class="gauges">${MOOD.map(([k,l])=>gauge(k,l,m[k]??null)).join('')}</div></div>`; }
+function moodChips(m){ if(!m || MOOD.every(([k])=>m[k]==null)) return ''; return `<div class="mchips">${MOOD.map(([k,l])=>m[k]==null?'':`<span class="mchip ${moodLvl(m[k])}"><i></i>${l}<b class="num">${m[k]}</b></span>`).join('')}</div>`; }
+function setGauge(el,v){ const j=todayEntry(), key=el.dataset.mood; j.mood=j.mood||{}; if(j.mood[key]===v) return false; j.mood[key]=v; const f=v/10;
+  el.classList.remove('none','lo','mid','hi'); el.classList.add(moodLvl(v));
+  el.querySelector('.g-val').style.strokeDashoffset=(G.len*(1-f)).toFixed(2);
+  el.querySelector('.g-needle').style.transform=`rotate(${-90+f*180}deg)`;
+  el.querySelector('.g-num').textContent=v; el.querySelector('.g-word').textContent=moodWord(v);
+  el.setAttribute('aria-valuenow',v); el.setAttribute('aria-valuetext',v+' из 10, '+moodWord(v)); return true; }
+function gaugeVal(el,e){ const r=el.querySelector('svg').getBoundingClientRect(), cx=r.left+r.width*G.cx/120, cy=r.top+r.height*G.cy/70;
+  let a=Math.atan2(cy-e.clientY, e.clientX-cx); if(a<0) a = e.clientX<cx ? Math.PI : 0;
+  return Math.min(10,Math.max(1,Math.round((1-a/Math.PI)*10))); }
+let GDRAG=null;
+document.addEventListener('pointerdown',e=>{ const el=e.target.closest('.gauge'); if(!el) return; e.preventDefault(); GDRAG=el; el.classList.add('drag');
+  try{ el.setPointerCapture(e.pointerId) }catch(_){} if(setGauge(el,gaugeVal(el,e))) haptic('select'); });
+document.addEventListener('pointermove',e=>{ if(GDRAG && setGauge(GDRAG,gaugeVal(GDRAG,e))) haptic('select'); });
+const gEnd=()=>{ if(!GDRAG) return; GDRAG.classList.remove('drag'); GDRAG.closest('.mood').classList.remove('need'); GDRAG=null; save(); syncDay(); };
+document.addEventListener('pointerup',gEnd); document.addEventListener('pointercancel',gEnd);
+document.addEventListener('keydown',e=>{ const el=e.target.closest && e.target.closest('.gauge'); if(!el) return; const cur=(todayEntry().mood||{})[el.dataset.mood]; let v;
+  if(e.key==='ArrowRight'||e.key==='ArrowUp') v=Math.min(10,(cur??0)+1); else if(e.key==='ArrowLeft'||e.key==='ArrowDown') v=Math.max(1,(cur??2)-1);
+  else if(e.key==='Home') v=1; else if(e.key==='End') v=10; else return;
+  e.preventDefault(); if(setGauge(el,v)){ haptic('select'); save(); syncDay(); } });
+
 function todayCard(){
   const now=new Date(), k=dkey(now), j=S.journal[k]||{tasks:[]}, mon=monday(now), st=streak(), T=j.tasks||[];
   const days=[...Array(7)].map((_,i)=>{ const d=addDays(mon,i), kk=dkey(d), s=dayState(kk), fut=kk>k;
@@ -1048,7 +1174,7 @@ function todayCard(){
   let rep;
   if(!T.length) rep = `<p class="muted" style="margin:0;font-size:13px">Откроется, когда добавишь хотя бы одну задачу.</p>`;
   else if(locked){ const ok=T.filter(t=>t.done).length;
-    rep = `<div class="rep-sum"><b class="num">${ok} из ${T.length}</b> ${plural(T.length,['задачи','задач','задач'])} выполнено</div>
+    rep = `<div class="rep-sum"><b class="num">${ok} из ${T.length}</b> ${plural(T.length,['задачи','задач','задач'])} выполнено</div>${moodChips(j.mood)}
       <ul class="rep-list">${T.map(t=>`<li class="${t.done?'is-ok':'is-no'}"><span class="mk">${t.done?I.check:I.x}</span><div><span>${esc(t.text)}</span>${!t.done&&t.why?`<small>${esc(t.why)}</small>`:''}</div></li>`).join('')}</ul>
       <button class="linkbtn" data-edit="report">Изменить отчёт</button>`; }
   else rep = `<ul class="rep-edit">${T.map(t=>`<li class="${t.done===true?'is-ok':t.done===false?'is-no':''}">
@@ -1056,6 +1182,7 @@ function todayCard(){
         <div class="mark" role="group" aria-label="Выполнено?"><button class="mk-btn ok" data-mark="${t.id}" data-v="1" aria-pressed="${t.done===true}" aria-label="Выполнил">${I.check}</button><button class="mk-btn no" data-mark="${t.id}" data-v="0" aria-pressed="${t.done===false}" aria-label="Не выполнил">${I.x}</button></div></div>
       ${t.done===false?`<input type="text" class="why" data-why="${t.id}" value="${esc(t.why||'')}" placeholder="Почему не получилось?" maxlength="200">`:''}
     </li>`).join('')}</ul>
+    ${moodBlock(j.mood)}
     <button class="btn sm" data-sendrep style="justify-self:start">Отправить отчёт</button>`;
   return `<section class="card today">
     <div class="today-top"><div><div class="eyebrow">Сегодня</div><h2>${cap(fmtDay(now))}</h2></div>
@@ -1084,7 +1211,7 @@ function vJournal(){
     const j=S.journal[k], s=dayState(k);
     const p = s==='full'?'<span class="pill s-accepted">Отчёт сдан</span>' : s==='half'?`<span class="pill s-review">${i===0?'Ждёт отчёта':'Без отчёта'}</span>` : i===0?'<span class="pill s-locked">Пока пусто</span>':'<span class="pill s-rework">Пропуск</span>';
     rows.push(`<div class="jday"><div class="jday-h"><b>${cap(fmtDay(d))}</b>${p}</div>
-      ${j&&j.tasks&&j.tasks.length?`<ul class="rep-list sm">${j.tasks.map(t=>`<li class="${!j.reported?'is-wait':t.done?'is-ok':'is-no'}"><span class="mk">${!j.reported?'':t.done?I.check:I.x}</span><div><span>${esc(t.text)}</span>${j.reported&&!t.done&&t.why?`<small>${esc(t.why)}</small>`:''}</div></li>`).join('')}</ul>`:''}</div>`); }
+      ${j&&j.tasks&&j.tasks.length?`<ul class="rep-list sm">${j.tasks.map(t=>`<li class="${!j.reported?'is-wait':t.done?'is-ok':'is-no'}"><span class="mk">${!j.reported?'':t.done?I.check:I.x}</span><div><span>${esc(t.text)}</span>${j.reported&&!t.done&&t.why?`<small>${esc(t.why)}</small>`:''}</div></li>`).join('')}</ul>`:''}${j&&j.reported?moodChips(j.mood):''}</div>`); }
   return `
   <div class="head"><div><div class="eyebrow">Ежедневный ритм</div><h1>Дневник</h1></div></div>
   <div class="grid g-2 jr">
@@ -1217,11 +1344,70 @@ function admJournal(){
   const act = ADM.students.filter(s=>s.status==='active' && s.name);
   if(!act.length) return emptyCard('Пока пусто','Когда ученики начнут вести дневник, здесь появятся их задачи и отчёты за сегодня.',I.cal);
   return `<div class="jr-grid">${act.map(s=>{ const e=todayOf(s), T=(e&&e.tasks)||[];
-    return `<article class="card jr-card"><div class="rv-head"><div class="who"><span class="ava sm">${esc(initials(s.name))}</span><div><b>${esc(s.name)}</b><small>${esc(s.tg)}</small></div></div>${todayBadge(s)}</div>
-      <div class="dots lg" aria-label="Последние 7 дней">${dayDots(s.days)}</div>
+    return `<article class="card jr-card" data-jr="${esc(s.code)}"><div class="rv-head"><div class="who"><span class="ava sm">${esc(initials(s.name))}</span><div><b>${esc(s.name)}</b><small>${esc(s.tg)}</small></div></div>${todayBadge(s)}</div>
+      <div class="dots lg" aria-label="Последние 7 дней">${dayDots(s.days)}</div>${moodChips(latestMood(s))}
       ${T.length?`<ul class="rep-list sm">${T.map(t=>`<li class="${!e.reported?'is-wait':t.done?'is-ok':'is-no'}"><span class="mk">${!e.reported?'':t.done?I.check:I.x}</span><div><span>${esc(t.text)}</span>${e.reported&&!t.done&&t.why?`<small>${esc(t.why)}</small>`:''}</div></li>`).join('')}</ul>`
         :'<p class="muted" style="margin:0;font-size:14px">Сегодня задач пока нет.</p>'}
     </article>`; }).join('')}</div>`;
+}
+/* ---------- аналитика учеников: рейтинг и тревожные сигналы ---------- */
+const DAY = 864e5;
+const parseRu = str => { const m=/(\d{2})\.(\d{2})\.(\d{4})/.exec(String(str||'')); return m ? new Date(+m[3],+m[2]-1,+m[1]) : null; };
+const fullMood = m => m && MOOD.every(([k])=>m[k]!=null);
+function latestMood(s){ return (s.days||[]).slice().sort((a,b)=>a.date<b.date?1:-1).map(d=>d.entry&&d.entry.mood).find(fullMood) || null; }
+function analyze(s){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const created=parseRu(s.created), since=created?Math.max(0,Math.round((today-created)/DAY)):30;
+  const map={}; (s.days||[]).forEach(d=>{ if(d && d.date) map[d.date]=d.entry||{}; });
+  const tEntry=map[dkey(today)], todayRep=!!(tEntry && tEntry.reported);
+  let rep=0, tot=0, done=0; const moods=[];
+  for(let i=0;i<7;i++){ const e=map[dkey(addDays(today,-i))]; if(!e || !e.reported) continue; rep++;
+    (e.tasks||[]).forEach(t=>{ tot++; if(t.done) done++; }); if(fullMood(e.mood)) moods.push(e.mood); }
+  const possible=Math.max(rep, Math.min(7, since+(todayRep?1:0)));
+  const lastRepDate=Object.keys(map).filter(k=>map[k].reported).sort().pop();
+  const lastRep=lastRepDate ? Math.round((today-new Date(lastRepDate+'T00:00:00'))/DAY) : since;
+  const lastIn=parseRu(s.last), noLogin=lastIn ? Math.round((today-lastIn)/DAY) : null;
+  const pct=pctOf(s), disc=possible?rep/possible:null, compl=tot?done/tot:null, grade=s.avgScore?Number(s.avgScore)/10:null;
+  const rating=Math.min(100,Math.round(100*(.35*pct/100 + .30*(disc??.5) + .20*(compl??.5) + .15*(grade??.6))));
+  const R=[];
+  if(!s.name){ if(since>=2) R.push({lvl:1,t:'Не активировал доступ'}); }
+  else {
+    const m0=moods[0], m1=moods[1], m2=moods[2];
+    if(m0) MOOD.forEach(([k,l])=>{ if(m0[k]<=3) R.push({lvl:2,t:`${l} ${m0[k]}/10`}); });
+    if(m0 && m1) MOOD.forEach(([k,l])=>{ if(m1[k]-m0[k]>=3 && m0[k]>3) R.push({lvl:1,t:`${l} упала: ${m1[k]} → ${m0[k]}`}); });
+    if(m0 && m1 && m2) MOOD.forEach(([k,l])=>{ if(m0[k]>3 && (m0[k]+m1[k]+m2[k])/3<=4.5) R.push({lvl:1,t:`${l} низкая 3 отчёта подряд`}); });
+    if(lastRep>=2 && since>=2) R.push({lvl:lastRep>=4?2:1, t:lastRep>=7?'Нет отчётов больше недели':`Нет отчёта ${lastRep} ${plural(lastRep,['день','дня','дней'])}`});
+    if(compl!==null && tot>=4 && compl<.5) R.push({lvl:1,t:`Выполняет ${Math.round(compl*100)}% задач`});
+    if(s.rework) R.push({lvl:1,t:`${s.rework} ${plural(s.rework,['задание','задания','заданий'])} на доработке`});
+    if(noLogin!==null && noLogin>=3) R.push({lvl:1,t:`Не заходил ${noLogin} ${plural(noLogin,['день','дня','дней'])}`});
+  }
+  R.sort((a,b)=>b.lvl-a.lvl);
+  return {s,pct,rep,possible,compl,grade,rating,reasons:R,weight:R.reduce((a,r)=>a+r.lvl,0),moodLast:moods[0]||null};
+}
+function metricRow(a){ return `<div class="spot-m">
+    <span><b class="num">${a.pct}%</b>прогресс</span>
+    <span><b class="num">${a.possible?a.rep+'/'+a.possible:'—'}</b>отчёты</span>
+    <span><b class="num">${a.compl!==null?Math.round(a.compl*100)+'%':'—'}</b>выполнено</span>
+    <span><b class="num">${a.s.avgScore?Number(a.s.avgScore).toFixed(1):'—'}</b>оценка</span></div>`; }
+function weakest(a){ return [[`прогресс ${a.pct}%`,a.pct/100],[`отчёты ${a.rep} из ${a.possible}`,a.possible?a.rep/a.possible:null],[`выполнение ${Math.round((a.compl||0)*100)}%`,a.compl],[`средняя оценка ${a.s.avgScore?Number(a.s.avgScore).toFixed(1):''}`,a.grade]]
+    .filter(x=>x[1]!==null).sort((p,q)=>p[1]-q[1]).slice(0,2).map(x=>x[0]).join(', '); }
+function admSpotlight(){
+  const A=ADM.students.filter(s=>s.status==='active').map(analyze);
+  const rated=A.filter(a=>a.s.name).sort((x,y)=>y.rating-x.rating);
+  const top=rated[0], nub=rated.length>1 ? rated[rated.length-1] : null;
+  const att=A.filter(a=>a.reasons.length).sort((x,y)=>y.weight-x.weight).slice(0,5);
+  const who=(a,cls)=>`<button class="spot-who" data-focus="${esc(a.s.code)}"><span class="ava ${cls||''}">${esc(initials(a.s.name))}</span><span><b>${esc(a.s.name)}</b><small>${esc(a.s.tg)}</small></span></button>`;
+  const score=a=>`<div class="spot-r"><b class="num">${a.rating}</b><span>рейтинг из 100</span></div>`;
+  return `<div class="spot">
+    <section class="card spot-top"><div class="spot-h"><span class="eyebrow">ТОП-ученик</span>${I.crown}</div>
+      ${top ? who(top,'gold')+score(top)+metricRow(top)+moodChips(top.moodLast) : '<p class="spot-empty">Появится, когда ученики начнут заниматься.</p>'}</section>
+    <section class="card spot-nub"><div class="spot-h"><span class="eyebrow">НУБ-ученик</span>${I.down}</div>
+      ${nub ? who(nub)+score(nub)+metricRow(nub)+`<p class="spot-tip">Проседает: ${weakest(nub)}</p>` : '<p class="spot-empty">Нужно минимум два ученика, чтобы сравнить.</p>'}</section>
+    <section class="card spot-att"><div class="spot-h"><span class="eyebrow">Обратить внимание</span>${att.length?`<b class="att-n num">${att.length}</b>`:''}</div>
+      ${att.length ? `<div class="att-list">${att.map(a=>`<button class="att-row" data-focus="${esc(a.s.code)}"><span class="ava sm ${a.s.name?'':'cur'}">${a.s.name?esc(initials(a.s.name)):'?'}</span>
+        <span class="att-b"><b>${esc(a.s.name||a.s.tg)}</b><span class="att-r">${a.reasons.slice(0,3).map(r=>`<i class="rs l${r.lvl}">${esc(r.t)}</i>`).join('')}</span></span></button>`).join('')}</div>`
+        : `<div class="att-ok">${I.check}<span>Тревожных сигналов нет</span></div>`}</section>
+  </div>`;
 }
 function renderAdmin(){
   const st=ADM.students, q=ADM.q.toLowerCase(), active=st.filter(s=>s.status==='active');
@@ -1242,6 +1428,7 @@ function renderAdmin(){
       <button class="card stat stat-btn" data-tab="questions"><span class="eyebrow">Вопросы</span><b class="num ${ADM.questions.length?'neon-text':''}">${ADM.questions.length}</b><span class="muted">без ответа</span></button>
       <button class="card stat stat-btn" data-tab="journal"><span class="eyebrow">Отчёты сегодня</span><b class="num">${reported}<small>из ${active.length}</small></b><span class="muted">сдали отчёт</span></button>
     </div>
+    ${ADM.loaded && st.length ? admSpotlight() : ''}
     <div class="adm-tabs" role="tablist">${tabs.map(t=>`<button class="adm-tab" role="tab" data-tab="${t[0]}" aria-selected="${ADM.tab===t[0]}">${t[1]}${t[2]?`<b class="num">${t[2]}</b>`:''}</button>`).join('')}</div>
     ${body}
   </div>`;
@@ -1261,7 +1448,7 @@ function haptic(kind){
     if(navigator.vibrate) navigator.vibrate(kind==='success'?[12,50,18]:kind==='error'||kind==='warning'?[24,60,24]:kind==='select'?6:10);
   }catch(e){}
 }
-const TAP_SEL = '.adm-tab,.sc,.stat-btn,.mk-btn,.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.x,.mat,.mod summary,.screen button,.reqrow,.ph-add,.linkbtn';
+const TAP_SEL = '.spot-who,.att-row,.adm-tab,.sc,.stat-btn,.mk-btn,.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.x,.mat,.mod summary,.screen button,.reqrow,.ph-add,.linkbtn';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 document.addEventListener('pointerdown',e=>{
   const el = e.target.closest(TAP_SEL); if(!el || el.disabled) return;
@@ -1340,9 +1527,13 @@ document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
 });
 
 document.addEventListener('click',async e=>{
-  const el = e.target.closest('[data-tab],#admRefresh,[data-score],[data-review],[data-reply],[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
+  const el = e.target.closest('[data-focus],[data-tab],#admRefresh,[data-score],[data-review],[data-reply],[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
   if(!el) return;
   if(el.dataset.tab){ ADM.tab=el.dataset.tab; renderAdmin(); return; }
+  if(el.dataset.focus){ const st=ADM.students.find(x=>x.code===el.dataset.focus); if(!st) return;
+    if(st.name){ ADM.tab='journal'; renderAdmin(); const c=document.querySelector(`[data-jr="${CSS.escape(st.code)}"]`); if(c){ c.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'center'}); c.classList.add('flash'); } }
+    else { ADM.tab='students'; ADM.q=st.code.toLowerCase(); renderAdmin(); }
+    return; }
   if(el.id==='admRefresh'){ el.disabled=true; el.classList.add('is-busy'); await adminLoad(); toast('Данные обновлены'); return; }
   if(el.dataset.score){ const on=el.getAttribute('aria-pressed')==='true'; el.parentElement.querySelectorAll('.sc').forEach(b=>b.setAttribute('aria-pressed','false')); if(!on) el.setAttribute('aria-pressed','true'); return; }
   if(el.dataset.review){ const card=el.closest('[data-sub]'), id=card.dataset.sub, status=el.dataset.review, cmEl=card.querySelector('.cm'), cm=cmEl.value.trim(), sc=card.querySelector('.sc[aria-pressed="true"]');
@@ -1369,6 +1560,8 @@ document.addEventListener('click',async e=>{
   if(el.hasAttribute('data-sendrep')){ const j=todayEntry();
     const open=j.tasks.find(t=>t.done!==true&&t.done!==false); if(open){ toast('Отметь каждую задачу: выполнил или нет'); haptic('warning'); return; }
     const noWhy=j.tasks.find(t=>t.done===false&&!t.why.trim()); if(noWhy){ const w=document.querySelector(`[data-why="${noWhy.id}"]`); if(w) w.focus(); toast('Напиши, почему задача не получилась'); haptic('warning'); return; }
+    const m=j.mood||{}; if(MOOD.some(([k])=>m[k]==null)){ const b=document.getElementById('moodBlock'); if(b){ b.classList.add('need'); b.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'center'}); }
+      toast('Отметь на шкалах состояние, мотивацию и энергию'); haptic('warning'); return; }
     j.reported=true; if(!j.reportAt) j.reportAt=hm(); EDIT.report=false; save(); syncDay(); renderApp(); haptic('success'); toast('Отчёт за день отправлен'); return; }
   if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; ADM.loaded=false; route(); return; }
   if(el.dataset.copy){ const n=document.getElementById(el.dataset.copy); copyText(n.textContent,n); return; }
