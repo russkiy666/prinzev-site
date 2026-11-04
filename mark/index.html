@@ -392,7 +392,7 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .amt.big{margin-top:6px;padding:4px 5px;font-size:clamp(11.5px,3.2vw,13.5px);border-radius:10px;color:#4D1325;background:linear-gradient(150deg,#FCE9EE,#EBB6C4);box-shadow:0 0 0 1px rgba(122,37,62,.35) inset,0 8px 18px -10px rgba(122,37,62,.7)}
 .opt .oe{margin-left:auto;font-size:30px;line-height:1}
 .opts .opt:has(.oe){min-height:68px}
-.c-photo img{aspect-ratio:4/5;object-fit:cover;object-position:50% 0%}
+.c-photo img{aspect-ratio:5/3;object-fit:cover}
 .rate{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:2px}
 .rc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;min-width:0}
 .rc span{font-size:11.5px;font-weight:600;color:var(--muted)}
@@ -460,7 +460,7 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 .emo:has(input:checked) .e{filter:drop-shadow(0 0 8px rgba(255,110,154,.7))}
 .gold{white-space:nowrap}
 .wrap{max-width:620px}
-@media (min-width:560px){.c-photo{max-width:420px;margin-left:auto;margin-right:auto}}
+@media (min-width:560px){.c-photo{max-width:520px;margin-left:auto;margin-right:auto}}
 @media (max-width:359px){.btn{font-size:15.5px;padding:0 14px;gap:6px}h2{font-size:clamp(20px,6.6vw,24px)}}
 @media (prefers-reduced-motion:reduce){.btn.primary::after,.btn.next::after,.btn.primary::before,.btn.next::before,.rate-title,.rate-title::after,.progress i.cur,.c-spark,.c-spark-w{animation:none!important}.btn.primary::before,.btn.next::before{display:none}}
 
@@ -517,7 +517,7 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 <main class="stage" data-stage="3" id="s3">
   <div class="wrap stack">
     <section class="card" id="consult">
-      <div class="c-photo c-ph" aria-hidden="true"><span>MARK</span></div>
+      <div class="c-photo"><picture><source type="image/webp" srcset="media/consult-480.webp?v=1 480w, media/consult-800.webp?v=1 800w" sizes="(max-width:560px) 92vw, 520px"><img src="media/consult-800.jpg?v=1" srcset="media/consult-480.jpg?v=1 480w, media/consult-800.jpg?v=1 800w" sizes="(max-width:560px) 92vw, 520px" alt="Марк про Банки" width="800" height="480" decoding="async"></picture></div>
       <span class="label">Бесплатная консультация · 30 минут</span>
       <h2 class="c-h2">Соберём твой личный план<br>выхода на <span class="gold">50–100.000 ₽</span></h2>
       <ul class="gets">
@@ -629,8 +629,8 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 /* SRC — метка воронки (для будущей отдельной таблицы MARK) */
 var SRC = "mark";
 /* VIDEO_URL — ссылка на mp4 видеоурока, VIDEO_POSTER — обложка. Пока пусто: в плеере заглушка */
-var VIDEO_URL = "";
-var VIDEO_POSTER = "";
+var VIDEO_URL = "media/lesson.mp4?v=1";
+var VIDEO_POSTER = "media/poster.jpg?v=1";
 var SHEET_URL = "";   /* отдельный скрипт для MARK пока не подключён — никаких связей с другими ботами */
 
 /* ===== Telegram Mini App: если сайт открыт внутри Telegram ===== */
@@ -970,7 +970,17 @@ var goStage = (function(){
 
   /* ----- тайм-коды: окно из трёх строк, которое едет вместе с просмотром ----- */
   var CH = [   /* тайм-коды видео: [секунда, "название"] — заполнить, когда будет видео */
-    [0, "Привет! О чём этот урок"]
+    [0, "Вступление"],
+    [30, "Основные термины в финках"],
+    [81, "Этап 1: Получение базы"],
+    [127, "Какие банки крутим сейчас"],
+    [187, "Альфа Only: как получать выплаты"],
+    [207, "Этап 2: Выбор связки"],
+    [243, "Связка: Сарафанка"],
+    [348, "Связка: Закуп у блогеров"],
+    [435, "Этап 3: Обработка лидов"],
+    [546, "Этап 4: Масштабирование"],
+    [640, "Итог: путь до 50–70 тысяч в месяц"]
   ];
   var chIn = document.getElementById("chap-in"), rows = [], curCh = -1, ROW = 62;
   function fmt(t){ var m = Math.floor(t / 60), q = Math.floor(t % 60); return m + ":" + (q < 10 ? "0" : "") + q; }
