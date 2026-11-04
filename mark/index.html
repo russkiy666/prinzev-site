@@ -631,7 +631,7 @@ var SRC = "mark";
 /* VIDEO_URL — ссылка на mp4 видеоурока, VIDEO_POSTER — обложка. Пока пусто: в плеере заглушка */
 var VIDEO_URL = "media/lesson.mp4?v=2";
 var VIDEO_POSTER = "media/poster.jpg?v=2";
-var SHEET_URL = "";   /* отдельный скрипт для MARK пока не подключён — никаких связей с другими ботами */
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbzaR1M0DLxr7cc3VP8NV8Et1bgV-UGcGCUf0CRh85s9voFwPhmwmXGGH8nGtjKZKSmIag/exec";   /* отдельная таблица MARK, не связана с другими проектами */
 
 /* ===== Telegram Mini App: если сайт открыт внутри Telegram ===== */
 var TG = (function(){
@@ -1126,7 +1126,7 @@ var goStage = (function(){
       date: new Date().toLocaleString("ru-RU"),
       name: u ? [u.first_name, u.last_name].filter(Boolean).join(" ") : "",
       telegram: u ? (u.username ? "@" + u.username : "id:" + u.id) : "",
-      q1: radio("q1"), q2: radio("q2"), q3: radio("q3"),
+      q1: radio("q1"), q2: radio("q2"), q3: TG ? "Telegram" : "Сайт",
       budget: radio("qb"),
       pain: radio("qp"), src: SRC,
       work: radio("qw"), cur: radio("qc"),
