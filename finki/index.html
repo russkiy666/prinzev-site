@@ -158,6 +158,25 @@ h1.sm{font-size:41px;letter-spacing:-.05em}
 .ao.wide .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
 .ao.wide .row2 .blur{margin-top:0}
 
+
+/* термины одним слайдом */
+.slide .tt1{position:relative;font-size:40px;margin-top:-10px}
+.tcount{font:600 15px/1 'Inter',sans-serif;color:var(--muted)}
+.tcount b{font-weight:800;color:var(--blue);font-size:18px;margin-right:4px}
+.tcols{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:-8px}
+.tcol{display:flex;flex-direction:column;gap:6px;padding:18px 20px}
+.tcol .hd{margin-bottom:4px}
+.tcol .ic{width:34px;height:34px;border-radius:10px}
+.tcol .ic svg{width:18px;height:18px}
+.tcol h3{font-size:18px}
+.tlist{flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.tr{display:flex;flex-direction:column;gap:1px;padding:5px 0;border-top:1px solid var(--line)}
+.tr:first-child{border-top:0}
+.tr b{font:700 15.5px/1.2 'Inter',sans-serif;letter-spacing:-.01em;color:var(--ink)}
+.tr b em{font-style:normal;font-weight:600;font-size:12px;color:var(--blue);margin-left:7px;padding:2px 6px;border-radius:6px;background:var(--soft);vertical-align:1px}
+.tr span{font-size:13.5px;line-height:1.35;color:var(--muted)}
+.slide.on .tr.a{animation-delay:calc(var(--d,0) * 45ms + 250ms)}
+
 /* обзор */
 .hero{position:relative;display:flex;flex-direction:column;gap:18px;margin-top:auto}
 .hero h1{font-size:62px;max-width:1040px}
@@ -299,58 +318,21 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
     <p class="lead a" style="--d:2">Пошаговый план по финансовой вертикали: от первых офферов до своей команды.</p>
   </div>
   <div class="road">
-    <div class="st a" style="--d:4" data-go="4"><span class="n">1</span><h3>Получение базы</h3><p>Офферы, целевые действия и как устроены процессы</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:5" data-go="7"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:6" data-go="10"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st last ring a" style="--d:7" data-go="11"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
+    <div class="st a" style="--d:4" data-go="2"><span class="n">1</span><h3>Получение базы</h3><p>Офферы, целевые действия и как устроены процессы</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st a" style="--d:5" data-go="5"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st a" style="--d:6" data-go="8"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st last ring a" style="--d:7" data-go="9"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
   </div>
 </section>
 
-<!-- термины 1 -->
+<!-- термины -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Термины · 1 из 3</span><div class="tdots"><b class="on"></b><b class=""></b><b class=""></b></div></div>
-  <div class="thead"><h1 class="a" style="--d:1">Основные термины в&nbsp;финках</h1><div class="grp a" style="--d:2"><span class="label">Блок 1</span><b>Кто участвует</b></div></div>
-  <div class="tgrid">
-<div class="card term a" style="--d:2"><div class="tt"><span class="tn">01</span><h3>Оффер</h3></div><p>Продукт или предложение, с которым ведётся работа.</p></div>
-<div class="card term a" style="--d:3"><div class="tt"><span class="tn">02</span><h3>Рекламодатель</h3></div><span class="ab">рекл</span><p>Компания или человек, который оплачивает трафик.</p></div>
-<div class="card term a" style="--d:4"><div class="tt"><span class="tn">03</span><h3>ПП</h3></div><span class="ab">партнёрская программа</span><p>Посредник между вебмастером и рекламодателем.</p></div>
-<div class="card term a" style="--d:5"><div class="tt"><span class="tn">04</span><h3>Вебмастеры</h3></div><span class="ab">арбитражники</span><p>Специалисты, которые занимаются привлечением трафика.</p></div>
-<div class="card term a" style="--d:6"><div class="tt"><span class="tn">05</span><h3>Карточка оффера</h3></div><p>Страница с подробной информацией об оффере.</p></div>
-<div class="card term a" style="--d:7"><div class="tt"><span class="tn">06</span><h3>Гео</h3></div><p>Страна или регион, на который ориентирован оффер.</p></div>
-<div class="card term a" style="--d:8"><div class="tt"><span class="tn">07</span><h3>Креатив</h3></div><span class="ab">крео</span><p>Рекламный материал: картинка, видео, гиф и т. д. Нужен, чтобы привлечь внимание.</p></div>
-<div class="card term a" style="--d:9"><div class="tt"><span class="tn">08</span><h3>Витрина</h3></div><span class="ab">лендинг</span><p>Одностраничный сайт с размещёнными ссылками или предложениями.</p></div>
-  </div>
-</section>
-
-<!-- термины 2 -->
-<section class="slide">
-  <div class="top a"><span class="pill"><i></i>Термины · 2 из 3</span><div class="tdots"><b class=""></b><b class="on"></b><b class=""></b></div></div>
-  <div class="thead"><h1 class="a" style="--d:1">Основные термины в&nbsp;финках</h1><div class="grp a" style="--d:2"><span class="label">Блок 2</span><b>Путь человека</b></div></div>
-  <div class="tgrid">
-<div class="card term a" style="--d:2"><div class="tt"><span class="tn">09</span><h3>Клики</h3></div><p>Переходы пользователей по рекламным ссылкам.</p></div>
-<div class="card term a" style="--d:3"><div class="tt"><span class="tn">10</span><h3>Referrer</h3></div><span class="ab">реферер</span><p>Источник, с которого пользователь перешёл на сайт.</p></div>
-<div class="card term a" style="--d:4"><div class="tt"><span class="tn">11</span><h3>Воронка</h3></div><p>Путь пользователя от первого контакта до выполнения целевого действия.</p></div>
-<div class="card term a" style="--d:5"><div class="tt"><span class="tn">12</span><h3>Лид</h3></div><p>Человек, который совершил нужное действие: оформил продукт или оставил заявку.</p></div>
-<div class="card term a" style="--d:6"><div class="tt"><span class="tn">13</span><h3>ЦД</h3></div><span class="ab">целевое действие</span><p>Действие, за которое начисляется вознаграждение.</p></div>
-<div class="card term a" style="--d:7"><div class="tt"><span class="tn">14</span><h3>Апрув</h3></div><p>Подтверждение заявки или действия.</p></div>
-<div class="card term a" style="--d:8"><div class="tt"><span class="tn">15</span><h3>Холд</h3></div><p>Период проверки качества трафика перед выплатой.</p></div>
-<div class="card term a" style="--d:9"><div class="tt"><span class="tn">16</span><h3>Сверки</h3></div><p>Проверка данных между партнёркой и рекламодателем.</p></div>
-  </div>
-</section>
-
-<!-- термины 3 -->
-<section class="slide">
-  <div class="top a"><span class="pill"><i></i>Термины · 3 из 3</span><div class="tdots"><b class=""></b><b class=""></b><b class="on"></b></div></div>
-  <div class="thead"><h1 class="a" style="--d:1">Основные термины в&nbsp;финках</h1><div class="grp a" style="--d:2"><span class="label">Блок 3</span><b>Метрики и риски</b></div></div>
-  <div class="tgrid">
-<div class="card term a" style="--d:2"><div class="tt"><span class="tn">17</span><h3>CR</h3></div><span class="ab">Conversion Rate</span><p>Процент пользователей, совершивших ЦД, от общего числа переходов.</p></div>
-<div class="card term a" style="--d:3"><div class="tt"><span class="tn">18</span><h3>EPC</h3></div><span class="ab">Earnings per Click</span><p>Средний заработок с одного клика.</p></div>
-<div class="card term a" style="--d:4"><div class="tt"><span class="tn">19</span><h3>EPL</h3></div><span class="ab">Earnings per Lead</span><p>Средний доход с одного лида.</p></div>
-<div class="card term a" style="--d:5"><div class="tt"><span class="tn">20</span><h3>AR</h3></div><span class="ab">Approval Rate</span><p>Процент подтверждённых заявок от общего количества.</p></div>
-<div class="card term a" style="--d:6"><div class="tt"><span class="tn">21</span><h3>Антифрод</h3></div><p>Система, которая отслеживает и блокирует подозрительный или некачественный трафик.</p></div>
-<div class="card term a" style="--d:7"><div class="tt"><span class="tn">22</span><h3>Фрод</h3></div><p>Запрещённый или некачественный трафик.</p></div>
-<div class="card term a" style="--d:8"><div class="tt"><span class="tn">23</span><h3>Фейки</h3></div><p>Искусственно созданные заявки для имитации активности.</p></div>
-<div class="card term a" style="--d:9"><div class="tt"><span class="tn">24</span><h3>Срез</h3></div><p>Отклонение заявок или списание средств.</p></div>
+  <div class="top a"><span class="pill"><i></i>Термины</span><span class="tcount a" style="--d:1"><b>24</b> понятия</span></div>
+  <h1 class="tt1 a" style="--d:1">Основные термины в&nbsp;финках</h1>
+  <div class="tcols">
+<div class="card tcol a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Кто участвует</h3></div><div class="tlist"><div class="tr a" style="--d:3"><b>Оффер</b><span>Продукт или предложение, с которым ведётся работа</span></div><div class="tr a" style="--d:4"><b>Рекламодатель<em>рекл</em></b><span>Компания или человек, который оплачивает трафик</span></div><div class="tr a" style="--d:5"><b>ПП<em>партнёрка</em></b><span>Посредник между вебмастером и рекламодателем</span></div><div class="tr a" style="--d:6"><b>Вебмастеры<em>арбитражники</em></b><span>Специалисты, которые привлекают трафик</span></div><div class="tr a" style="--d:7"><b>Карточка оффера</b><span>Страница с подробной информацией об оффере</span></div><div class="tr a" style="--d:8"><b>Гео</b><span>Страна или регион, на который ориентирован оффер</span></div><div class="tr a" style="--d:9"><b>Креатив<em>крео</em></b><span>Рекламный материал: картинка, видео, гиф</span></div><div class="tr a" style="--d:10"><b>Витрина<em>лендинг</em></b><span>Одностраничный сайт со ссылками или предложениями</span></div></div></div>
+<div class="card tcol a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><h3>Путь человека</h3></div><div class="tlist"><div class="tr a" style="--d:5"><b>Клики</b><span>Переходы пользователей по рекламным ссылкам</span></div><div class="tr a" style="--d:6"><b>Referrer</b><span>Источник, с которого пользователь перешёл на сайт</span></div><div class="tr a" style="--d:7"><b>Воронка</b><span>Путь от первого контакта до целевого действия</span></div><div class="tr a" style="--d:8"><b>Лид</b><span>Человек, который оформил продукт или оставил заявку</span></div><div class="tr a" style="--d:9"><b>ЦД<em>целевое действие</em></b><span>Действие, за которое начисляется вознаграждение</span></div><div class="tr a" style="--d:10"><b>Апрув</b><span>Подтверждение заявки или действия</span></div><div class="tr a" style="--d:11"><b>Холд</b><span>Период проверки качества трафика перед выплатой</span></div><div class="tr a" style="--d:12"><b>Сверки</b><span>Проверка данных между партнёркой и рекламодателем</span></div></div></div>
+<div class="card tcol a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2.5 20.5h19"/></svg></span><h3>Метрики и риски</h3></div><div class="tlist"><div class="tr a" style="--d:7"><b>CR<em>Conversion Rate</em></b><span>Процент совершивших ЦД от всех переходов</span></div><div class="tr a" style="--d:8"><b>EPC<em>Earnings per Click</em></b><span>Средний заработок с одного клика</span></div><div class="tr a" style="--d:9"><b>EPL<em>Earnings per Lead</em></b><span>Средний доход с одного лида</span></div><div class="tr a" style="--d:10"><b>AR<em>Approval Rate</em></b><span>Процент подтверждённых заявок от всех</span></div><div class="tr a" style="--d:11"><b>Антифрод</b><span>Система, которая блокирует подозрительный трафик</span></div><div class="tr a" style="--d:12"><b>Фрод</b><span>Запрещённый или некачественный трафик</span></div><div class="tr a" style="--d:13"><b>Фейки</b><span>Искусственные заявки для имитации активности</span></div><div class="tr a" style="--d:14"><b>Срез</b><span>Отклонение заявок или списание средств</span></div></div></div>
   </div>
 </section>
 
@@ -382,7 +364,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
   <div class="banks">
 <div class="card bank a" style="--d:3"><div class="bh"><span class="lt">А</span><h3>Альфа</h3></div>
       <div class="pay"><span class="label">Выплата с Альфа Only</span><b><span data-count="2000">2 000</span>–<span data-count="4000">4 000</span> ₽</b></div>
-      <div class="rows"><span>Целевое действие<b>покупка на 1 ₽</b></span><span>Возраст клиента<b class="age hot">14+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>13–25 ЦД</b></div><span class="more" data-go="6">Как получить Альфа Only <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      <div class="rows"><span>Целевое действие<b>покупка на 1 ₽</b></span><span>Возраст клиента<b class="age hot">14+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>13–25 ЦД</b></div><span class="more" data-go="4">Как получить Альфа Only <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
 <div class="card bank a" style="--d:4"><div class="bh"><span class="lt">В</span><h3>ВТБ</h3></div>
       <div class="pay"><span class="label">Выплата за клиента</span><b><span data-count="2000">2 000</span> ₽</b></div>
       <div class="rows"><span>Целевое действие<b>покупка на 500 ₽</b></span><span>Возраст клиента<b class="age">18+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>25 ЦД</b></div></div>
@@ -422,9 +404,9 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
       <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Одна связка, которая стабильно приводит лидов в плюс</p></div>
     </div>
     <div class="grid g3">
-<div class="card bnd a" style="--d:2" data-go="8"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span><h3>Сарафанка</h3></div><p>Предлагаешь знакомым оформить продукт и делишься с ними частью выплаты.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>1 неделя</b></span><span>Масштаб<b>небольшой</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:2" data-go="6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span><h3>Сарафанка</h3></div><p>Предлагаешь знакомым оформить продукт и делишься с ними частью выплаты.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>1 неделя</b></span><span>Масштаб<b>небольшой</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
 <div class="card bnd nogo a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></span><h3>Органика в Threads</h3></div><p>Бесплатно набираешь охваты постами и ведёшь людей в бот или личку.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>2–4 недели</b></span><span>Масштаб<b>средний</b></span></div></div>
-<div class="card bnd a" style="--d:4" data-go="9"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></span><h3>Закуп у блогеров</h3></div><p>Покупаешь рекламу у блогеров, у которых сидит твоя аудитория.</p><div class="kv"><span>Вложения<b>на тесты</b></span><span>Первые деньги<b>1–2 недели</b></span><span>Масштаб<b>высокий</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:4" data-go="7"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></span><h3>Закуп у блогеров</h3></div><p>Покупаешь рекламу у блогеров, у которых сидит твоя аудитория.</p><div class="kv"><span>Вложения<b>на тесты</b></span><span>Первые деньги<b>1–2 недели</b></span><span>Масштаб<b>высокий</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
 <div class="card wide a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><h3>С чего начать</h3></div><p>Нет денег и аудитории: начинай с сарафанки. Параллельно веди Threads, он раскачивается не сразу. Появились первые выплаты: заходи в закуп у блогеров и масштабируйся.</p></div>
     </div>
   </div>
