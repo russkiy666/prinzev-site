@@ -92,6 +92,24 @@ h1.sm{font-size:41px;letter-spacing:-.05em}
 .tdots b{width:22px;height:6px;border-radius:6px;background:#DCE3EE}
 .tdots b.on{background:var(--blue);box-shadow:0 0 10px rgba(76,134,255,.7)}
 
+
+/* связки */
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bnd{cursor:pointer;display:flex;flex-direction:column;gap:12px}
+.bnd p{margin-top:0}
+.bnd .go{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font:700 13px/1 'Inter',sans-serif;color:var(--blue)}
+.bnd .go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease)}
+.bnd:hover .go svg{transform:translateX(4px)}
+.kv{display:flex;flex-direction:column;gap:6px}
+.kv span{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:10px;background:var(--fill);font-size:14px;color:var(--muted)}
+.kv span b{color:var(--ink);font-weight:700;white-space:nowrap}
+.num svg{width:40px;height:40px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pc div{border-radius:14px;background:var(--fill);padding:14px 16px}
+.pc .label{display:block;margin-bottom:8px}
+.pc div.minus .label{color:var(--muted)}
+.pc p{margin-top:0;font-size:15px;color:var(--ink)}
+
 /* обзор */
 .hero{position:relative;display:flex;flex-direction:column;gap:18px;margin-top:auto}
 .hero h1{font-size:62px;max-width:1040px}
@@ -235,8 +253,8 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
   <div class="road">
     <div class="st a" style="--d:4" data-go="4"><span class="n">1</span><h3>Получение базы</h3><p>Офферы, целевые действия и как устроены процессы</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
     <div class="st a" style="--d:5" data-go="5"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:6" data-go="6"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st last ring a" style="--d:7" data-go="7"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
+    <div class="st a" style="--d:6" data-go="9"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st last ring a" style="--d:7" data-go="10"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
   </div>
 </section>
 
@@ -311,26 +329,70 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 2. Связка -->
 <section class="slide">
-  
   <div class="top a"><span class="pill"><i></i>Этап 2 из 4</span><div class="dots"><b class="on"></b><b class="on"></b><b></b><b></b></div></div>
   <div class="body">
     <div class="side">
       <div class="num a">02</div>
-      <h1 class="a" style="--d:1">Выбор связки</h1>
-      <p class="lead a" style="--d:2">Связок много. Берёшь одну и доводишь её до результата, а не прыгаешь между всеми.</p>
+      <h1 class=" a" style="--d:1">Выбор связки</h1>
+      <p class="lead a" style="--d:2">Связка = трафик + оффер + подача. Берёшь одну и доводишь до результата, а не прыгаешь между всеми.</p>
       <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Одна связка, которая стабильно приводит лидов в плюс</p></div>
     </div>
+    <div class="grid g3">
+<div class="card bnd a" style="--d:2" data-go="6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span><h3>Сарафанка</h3></div><p>Предлагаешь знакомым оформить продукт и делишься с ними частью выплаты.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>1 неделя</b></span><span>Масштаб<b>небольшой</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:3" data-go="7"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></span><h3>Органика в Threads</h3></div><p>Бесплатно набираешь охваты постами и ведёшь людей в бот или личку.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>2–4 недели</b></span><span>Масштаб<b>средний</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:4" data-go="8"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></span><h3>Закуп у блогеров</h3></div><p>Покупаешь рекламу у блогеров, у которых сидит твоя аудитория.</p><div class="kv"><span>Вложения<b>на тесты</b></span><span>Первые деньги<b>1–2 недели</b></span><span>Масштаб<b>высокий</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card wide a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><h3>С чего начать</h3></div><p>Нет денег и аудитории: начинай с сарафанки. Параллельно веди Threads, он раскачивается не сразу. Появились первые выплаты: заходи в закуп у блогеров и масштабируйся.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- связка 1 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Связка 1 из 3</span><div class="dots"><b class="on"></b><b class="on"></b><b></b><b></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></div>
+      <h1 class=" a" style="--d:1">Сарафанка</h1>
+      <p class="lead a" style="--d:2">Предлагаешь знакомым оформить продукт по твоей ссылке и делишься с ними частью выплаты.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Что даёт</div><p>Первые 5–15 ЦД и понимание, как люди проходят оформление</p></div>
+    </div>
     <div class="grid">
-      <div class="card wide a" style="--d:2"><div class="label">Связка = трафик + оффер + подача</div><div class="chips">
-        <span class="chip"><span class="mi"><svg viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.2A8.5 8.5 0 1 1 20.5 12z"/></svg></span>Чатинг</span>
-        <span class="chip"><span class="mi"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span>Сарафанка</span>
-        <span class="chip hot"><span class="mi"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></span>Блогеры<em>разбираем</em></span>
-        <span class="chip"><span class="mi"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M10 9.2l5 2.8-5 2.8z"/></svg></span>Свой контент</span>
-      </div></div>
-      <div class="card a" style="--d:3"><div class="hd"><span class="sn">1</span><h3>Найди площадки</h3></div><p>Каналы и блогеры с аудиторией 18–35. Смотри охваты и живые комменты, а не подписчиков.</p></div>
-      <div class="card a" style="--d:4"><div class="hd"><span class="sn">2</span><h3>Сделай подачу</h3></div><p>Честная выгода: кэшбэк, бонус, бесплатное обслуживание. Ссылка ведёт в твой бот или личку.</p></div>
-      <div class="card a" style="--d:5"><div class="hd"><span class="sn">3</span><h3>Запусти тест</h3></div><p>3–5 недорогих посевов. По каждому записывай цену, переходы, лидов и ЦД.</p></div>
-      <div class="card a" style="--d:6"><div class="hd"><span class="sn">4</span><h3>Посчитай</h3></div><p>Цена посева / число ЦД = цена ЦД. Если она ниже выплаты, связка работает: повторяй.</p></div>
+      <div class="card a" style="--d:2"><div class="hd"><span class="sn">1</span><h3>Составь список</h3></div><p>Друзья, родственники, одноклассники, коллеги. Все, у кого ещё нет нужной карты или продукта.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="sn">2</span><h3>Выбери простой оффер</h3></div><p>Карта с бесплатным обслуживанием и понятным ЦД: оформил, получил, сделал покупку.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="sn">3</span><h3>Предложи честно</h3></div><p>«Оформи карту по моей ссылке, сделай покупку, я переведу тебе 500 ₽». Перед этим проверь, что оффер разрешает делиться выплатой.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="sn">4</span><h3>Попроси передать дальше</h3></div><p>Кто получил деньги, зовёт своих знакомых. Так круг расширяется без твоего участия.</p></div>
+      <div class="card wide a" style="--d:6"><div class="pc"><div><span class="label">Плюсы</span><p>0 ₽ вложений, высокая конверсия, деньги уже в первую неделю.</p></div><div class="minus"><span class="label">Минусы</span><p>Круг знакомых быстро заканчивается, дальше нужен второй канал.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- связка 2 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Связка 2 из 3</span><div class="dots"><b class="on"></b><b class="on"></b><b></b><b></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></div>
+      <h1 class=" a" style="--d:1">Органика в&nbsp;Threads</h1>
+      <p class="lead a" style="--d:2">Ведёшь аккаунт в Threads и бесплатно набираешь охваты. Люди сами приходят к тебе за ссылкой.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Что даёт</div><p>Свой поток лидов без бюджета на рекламу</p></div>
+    </div>
+    <div class="grid">
+      <div class="card a" style="--d:2"><div class="hd"><span class="sn">1</span><h3>Упакуй профиль</h3></div><p>Аватар, имя и описание: про что аккаунт и какую выгоду тут можно найти. В шапке ссылка на бот или канал.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="sn">2</span><h3>Пиши каждый день</h3></div><p>3–5 коротких постов: подборки карт, кэшбэк, лайфхаки с банками, личный опыт. В конце вопрос для комментариев.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="sn">3</span><h3>Веди в бот или личку</h3></div><p>Не ставь ссылку в каждый пост. Предлагай написать слово в комментариях или забрать подборку в боте.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="sn">4</span><h3>Смотри цифры</h3></div><p>Какие посты дают охваты и заявки, такие и повторяй. Остальные форматы убирай.</p></div>
+      <div class="card wide a" style="--d:6"><div class="pc"><div><span class="label">Плюсы</span><p>Бесплатно, аккаунт растёт и копит аудиторию, которая потом покупает снова.</p></div><div class="minus"><span class="label">Минусы</span><p>Первые результаты через 2–4 недели, без регулярности не работает.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- связка 3 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Связка 3 из 3</span><div class="dots"><b class="on"></b><b class="on"></b><b></b><b></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></div>
+      <h1 class=" a" style="--d:1">Закуп у&nbsp;блогеров</h1>
+      <p class="lead a" style="--d:2">Покупаешь рекламу у блогеров с твоей аудиторией и масштабируешься бюджетом.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Что даёт</div><p>Предсказуемый поток лидов, который растёт вместе с бюджетом</p></div>
+    </div>
+    <div class="grid">
+      <div class="card a" style="--d:2"><div class="hd"><span class="sn">1</span><h3>Найди площадки</h3></div><p>Каналы и блогеры с аудиторией 18–35. Смотри охваты и живые комментарии, а не число подписчиков.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="sn">2</span><h3>Сделай подачу</h3></div><p>Честная выгода: кэшбэк, бонус, бесплатное обслуживание. Ссылка ведёт в твой бот или личку.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="sn">3</span><h3>Запусти тест</h3></div><p>3–5 недорогих посевов. По каждому записывай цену, переходы, лидов и ЦД.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="sn">4</span><h3>Посчитай</h3></div><p>Цена посева / число ЦД = цена ЦД. Если она ниже выплаты, связка работает: повторяй и увеличивай бюджет.</p></div>
+      <div class="card wide a" style="--d:6"><div class="pc"><div><span class="label">Плюсы</span><p>Быстро масштабируется деньгами, много лидов за один выход.</p></div><div class="minus"><span class="label">Минусы</span><p>Нужен бюджет на тесты, часть посевов уйдёт в минус.</p></div></div></div>
     </div>
   </div>
 </section>
