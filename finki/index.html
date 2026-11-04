@@ -110,6 +110,27 @@ h1.sm{font-size:41px;letter-spacing:-.05em}
 .pc div.minus .label{color:var(--muted)}
 .pc p{margin-top:0;font-size:15px;color:var(--ink)}
 
+
+/* банки */
+.banks{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.bank{display:flex;flex-direction:column;gap:16px;padding:24px}
+.bank .bh{display:flex;align-items:center;gap:14px}
+.bank .lt{flex:none;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--grad);color:#fff;font:800 26px/1 'Inter',sans-serif;box-shadow:0 6px 14px rgba(29,92,255,.26),inset 0 1px 0 rgba(255,255,255,.35);animation:neon 3.4s ease-in-out infinite}
+.bank h3{font-size:30px;letter-spacing:-.035em}
+.bank .pay{border-radius:16px;background:var(--soft);padding:18px 18px 16px}
+.bank .pay .label{display:block}
+.bank .pay b{display:block;margin-top:10px;font:800 40px/1 'Inter',sans-serif;letter-spacing:-.04em;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bank .rows{display:flex;flex-direction:column;gap:8px}
+.bank .rows span{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:var(--fill);font-size:16px;color:var(--muted)}
+.bank .rows span b{color:var(--ink);font-weight:700;white-space:nowrap}
+.bank .age{display:inline-flex;padding:5px 10px;border-radius:999px;background:var(--ink);color:#fff;font:800 14px/1 'Inter',sans-serif}
+.bank .rows span b.age{color:#fff}
+.bank .goal{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-radius:14px;border:1px dashed #BFD1F5;font-size:15px;color:var(--muted)}
+.bank .goal b{font:800 22px/1 'Inter',sans-serif;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bank .age.hot{background:var(--blue);box-shadow:0 0 14px rgba(76,134,255,.75)}
+.bnote{position:relative;display:flex;align-items:center;gap:12px;font-size:15px;color:var(--muted)}
+.bnote svg{flex:none;width:18px;height:18px;fill:none;stroke:var(--blue);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
 /* обзор */
 .hero{position:relative;display:flex;flex-direction:column;gap:18px;margin-top:auto}
 .hero h1{font-size:62px;max-width:1040px}
@@ -252,9 +273,9 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
   </div>
   <div class="road">
     <div class="st a" style="--d:4" data-go="4"><span class="n">1</span><h3>Получение базы</h3><p>Офферы, целевые действия и как устроены процессы</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:5" data-go="5"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st a" style="--d:6" data-go="9"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="st last ring a" style="--d:7" data-go="10"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
+    <div class="st a" style="--d:5" data-go="6"><span class="n">2</span><h3>Выбор связки</h3><p>Берём одну связку и разбираем её до конца</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st a" style="--d:6" data-go="10"><span class="n">3</span><h3>Обработка лидов</h3><p>Доводим людей до целевого действия и делаем кэш</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="st last ring a" style="--d:7" data-go="11"><span class="n">4</span><h3>Масштабирование</h3><p>Команда, делегирование и рост без твоих часов</p></div>
   </div>
 </section>
 
@@ -327,6 +348,24 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
   </div>
 </section>
 
+<!-- банки -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Этап 1 · Офферы</span><div class="dots"><b class="on"></b><b></b><b></b><b></b></div></div>
+  <div class="thead"><h1 class="a" style="--d:1">Какие банки крутим сейчас</h1><div class="grp a" style="--d:2"><span class="label">Актуальные офферы</span><b>3 банка</b></div></div>
+  <div class="banks">
+<div class="card bank a" style="--d:3"><div class="bh"><span class="lt">А</span><h3>Альфа</h3></div>
+      <div class="pay"><span class="label">Выплата за клиента</span><b><span data-count="2000">2 000</span>–<span data-count="4000">4 000</span> ₽</b></div>
+      <div class="rows"><span>Целевое действие<b>покупка на 1 ₽</b></span><span>Ставка<b>с Альфа Only</b></span><span>Возраст клиента<b class="age hot">14+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>13–25 ЦД</b></div></div>
+<div class="card bank a" style="--d:4"><div class="bh"><span class="lt">В</span><h3>ВТБ</h3></div>
+      <div class="pay"><span class="label">Выплата за клиента</span><b><span data-count="2000">2 000</span> ₽</b></div>
+      <div class="rows"><span>Целевое действие<b>покупка на 500 ₽</b></span><span>Возраст клиента<b class="age">18+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>25 ЦД</b></div></div>
+<div class="card bank a" style="--d:5"><div class="bh"><span class="lt">О</span><h3>ОТП</h3></div>
+      <div class="pay"><span class="label">Выплата за клиента</span><b><span data-count="1750">1 750</span> ₽</b></div>
+      <div class="rows"><span>Целевое действие<b>покупка на 150 ₽</b></span><span>Возраст клиента<b class="age">18+</b></span></div><div class="goal">До 50 000 ₽ в месяц<b>29 ЦД</b></div></div>
+  </div>
+  <p class="bnote a" style="--d:6"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Ставки и условия меняются. Перед запуском сверяй их в своей партнёрке.</p>
+</section>
+
 <!-- 2. Связка -->
 <section class="slide">
   <div class="top a"><span class="pill"><i></i>Этап 2 из 4</span><div class="dots"><b class="on"></b><b class="on"></b><b></b><b></b></div></div>
@@ -338,9 +377,9 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
       <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Одна связка, которая стабильно приводит лидов в плюс</p></div>
     </div>
     <div class="grid g3">
-<div class="card bnd a" style="--d:2" data-go="6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span><h3>Сарафанка</h3></div><p>Предлагаешь знакомым оформить продукт и делишься с ними частью выплаты.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>1 неделя</b></span><span>Масштаб<b>небольшой</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-<div class="card bnd a" style="--d:3" data-go="7"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></span><h3>Органика в Threads</h3></div><p>Бесплатно набираешь охваты постами и ведёшь людей в бот или личку.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>2–4 недели</b></span><span>Масштаб<b>средний</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-<div class="card bnd a" style="--d:4" data-go="8"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></span><h3>Закуп у блогеров</h3></div><p>Покупаешь рекламу у блогеров, у которых сидит твоя аудитория.</p><div class="kv"><span>Вложения<b>на тесты</b></span><span>Первые деньги<b>1–2 недели</b></span><span>Масштаб<b>высокий</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:2" data-go="7"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></svg></span><h3>Сарафанка</h3></div><p>Предлагаешь знакомым оформить продукт и делишься с ними частью выплаты.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>1 неделя</b></span><span>Масштаб<b>небольшой</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:3" data-go="8"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0V12a9 9 0 1 0-3.5 7.1"/></svg></span><h3>Органика в Threads</h3></div><p>Бесплатно набираешь охваты постами и ведёшь людей в бот или личку.</p><div class="kv"><span>Вложения<b>0 ₽</b></span><span>Первые деньги<b>2–4 недели</b></span><span>Масштаб<b>средний</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+<div class="card bnd a" style="--d:4" data-go="9"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h3l7 4.5v-15L8 9H5a1 1 0 0 0-1 1z"/><path d="M18.5 9a4 4 0 0 1 0 6"/></svg></span><h3>Закуп у блогеров</h3></div><p>Покупаешь рекламу у блогеров, у которых сидит твоя аудитория.</p><div class="kv"><span>Вложения<b>на тесты</b></span><span>Первые деньги<b>1–2 недели</b></span><span>Масштаб<b>высокий</b></span></div><span class="go">Разобрать <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
 <div class="card wide a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/></svg></span><h3>С чего начать</h3></div><p>Нет денег и аудитории: начинай с сарафанки. Параллельно веди Threads, он раскачивается не сразу. Появились первые выплаты: заходи в закуп у блогеров и масштабируйся.</p></div>
     </div>
   </div>
@@ -483,7 +522,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
       var to=+el.dataset.count,t0=null,dur=900,delay=700;
       el.textContent='0';
       function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0-delay)/dur);if(p<0){requestAnimationFrame(step);return}
-        el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}
+        el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('ru-RU');if(p<1)requestAnimationFrame(step)}
       requestAnimationFrame(step);
     });
   }
