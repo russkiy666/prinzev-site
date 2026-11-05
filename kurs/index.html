@@ -1301,13 +1301,13 @@ const today = () => new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'
 async function copyText(txt,el){ try{ await navigator.clipboard.writeText(txt); toast('Скопировано'); }catch(e){ if(el){ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r);} toast('Выделено — нажми «Копировать»'); } }
 
 /* ================= АДМИНКА ================= */
-let ADMIN_KEY = ''; try{ ADMIN_KEY = sessionStorage.getItem('kurs-admin') || '' }catch(e){}
+let ADMIN_KEY = ''; try{ ADMIN_KEY = localStorage.getItem('kurs-admin') || sessionStorage.getItem('kurs-admin') || '' }catch(e){}
 let ADM = {students:[],pending:[],questions:[],answered:[],issued:null,q:'',tab:'students',loaded:false,legacy:false,err:''};
 async function adminLoad(){
   let r = await API.adminData(ADMIN_KEY);
   if(!r.ok && /Неизвестное действие/.test(r.error||'')){ ADM.legacy=true; r = await API.list(ADMIN_KEY); if(r.ok){ r.pending=[]; r.questions=[]; r.answered=[]; } }
   if(r.ok){ Object.assign(ADM,{students:r.students||[],pending:r.pending||[],questions:r.questions||[],answered:r.answered||[],err:''}); }
-  else if(/Нет доступа/.test(r.error||'')){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} toast('Войди в админку ещё раз'); route(); return; }
+  else if(/Нет доступа/.test(r.error||'')){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin'); localStorage.removeItem('kurs-admin') }catch(_){} toast('Войди в админку ещё раз'); route(); return; }
   else ADM.err = r.error || 'Не удалось загрузить данные';
   ADM.loaded=true; if(!document.getElementById('scrAdmin').hidden && !busy()) renderAdmin();
 }
@@ -1586,7 +1586,7 @@ document.addEventListener('click',e=>{ if(e.target.id!=='doLogout') return; clos
 document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
   e.preventDefault(); const k=document.getElementById('adminKey').value; const r=await API.admin(k);
   if(!r.ok){ document.getElementById('adminErr').textContent=r.error||'Неверный пароль'; haptic('error'); return; }
-  ADMIN_KEY=k; try{ sessionStorage.setItem('kurs-admin',k) }catch(_){} if(r.created) toast('Пароль админки сохранён'); route();
+  ADMIN_KEY=k; try{ localStorage.setItem('kurs-admin',k) }catch(_){} if(r.created) toast('Пароль админки сохранён'); route();
 });
 
 document.addEventListener('click',async e=>{
@@ -1633,7 +1633,7 @@ document.addEventListener('click',async e=>{
     const m=j.mood||{}; if(MOOD.some(([k])=>m[k]==null)){ const b=document.getElementById('moodBlock'); if(b){ b.classList.add('need'); b.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'center'}); }
       toast('Отметь на шкалах состояние, мотивацию и энергию'); haptic('warning'); return; }
     j.reported=true; if(!j.reportAt) j.reportAt=hm(); EDIT.report=false; save(); syncDay(); renderApp(); haptic('success'); toast('Отчёт за день отправлен'); return; }
-  if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; ADM.loaded=false; route(); return; }
+  if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin'); localStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; ADM.loaded=false; route(); return; }
   if(el.dataset.copy){ const n=document.getElementById(el.dataset.copy); copyText(n.textContent,n); return; }
   if(el.dataset.copyinv){ const s=ADM.students.find(x=>x.code===el.dataset.copyinv); copyText(inviteText(s)); return; }
   if(el.dataset.toggle){ el.disabled=true; await API.toggle(ADMIN_KEY,el.dataset.toggle); adminLoad(); return; }
