@@ -652,6 +652,96 @@ tr.is-off td{opacity:.55}
 .in-tg .auth{min-height:100dvh}
 @media (max-width:860px){ .in-tg .side{padding-block:8px} .in-tg .main{padding-top:16px} }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rip{display:none}.check.pop svg path{stroke-dashoffset:0}}
+
+/* ================= NEON-слой: свечение и мягкие анимации поверх строгой базы ================= */
+:root{--neon:#2F6BFF;--neon-2:#22C8F0;--glow:0 0 0 1px rgba(47,107,255,.18),0 8px 28px -8px rgba(47,107,255,.55);--glow-soft:0 0 24px -6px rgba(47,107,255,.45)}
+/* фон: две медленно плывущие голубые туманности */
+body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(70px);opacity:.5}
+body::before{width:46vmax;height:46vmax;left:-14vmax;top:-18vmax;background:radial-gradient(circle,rgba(47,107,255,.22),transparent 65%);animation:drift 26s ease-in-out infinite alternate}
+body::after{width:40vmax;height:40vmax;right:-14vmax;bottom:-16vmax;background:radial-gradient(circle,rgba(34,200,240,.18),transparent 65%);animation:drift 32s ease-in-out infinite alternate-reverse}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.12)}}
+
+/* логотип: градиент и дыхание свечением */
+.logo-mark{background:linear-gradient(135deg,var(--neon),var(--accent) 55%,var(--neon-2));animation:breathe 4s ease-in-out infinite}
+.logo.light .logo-mark{animation:none}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 rgba(47,107,255,.0),0 4px 14px -4px rgba(47,107,255,.5)}50%{box-shadow:0 0 0 4px rgba(47,107,255,.10),0 6px 22px -4px rgba(34,200,240,.7)}}
+
+/* главная кнопка: неоновое свечение и пробегающий блик */
+.btn:not(.ghost):not(.line){background:linear-gradient(135deg,#3A72FF,var(--accent) 60%,#1A44CC);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),var(--glow)}
+.btn:not(.ghost):not(.line):hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 0 0 1px rgba(47,107,255,.3),0 10px 34px -6px rgba(47,107,255,.75)}
+.btn:not(.ghost):not(.line):not(:disabled)::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-18deg);animation:shine 5s ease-in-out infinite}
+.btn.sm::after{animation-duration:7s}
+@keyframes shine{0%,62%{left:-60%}100%{left:130%}}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1px rgba(47,107,255,.35),var(--glow-soft)}
+
+/* поля: голубая подсветка в фокусе */
+input:focus,select:focus,textarea:focus{border-color:var(--neon);box-shadow:0 0 0 4px var(--accent-soft),0 0 18px -4px rgba(47,107,255,.5)}
+
+/* навигация: светящийся индикатор активного раздела */
+.nav a[aria-current="page"]{box-shadow:inset 0 0 0 1px rgba(47,107,255,.14)}
+.nav a[aria-current="page"]::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:3px;background:linear-gradient(var(--neon-2),var(--neon));box-shadow:0 0 10px var(--neon)}
+.nav a[aria-current="page"] svg{filter:drop-shadow(0 0 6px rgba(47,107,255,.55))}
+
+/* тёмно-синий блок: живое свечение и бегущая неоновая рамка */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero>*{position:relative;z-index:1}
+.hero::before{content:"";position:absolute;z-index:0;width:340px;height:340px;right:-90px;top:-140px;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,200,240,.45),rgba(47,107,255,.25) 40%,transparent 70%);filter:blur(10px);animation:orb 9s ease-in-out infinite alternate;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;z-index:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:conic-gradient(from var(--a,0deg),transparent 0 70%,rgba(34,200,240,.9) 80%,rgba(255,255,255,.9) 84%,transparent 92%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 6s linear infinite}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes spin{to{--a:360deg}}
+@keyframes orb{to{transform:translate(-60px,50px) scale(1.15)}}
+.ring .val{filter:drop-shadow(0 0 6px rgba(120,200,255,.9))}
+.ring .trk{stroke:rgba(255,255,255,.12)}
+
+/* экран входа: неоновые огни на синей половине */
+.auth-brand{position:relative;overflow:hidden;isolation:isolate}
+.auth-brand>*{position:relative;z-index:1}
+.auth-brand::before,.auth-brand::after{content:"";position:absolute;z-index:0;border-radius:50%;pointer-events:none;filter:blur(20px)}
+.auth-brand::before{width:420px;height:420px;right:-120px;top:-120px;background:radial-gradient(circle,rgba(34,200,240,.42),transparent 65%);animation:orb 10s ease-in-out infinite alternate}
+.auth-brand::after{width:360px;height:360px;left:-120px;bottom:-140px;background:radial-gradient(circle,rgba(47,107,255,.55),transparent 65%);animation:orb 13s ease-in-out infinite alternate-reverse}
+.auth-facts dt{text-shadow:0 0 18px rgba(120,190,255,.55)}
+
+/* полосы прогресса: градиент, свечение и бегущий свет */
+.bar{position:relative}
+.bar i{position:relative;overflow:hidden;background:linear-gradient(90deg,var(--accent),var(--neon) 60%,var(--neon-2));box-shadow:0 0 10px rgba(47,107,255,.55)}
+.bar i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:translateX(-100%);animation:flow 2.6s ease-in-out infinite}
+@keyframes flow{to{transform:translateX(100%)}}
+
+/* путь: пульсирующий текущий этап и светящаяся линия пройденного */
+.stage.done:not(:last-child)::before{background:linear-gradient(var(--accent),var(--neon-2));box-shadow:0 0 8px rgba(47,107,255,.5)}
+.stage.done .node{background:linear-gradient(135deg,var(--neon),var(--accent));box-shadow:0 0 12px -2px rgba(47,107,255,.7)}
+.stage.current .node{animation:pulse 2.2s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,107,255,.5),0 0 0 5px var(--accent-soft)}70%{box-shadow:0 0 0 12px rgba(47,107,255,0),0 0 0 5px var(--accent-soft)}100%{box-shadow:0 0 0 0 rgba(47,107,255,0),0 0 0 5px var(--accent-soft)}}
+.stage.current .stage-body{box-shadow:inset 0 0 0 1px rgba(47,107,255,.22),0 0 26px -12px rgba(47,107,255,.55)}
+
+/* карточки: лёгкое голубое свечение при наведении */
+@media (hover:hover){.card:not(.hero){transition:box-shadow .3s var(--ease),border-color .3s}
+  .card:not(.hero):hover{border-color:rgba(47,107,255,.28);box-shadow:var(--sh-1),0 12px 34px -16px rgba(47,107,255,.45)}}
+
+/* статусы: «ждёт» мигает точкой, «принято» светится */
+.s-review::before{animation:blink 1.6s ease-in-out infinite}
+.s-todo::before{box-shadow:0 0 6px var(--neon)}
+.s-accepted::before{box-shadow:0 0 6px currentColor}
+@keyframes blink{50%{opacity:.25;transform:scale(.7)}}
+.step-n{box-shadow:0 0 0 1px rgba(47,107,255,.12)}
+
+/* шкалы настроения: свечение дуги и стрелки */
+.gauge svg .g-val{filter:drop-shadow(0 0 4px var(--gc))}
+.gauge.drag svg{filter:drop-shadow(0 0 10px rgba(47,107,255,.35))}
+.chip[aria-pressed="true"],.chip.on{box-shadow:0 0 14px -4px rgba(47,107,255,.6)}
+
+/* мобильный таб-бар: светящаяся точка над активной вкладкой */
+@media (max-width:860px){
+  .nav a[aria-current="page"]{box-shadow:none}
+  .nav a[aria-current="page"]::before{left:50%;top:0;bottom:auto;width:18px;height:3px;transform:translateX(-50%)}
+}
+
+/* бережём тех, кто отключил анимации */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
 </style>
 </head>
 <body>
