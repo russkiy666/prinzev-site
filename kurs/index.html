@@ -543,8 +543,8 @@ tr.is-off td{opacity:.55}
   .adm-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .issue-row{grid-template-columns:minmax(0,1fr)}
   .issue-row .btn{width:100%}
-  .adm-tabs{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .adm-tab{justify-content:center;padding:10px 8px}
+  .adm-tabs{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .adm-tab{justify-content:center;padding:10px 6px;font-size:13px;gap:6px}
   .jr-grid{grid-template-columns:minmax(0,1fr)}
 }
 
@@ -788,6 +788,84 @@ input:focus,select:focus,textarea:focus{border-color:var(--neon);box-shadow:0 0 
 .m-goal b{font-family:var(--f-display);font-size:30px;letter-spacing:-.03em;line-height:1.1;text-shadow:0 0 22px rgba(120,200,255,.8)}
 .m-goal small{font-size:13px;color:var(--deep-muted)}
 .m-goal.won{box-shadow:0 0 0 2px #9FE6FF,0 0 50px -6px rgba(34,200,240,.9)}
+
+/* ================= ДОРАБОТКИ: уроки, вход, админка ================= */
+.err:empty{display:none}
+.hint a{color:var(--accent-ink);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(30,79,224,.25)}
+.forgot{font-size:13px;color:var(--muted);text-align:center}
+.forgot summary{cursor:pointer;list-style:none;color:var(--accent-ink);font-weight:600;width:fit-content;margin:0 auto}
+.forgot summary::-webkit-details-marker{display:none}
+.forgot p{margin:8px 0 0;text-align:left;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;line-height:1.5}
+/* плеер */
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.screen.playing{background:#000}
+.screen .screen-link{background:var(--on-deep);color:var(--deep);box-shadow:0 12px 30px -8px rgba(0,0,0,.5)}
+.screen .screen-link svg{width:14px;height:14px}
+.screen.is-empty .soon{display:grid;justify-items:center;gap:6px;text-align:center;padding:0 24px}
+.screen.is-empty .soon svg{width:30px;height:30px;color:#9FE6FF;opacity:.9}
+.screen.is-empty .soon b{font-family:var(--f-display);font-size:17px;font-weight:600}
+.screen.is-empty .soon small{color:var(--deep-muted);font-size:13px}
+.lesson-desc{margin:0;white-space:pre-line;color:var(--ink-2)}
+.lesson-desc a{color:var(--accent-ink);overflow-wrap:anywhere}
+a.mat{color:var(--ink);text-decoration:none}
+.mat span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mat .ext{width:14px;height:14px;color:var(--muted)}
+.mat.is-text{cursor:default}
+.mod-lock{display:grid;color:var(--idle)}
+.mod-lock svg{width:16px;height:16px}
+.mod summary .muted{white-space:nowrap}
+/* шторка: кнопки во всю ширину на телефоне */
+@media (max-width:560px){.d-foot .btn{flex:1 1 220px}}
+/* карточка ученика и программа в админке */
+.who-btn{border:none;background:none;padding:0;text-align:left;cursor:pointer;color:inherit;font:inherit;min-width:0;border-radius:10px}
+.who-btn:hover b{color:var(--accent-ink)}
+.prev{display:grid;gap:6px;padding:12px 14px;border-radius:12px;border:1px dashed var(--line-2);font-size:14px}
+.prev p{margin:0;color:var(--ink-2);white-space:pre-wrap}
+.stu-head{display:flex;gap:14px;align-items:center}
+.stu-head .ava{width:52px;height:52px;font-size:17px}
+.stu-head b{font-size:18px;font-family:var(--f-display);font-weight:600}
+.stu-head small{display:block;color:var(--muted);font-size:13px}
+.stu-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.stu-code{font-family:var(--f-mono);font-weight:600;letter-spacing:.06em;background:var(--surface-2);border-radius:8px;padding:3px 8px;font-size:13px}
+.stu-stage{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--line);border-radius:12px}
+.stu-stage-h{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:14px}
+.stu-stage-h b{font-weight:600}
+.stu-tasks{display:flex;gap:6px;flex-wrap:wrap}
+.spot-m.in-d{border-top:none;padding-top:0}
+.prog-card{display:grid;gap:18px}
+.prog-stats{display:flex;gap:10px;flex-wrap:wrap}
+.prog-stats span{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--muted)}
+.prog-stats b{font-family:var(--f-display);font-size:18px;color:var(--ink);margin-right:4px}
+.pstage{display:grid;gap:8px}
+.pstage-h{display:flex;gap:10px;align-items:center}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.plist li{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;font-size:14px}
+.plist li:nth-child(odd){background:var(--surface-2)}
+.plist .pt{flex:1;min-width:0}
+.pdot{width:9px;height:9px;border-radius:50%;background:var(--line-2);flex:none}
+.pdot.on{background:var(--ok);box-shadow:0 0 6px rgba(18,120,79,.5)}
+.pdot.task{background:var(--accent);border-radius:3px}
+.plist .rs{flex:none}
+.howto{font-size:14px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface-2)}
+.howto summary{cursor:pointer;font-weight:600;color:var(--accent-ink)}
+.howto ol{margin:10px 0 0;padding-left:20px;display:grid;gap:6px;color:var(--ink-2)}
+/* таблица учеников на телефоне — карточками */
+@media (max-width:700px){
+  .tbl-wrap{margin:0;padding:0;overflow:visible}
+  .tbl-wrap table{min-width:0}
+  .tbl-wrap thead{display:none}
+  .tbl-wrap tbody{display:grid}
+  .tbl-wrap tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .tbl-wrap tr:last-child{border-bottom:none}
+  .tbl-wrap td{display:block;padding:0;border:none}
+  tbody tr:hover td{background:none}
+  .tbl-wrap .c-who,.tbl-wrap .c-prog,.tbl-wrap .c-act{grid-column:1/-1}
+  .tbl-wrap .c-today,.tbl-wrap .c-st{justify-self:end;text-align:right}
+  .tbl-wrap .c-st small{text-align:right}
+  .tbl-wrap .c-act{display:flex;gap:8px;justify-content:flex-start;text-align:left}
+  .tbl-wrap .c-act .btn{flex:1}
+  .search{max-width:none;width:100%}
+}
 /* бережём тех, кто отключил анимации */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
 </style>
@@ -797,18 +875,18 @@ input:focus,select:focus,textarea:focus{border-color:var(--neon);box-shadow:0 0 
 <!-- Вход по коду -->
 <section class="auth" id="scrLogin" hidden>
   <aside class="auth-brand">
-    <div class="logo light"><div class="logo-mark">П</div><div><b>Продюсер с нуля</b><span>Платформа обучения</span></div></div>
+    <div class="logo light"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span>Платформа обучения</span></div></div>
     <div class="auth-pitch"><h2>Обучение, в котором виден каждый шаг</h2><p>Уроки по этапам, задания с проверкой куратора и твой прогресс в одном кабинете.</p></div>
-    <dl class="auth-facts"><div><dt class="js-st"></dt><dd class="js-st-l"></dd></div><div><dt class="js-ls"></dt><dd class="js-ls-l"></dd></div><div><dt>48 ч</dt><dd>на проверку задания</dd></div></dl>
+    <dl class="auth-facts"><div><dt class="js-st"></dt><dd class="js-st-l"></dd></div><div><dt class="js-ls"></dt><dd class="js-ls-l"></dd></div><div><dt class="js-rh">48 ч</dt><dd>на проверку задания</dd></div></dl>
   </aside>
   <form class="auth-card" id="loginForm" autocomplete="off">
-    <div class="logo"><div class="logo-mark">П</div><div><b>Продюсер с нуля</b><span>Платформа обучения</span></div></div>
+    <div class="logo"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span>Платформа обучения</span></div></div>
     <div style="display:grid;gap:6px"><h1>Вход на платформу</h1><p class="muted" style="margin:0">Введи личный код, который тебе выдал куратор.</p></div>
     <label class="f" for="codeIn">Код доступа
-      <input type="text" id="codeIn" class="code-in" placeholder="XXXX-XXXX" maxlength="9" inputmode="latin" autocapitalize="characters" spellcheck="false"></label>
+      <input type="text" id="codeIn" class="code-in" placeholder="XXXX-XXXX" maxlength="9" inputmode="text" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" lang="en"></label>
     <div class="err" id="loginErr"></div>
     <button class="btn" type="submit" id="loginBtn">Войти</button>
-    <p class="hint" style="margin:0">Нет кода? Напиши куратору в Telegram.</p>
+    <p class="hint" style="margin:0">Нет кода? <a id="curLink" href="https://t.me/YakimovichI" target="_blank" rel="noopener">Напиши куратору в Telegram</a></p>
     <div class="demo-note" id="demoNote" hidden>Демо-режим: для проверки введи код <b class="num">DEMO-2026</b></div>
   </form>
 </section>
@@ -816,12 +894,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--neon);box-shadow:0 0 
 <!-- Шаг с именем -->
 <section class="auth" id="scrName" hidden>
   <aside class="auth-brand">
-    <div class="logo light"><div class="logo-mark">П</div><div><b>Продюсер с нуля</b><span>Платформа обучения</span></div></div>
+    <div class="logo light"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span>Платформа обучения</span></div></div>
     <div class="auth-pitch"><h2>Обучение, в котором виден каждый шаг</h2><p>Уроки по этапам, задания с проверкой куратора и твой прогресс в одном кабинете.</p></div>
-    <dl class="auth-facts"><div><dt class="js-st"></dt><dd class="js-st-l"></dd></div><div><dt class="js-ls"></dt><dd class="js-ls-l"></dd></div><div><dt>48 ч</dt><dd>на проверку задания</dd></div></dl>
+    <dl class="auth-facts"><div><dt class="js-st"></dt><dd class="js-st-l"></dd></div><div><dt class="js-ls"></dt><dd class="js-ls-l"></dd></div><div><dt class="js-rh">48 ч</dt><dd>на проверку задания</dd></div></dl>
   </aside>
   <form class="auth-card" id="nameForm" autocomplete="off">
-    <div class="logo"><div class="logo-mark">П</div><div><b>Продюсер с нуля</b><span>Первый вход</span></div></div>
+    <div class="logo"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span>Первый вход</span></div></div>
     <div style="display:grid;gap:6px"><h1>Код подтверждён</h1><p class="muted" style="margin:0">Как тебя зовут? Имя увидит куратор и оно появится в твоём кабинете.</p></div>
     <label class="f" for="nameIn">Имя и фамилия<input type="text" id="nameIn" placeholder="Анна Иванова" maxlength="40"></label>
     <div class="err" id="nameErr"></div>
@@ -832,7 +910,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--neon);box-shadow:0 0 
 <!-- Кабинет -->
 <div class="app" id="scrApp" hidden>
   <aside class="side">
-    <div class="logo"><div class="logo-mark">П</div><div><b>Продюсер с нуля</b><span>Поток №4</span></div></div>
+    <div class="logo"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span class="js-cohort">Платформа обучения</span></div></div>
     <div class="me"><div class="ava" id="meAva"></div><div class="me-info"><b id="meName"></b><span class="num" id="meCode"></span></div>
       <button class="icon-btn" id="logoutBtn" title="Выйти" aria-label="Выйти"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/></svg></button></div>
     <nav class="nav" id="nav">
@@ -854,18 +932,19 @@ input:focus,select:focus,textarea:focus{border-color:var(--neon);box-shadow:0 0 
 <!-- Админка -->
 <section id="scrAdminLogin" class="auth" hidden>
   <aside class="auth-brand">
-    <div class="logo light"><div class="logo-mark">П</div><div><b>Продюсер с нуля</b><span>Платформа обучения</span></div></div>
+    <div class="logo light"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span>Платформа обучения</span></div></div>
     <div class="auth-pitch"><h2>Обучение, в котором виден каждый шаг</h2><p>Уроки по этапам, задания с проверкой куратора и твой прогресс в одном кабинете.</p></div>
-    <dl class="auth-facts"><div><dt class="js-st"></dt><dd class="js-st-l"></dd></div><div><dt class="js-ls"></dt><dd class="js-ls-l"></dd></div><div><dt>48 ч</dt><dd>на проверку задания</dd></div></dl>
+    <dl class="auth-facts"><div><dt class="js-st"></dt><dd class="js-st-l"></dd></div><div><dt class="js-ls"></dt><dd class="js-ls-l"></dd></div><div><dt class="js-rh">48 ч</dt><dd>на проверку задания</dd></div></dl>
   </aside>
   <form class="auth-card" id="adminLoginForm" autocomplete="off">
-    <div class="logo"><div class="logo-mark">П</div><div><b>Продюсер с нуля</b><span>Админ-панель</span></div></div>
+    <div class="logo"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span>Админ-панель</span></div></div>
     <h1>Вход для куратора</h1>
     <label class="f" for="adminKey">Пароль администратора<input type="password" id="adminKey"></label>
     <div class="err" id="adminErr"></div>
     <button class="btn" type="submit">Войти в админку</button>
     <div class="demo-note" id="adminDemoNote" hidden>Демо-режим: пароль <b class="num">admin2026</b></div>
-    <p class="hint" id="adminLiveNote" hidden>При самом первом входе придумай пароль от 6 символов: он станет паролем админки.</p>
+    <div id="adminLiveNote" hidden style="display:grid;gap:10px"><p class="hint" style="margin:0">При самом первом входе придумай пароль от 6 символов: он станет паролем админки.</p>
+      <details class="forgot"><summary>Забыл пароль?</summary><p>Пароль хранится в Google Таблице платформы: <b>Расширения → Apps Script → ⚙ Настройки проекта → Свойства скрипта</b>, строка <b>ADMIN_KEY</b>. Там его можно посмотреть. Если строку удалить, первый введённый здесь пароль станет новым.</p></details></div>
   </form>
 </section>
 <div id="scrAdmin" hidden></div>
@@ -883,6 +962,7 @@ const CONFIG = {
   SHEET_URL: 'https://docs.google.com/spreadsheets/d/1KQncA0n_t0j3g-0WRtjtKb4eRz__PSFzYrmKFEAPJ9Q/edit',
   SITE_URL: 'https://russkiy666.github.io/prinzev-site/kurs/',
   BOT_URL: 'https://t.me/YakimovichKursBot',
+  CURATOR_TG: '@YakimovichI',
   DEMO_ADMIN_KEY: 'admin2026'
 };
 const DEMO = !CONFIG.API_URL;
@@ -895,7 +975,11 @@ const ls = {
 };
 const ALPH = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 function genCode(){ const a=new Uint32Array(8); crypto.getRandomValues(a); const s=[...a].map(n=>ALPH[n%ALPH.length]).join(''); return s.slice(0,4)+'-'+s.slice(4); }
-const normCode = c => String(c||'').toUpperCase().replace(/[^A-Z0-9]/g,'').replace(/^(.{4})(.+)$/,'$1-$2');
+/* русская раскладка: похожие буквы превращаем в латиницу (К→K, М→M, Х→X …) */
+const CYR = {А:'A',В:'B',Е:'E',К:'K',М:'M',Н:'H',О:'O',Р:'P',С:'C',Т:'T',Х:'X',У:'Y'};
+const latin = s => String(s||'').toUpperCase().replace(/[А-ЯЁ]/g, ch => CYR[ch] || '');
+const hasCyr = s => /[А-ЯЁа-яё]/.test(String(s||'').toUpperCase().replace(/[АВЕКМНОРСТХУ]/g,''));
+const normCode = c => latin(c).replace(/[^A-Z0-9]/g,'').replace(/^(.{4})(.+)$/,'$1-$2');
 const nowStr = () => new Date().toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
 
 /* Демо-бэкенд: всё в localStorage */
@@ -933,20 +1017,20 @@ const Local = {
 };
 /* Боевой бэкенд: Google Apps Script */
 const Remote = {
-  async call(action,data={}){ try{
-      const r=await fetch(CONFIG.API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...data})});
-      return await r.json(); }catch(e){ return {ok:false,error:'Нет связи с сервером. Проверь интернет и попробуй ещё раз.'} } },
+  async call(action,data={},ms=30000){ const ctl=window.AbortController?new AbortController():null, t=ctl&&setTimeout(()=>ctl.abort(),ms);
+    try{ const r=await fetch(CONFIG.API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...data}),signal:ctl?ctl.signal:undefined});
+      return await r.json(); }catch(e){ return {ok:false,net:true,error:'Нет связи с сервером. Проверь интернет и попробуй ещё раз.'} }finally{ clearTimeout(t); } },
   verify(code){ return this.call('verify',{code}) },
   setName(code,name){ return this.call('setName',{code,name}) },
   admin(key){ return this.call('adminCheck',{key}) },
   list(key){ return this.call('list',{key}) },
   create(key,d){ return this.call('create',{key,...d}) },
   toggle(key,code){ return this.call('toggle',{key,code}) },
-  pull(code){ return this.call('pull',{code}) },
+  pull(code,withCourse){ return this.call('pull',{code,withCourse:!!withCourse}) },
   saveProgress(code,data){ return this.call('saveProgress',{code,data}) },
   saveDay(code,date,entry){ return this.call('saveDay',{code,date,entry}) },
   submitTask(code,taskId,task,answer){ return this.call('submitTask',{code,taskId,task,answer}) },
-  sendRequest(code,num,text,photos){ return this.call('sendRequest',{code,num,text,photos}) },
+  sendRequest(code,num,text,photos){ return this.call('sendRequest',{code,num,text,photos},90000) },
   adminData(key){ return this.call('adminData',{key}) },
   review(key,id,status,score,comment){ return this.call('review',{key,id,status,score,comment}) },
   reply(key,id,text){ return this.call('reply',{key,id,text}) }
@@ -972,8 +1056,10 @@ const I = {
   cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>',
   plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
 };
+I.ext='<svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+I.film='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4-2.5z"/></svg>';
 const STATUS = {accepted:'Принято', review:'На проверке', rework:'На доработке', todo:'Нужно сдать', locked:'Закрыто'};
-const COURSE = {
+let COURSE = {
   curator:'Куратор',
   stages:[
     {title:'Фундамент', goal:'Понять профессию и выбрать модель работы',
@@ -1016,8 +1102,59 @@ const DEMO_PROGRESS = {
 };
 
 const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const ALL_TASKS = COURSE.stages.flatMap((st,i)=>st.tasks.map(t=>({id:t[0],title:t[1],desc:t[2],deadline:t[3],criteria:t[4],stage:i})));
-const ALL_LESSONS = COURSE.stages.flatMap((st,i)=>st.lessons.map(l=>({id:l[0],title:l[1],min:l[2],kind:l[3],stage:i})));
+/* ---------- программа курса: встроенная, затем из Google Таблицы (листы «Программа · …» и «Настройки») ---------- */
+const SET = {title:'Продюсер с нуля', cohort:'', start:'0 ₽', goal:'200 000 ₽', goalNote:'в месяц', curator:'Куратор', curatorTg:CONFIG.CURATOR_TG, reviewHours:'48'};
+const SET0 = {...SET};
+let ALL_TASKS = [], ALL_LESSONS = [];
+function rebuildCourse(){
+  ALL_TASKS = COURSE.stages.flatMap((st,i)=>st.tasks.map(t=>({id:t[0],title:t[1],desc:t[2]||'',deadline:t[3]||'',criteria:t[4]||[],stage:i})));
+  ALL_LESSONS = COURSE.stages.flatMap((st,i)=>st.lessons.map(l=>({id:l[0],title:l[1],min:+l[2]||0,kind:l[3]||'Видео',video:l[4]||'',desc:l[5]||'',mats:l[6]||[],stage:i})));
+}
+rebuildCourse();
+function cleanCourse(c){
+  if(!c || !Array.isArray(c.stages)) return null;
+  const arr = x => Array.isArray(x) ? x : [];
+  const stages = c.stages.map(st=>({title:String(st.title||''), goal:String(st.goal||''),
+    lessons:arr(st.lessons).filter(l=>Array.isArray(l)&&l[0]&&l[1]).map(l=>[String(l[0]),String(l[1]),+l[2]||0,String(l[3]||'Видео'),String(l[4]||''),String(l[5]||''),arr(l[6]).filter(Array.isArray).map(m=>[String(m[0]||''),String(m[1]||'')])]),
+    tasks:arr(st.tasks).filter(t=>Array.isArray(t)&&t[0]&&t[1]).map(t=>[String(t[0]),String(t[1]),String(t[2]||''),String(t[3]||''),arr(t[4]).map(String)])}))
+    .filter(st=>st.lessons.length||st.tasks.length);
+  return stages.length ? {stages, settings:(c.settings&&typeof c.settings==='object')?c.settings:{}} : null;
+}
+function applyCourse(raw){
+  const c = cleanCourse(raw); if(!c) return false;
+  const sig = JSON.stringify(c); if(sig===applyCourse.sig) return false; applyCourse.sig = sig;
+  Object.keys(SET0).forEach(k=>{ const v=c.settings[k]; SET[k] = (v!=null && String(v).trim()!=='') ? String(v).trim() : SET0[k]; });
+  COURSE = {curator:SET.curator, stages:c.stages}; rebuildCourse(); ls.set('kurs-course', raw); brand(); return true;
+}
+const tgLink = v => { v=String(v||'').trim(); if(!v) return ''; if(/^https?:\/\//i.test(v)) return v; return 'https://t.me/'+v.replace(/^@/,'').replace(/^(https?:\/\/)?t\.me\//,''); };
+const safeUrl = u => /^https?:\/\//i.test(String(u||'').trim()) ? String(u).trim() : '';
+const hostOf = u => { try{ return new URL(u).hostname.replace(/^www\./,''); }catch(e){ return 'Ссылка'; } };
+const minTxt = m => m ? m+' мин' : '';
+const dlTxt = t => t.deadline ? 'до '+t.deadline : 'без срока';
+function brand(){
+  document.querySelectorAll('.js-title').forEach(e=>e.textContent=SET.title);
+  document.querySelectorAll('.js-cohort').forEach(e=>e.textContent=SET.cohort||'Платформа обучения');
+  document.querySelectorAll('.js-st').forEach(e=>e.textContent=COURSE.stages.length);
+  document.querySelectorAll('.js-st-l').forEach(e=>e.textContent=plural(COURSE.stages.length,['этап','этапа','этапов'])+' обучения');
+  document.querySelectorAll('.js-ls').forEach(e=>e.textContent=ALL_LESSONS.length);
+  document.querySelectorAll('.js-ls-l').forEach(e=>e.textContent=plural(ALL_LESSONS.length,['урок','урока','уроков'])+' с материалами');
+  document.querySelectorAll('.js-rh').forEach(e=>e.textContent=(parseInt(SET.reviewHours,10)||48)+' ч');
+  const cl=document.getElementById('curLink'); if(cl){ const u=tgLink(SET.curatorTg); cl.href=u||'#'; cl.parentElement.hidden=!u; }
+  COURSE.curator = SET.curator;
+  document.title = 'Кабинет «'+SET.title+'»';
+}
+const rh = () => { const n=parseInt(SET.reviewHours,10)||48; return n+' '+plural(n,['часа','часов','часов']); };
+/* видео: YouTube, Rutube, VK Видео, Kinescope, Google Диск, Vimeo, Дзен — внутри урока; Boosty и прочее — ссылкой */
+function videoSrc(u){ u=safeUrl(u); if(!u) return null; let m;
+  if((m=/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([\w-]{11})/.exec(u))) return {embed:'https://www.youtube.com/embed/'+m[1]+'?rel=0&modestbranding=1&playsinline=1&autoplay=1',name:'YouTube'};
+  if((m=/rutube\.ru\/(?:video|play\/embed|shorts)\/(?:private\/)?([0-9a-f]{20,})/i.exec(u))) return {embed:'https://rutube.ru/play/embed/'+m[1]+'?autoplay=1',name:'Rutube'};
+  if((m=/(?:vk\.com|vkvideo\.ru)\/(?:.*?[?&]z=)?(?:video|clip)(-?\d+)_(\d+)/.exec(u))) return {embed:'https://vk.com/video_ext.php?oid='+m[1]+'&id='+m[2]+'&hd=2&autoplay=1',name:'VK Видео'};
+  if(/(?:vk\.com|vkvideo\.ru)\/video_ext\.php/.test(u)) return {embed:u,name:'VK Видео'};
+  if((m=/kinescope\.io\/(?:embed\/)?([\w-]{6,})/.exec(u))) return {embed:'https://kinescope.io/embed/'+m[1]+'?autoplay=1',name:'Kinescope'};
+  if((m=/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]{10,})/.exec(u))) return {embed:'https://drive.google.com/file/d/'+m[1]+'/preview',name:'Google Диск'};
+  if((m=/vimeo\.com\/(?:video\/)?(\d+)/.exec(u))) return {embed:'https://player.vimeo.com/video/'+m[1]+'?autoplay=1',name:'Vimeo'};
+  if((m=/dzen\.ru\/(?:video\/watch|embed)\/([\w-]+)/.exec(u))) return {embed:'https://dzen.ru/embed/'+m[1],name:'Дзен'};
+  return {link:u, name:/boosty\.to/.test(u)?'Смотреть на Boosty':/(^|\/\/)t\.me\//.test(u)?'Смотреть в Telegram':'Открыть видео'}; }
 
 /* ================= СЕССИЯ ================= */
 let ME = null;   // {code,name,...}
@@ -1057,7 +1194,23 @@ function applyServer(d){
     t.status=x.status; if(x.score) t.score=x.score; });
   save();
 }
-async function pullServer(){ if(!LIVE || !ME) return false; await flushPending(); const d=await API.pull(ME.code); if(!d.ok) return false; applyServer(d); return true; }
+let COURSE_AT = 0;
+/* одним запросом: данные ученика (+ программа курса не чаще раза в 10 минут) */
+async function pullServer(){ if(!LIVE || !ME) return false; await flushPending(); const code=ME.code;
+  const d=await API.pull(code, Date.now()-COURSE_AT>6e5); if(!ME || ME.code!==code) return false;
+  if(!d.ok){ if(d.reason==='not_found'||d.reason==='blocked') kick(d.error); return false; }
+  takeServer(d); return true; }
+function takeServer(d){
+  if(d.course){ applyCourse(d.course); COURSE_AT=Date.now(); }
+  if(d.student && ME){ const n=d.student.name||''; if(n!==ME.name){ ME.name=n; setSession({code:ME.code,name:ME.name}); } }
+  applyServer(d); }
+/* вход по коду: в боевом режиме сразу забираем все данные одним запросом */
+async function enter(code){
+  if(!LIVE){ const r=await API.verify(code); if(!r.ok) return r; ME=r.student; setSession({code:ME.code,name:ME.name}); loadState(); return r; }
+  const r=await API.pull(code,true); if(!r.ok) return r;
+  ME={code:r.student.code,name:r.student.name||''}; setSession({code:ME.code,name:ME.name}); loadState(); takeServer(r); return r; }
+/* код удалили или заблокировали — выходим на экран входа с понятной причиной */
+function kick(msg){ setSession(null); ME=null; S=null; closeDrawer(true); route(); const e=document.getElementById('loginErr'); if(e) e.textContent=msg||''; }
 function busy(){ const a=document.activeElement; return !document.getElementById('overlay').hidden || (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName)); }
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && ADMIN_KEY && !document.getElementById('scrAdmin').hidden) adminLoad(); });
 document.addEventListener('visibilitychange',async()=>{ if(document.visibilityState==='visible' && ME && ME.name && await pullServer() && !busy() && !document.getElementById('scrApp').hidden) renderApp(); });
@@ -1073,7 +1226,7 @@ function stageInfo(i){
   const ta = st.tasks.filter(t=>taskState(t[0]).status==='accepted').length;
   const locked = stageLocked(i);
   const done = !locked && ld===st.lessons.length && ta===st.tasks.length;
-  return {ld,ta,locked,done,pct:Math.round((ld+ta)/(st.lessons.length+st.tasks.length)*100),min:st.lessons.reduce((a,l)=>a+l[2],0)};
+  return {ld,ta,locked,done,pct:Math.round((ld+ta)/Math.max(1,st.lessons.length+st.tasks.length)*100),min:st.lessons.reduce((a,l)=>a+(+l[2]||0),0)};
 }
 function totals(){
   const ld = ALL_LESSONS.filter(l=>S.lessons[l.id]).length;
@@ -1081,7 +1234,7 @@ function totals(){
   const rv = ALL_TASKS.filter(t=>taskStatus(t)==='review').length;
   const rw = ALL_TASKS.filter(t=>taskStatus(t)==='rework').length;
   let cur = COURSE.stages.findIndex((_,i)=>!stageInfo(i).done); if(cur<0) cur=COURSE.stages.length-1;
-  return {ld,ta,rv,rw,cur,pct:Math.round((ld+ta)/(ALL_LESSONS.length+ALL_TASKS.length)*100)};
+  return {ld,ta,rv,rw,cur,pct:Math.round((ld+ta)/Math.max(1,ALL_LESSONS.length+ALL_TASKS.length)*100)};
 }
 const pill = s => `<span class="pill s-${s}">${STATUS[s]}</span>`;
 function greet(){ const h=new Date().getHours(); return h<5?'Доброй ночи':h<12?'Доброе утро':h<18?'Добрый день':'Добрый вечер'; }
@@ -1144,7 +1297,6 @@ function demoReviews(){
 
 
 /* ---------- карта пути: от 0 ₽ до цели ---------- */
-const MAP_GOAL = {from:'0 ₽', to:'200 000 ₽', note:'в месяц'};
 function mapCard(){
   const rows=[]; let y=0; const add=(r,h)=>{ r.y=y+h/2; y+=h; rows.push(r); };
   add({t:'start',x:50},96);
@@ -1160,18 +1312,18 @@ function mapCard(){
   const all=d(rows), done=d(rows.slice(0,Math.max(1,upto+1)));
   const ini = initials(ME.name||'');
   const item = r => {
-    if(r.t==='start') return `<div class="m-start" style="top:${r.y}px"><span>Старт</span><b class="num">${MAP_GOAL.from}</b></div>`;
-    if(r.t==='goal') return `<div class="m-goal${allDone?' won':''}" style="top:${r.y}px"><i>${I.crown}</i><span>Цель</span><b class="num">${MAP_GOAL.to}</b><small>${MAP_GOAL.note}</small></div>`;
+    if(r.t==='start') return `<div class="m-start" style="top:${r.y}px"><span>Старт</span><b class="num">${esc(SET.start)}</b></div>`;
+    if(r.t==='goal') return `<div class="m-goal${allDone?' won':''}" style="top:${r.y}px"><i>${I.crown}</i><span>Цель</span><b class="num">${esc(SET.goal)}</b>${SET.goalNote?`<small>${esc(SET.goalNote)}</small>`:''}</div>`;
     if(r.t==='stage'){ const c=r.inf.done?'done':r.inf.locked?'locked':'cur';
       return `<div class="m-stage ${c}" style="top:${r.y}px">${r.inf.done?I.check:r.inf.locked?I.lock:''}Этап ${r.si+1} · ${esc(r.st.title)}</div>`; }
     const L=r.l, dn=!!S.lessons[L.id], isHere=r===here, c=r.locked?'locked':dn?'done':isHere?'here':'open';
     const act = r.locked ? `data-locked="${L.stage}"` : `data-go="lesson" data-id="${L.id}"`;
     const side = r.x<50 ? 'r' : 'l';
     return `<button class="m-node ${c}" style="left:${r.x}%;top:${r.y}px" ${act} aria-label="Урок ${r.k+1}: ${esc(L.title)}">${dn?I.check:r.locked?I.lock:r.k+1}</button>
-      <button class="m-lab ${side} ${c}" style="--x:${r.x}%;top:${r.y}px" ${act}>${isHere?`<em class="m-you"><span class="ava sm">${esc(ini)}</span>Ты здесь</em>`:''}<span>Урок ${r.k+1} · ${L.min} мин</span><b>${esc(L.title)}</b></button>`;
+      <button class="m-lab ${side} ${c}" style="--x:${r.x}%;top:${r.y}px" ${act}>${isHere?`<em class="m-you"><span class="ava sm">${esc(ini)}</span>Ты здесь</em>`:''}<span>Урок ${r.k+1}${L.min?' · '+L.min+' мин':''}</span><b>${esc(L.title)}</b></button>`;
   };
   return `<section class="card pg-stages">
-    <div class="map-head"><div><div class="eyebrow">Карта пути</div><h2>От ${MAP_GOAL.from} до ${MAP_GOAL.to} ${MAP_GOAL.note}</h2></div>
+    <div class="map-head"><div><div class="eyebrow">Карта пути</div><h2>От ${esc(SET.start)} до ${esc(SET.goal)}${SET.goalNote?' '+esc(SET.goalNote):''}</h2></div>
       <span class="muted" style="font-size:13px">Нажми на точку, чтобы открыть урок</span></div>
     <div class="map" style="height:${y}px">
       <svg viewBox="0 0 100 ${y}" preserveAspectRatio="none" aria-hidden="true">
@@ -1209,7 +1361,7 @@ function vPath(){
     </section>
     <section class="card next pg-next">
       <div class="eyebrow">Следующий шаг</div>
-      ${next ? `<span class="kind">${next.k==='lesson'?'Урок · '+next.o.min+' мин':'Задание · до '+next.o.deadline}</span>
+      ${next ? `<span class="kind">${next.k==='lesson'?'Урок'+(next.o.min?' · '+next.o.min+' мин':''):'Задание · '+esc(dlTxt(next.o))}</span>
         <h2>${esc(next.o.title)}</h2>
         ${next.k==='task'?`<div>${pill(taskStatus(next.o))}</div>`:''}
         <p class="muted" style="margin:0">${next.k==='lesson'?'Продолжи этап «'+esc(st.title)+'».':'После принятия задания откроется следующий этап.'}</p>
@@ -1225,25 +1377,31 @@ function vPath(){
 }
 
 function vLessons(){
-  const cur = ALL_LESSONS.find(l=>l.id===S.current) || ALL_LESSONS[0];
+  const cur = ALL_LESSONS.find(l=>l.id===S.current && !stageLocked(l.stage)) || ALL_LESSONS.find(l=>!S.lessons[l.id] && !stageLocked(l.stage)) || ALL_LESSONS[0];
+  if(!cur) return `<div class="head"><div><h1>Уроки</h1></div></div><section class="card adm-empty"><span class="empty-ic">${I.film}</span><h2>Уроки скоро появятся</h2><p class="muted" style="margin:0">Куратор готовит программу.</p></section>`;
   const done = !!S.lessons[cur.id];
+  const v = videoSrc(cur.video), stg = `<span class="stg">Этап ${cur.stage+1} · ${esc(COURSE.stages[cur.stage].title)}</span>`;
+  const screen = v && v.embed ? `<div class="screen">${stg}<button data-play="${esc(v.embed)}" aria-label="Смотреть урок">${I.play}</button><span class="tc">${cur.min?cur.min+' мин · ':''}${esc(v.name)}</span></div>`
+    : v ? `<div class="screen">${stg}<a class="btn screen-link" href="${esc(v.link)}" target="_blank" rel="noopener">${I.play} ${esc(v.name)}</a><span class="tc">${minTxt(cur.min)}</span></div>`
+    : `<div class="screen is-empty">${stg}<div class="soon">${I.film}<b>Видео скоро появится</b><small>Куратор добавит его в программу курса</small></div></div>`;
+  const mats = cur.mats.filter(m=>m[0]||safeUrl(m[1]));
   const stTasks = ALL_TASKS.filter(t=>t.stage===cur.stage);
   return `
   <div class="head"><div><div class="eyebrow">${ALL_LESSONS.length} уроков · ${COURSE.stages.length} этапов</div><h1>Уроки</h1></div></div>
   <div class="lessons-layout">
     <div class="mods">${COURSE.stages.map((s,i)=>{const n=stageInfo(i);
       return `<details class="card mod ${n.locked?'is-locked':''}" ${i===cur.stage?'open':''}>
-        <summary><span class="mod-n">Этап ${i+1}</span><div style="min-width:0"><h3>${esc(s.title)}</h3><span class="muted num" style="font-size:12px">${n.ld}/${s.lessons.length} уроков · ${n.min} мин</span></div>
-        ${n.locked?`<span class="pill s-locked">Закрыт</span>`:''}<span class="chev">${I.chev}</span></summary>
+        <summary><span class="mod-n">Этап ${i+1}</span><div style="min-width:0"><h3>${esc(s.title)}</h3><span class="muted num" style="font-size:12px">${n.ld}/${s.lessons.length} ${plural(s.lessons.length,['урок','урока','уроков'])}${n.min?' · '+n.min+' мин':''}</span></div>
+        ${n.locked?`<span class="mod-lock" title="Этап откроется после принятия заданий">${I.lock}</span>`:''}<span class="chev">${I.chev}</span></summary>
         ${s.lessons.map(l=>`<button class="lrow" data-lesson="${l[0]}" ${n.locked?'disabled':''} aria-current="${l[0]===cur.id}">
           <span class="check ${S.lessons[l[0]]?'on':''} ${l[0]===JUST?'pop':''}">${S.lessons[l[0]]?I.check:''}</span>
-          <span style="min-width:0">${esc(l[1])}<small>${l[3]}</small></span><span class="num muted" style="font-size:12px">${l[2]} мин</span></button>`).join('')}
+          <span style="min-width:0">${esc(l[1])}<small>${esc(l[3]||'Видео')}</small></span><span class="num muted" style="font-size:12px">${minTxt(+l[2])}</span></button>`).join('')}
       </details>`}).join('')}</div>
     <section class="card player">
-      <div class="screen"><span class="stg">Этап ${cur.stage+1} · ${esc(COURSE.stages[cur.stage].title)}</span><button aria-label="Смотреть урок">${I.play}</button><span class="tc">00:00 / ${cur.min}:00</span></div>
-      <div><div class="eyebrow">${cur.kind} · ${cur.min} мин</div><h2 style="margin-top:4px">${esc(cur.title)}</h2></div>
-      <p class="muted" style="margin:0">Здесь будет описание урока: что ученик узнает и что сделать после просмотра. Видео подключается через Kinescope, YouTube или Boosty.</p>
-      <div class="mats"><div class="mat">${I.doc}Конспект урока · PDF</div><div class="mat">${I.doc}Шаблон таблицы · Google Sheets</div></div>
+      ${screen}
+      <div><div class="eyebrow">${esc(cur.kind)}${cur.min?' · '+cur.min+' мин':''}</div><h2 style="margin-top:4px">${esc(cur.title)}</h2></div>
+      ${cur.desc?`<p class="lesson-desc">${linkify(esc(cur.desc))}</p>`:''}
+      ${mats.length?`<div class="mats">${mats.map(m=>{ const u=safeUrl(m[1]); return u?`<a class="mat" href="${esc(u)}" target="_blank" rel="noopener">${I.doc}<span>${esc(m[0]||hostOf(u))}</span>${I.ext}</a>`:`<div class="mat is-text">${I.doc}<span>${esc(m[0])}</span></div>`; }).join('')}</div>`:''}
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn" id="markLesson" data-id="${cur.id}">${done?I.check+' Урок пройден':'Отметить пройденным'}</button>
         ${stTasks.length?`<button class="btn ghost" data-go="task" data-id="${stTasks[0].id}">Задание этапа</button>`:''}
@@ -1259,15 +1417,20 @@ function vTasks(){
   const list = ALL_TASKS.filter(t=>FILTER==='all'||taskStatus(t)===FILTER);
   const chips = [['all','Все'],['todo','Нужно сдать'],['rework','На доработке'],['review','На проверке'],['accepted','Принято'],['locked','Закрыто']];
   return `
-  <div class="head"><div><div class="eyebrow">Куратор проверяет за 48 часов</div><h1>Задания</h1></div></div>
+  <div class="head"><div><div class="eyebrow">Куратор проверяет за ${rh()}</div><h1>Задания</h1></div></div>
   <div class="chips">${chips.map(c=>`<button class="chip" data-filter="${c[0]}" aria-pressed="${FILTER===c[0]}">${c[1]}<b>${counts[c[0]]||0}</b></button>`).join('')}</div>
   <div class="tlist">${list.length?list.map(t=>{const s=taskStatus(t);const ts=taskState(t.id);
     return `<button class="trow" data-go="task" data-id="${t.id}" ${s==='locked'?'disabled':''}>
       <span class="stg">Этап ${t.stage+1}</span>
       <span style="min-width:0"><b style="font-weight:600">${esc(t.title)}</b><small>${esc(COURSE.stages[t.stage].title)}${ts.score?` · оценка <span class="num">${ts.score}/10</span>`:''}</small></span>
-      <span class="dl">до ${t.deadline}</span>${pill(s)}</button>`}).join(''):'<div class="card muted">В этом статусе заданий нет.</div>'}</div>`;
+      <span class="dl">${esc(dlTxt(t))}</span>${pill(s)}</button>`}).join(''):'<div class="card muted">В этом статусе заданий нет.</div>'}</div>`;
 }
 
+/* ---------- черновики: ответ на задание и вопрос куратору не теряются ---------- */
+const draftKey = k => 'kurs-draft-'+(ME?ME.code:'')+'-'+k;
+function getDraft(k){ try{ return localStorage.getItem(draftKey(k))||''; }catch(e){ return ''; } }
+function setDraft(k,v){ try{ v ? localStorage.setItem(draftKey(k),v) : localStorage.removeItem(draftKey(k)); }catch(e){} }
+document.addEventListener('input',e=>{ const k=e.target.dataset&&e.target.dataset.draft; if(k) setDraft(k,e.target.value); });
 /* ---------- Обратная связь ---------- */
 let PHOTOS = [];
 const reqPill = r => r.status==='answered' ? '<span class="pill s-accepted">Есть ответ</span>' : '<span class="pill s-review">Ждёт ответа</span>';
@@ -1279,12 +1442,12 @@ function renderPhotos(){ const el=document.getElementById('photos'); if(el) el.i
 function vFeedback(pre){
   const t = ALL_TASKS.find(x=>x.id===pre);
   return `
-  <div class="head"><div><div class="eyebrow">Куратор отвечает в течение суток</div><h1>Обратная связь</h1></div></div>
+  <div class="head"><div><div class="eyebrow">Куратор отвечает на вопросы</div><h1>Обратная связь</h1></div></div>
   <div class="grid g-2">
     <section class="card">
       <h2 style="margin-bottom:16px">Вопрос куратору</h2>
       <form id="reqForm" style="display:grid;gap:18px">
-        <label class="f" for="rqText">Что разобрать<textarea id="rqText" placeholder="Опиши вопрос или что хочешь, чтобы куратор проверил">${t?esc('По заданию «'+t.title+'»: '):''}</textarea></label>
+        <label class="f" for="rqText">Что разобрать<textarea id="rqText" data-draft="rq" placeholder="Опиши вопрос или что хочешь, чтобы куратор проверил">${t?esc('По заданию «'+t.title+'»: '):esc(getDraft('rq'))}</textarea></label>
         <div class="f"><span>Фото <span class="muted" style="font-weight:400">· до 5 штук, необязательно</span></span>
           <div class="photos" id="photos">${photosHTML()}</div>
           <input type="file" id="phIn" accept="image/*" multiple hidden></div>
@@ -1314,8 +1477,8 @@ function openRequest(id){
         ${r.photos&&r.photos.length?`<div class="ph-grid">${r.photos.map((p,i)=>`<img src="${p}" alt="Фото ${i+1} к запросу">`).join('')}</div>`:''}
       </div>
       <div style="display:grid;gap:10px"><div class="eyebrow">Ответ куратора</div>
-        ${r.reply?`<div class="msg answer"><div class="msg-who"><span class="ava sm cur">К</span><b>${esc(COURSE.curator)}</b>${r.replyDate?`<span class="muted">${esc(r.replyDate)}</span>`:''}</div><div style="font-size:14px;white-space:pre-wrap">${esc(r.reply)}</div></div>`
-          :'<p class="muted" style="margin:0">Куратор ещё не ответил. Обычно ответ приходит в течение суток, он появится здесь.</p>'}
+        ${r.reply?`<div class="msg answer"><div class="msg-who"><span class="ava sm cur">К</span><b>${esc(COURSE.curator)}</b>${r.replyDate?`<span class="muted">${esc(r.replyDate)}</span>`:''}</div><div style="font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere">${linkify(esc(r.reply))}</div></div>`
+          :'<p class="muted" style="margin:0">Куратор ещё не ответил. Ответ появится здесь, загляни позже.</p>'}
       </div>
     </div>
     <div class="d-foot"><button class="btn line" data-close>Закрыть</button></div>
@@ -1328,7 +1491,7 @@ function compress(file){ return new Promise((res,rej)=>{ const fr=new FileReader
     c.getContext('2d').drawImage(img,0,0,c.width,c.height); res(c.toDataURL('image/jpeg',.78)); }; img.src=fr.result; };
   fr.readAsDataURL(file); }); }
 
-/* ---------- Дневник: задача утром, отчёт вечером, ИИ-разбор в воскресенье ---------- */
+/* ---------- Дневник: задачи утром, отчёт вечером, итоги недели в воскресенье ---------- */
 let EDIT = {report:false};
 function addTask(){ const inp=document.getElementById('tkIn'); if(!inp) return; const v=inp.value.trim().replace(/\s+/g,' ');
   if(!v){ inp.focus(); haptic('warning'); return; }
@@ -1409,8 +1572,8 @@ function reviewHTML(r){
 function reviewCard(){
   const r=S.reviews[0], ns=nextSunday(), nsTxt = dkey(ns)===dkey(new Date()) ? 'сегодня вечером' : 'в воскресенье, '+fmtShort(ns);
   return `<section class="card review">
-    <div class="today-top"><div><div class="eyebrow">Итоги недели · ИИ-разбор</div><h2>${r?esc(r.week):'Первый разбор скоро'}</h2></div>${r?`<span class="pill s-todo">${esc(r.done)}</span>`:''}</div>
-    ${r?reviewHTML(r):`<p class="muted" style="margin:0">Каждое воскресенье ИИ читает твои задачи и отчёты за неделю и пишет разбор: что получилось и на чём сфокусироваться дальше.</p>`}
+    <div class="today-top"><div><div class="eyebrow">Итоги недели</div><h2>${r?esc(r.week):'Первый разбор скоро'}</h2></div>${r?`<span class="pill s-todo">${esc(r.done)}</span>`:''}</div>
+    ${r?reviewHTML(r):`<p class="muted" style="margin:0">В воскресенье вечером здесь появится разбор недели по твоему дневнику: сколько дней с отчётом, что получилось и на чём сфокусироваться дальше.</p>`}
     <div class="rv-foot"><span class="muted" style="font-size:13px">Следующий разбор ${nsTxt}</span><a class="btn ghost sm" href="#journal">Открыть дневник</a></div>
   </section>`;
 }
@@ -1426,7 +1589,7 @@ function vJournal(){
   <div class="grid g-2 jr">
     <section class="card"><h2 style="margin-bottom:18px">Последние дни</h2>${rows.join('')}</section>
     <div class="grid jr-side" style="align-content:start">${todayCard()}
-      ${S.reviews.length?S.reviews.map((r,i)=>`<section class="card review"><div class="today-top"><div><div class="eyebrow">${i===0?'Последний разбор':'Разбор'} · ИИ</div><h2>${esc(r.week)}</h2></div><span class="pill s-todo">${esc(r.done)}</span></div>${reviewHTML(r)}</section>`).join(''):reviewCard()}
+      ${S.reviews.length?S.reviews.map((r,i)=>`<section class="card review"><div class="today-top"><div><div class="eyebrow">${i===0?'Последний разбор недели':'Разбор недели'}</div><h2>${esc(r.week)}</h2></div><span class="pill s-todo">${esc(r.done)}</span></div>${reviewHTML(r)}</section>`).join(''):reviewCard()}
     </div>
   </div>`;
 }
@@ -1438,14 +1601,14 @@ function openTask(id){
   const ov = document.getElementById('overlay');
   ov.innerHTML = `<div class="scrim" data-close></div>
   <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
-    <div class="d-head"><div style="display:grid;gap:8px"><span class="eyebrow">Этап ${t.stage+1} · ${esc(COURSE.stages[t.stage].title)} · до ${t.deadline}</span><h2 id="dTitle">${esc(t.title)}</h2><div>${pill(s)}</div></div>
+    <div class="d-head"><div style="display:grid;gap:8px"><span class="eyebrow">Этап ${t.stage+1} · ${esc(COURSE.stages[t.stage].title)} · ${esc(dlTxt(t))}</span><h2 id="dTitle">${esc(t.title)}</h2><div>${pill(s)}</div></div>
       <button class="x" data-close aria-label="Закрыть">${I.x}</button></div>
     <div class="d-body">
       <p style="margin:0">${esc(t.desc)}</p>
-      <div><div class="eyebrow" style="margin-bottom:8px">Критерии приёма</div><ul class="criteria">${t.criteria.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>
-      ${ts.thread.length?`<div><div class="eyebrow" style="margin-bottom:8px">История проверки</div><div class="thread">${ts.thread.map(m=>`<div class="msg"><div class="msg-who"><span class="ava sm ${m[0]==='me'?'':'cur'}">${m[0]==='me'?esc(initials(ME.name)):'К'}</span><b>${m[0]==='me'?'Ты':esc(COURSE.curator)}</b><span class="muted">${m[2]}</span></div><div style="font-size:14px">${esc(m[1])}</div></div>`).join('')}</div></div>`:''}
-      ${canSend?`<label class="f" for="ans">${s==='rework'?'Исправленный ответ':'Твой ответ'}<textarea id="ans" placeholder="Текст ответа или ссылка на документ"></textarea></label>`:''}
-      ${s==='review'?'<p class="muted" style="margin:0">Задание у куратора. Ответ придёт в течение 48 часов.</p>':''}
+      ${t.criteria.length?`<div><div class="eyebrow" style="margin-bottom:8px">Критерии приёма</div><ul class="criteria">${t.criteria.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></div>`:''}
+      ${ts.thread.length?`<div><div class="eyebrow" style="margin-bottom:8px">История проверки</div><div class="thread">${ts.thread.map(m=>`<div class="msg"><div class="msg-who"><span class="ava sm ${m[0]==='me'?'':'cur'}">${m[0]==='me'?esc(initials(ME.name)):'К'}</span><b>${m[0]==='me'?'Ты':esc(COURSE.curator)}</b><span class="muted">${esc(m[2])}</span></div><div style="font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere">${linkify(esc(m[1]))}</div></div>`).join('')}</div></div>`:''}
+      ${canSend?`<label class="f" for="ans">${s==='rework'?'Исправленный ответ':'Твой ответ'}<textarea id="ans" data-draft="t-${esc(id)}" placeholder="Текст ответа или ссылка на документ">${esc(getDraft('t-'+id))}</textarea><span class="muted" style="font-weight:400;font-size:12px">Черновик сохраняется сам, можно закрыть и вернуться.</span></label>`:''}
+      ${s==='review'?`<p class="muted" style="margin:0">Задание у куратора. Ответ придёт в течение ${rh()}.</p>`:''}
     </div>
     <div class="d-foot">
       ${canSend?`<button class="btn" id="sendTask" data-id="${id}">Отправить на проверку</button>`:''}
@@ -1474,14 +1637,14 @@ let ADM = {students:[],pending:[],questions:[],answered:[],issued:null,q:'',tab:
 async function adminLoad(){
   let r = await API.adminData(ADMIN_KEY);
   if(!r.ok && /Неизвестное действие/.test(r.error||'')){ ADM.legacy=true; r = await API.list(ADMIN_KEY); if(r.ok){ r.pending=[]; r.questions=[]; r.answered=[]; } }
-  if(r.ok){ Object.assign(ADM,{students:r.students||[],pending:r.pending||[],questions:r.questions||[],answered:r.answered||[],err:''}); }
+  if(r.ok){ if(r.course) applyCourse(r.course); Object.assign(ADM,{students:r.students||[],pending:r.pending||[],questions:r.questions||[],answered:r.answered||[],err:''}); }
   else if(/Нет доступа/.test(r.error||'')){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin'); localStorage.removeItem('kurs-admin') }catch(_){} toast('Войди в админку ещё раз'); route(); return; }
   else ADM.err = r.error || 'Не удалось загрузить данные';
   ADM.loaded=true; if(!document.getElementById('scrAdmin').hidden && !busy()) renderAdmin();
 }
 function inviteText(s){ return `Привет! Твой доступ к платформе «Продюсер с нуля».\n\n1. Открой бота: ${CONFIG.BOT_URL}\n2. Нажми кнопку «Обучение» внизу\n3. Введи код: ${s.code}\n\nКод личный, не передавай его другим.`; }
 const linkify = t => t.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
-const pctOf = s => Math.round(((s.lessons||0)+(s.accepted||0))/(ALL_LESSONS.length+ALL_TASKS.length)*100);
+const pctOf = s => Math.min(100,Math.round(((s.lessonIds?s.lessonIds.filter(id=>ALL_LESSONS.some(l=>l.id===id)).length:(s.lessons||0))+(s.accepted||0))/Math.max(1,ALL_LESSONS.length+ALL_TASKS.length)*100));
 function todayOf(s){ const k=dkey(new Date()), d=(s.days||[]).find(x=>x.date===k); return d ? d.entry : null; }
 function dayDots(days){ const map={}; (days||[]).forEach(d=>map[d.date]=d.entry); const now=new Date();
   return [...Array(7)].map((_,i)=>{ const d=addDays(now,i-6), e=map[dkey(d)]; const st=!e?'none':e.reported?'full':(e.tasks&&e.tasks.length)?'half':'none';
@@ -1512,13 +1675,13 @@ function admStudents(q){
       ${list.length?`<div class="tbl-wrap"><table>
         <thead><tr><th>Ученик</th><th>Прогресс</th><th>7 дней</th><th>Сегодня</th><th>Код</th><th>Статус</th><th></th></tr></thead>
         <tbody>${list.map(s=>{ const p=pctOf(s); return `<tr class="${s.status!=='active'?'is-off':''}">
-          <td><div class="who">${s.name?`<span class="ava sm">${esc(initials(s.name))}</span>`:'<span class="ava sm cur">?</span>'}<div><b>${s.name?esc(s.name):'<span class="muted">Ещё не входил</span>'}</b><small>${esc(s.tg)}${s.note?' · '+esc(s.note):''}</small></div></div></td>
-          <td><div class="prog"><div class="bar"><i style="width:${p}%"></i></div><span class="num">${p}%</span></div><small class="muted num">${s.lessons||0} ур. · ${s.accepted||0} зад.${s.rework?` · ${s.rework} дораб.`:''}</small></td>
-          <td><div class="dots">${dayDots(s.days)}</div></td>
-          <td>${todayBadge(s)}</td>
-          <td class="codecell">${esc(s.code)}</td>
-          <td>${s.status==='active'?'<span class="pill s-accepted">Активен</span>':'<span class="pill s-rework">Заблокирован</span>'}<small class="muted num">${s.last?'вход '+esc(s.last):'ещё не входил'}</small></td>
-          <td class="row-act"><button class="icon-btn" data-copyinv="${esc(s.code)}" title="Скопировать сообщение с кодом" aria-label="Скопировать сообщение с кодом">${I.copy}</button><button class="btn line sm" data-toggle="${esc(s.code)}">${s.status==='active'?'Заблокировать':'Вернуть'}</button></td>
+          <td class="c-who"><button class="who who-btn" data-stu="${esc(s.code)}">${s.name?`<span class="ava sm">${esc(initials(s.name))}</span>`:'<span class="ava sm cur">?</span>'}<div><b>${s.name?esc(s.name):'<span class="muted">Ещё не входил</span>'}</b><small>${esc(s.tg)}${s.note?' · '+esc(s.note):''}</small></div></button></td>
+          <td class="c-prog"><div class="prog"><div class="bar"><i style="width:${p}%"></i></div><span class="num">${p}%</span></div><small class="muted num">${s.lessons||0} ур. · ${s.accepted||0} зад.${s.rework?` · ${s.rework} дораб.`:''}</small></td>
+          <td class="c-dots"><div class="dots">${dayDots(s.days)}</div></td>
+          <td class="c-today">${todayBadge(s)}</td>
+          <td class="codecell c-code">${esc(s.code)}</td>
+          <td class="c-st">${s.status==='active'?'<span class="pill s-accepted">Активен</span>':'<span class="pill s-rework">Заблокирован</span>'}<small class="muted num">${s.last?'вход '+esc(ago(s.last)):'ещё не входил'}</small></td>
+          <td class="row-act c-act"><button class="icon-btn" data-copyinv="${esc(s.code)}" title="Скопировать сообщение с кодом" aria-label="Скопировать сообщение с кодом">${I.copy}</button><button class="btn line sm" data-toggle="${esc(s.code)}">${s.status==='active'?'Заблокировать':'Вернуть'}</button></td>
         </tr>`; }).join('')}</tbody></table></div>`
       :`<p class="muted" style="margin:0">${ADM.students.length?'Никого не нашли по этому запросу.':'Учеников пока нет. Создай первый код выше.'}</p>`}
     </section>`;
@@ -1529,6 +1692,7 @@ function admReview(){
     return `<article class="card rv-item" data-sub="${esc(x.id)}">
       <div class="rv-head"><div class="who"><span class="ava sm">${esc(initials(x.name||'?'))}</span><div><b>${esc(x.name||x.code)}</b><small>${t?'Этап '+(t.stage+1)+' · ':''}${esc(x.sentAt)}</small></div></div><span class="pill s-review">На проверке</span></div>
       <h3>${esc(x.task||(t&&t.title)||x.taskId)}</h3>
+      ${x.prevComment?`<div class="prev"><span class="eyebrow">Твой прошлый комментарий · доработка</span><p>${linkify(esc(x.prevComment))}</p></div>`:''}
       ${t?`<details class="crit"><summary>Критерии приёма · ${t.criteria.length}</summary><ul class="criteria">${t.criteria.map(c=>`<li>${esc(c)}</li>`).join('')}</ul></details>`:''}
       <div class="answer">${linkify(esc(x.answer))}</div>
       <div class="f"><span>Оценка <span class="muted" style="font-weight:400">· необязательно</span></span><div class="score" role="group" aria-label="Оценка">${[...Array(10)].map((_,i)=>`<button class="sc" data-score="${i+1}" aria-pressed="false">${i+1}</button>`).join('')}</div></div>
@@ -1607,7 +1771,7 @@ function admSpotlight(){
   const rated=A.filter(a=>a.s.name).sort((x,y)=>y.rating-x.rating);
   const top=rated[0], nub=rated.length>1 ? rated[rated.length-1] : null;
   const att=A.filter(a=>a.reasons.length).sort((x,y)=>y.weight-x.weight).slice(0,5);
-  const who=(a,cls)=>`<button class="spot-who" data-focus="${esc(a.s.code)}"><span class="ava ${cls||''}">${esc(initials(a.s.name))}</span><span><b>${esc(a.s.name)}</b><small>${esc(a.s.tg)}</small></span></button>`;
+  const who=(a,cls)=>`<button class="spot-who" data-stu="${esc(a.s.code)}"><span class="ava ${cls||''}">${esc(initials(a.s.name))}</span><span><b>${esc(a.s.name)}</b><small>${esc(a.s.tg)}</small></span></button>`;
   const score=a=>`<div class="spot-r"><b class="num">${a.rating}</b><span>рейтинг из 100</span></div>`;
   return `<div class="spot">
     <section class="card spot-top"><div class="spot-h"><span class="eyebrow">ТОП-ученик</span>${I.crown}</div>
@@ -1615,21 +1779,72 @@ function admSpotlight(){
     <section class="card spot-nub"><div class="spot-h"><span class="eyebrow">НУБ-ученик</span>${I.down}</div>
       ${nub ? who(nub)+score(nub)+metricRow(nub)+`<p class="spot-tip">Проседает: ${weakest(nub)}</p>` : '<p class="spot-empty">Нужно минимум два ученика, чтобы сравнить.</p>'}</section>
     <section class="card spot-att"><div class="spot-h"><span class="eyebrow">Обратить внимание</span>${att.length?`<b class="att-n num">${att.length}</b>`:''}</div>
-      ${att.length ? `<div class="att-list">${att.map(a=>`<button class="att-row" data-focus="${esc(a.s.code)}"><span class="ava sm ${a.s.name?'':'cur'}">${a.s.name?esc(initials(a.s.name)):'?'}</span>
+      ${att.length ? `<div class="att-list">${att.map(a=>`<button class="att-row" data-stu="${esc(a.s.code)}"><span class="ava sm ${a.s.name?'':'cur'}">${a.s.name?esc(initials(a.s.name)):'?'}</span>
         <span class="att-b"><b>${esc(a.s.name||a.s.tg)}</b><span class="att-r">${a.reasons.slice(0,3).map(r=>`<i class="rs l${r.lvl}">${esc(r.t)}</i>`).join('')}</span></span></button>`).join('')}</div>`
         : `<div class="att-ok">${I.check}<span>Тревожных сигналов нет</span></div>`}</section>
   </div>`;
 }
+
+/* «вход 05.11.2026, 10:53» → «сегодня в 10:53», «вчера», «3 дня назад» */
+function ago(str){ const m=/(\d{2})\.(\d{2})\.(\d{4}),?\s*(\d{1,2}:\d{2})?/.exec(String(str||'')); if(!m) return str||'';
+  const d=new Date(+m[3],+m[2]-1,+m[1]), t=new Date(); t.setHours(0,0,0,0); const n=Math.round((t-d)/DAY);
+  return n<=0 ? 'сегодня'+(m[4]?' в '+m[4]:'') : n===1 ? 'вчера'+(m[4]?' в '+m[4]:'') : n<7 ? n+' '+plural(n,['день','дня','дней'])+' назад' : m[1]+'.'+m[2]+'.'+m[3]; }
+const SUBST = {'Принято':'accepted','На доработке':'rework','На проверке':'review'};
+/* карточка ученика: весь прогресс, сигналы и дни на одном экране */
+function openStudent(code){
+  const s=ADM.students.find(x=>x.code===code); if(!s) return; const a=analyze(s);
+  const ids=new Set(s.lessonIds||[]), tasks={}; (s.tasks||[]).forEach(t=>tasks[t.id]=t);
+  const stages=COURSE.stages.map((st,i)=>{ const L=ALL_LESSONS.filter(l=>l.stage===i), K=ALL_TASKS.filter(t=>t.stage===i);
+    const ld=s.lessonIds?L.filter(l=>ids.has(l.id)).length:null;
+    return `<div class="stu-stage"><div class="stu-stage-h"><span><span class="muted">Этап ${i+1} ·</span> <b>${esc(st.title)}</b></span>${ld!==null?`<span class="muted num">${ld}/${L.length} ${plural(L.length,['урок','урока','уроков'])}</span>`:''}</div>
+      ${K.length?`<div class="stu-tasks">${K.map(t=>{ const x=tasks[t.id], st=x?SUBST[x.status]||'review':'todo'; return `<span class="pill s-${st}" title="${esc(t.title)}">${esc(t.title.length>26?t.title.slice(0,25)+'…':t.title)}${x&&x.score?` · ${esc(x.score)}`:''}</span>`; }).join('')}</div>`:''}</div>`; }).join('');
+  const days=(s.days||[]).slice().sort((x,y)=>x.date<y.date?1:-1).slice(0,5).map(d=>{ const e=d.entry||{}, T=e.tasks||[], ok=T.filter(t=>t.done).length;
+    return `<div class="stu-stage"><div class="stu-stage-h"><b>${cap(fmtDay(new Date(d.date+'T00:00:00')))}</b>${e.reported?`<span class="pill ${ok===T.length?'s-accepted':'s-review'}">Отчёт ${ok}/${T.length}</span>`:T.length?'<span class="pill s-todo">Без отчёта</span>':''}</div>
+      ${T.length?`<ul class="rep-list sm">${T.map(t=>`<li class="${!e.reported?'is-wait':t.done?'is-ok':'is-no'}"><span class="mk">${!e.reported?'':t.done?I.check:I.x}</span><div><span>${esc(t.text)}</span>${e.reported&&!t.done&&t.why?`<small>${esc(t.why)}</small>`:''}</div></li>`).join('')}</ul>`:''}${e.reported?moodChips(e.mood):''}</div>`; }).join('');
+  const ov=document.getElementById('overlay');
+  ov.innerHTML=`<div class="scrim" data-close></div>
+  <aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="stuT">
+    <div class="d-head"><div class="stu-head"><span class="ava ${s.name?'':'cur'}">${s.name?esc(initials(s.name)):'?'}</span><div style="min-width:0"><b id="stuT">${esc(s.name||'Ещё не входил')}</b><small>${esc(s.tg)}${s.note?' · '+esc(s.note):''}</small></div></div>
+      <button class="x" data-close aria-label="Закрыть">${I.x}</button></div>
+    <div class="d-body">
+      <div class="stu-meta">${s.status==='active'?'<span class="pill s-accepted">Активен</span>':'<span class="pill s-rework">Заблокирован</span>'}<span class="stu-code">${esc(s.code)}</span><span class="muted" style="font-size:13px">${s.last?'вход '+esc(ago(s.last)):'ещё не входил'}</span></div>
+      ${s.name?`<div class="spot-r"><b class="num">${a.rating}</b><span>рейтинг из 100</span></div>${metricRow(a).replace('spot-m','spot-m in-d')}`:''}
+      ${a.reasons.length?`<div><div class="eyebrow" style="margin-bottom:8px">Обратить внимание</div><div class="att-r">${a.reasons.map(r=>`<i class="rs l${r.lvl}">${esc(r.t)}</i>`).join('')}</div></div>`:''}
+      ${a.moodLast?`<div><div class="eyebrow" style="margin-bottom:8px">Последнее состояние</div>${moodChips(a.moodLast)}</div>`:''}
+      <div style="display:grid;gap:8px"><div class="eyebrow">Программа</div>${stages}</div>
+      ${days?`<div style="display:grid;gap:8px"><div class="eyebrow">Дневник · последние дни</div>${days}</div>`:''}
+    </div>
+    <div class="d-foot"><button class="btn ghost" data-copyinv="${esc(s.code)}">${I.copy} Сообщение с кодом</button><button class="btn line" data-toggle="${esc(s.code)}">${s.status==='active'?'Заблокировать':'Вернуть доступ'}</button></div>
+  </aside>`;
+  clearTimeout(closeDrawer.t); ov.classList.remove('closing'); ov.hidden=false; ov.querySelector('.x').focus();
+}
+function admProgram(){
+  const L=ALL_LESSONS, withV=L.filter(l=>l.video).length;
+  return `<section class="card prog-card">
+    <div class="adm-h"><div><h2>Программа курса</h2><p class="muted" style="margin:4px 0 0;font-size:14px;max-width:640px">Уроки, видео, задания, сроки и цель на карте правятся в Google Таблице: листы «Программа · уроки», «Программа · задания» и «Настройки». Ученики увидят изменения в течение 10 минут.</p></div>
+      ${CONFIG.SHEET_URL?`<a class="btn sm" href="${CONFIG.SHEET_URL}" target="_blank" rel="noopener">${I.sheet} Открыть таблицу</a>`:''}</div>
+    <div class="prog-stats"><span><b class="num">${COURSE.stages.length}</b>${plural(COURSE.stages.length,['этап','этапа','этапов'])}</span><span><b class="num">${L.length}</b>${plural(L.length,['урок','урока','уроков'])}</span><span><b class="num">${withV}</b>с видео</span><span><b class="num">${ALL_TASKS.length}</b>${plural(ALL_TASKS.length,['задание','задания','заданий'])}</span></div>
+    ${COURSE.stages.map((st,i)=>`<div class="pstage"><div class="pstage-h"><span class="mod-n">Этап ${i+1}</span><b>${esc(st.title)}</b></div>
+      <ul class="plist">${L.filter(l=>l.stage===i).map(l=>`<li><span class="pdot ${l.video?'on':''}" title="${l.video?'Видео добавлено':'Нет видео'}"></span><span class="pt">${esc(l.title)}</span><span class="muted num">${minTxt(l.min)}</span>${l.video?'':'<i class="rs l1">нет видео</i>'}</li>`).join('')}
+      ${ALL_TASKS.filter(t=>t.stage===i).map(t=>`<li><span class="pdot task"></span><span class="pt">Задание: ${esc(t.title)}</span><span class="muted">${esc(dlTxt(t))}</span></li>`).join('')}</ul></div>`).join('')}
+    <details class="howto"><summary>Как добавить видео и материалы</summary><ol>
+      <li>Открой таблицу, лист «Программа · уроки».</li>
+      <li>В колонку «Видео (ссылка)» вставь ссылку на YouTube, Rutube, VK Видео, Kinescope или Google Диск — видео откроется прямо в уроке. Ссылка на Boosty откроется отдельной кнопкой.</li>
+      <li>В «Материалы» пиши каждый с новой строки: «Конспект | https://ссылка».</li>
+      <li>Новый урок — новая строка с номером этапа. ID можно не писать, он появится сам. ID существующих уроков и заданий не меняй: к ним привязан прогресс учеников.</li>
+      <li>Цель на карте, имя и Telegram куратора — на листе «Настройки».</li></ol></details>
+  </section>`;
+}
 function renderAdmin(){
   const st=ADM.students, q=ADM.q.toLowerCase(), active=st.filter(s=>s.status==='active');
   const entered=st.filter(s=>s.name).length, reported=active.filter(s=>{ const e=todayOf(s); return e && e.reported; }).length;
-  const tabs=[['students','Ученики',0],['review','Проверка',ADM.pending.length],['questions','Вопросы',ADM.questions.length],['journal','Дневники',0]];
+  const tabs=[['students','Ученики',0],['review','Проверка',ADM.pending.length],['questions','Вопросы',ADM.questions.length],['journal','Дневники',0],['program','Программа',0]];
   const body = !ADM.loaded ? `<section class="card adm-empty"><span class="spin"></span><p class="muted" style="margin:0">Загружаю данные из таблицы…</p></section>`
     : ADM.err && !st.length ? emptyCard('Не получилось загрузить',esc(ADM.err)+'. Нажми «Обновить».',I.x)
-    : ADM.tab==='review' ? admReview() : ADM.tab==='questions' ? admQuestions() : ADM.tab==='journal' ? admJournal() : admStudents(q);
+    : ADM.tab==='review' ? admReview() : ADM.tab==='questions' ? admQuestions() : ADM.tab==='journal' ? admJournal() : ADM.tab==='program' ? admProgram() : admStudents(q);
   document.getElementById('scrAdmin').innerHTML = `
   <div class="admin">
-    <div class="adm-top"><div class="logo"><div class="logo-mark">П</div><div><b>Кабинет куратора</b><span>Продюсер с нуля${DEMO?' · демо-режим':''}</span></div></div>
+    <div class="adm-top"><div class="logo"><div class="logo-mark">П</div><div><b>Кабинет куратора</b><span>${esc(SET.title)}${DEMO?' · демо-режим':''}</span></div></div>
       <div class="adm-actions">${CONFIG.SHEET_URL?`<a class="btn line sm" href="${CONFIG.SHEET_URL}" target="_blank" rel="noopener">${I.sheet} Таблица</a>`:''}<button class="btn line sm" id="admRefresh">${I.refresh} Обновить</button><button class="btn line sm" id="admOut">Выйти</button></div></div>
     ${DEMO?'<div class="demo-note">Демо-режим: данные хранятся только в этом браузере.</div>':''}
     ${ADM.legacy?'<div class="demo-note">Сервер старой версии: чтобы проверять задания и отвечать на вопросы здесь, его нужно обновить.</div>':''}
@@ -1659,7 +1874,7 @@ function haptic(kind){
     if(navigator.vibrate) navigator.vibrate(kind==='success'?[12,50,18]:kind==='error'||kind==='warning'?[24,60,24]:kind==='select'?6:10);
   }catch(e){}
 }
-const TAP_SEL = '.spot-who,.att-row,.adm-tab,.sc,.stat-btn,.mk-btn,.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.x,.mat,.mod summary,.screen button,.reqrow,.ph-add,.linkbtn';
+const TAP_SEL = '.who-btn,.spot-who,.att-row,.adm-tab,.sc,.stat-btn,.mk-btn,.btn,.chip,.trow,.lrow,.nav a,.icon-btn,.x,.mat,.mod summary,.screen button,.reqrow,.ph-add,.linkbtn';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 document.addEventListener('pointerdown',e=>{
   const el = e.target.closest(TAP_SEL); if(!el || el.disabled) return;
@@ -1706,10 +1921,11 @@ window.tgInit = async function(){ const w=tgw(); if(!w) return;
   new MutationObserver(tgBack).observe(document.getElementById('overlay'),{attributes:true,attributeFilter:['hidden']});
   const u=w.initDataUnsafe && w.initDataUnsafe.user, nameIn=document.getElementById('nameIn');
   if(u && nameIn && !nameIn.value) nameIn.value=[u.first_name,u.last_name].filter(Boolean).join(' ');
-  if(!ME){ const c=await cloudGet(); if(c && c.code && !ME){ const r=await API.verify(c.code);
-      if(r.ok){ ME=r.student; ls.set('kurs-session',{code:ME.code,name:ME.name}); loadState(); await pullServer(); route(); } } }
+  if(!ME){ const c=await cloudGet(); if(c && c.code && !ME){ const r=await enter(c.code); if(r.ok) route(); } }
   tgBack(); };
 
+document.addEventListener('click',e=>{ const a=e.target.closest('a[target="_blank"]'); const w=tgw(); if(!a || !w || !/^https?:/i.test(a.href)) return;
+  e.preventDefault(); try{ /^https:\/\/t\.me\//i.test(a.href) ? w.openTelegramLink(a.href) : w.openLink(a.href); }catch(_){ window.open(a.href,'_blank'); } });
 async function route(){
   closeDrawer();
   if(location.hash==='#admin'){
@@ -1724,16 +1940,16 @@ window.addEventListener('hashchange',()=>{ closeDrawer(true); route(); window.sc
 
 /* ================= СОБЫТИЯ ================= */
 const codeIn = document.getElementById('codeIn');
-codeIn.addEventListener('input',()=>{ const p=codeIn.selectionStart; const raw=codeIn.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8); codeIn.value = raw.length>4?raw.slice(0,4)+'-'+raw.slice(4):raw; document.getElementById('loginErr').textContent=''; });
+codeIn.addEventListener('input',()=>{ const v=codeIn.value, cyr=hasCyr(v), raw=latin(v).replace(/[^A-Z0-9]/g,'').slice(0,8); codeIn.value = raw.length>4?raw.slice(0,4)+'-'+raw.slice(4):raw;
+  document.getElementById('loginErr').textContent = cyr ? 'Код вводится латиницей — переключи клавиатуру на английскую' : ''; });
 
 document.getElementById('loginForm').addEventListener('submit',async e=>{
   e.preventDefault(); const code=normCode(codeIn.value); const err=document.getElementById('loginErr'); const btn=document.getElementById('loginBtn');
-  if(code.length!==9){ err.textContent='Код состоит из 8 символов, например K7QM-4XPA.'; haptic('error'); return; }
+  if(code.length!==9){ err.textContent='В коде 8 символов: латинские буквы и цифры. Его выдаёт куратор.'; haptic('error'); return; }
   btn.disabled=true; btn.textContent='Проверяю…';
-  const r = await API.verify(code); btn.disabled=false; btn.textContent='Войти';
+  const r = await enter(code); btn.disabled=false; btn.textContent='Войти';
   if(!r.ok){ err.textContent=r.error||'Код не подошёл.'; haptic('error'); return; }
   haptic('success');
-  ME = r.student; setSession({code:ME.code,name:ME.name}); loadState(); await pullServer();
   if(!location.hash || location.hash==='#admin') location.hash='#path';
   route(); if(ME.name) toast('С возвращением, '+firstName(ME.name)+'!');
 });
@@ -1758,8 +1974,10 @@ document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
 });
 
 document.addEventListener('click',async e=>{
-  const el = e.target.closest('[data-carry],[data-carryall],[data-skip],[data-focus],[data-tab],#admRefresh,[data-score],[data-review],[data-reply],[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
+  const el = e.target.closest('[data-play],[data-stu],[data-carry],[data-carryall],[data-skip],[data-focus],[data-tab],#admRefresh,[data-score],[data-review],[data-reply],[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
   if(!el) return;
+  if(el.dataset.play){ const sc=el.closest('.screen'); sc.classList.add('playing'); sc.innerHTML=`<iframe src="${esc(el.dataset.play)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; clipboard-write" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="Видео урока"></iframe>`; return; }
+  if(el.dataset.stu){ openStudent(el.dataset.stu); return; }
   if(el.dataset.tab){ ADM.tab=el.dataset.tab; renderAdmin(); return; }
   if(el.dataset.focus){ const st=ADM.students.find(x=>x.code===el.dataset.focus); if(!st) return;
     if(st.name){ ADM.tab='journal'; renderAdmin(); const c=document.querySelector(`[data-jr="${CSS.escape(st.code)}"]`); if(c){ c.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'center'}); c.classList.add('flash'); } }
@@ -1803,8 +2021,10 @@ document.addEventListener('click',async e=>{
     j.reported=true; if(!j.reportAt) j.reportAt=hm(); EDIT.report=false; save(); syncDay(); renderApp(); haptic('success'); toast('Отчёт за день отправлен'); return; }
   if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin'); localStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; ADM.loaded=false; route(); return; }
   if(el.dataset.copy){ const n=document.getElementById(el.dataset.copy); copyText(n.textContent,n); return; }
-  if(el.dataset.copyinv){ const s=ADM.students.find(x=>x.code===el.dataset.copyinv); copyText(inviteText(s)); return; }
-  if(el.dataset.toggle){ el.disabled=true; await API.toggle(ADMIN_KEY,el.dataset.toggle); adminLoad(); return; }
+  if(el.dataset.copyinv){ const s=ADM.students.find(x=>x.code===el.dataset.copyinv); if(s) copyText(inviteText(s)); return; }
+  if(el.dataset.toggle){ el.disabled=true; const r=await API.toggle(ADMIN_KEY,el.dataset.toggle); el.disabled=false; if(!r.ok){ toast(r.error||'Не получилось'); return; }
+    const st=ADM.students.find(x=>x.code===el.dataset.toggle); if(st) st.status=st.status==='active'?'blocked':'active'; toast(st&&st.status==='active'?'Доступ возвращён':'Доступ заблокирован');
+    if(!document.getElementById('overlay').hidden && st) openStudent(st.code); renderAdmin(); adminLoad(); return; }
   if(el.dataset.pre){ PRE=el.dataset.pre; closeDrawer(); if(location.hash==='#feedback'){e.preventDefault();renderApp();} return; }
   if(el.hasAttribute('data-close')) return closeDrawer();
   if(el.dataset.go==='task') return openTask(el.dataset.id);
@@ -1814,10 +2034,14 @@ document.addEventListener('click',async e=>{
   if(el.id==='markLesson'){ const id=el.dataset.id; if(S.lessons[id]) delete S.lessons[id]; else { S.lessons[id]=1; JUST=id; haptic('success'); toast('Урок отмечен пройденным'); }
     const idx=ALL_LESSONS.findIndex(l=>l.id===id); const nx=ALL_LESSONS[idx+1];
     if(S.lessons[id] && nx && !stageLocked(nx.stage)) S.current=nx.id; save(); syncProgress(); renderApp(); return; }
-  if(el.id==='sendTask'){ const ta=document.getElementById('ans'); const v=ta.value.trim();
+  if(el.id==='sendTask'){ const id=el.dataset.id, ta=document.getElementById('ans'), v=ta.value.trim();
     if(!v){ ta.focus(); ta.placeholder='Напиши ответ или вставь ссылку, чтобы отправить'; haptic('warning'); return; }
-    const ts=taskState(el.dataset.id); ts.status='review'; ts.thread.push(['me',v,today()]); save();
-    if(LIVE){ const tt=ALL_TASKS.find(x=>x.id===el.dataset.id); API.submitTask(ME.code,el.dataset.id,tt?tt.title:'',v).then(r=>{ if(!r.ok) toast('Не удалось отправить задание: '+(r.error||'нет связи')); }); } closeDrawer(); renderApp(); haptic('success'); toast('Задание отправлено на проверку'); }
+    if(LIVE){ const tt=ALL_TASKS.find(x=>x.id===id); el.disabled=true; el.textContent='Отправляю…';
+      const r=await API.submitTask(ME.code,id,tt?tt.title:'',v);
+      if(!r.ok){ el.disabled=false; el.textContent='Отправить на проверку'; haptic('error');
+        toast(r.net?'Нет связи. Ответ сохранён в черновике — отправь ещё раз':(r.error||'Не удалось отправить')); return; } }
+    const ts=taskState(id); ts.status='review'; ts.thread.push(['me',v,today()]); setDraft('t-'+id,''); save();
+    closeDrawer(); renderApp(); haptic('success'); toast('Задание отправлено на проверку'); }
 });
 document.addEventListener('submit',async e=>{
   if(e.target.id==='reqForm'){ e.preventDefault();
@@ -1825,11 +2049,11 @@ document.addEventListener('submit',async e=>{
     const num=S.requests.reduce((m,r)=>Math.max(m,r.num||0),0)+1;
     if(LIVE){ const btn=e.target.querySelector('button[type=submit]'); btn.disabled=true; btn.textContent='Отправляю…';
       const r=await API.sendRequest(ME.code,num,text,PHOTOS); btn.disabled=false; btn.textContent='Отправить куратору';
-      if(!r.ok){ toast(r.error||'Не удалось отправить, попробуй ещё раз'); haptic('error'); return; }
-      S.requests.unshift(r.request); save(); PHOTOS=[]; renderApp(); haptic('success'); toast('Запрос №'+num+' отправлен куратору'); return; }
+      if(!r.ok){ toast(r.net?'Нет связи. Текст сохранён — отправь ещё раз':(r.error||'Не удалось отправить, попробуй ещё раз')); haptic('error'); return; }
+      S.requests.unshift(r.request); save(); PHOTOS=[]; setDraft('rq',''); renderApp(); haptic('success'); toast('Запрос №'+(r.request&&r.request.num||num)+' отправлен куратору'); return; }
     S.requests.unshift({id:Date.now(),num,text,photos:PHOTOS.slice(),date:today(),status:'waiting'});
     if(!save()){ S.requests.shift(); toast('Фото слишком тяжёлые, убери одно-два и отправь ещё раз'); haptic('error'); return; }
-    PHOTOS=[]; renderApp(); haptic('success'); toast('Запрос №'+num+' отправлен куратору'); }
+    PHOTOS=[]; setDraft('rq',''); renderApp(); haptic('success'); toast('Запрос №'+num+' отправлен куратору'); }
   if(e.target.id==='issueForm'){ e.preventDefault();
     let tg=document.getElementById('isTg').value.trim(); if(!tg) return; if(!tg.startsWith('@')) tg='@'+tg;
     const ib=document.getElementById('issueBtn'); ib.disabled=true; ib.textContent='Создаю…';
@@ -1849,20 +2073,17 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeDrawer(); if(
 document.addEventListener('input',e=>{ const id=e.target.dataset&&e.target.dataset.why; if(!id) return; const t=todayEntry().tasks.find(x=>x.id===id); if(t){ t.why=e.target.value; save(); syncDay(); } });
 
 /* ================= СТАРТ ================= */
-document.querySelectorAll('.js-st').forEach(e=>e.textContent=COURSE.stages.length);
-document.querySelectorAll('.js-st-l').forEach(e=>e.textContent=plural(COURSE.stages.length,['этап','этапа','этапов'])+' обучения');
-document.querySelectorAll('.js-ls').forEach(e=>e.textContent=ALL_LESSONS.length);
-document.querySelectorAll('.js-ls-l').forEach(e=>e.textContent=plural(ALL_LESSONS.length,['урок','урока','уроков'])+' с материалами');
+if(!DEMO) applyCourse(ls.get('kurs-course'));
+brand();
+/* открываемся сразу из сохранённого на устройстве, а свежие данные подтягиваем в фоне */
 (async function boot(){
   const sess = ls.get('kurs-session');
-  if(sess && sess.code){
-    ME = {code:sess.code,name:sess.name};
-    const r = await API.verify(sess.code);
-    if(r.ok) ME = r.student; else if(!String(r.error||'').startsWith('Нет связи')){ ME=null; setSession(null); }
-    if(ME) loadState();
-  }
+  if(sess && sess.code){ ME = {code:sess.code, name:sess.name||''}; loadState(); }
   route(); if(window.Telegram && Telegram.WebApp) window.tgInit();
-  if(ME && LIVE && await pullServer() && ME.name && !busy() && !document.getElementById('scrApp').hidden) renderApp();
+  if(!ME) return;
+  if(!LIVE){ const r=await API.verify(ME.code); if(!r.ok) kick(r.error); return; }
+  const was = ME.name;
+  if(await pullServer() && ME && !busy()){ if(!was && ME.name) route(); else if(!document.getElementById('scrApp').hidden) renderApp(); }
 })();
 </script>
 </body>
