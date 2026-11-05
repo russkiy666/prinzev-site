@@ -989,6 +989,8 @@ input,select,textarea{background:rgba(255,255,255,.7)}
 .t-empty{display:grid;justify-items:center;text-align:center;gap:8px;padding-block:36px}
 .t-more{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;margin:6px 0 0}
 .t-more svg{width:14px;height:14px}
+#sndBtn[aria-pressed="false"]{color:var(--idle)}
+.me{gap:8px}.me .icon-btn{width:30px;height:30px}.me .icon-btn svg{width:17px;height:17px}.me-info span{white-space:nowrap}
 /* бережём тех, кто отключил анимации */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
 </style>
@@ -1035,6 +1037,7 @@ input,select,textarea{background:rgba(255,255,255,.7)}
   <aside class="side">
     <div class="logo"><div class="logo-mark">П</div><div><b class="js-title">Продюсер с нуля</b><span class="js-cohort">Платформа обучения</span></div></div>
     <div class="me"><div class="ava" id="meAva"></div><div class="me-info"><b id="meName"></b><span class="num" id="meCode"></span></div>
+      <button class="icon-btn" id="sndBtn" title="Звук" aria-label="Звук" aria-pressed="true"></button>
       <button class="icon-btn" id="logoutBtn" title="Выйти" aria-label="Выйти"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l-5-5 5-5M5 12h11"/></svg></button></div>
     <nav class="nav" id="nav">
       <a href="#path" data-v="path"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg><span class="lg">Главная</span><span class="sh">Главная</span></a>
@@ -2020,7 +2023,24 @@ document.addEventListener('input',e=>{ if(e.target.id!=='chRange') return; const
 document.addEventListener('change',e=>{ if(e.target.id==='chRange'){ save(); syncDay(); } });
 /* ================= ТАПЫ И ВИБРАЦИЯ =================
    В Telegram — родная вибрация Mini App, на Android в браузере — navigator.vibrate, на iPhone в Safari — только визуальный отклик. */
+/* ================= ЗВУКИ: короткие системные звуки, синтезируются на лету (без файлов) ================= */
+const SND = { on: ls.get('kurs-sound')!==false, ctx:null, last:0 };
+function actx(){ if(!SND.ctx){ const A=window.AudioContext||window.webkitAudioContext; if(!A) return null; SND.ctx=new A(); } if(SND.ctx.state==='suspended') SND.ctx.resume(); return SND.ctx; }
+function tone(c,f,t0,dur,vol,type,f2){ const o=c.createOscillator(), g=c.createGain(); o.type=type||'sine'; o.frequency.setValueAtTime(f,t0); if(f2) o.frequency.exponentialRampToValueAtTime(f2,t0+dur);
+  g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(vol,t0+0.008); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur); o.connect(g).connect(c.destination); o.start(t0); o.stop(t0+dur+0.02); }
+function sound(kind){ if(!SND.on) return; try{ const c=actx(); if(!c) return; const t=c.currentTime, now=performance.now();
+    if(kind==='select'){ if(now-SND.last<45) return; SND.last=now; tone(c,1900,t,0.03,0.035,'triangle'); return; }
+    if(kind==='light'){ if(now-SND.last<30) return; SND.last=now; tone(c,1250,t,0.045,0.05,'sine',900); return; }
+    if(kind==='success'){ tone(c,880,t,0.16,0.08); tone(c,1320,t+0.09,0.28,0.07); tone(c,1760,t+0.09,0.22,0.025); return; }
+    if(kind==='error'||kind==='warning'){ tone(c,220,t,0.12,0.09,'triangle',170); tone(c,180,t+0.1,0.14,0.07,'triangle',140); return; }
+  }catch(e){} }
+function sndIcon(){ const b=document.getElementById('sndBtn'); if(!b) return; b.setAttribute('aria-pressed',SND.on); b.title=SND.on?'Звук включён':'Звук выключен';
+  b.innerHTML=SND.on?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>'
+    :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m16 9 6 6M22 9l-6 6"/></svg>'; }
+document.addEventListener('click',e=>{ if(!e.target.closest('#sndBtn')) return; SND.on=!SND.on; ls.set('kurs-sound',SND.on); sndIcon(); if(SND.on) sound('success'); toast(SND.on?'Звук включён':'Звук выключен'); });
+sndIcon();
 function haptic(kind){
+  sound(kind);
   try{
     const tg = window.Telegram && window.Telegram.WebApp;
     if(tg && tg.HapticFeedback && tg.platform && tg.platform!=='unknown'){
