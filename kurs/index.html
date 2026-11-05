@@ -866,6 +866,20 @@ a.mat{color:var(--ink);text-decoration:none}
   .tbl-wrap .c-act .btn{flex:1}
   .search{max-width:none;width:100%}
 }
+
+/* карта пути: сворачивается как цитата в Telegram */
+.map-wrap{position:relative;height:var(--win);overflow:hidden;transition:height .45s var(--ease)}
+.map-wrap .map{transform:translateY(var(--off));transition:transform .45s var(--ease)}
+.map-wrap::before,.map-wrap::after{content:"";position:absolute;left:0;right:0;height:56px;z-index:4;pointer-events:none;transition:opacity .3s}
+.map-wrap::before{top:0;background:linear-gradient(var(--surface),transparent)}
+.map-wrap::after{bottom:0;background:linear-gradient(transparent,var(--surface))}
+.map-wrap.open{height:var(--full)}
+.map-wrap.open .map{transform:none}
+.map-wrap.open::before,.map-wrap.open::after{opacity:0}
+.map-toggle{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:6px;padding:11px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--accent-ink);font-weight:600;font-size:14px;cursor:pointer;transition:transform .18s var(--ease),background-color .18s}
+.map-toggle:active{transform:scale(.98)}
+.map-toggle svg{transition:transform .3s var(--ease)}
+.map-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 /* бережём тех, кто отключил анимации */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
 </style>
@@ -1310,6 +1324,9 @@ function mapCard(){
   const upto = here ? rows.indexOf(here) : allDone ? rows.length-1 : rows.map(r=>r.t==='lesson'&&S.lessons[r.l.id]).lastIndexOf(true);
   const d = pts => pts.map((r,i)=> i ? `C${pts[i-1].x},${(pts[i-1].y+r.y)/2} ${r.x},${(pts[i-1].y+r.y)/2} ${r.x},${r.y}` : `M${r.x},${r.y}`).join(' ');
   const all=d(rows), done=d(rows.slice(0,Math.max(1,upto+1)));
+  /* свёрнутая карта — окно вокруг текущего урока, как свёрнутая цитата в Telegram */
+  const WIN=380, focusY = here ? here.y : upto>0 ? rows[upto].y : 0, off = Math.max(0, Math.min(y-WIN, Math.round(focusY-WIN/2)));
+  const open = ls.get('kurs-map-open')===true || y<=WIN+60;
   const ini = initials(ME.name||'');
   const item = r => {
     if(r.t==='start') return `<div class="m-start" style="top:${r.y}px"><span>Старт</span><b class="num">${esc(SET.start)}</b></div>`;
@@ -1325,12 +1342,18 @@ function mapCard(){
   return `<section class="card pg-stages">
     <div class="map-head"><div><div class="eyebrow">Карта пути</div><h2>От ${esc(SET.start)} до ${esc(SET.goal)}${SET.goalNote?' '+esc(SET.goalNote):''}</h2></div>
       <span class="muted" style="font-size:13px">Нажми на точку, чтобы открыть урок</span></div>
+    <div class="map-wrap ${open?'open':''}" id="mapWrap" style="--full:${y}px;--win:${WIN}px;--off:-${off}px">
     <div class="map" style="height:${y}px">
       <svg viewBox="0 0 100 ${y}" preserveAspectRatio="none" aria-hidden="true">
         <path class="road" d="${all}"/><path class="road-mid" d="${all}"/><path class="road-done" d="${done}"/></svg>
       ${rows.map(item).join('')}
-    </div></section>`;
+    </div></div>
+    ${y>WIN+60?`<button class="map-toggle" data-maptoggle aria-expanded="${open}"><span>${open?'Свернуть карту':'Показать всю карту'}</span>${I.chev}</button>`:''}</section>`;
 }
+document.addEventListener('click',e=>{ const t=e.target.closest('[data-maptoggle]'); if(!t) return; const w=document.getElementById('mapWrap'); if(!w) return;
+  const open=!w.classList.contains('open'); w.classList.toggle('open',open); ls.set('kurs-map-open',open); haptic('light');
+  t.setAttribute('aria-expanded',open); t.querySelector('span').textContent=open?'Свернуть карту':'Показать всю карту';
+  if(!open){ const c=w.closest('.card'); if(c && c.getBoundingClientRect().top<0) c.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'start'}); } });
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-locked]'); if(!b) return;
   haptic('error'); toast('Этап '+(+b.dataset.locked+1)+' откроется, когда куратор примет задания прошлого этапа'); });
 
