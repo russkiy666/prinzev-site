@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
-<script async src="https://telegram.org/js/telegram-web-app.js" onload="try{var w=Telegram.WebApp;w.ready();w.expand();w.setHeaderColor('#FFFFFF');w.setBackgroundColor('#F5F7FB')}catch(e){}"></script>
+<script async src="https://telegram.org/js/telegram-web-app.js" onload="try{var w=Telegram.WebApp;w.ready();w.expand();w.setHeaderColor('#FFFFFF');w.setBackgroundColor('#F5F7FB');w.setBottomBarColor&&w.setBottomBarColor('#FFFFFF')}catch(e){} window.tgInit&&window.tgInit()"></script>
 <style>
 /* Layout: строгий кабинет — светлая колонка навигации слева, контент на холодном светлом фоне,
    один насыщенный тёмно-синий блок на экран с мотивом концентрических колец прогресса; на телефоне нижний таб-бар */
@@ -647,6 +647,10 @@ tr.is-off td{opacity:.55}
 .tk-t small.tk-from{display:flex;gap:4px;align-items:center;font-size:11.5px;color:var(--warn);margin-top:2px}
 .tk-from svg{width:11px;height:11px}
 .tk.is-carried{border-color:color-mix(in srgb,var(--warn) 30%,var(--line))}
+
+/* внутри Telegram */
+.in-tg .auth{min-height:100dvh}
+@media (max-width:860px){ .in-tg .side{padding-block:8px} .in-tg .main{padding-top:16px} }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rip{display:none}.check.pop svg path{stroke-dashoffset:0}}
 </style>
 </head>
@@ -1517,6 +1521,26 @@ function renderApp(){
   document.getElementById('meAva').textContent = initials(ME.name);
   document.getElementById('meCode').textContent = ME.code.slice(0,4)+'-••••';
 }
+/* ================= TELEGRAM MINI APP ================= */
+const tgw = () => window.Telegram && Telegram.WebApp && Telegram.WebApp.initData ? Telegram.WebApp : null;
+function cloudSet(v){ const w=tgw(); try{ w && w.CloudStorage && (v ? w.CloudStorage.setItem('kurs_session',JSON.stringify(v)) : w.CloudStorage.removeItem('kurs_session')); }catch(e){} }
+function cloudGet(){ return new Promise(res=>{ const w=tgw(); if(!w || !w.CloudStorage) return res(null);
+  try{ w.CloudStorage.getItem('kurs_session',(err,val)=>{ try{ res(!err && val ? JSON.parse(val) : null) }catch(_){ res(null) } }); }catch(e){ res(null) } setTimeout(()=>res(null),1500); }); }
+function setSession(v){ if(v){ ls.set('kurs-session',v); cloudSet(v); } else { ls.del('kurs-session'); cloudSet(null); } }
+function tgBack(){ const w=tgw(); if(!w || !w.BackButton) return;
+  const open=!document.getElementById('overlay').hidden, h=location.hash, sub=ME && ME.name && /^#(lessons|tasks|journal|feedback)$/.test(h);
+  (open||sub) ? w.BackButton.show() : w.BackButton.hide(); }
+window.tgInit = async function(){ const w=tgw(); if(!w) return;
+  document.documentElement.classList.add('in-tg');
+  try{ w.disableVerticalSwipes && w.disableVerticalSwipes(); }catch(e){}
+  try{ w.BackButton.onClick(()=>{ haptic('light'); if(!document.getElementById('overlay').hidden) closeDrawer(); else location.hash='#path'; }); }catch(e){}
+  new MutationObserver(tgBack).observe(document.getElementById('overlay'),{attributes:true,attributeFilter:['hidden']});
+  const u=w.initDataUnsafe && w.initDataUnsafe.user, nameIn=document.getElementById('nameIn');
+  if(u && nameIn && !nameIn.value) nameIn.value=[u.first_name,u.last_name].filter(Boolean).join(' ');
+  if(!ME){ const c=await cloudGet(); if(c && c.code && !ME){ const r=await API.verify(c.code);
+      if(r.ok){ ME=r.student; ls.set('kurs-session',{code:ME.code,name:ME.name}); loadState(); await pullServer(); route(); } } }
+  tgBack(); };
+
 async function route(){
   closeDrawer();
   if(location.hash==='#admin'){
@@ -1525,7 +1549,7 @@ async function route(){
   }
   if(!ME){ show('scrLogin'); document.getElementById('demoNote').hidden=!DEMO; return; }
   if(!ME.name){ show('scrName'); document.getElementById('nameIn').focus(); return; }
-  show('scrApp'); renderApp();
+  show('scrApp'); renderApp(); tgBack();
 }
 window.addEventListener('hashchange',()=>{ closeDrawer(true); route(); window.scrollTo(0,0); });
 
@@ -1540,7 +1564,7 @@ document.getElementById('loginForm').addEventListener('submit',async e=>{
   const r = await API.verify(code); btn.disabled=false; btn.textContent='Войти';
   if(!r.ok){ err.textContent=r.error||'Код не подошёл.'; haptic('error'); return; }
   haptic('success');
-  ME = r.student; ls.set('kurs-session',{code:ME.code,name:ME.name}); loadState(); await pullServer();
+  ME = r.student; setSession({code:ME.code,name:ME.name}); loadState(); await pullServer();
   if(!location.hash || location.hash==='#admin') location.hash='#path';
   route(); if(ME.name) toast('С возвращением, '+firstName(ME.name)+'!');
 });
@@ -1548,7 +1572,7 @@ document.getElementById('nameForm').addEventListener('submit',async e=>{
   e.preventDefault(); const n=document.getElementById('nameIn').value.trim().replace(/\s+/g,' ');
   if(n.length<2){ document.getElementById('nameErr').textContent='Напиши имя, хотя бы 2 буквы.'; return; }
   const r = await API.setName(ME.code,n); if(!r.ok){ document.getElementById('nameErr').textContent=r.error||'Не получилось сохранить имя, попробуй ещё раз.'; return; }
-  ME.name=n; ls.set('kurs-session',{code:ME.code,name:ME.name}); haptic('success'); route(); toast('Добро пожаловать, '+firstName(n)+'!');
+  ME.name=n; setSession({code:ME.code,name:ME.name}); haptic('success'); route(); toast('Добро пожаловать, '+firstName(n)+'!');
 });
 document.getElementById('logoutBtn').addEventListener('click',()=>{
   const ov=document.getElementById('overlay'); clearTimeout(closeDrawer.t); ov.classList.remove('closing');
@@ -1557,7 +1581,7 @@ document.getElementById('logoutBtn').addEventListener('click',()=>{
     <div class="confirm-b"><button class="btn line" data-close>Остаться</button><button class="btn" id="doLogout">Выйти</button></div></div>`;
   ov.hidden=false; document.getElementById('doLogout').focus();
 });
-document.addEventListener('click',e=>{ if(e.target.id!=='doLogout') return; closeDrawer(true); ls.del('kurs-session'); ME=null; S=null; codeIn.value=''; route(); });
+document.addEventListener('click',e=>{ if(e.target.id!=='doLogout') return; closeDrawer(true); setSession(null); ME=null; S=null; codeIn.value=''; route(); });
 document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
   e.preventDefault(); const k=document.getElementById('adminKey').value; const r=await API.admin(k);
   if(!r.ok){ document.getElementById('adminErr').textContent=r.error||'Неверный пароль'; haptic('error'); return; }
@@ -1665,10 +1689,10 @@ document.querySelectorAll('.js-ls-l').forEach(e=>e.textContent=plural(ALL_LESSON
   if(sess && sess.code){
     ME = {code:sess.code,name:sess.name};
     const r = await API.verify(sess.code);
-    if(r.ok) ME = r.student; else if(!String(r.error||'').startsWith('Нет связи')){ ME=null; ls.del('kurs-session'); }
+    if(r.ok) ME = r.student; else if(!String(r.error||'').startsWith('Нет связи')){ ME=null; setSession(null); }
     if(ME) loadState();
   }
-  route();
+  route(); if(window.Telegram && Telegram.WebApp) window.tgInit();
   if(ME && LIVE && await pullServer() && ME.name && !busy() && !document.getElementById('scrApp').hidden) renderApp();
 })();
 </script>
