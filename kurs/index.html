@@ -2028,9 +2028,24 @@ const SND = { on: ls.get('kurs-sound')!==false, ctx:null, last:0 };
 function actx(){ if(!SND.ctx){ const A=window.AudioContext||window.webkitAudioContext; if(!A) return null; SND.ctx=new A(); } if(SND.ctx.state==='suspended') SND.ctx.resume(); return SND.ctx; }
 function tone(c,f,t0,dur,vol,type,f2){ const o=c.createOscillator(), g=c.createGain(); o.type=type||'sine'; o.frequency.setValueAtTime(f,t0); if(f2) o.frequency.exponentialRampToValueAtTime(f2,t0+dur);
   g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(vol,t0+0.008); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur); o.connect(g).connect(c.destination); o.start(t0); o.stop(t0+dur+0.02); }
+/* механическая клавиатура: щелчок свитча (шум через фильтр) + глухой «тук» корпуса, каждый раз чуть разный */
+function noiseBuf(c){ if(SND.nb) return SND.nb; const n=Math.floor(c.sampleRate*0.06), b=c.createBuffer(1,n,c.sampleRate), d=b.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3); return SND.nb=b; }
+function key(c,t,vol,light){ const r=1+(Math.random()-.5)*0.12;
+  const src=c.createBufferSource(); src.buffer=noiseBuf(c); src.playbackRate.value=r;
+  const bp=c.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=(light?4200:3000)*r; bp.Q.value=1.1;
+  const g=c.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.16*vol,t+0.002); g.gain.exponentialRampToValueAtTime(0.0001,t+(light?0.025:0.045));
+  src.connect(bp).connect(g).connect(c.destination); src.start(t); src.stop(t+0.07);
+  if(!light){ const o=c.createOscillator(), og=c.createGain(); o.type='sine'; o.frequency.setValueAtTime(210*r,t); o.frequency.exponentialRampToValueAtTime(95,t+0.06);
+    og.gain.setValueAtTime(0.0001,t); og.gain.exponentialRampToValueAtTime(0.11*vol,t+0.004); og.gain.exponentialRampToValueAtTime(0.0001,t+0.07);
+    o.connect(og).connect(c.destination); o.start(t); o.stop(t+0.09); } }
+/* отпускание клавиши — тихий второй щелчок */
+document.addEventListener('pointerup',e=>{ if(SND.down && e.target.closest(TAP_SEL)) sound('up'); SND.down=false; },{passive:true});
+document.addEventListener('pointerdown',e=>{ SND.down=!!e.target.closest(TAP_SEL); },{passive:true,capture:true});
 function sound(kind){ if(!SND.on) return; try{ const c=actx(); if(!c) return; const t=c.currentTime, now=performance.now();
-    if(kind==='select'){ if(now-SND.last<45) return; SND.last=now; tone(c,1900,t,0.03,0.035,'triangle'); return; }
-    if(kind==='light'){ if(now-SND.last<30) return; SND.last=now; tone(c,1250,t,0.045,0.05,'sine',900); return; }
+    if(kind==='select'){ if(now-SND.last<45) return; SND.last=now; key(c,t,.55,true); return; }
+    if(kind==='light'||kind==='down'){ if(now-SND.last<30) return; SND.last=now; key(c,t,1,false); return; }
+    if(kind==='up'){ key(c,t,.45,true); return; }
     if(kind==='success'){ tone(c,880,t,0.16,0.08); tone(c,1320,t+0.09,0.28,0.07); tone(c,1760,t+0.09,0.22,0.025); return; }
     if(kind==='error'||kind==='warning'){ tone(c,220,t,0.12,0.09,'triangle',170); tone(c,180,t+0.1,0.14,0.07,'triangle',140); return; }
   }catch(e){} }
