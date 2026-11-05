@@ -157,6 +157,8 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .gets{list-style:none;margin:0;padding:0}
 .gets li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:10px 0;font-size:16px}
 .gets li + li{border-top:1px solid var(--line)}
+.lion{margin:18px auto 4px;width:min(58%,220px);border-radius:18px;overflow:hidden;box-shadow:0 10px 28px rgba(20,11,13,.28),0 0 0 1px rgba(255,255,255,.06)}
+.lion img{display:block;width:100%;height:auto}
 .gets li::before{content:"";width:8px;height:8px;margin:8px 0 0 4px;border-radius:50%;background:var(--blue)}
 
 /* анкета */
@@ -521,6 +523,7 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
         <li>Покажем, где найти первого эксперта и как его закрыть</li>
         <li>Дам способ, как заработать первые 50.000 ₽ в рамках недели</li>
       </ul>
+      <figure class="lion"><img src="media/lion-bogatstvo.jpg?v=1" width="377" height="530" alt="Покой в богатстве" loading="lazy" decoding="async"></figure>
       <div class="goal">
         <h3 class="rate-title">Money Maxing Rate</h3>
         <div class="curve" id="iso"><svg viewBox="0 0 320 190" aria-hidden="true">
@@ -552,11 +555,11 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 
       <fieldset class="step" data-step="2">
         <span class="label">Вопрос</span>
-        <h3 class="q">Насколько ты уже в теме заработка в онлайне?</h3>
+        <h3 class="q">Осведомлён в продюсировании экспертов?</h3>
         <div class="aw" id="aw">
           <input type="radio" name="q2" id="q2v" value="" checked hidden>
           <div class="aw-val"><b id="awn">?</b><span id="awe">❄️</span></div>
-          <input class="aw-range" type="range" id="awr" min="1" max="10" step="1" value="5" aria-label="Насколько ты в теме, от 1 до 10">
+          <input class="aw-range" type="range" id="awr" min="1" max="10" step="1" value="5" aria-label="Насколько ты осведомлён в продюсировании экспертов, от 1 до 10">
           <div class="aw-ends"><span>❄️ 1 — вообще не в теме</span><span>10 — шарю! 🔥</span></div>
         </div>
       </fieldset>
@@ -625,8 +628,8 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 /* SRC — метка воронки (для будущей отдельной таблицы YAKIMOVICH) */
 var SRC = "yakimovich";
 /* VIDEO_URL — ссылка на mp4 видеоурока, VIDEO_POSTER — обложка. Пока пусто: в плеере заглушка */
-var VIDEO_URL = "";
-var VIDEO_POSTER = "";
+var VIDEO_URL = "media/lesson.mp4?v=1";
+var VIDEO_POSTER = "media/poster.jpg?v=1";
 var SHEET_URL = "";   /* отдельный скрипт для YAKIMOVICH пока не подключён — никаких связей с ботом/таблицей Сабиза */   /* URL веб-приложения Apps Script (бот + заявки) */
 
 /* ===== Telegram Mini App: если сайт открыт внутри Telegram ===== */
@@ -659,8 +662,8 @@ var UID = (function(){
   try { if (u) localStorage.setItem("yak-uid", u); else u = localStorage.getItem("yak-uid") || ""; } catch(e) {}
   return u;
 })();
-/* события шагов (open/lesson/quiz) запускают дожим-рассылку бота Сабиза, пока скрипт общий — выключено */
-var TRACK_EVENTS = false;
+/* события шагов (open/lesson/watched) запускают дожим бота YAKIMOVICH (отдельный скрипт, не связан с Сабизом) */
+var TRACK_EVENTS = true;   /* шлёт события в отдельный скрипт YAKIMOVICH, только если задан SHEET_URL */
 var track = (function(){
   var sent = {};
   return function(ev){
@@ -965,8 +968,18 @@ var goStage = (function(){
   });
 
   /* ----- тайм-коды: окно из трёх строк, которое едет вместе с просмотром ----- */
-  var CH = [   /* тайм-коды видео: [секунда, "название"] — заполнить, когда будет видео */
-    [0, "Привет! О чём этот урок"]
+  var CH = [   /* тайм-коды видео: [секунда, "название"] */
+    [0,   "Привет! О чём этот урок"],
+    [12,  "Как и где искать клиентов"],
+    [48,  "Средняя конверсия в продажу"],
+    [120, "Где искать экспертов: TGStat и Telemetr"],
+    [166, "Два способа: оффер и точка"],
+    [184, "Созвон: почему он согласится"],
+    [211, "Этап 4"],
+    [247, "Этап 5"],
+    [288, "Первые кассы"],
+    [384, "Выход на 100–200 тысяч"],
+    [432, "Мой личный совет"]
   ];
   var chIn = document.getElementById("chap-in"), rows = [], curCh = -1, ROW = 62;
   function fmt(t){ var m = Math.floor(t / 60), q = Math.floor(t % 60); return m + ":" + (q < 10 ? "0" : "") + q; }
