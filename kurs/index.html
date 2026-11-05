@@ -880,6 +880,25 @@ a.mat{color:var(--ink);text-decoration:none}
 .map-toggle:active{transform:scale(.98)}
 .map-toggle svg{transition:transform .3s var(--ease)}
 .map-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+/* заряд: один ползунок */
+.charge-box{gap:14px;padding:14px 14px 12px}
+.charge-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.charge-top b{display:block;font-size:14px}
+.charge-top small{display:block;font-size:12px;color:var(--muted)}
+.charge-val{text-align:right;flex:none}
+.charge-val b{font-family:var(--f-display);font-size:30px;line-height:1;color:var(--cc,var(--line-2));transition:color .2s}
+.charge-val small{white-space:nowrap}
+.charge-box.lo{--cc:var(--bad)}.charge-box.mid{--cc:var(--warn)}.charge-box.hi{--cc:var(--ok)}
+.charge-range{-webkit-appearance:none;appearance:none;width:100%;height:36px;margin:0;background:transparent;cursor:pointer;touch-action:pan-y;padding:0;border:none;box-shadow:none!important}
+.charge-range::-webkit-slider-runnable-track{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--bad),var(--warn) 45%,var(--ok));opacity:.9}
+.charge-range::-moz-range-track{height:10px;border-radius:99px;background:linear-gradient(90deg,var(--bad),var(--warn) 45%,var(--ok))}
+.charge-range::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;margin-top:-10px;border-radius:50%;background:#fff;border:3px solid var(--cc,var(--accent));box-shadow:0 4px 14px -2px rgba(11,21,48,.35),0 0 0 6px color-mix(in srgb,var(--cc,var(--accent)) 18%,transparent);transition:border-color .2s,transform .15s}
+.charge-range::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:3px solid var(--cc,var(--accent));box-shadow:0 4px 14px -2px rgba(11,21,48,.35)}
+.charge-range:active::-webkit-slider-thumb{transform:scale(1.15)}
+.charge-box.none .charge-range::-webkit-slider-runnable-track{opacity:.35}
+.charge-box.none .charge-range::-webkit-slider-thumb{border-color:var(--line-2)}
+.charge-scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:-6px}
 /* бережём тех, кто отключил анимации */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
 </style>
@@ -1536,9 +1555,17 @@ function gaugeSVG(v){ const f = v==null ? 0 : v/10;
     <circle class="g-hub" cx="${G.cx}" cy="${G.cy}" r="6.5"/></svg>`; }
 function gauge(key,label,v){ return `<div class="gauge ${moodLvl(v)}" data-mood="${key}" role="slider" tabindex="0" aria-label="${label}" aria-valuemin="1" aria-valuemax="10"${v!=null?` aria-valuenow="${v}"`:''} aria-valuetext="${v!=null?v+' из 10, '+moodWord(v):'не выбрано'}">
     <span class="g-lbl">${label}</span>${gaugeSVG(v)}<b class="g-num num">${v??'–'}</b><small class="g-word">${moodWord(v)}</small></div>`; }
-function moodBlock(m){ m=m||{}; return `<div class="mood" id="moodBlock"><div class="mood-h"><b>Как ты сегодня?</b><small>Потяни стрелку на каждой шкале: от 1 до 10</small></div>
-    <div class="gauges">${MOOD.map(([k,l])=>gauge(k,l,m[k]??null)).join('')}</div></div>`; }
-function moodChips(m){ if(!m || MOOD.every(([k])=>m[k]==null)) return ''; return `<div class="mchips">${MOOD.map(([k,l])=>m[k]==null?'':`<span class="mchip ${moodLvl(m[k])}"><i></i>${l}<b class="num">${m[k]}</b></span>`).join('')}</div>`; }
+/* один общий ползунок «Заряд»: настроение, мотивация и энергия в одном, водишь пальцем влево-вправо */
+const charge = m => !m ? null : m.all!=null ? +m.all : (m.mind!=null&&m.motivation!=null&&m.energy!=null) ? Math.round((+m.mind+ +m.motivation+ +m.energy)/3) : null;
+const chargeWord = v => v==null ? 'Потяни ползунок' : v<=2 ? 'Совсем без сил' : v<=4 ? 'Тяжеловато' : v<=6 ? 'Нормально' : v<=8 ? 'Хорошо' : 'На максимум';
+function moodBlock(m){ const v=charge(m);
+  return `<div class="mood charge-box ${v==null?'none':moodLvl(v)}" id="moodBlock">
+    <div class="charge-top"><div><b>Твой заряд сегодня</b><small>Настроение, мотивация и энергия — одной оценкой</small></div>
+      <div class="charge-val"><b class="num" id="chNum">${v??'–'}</b><small id="chWord">${chargeWord(v)}</small></div></div>
+    <input type="range" class="charge-range" id="chRange" min="1" max="10" step="1" value="${v??5}" aria-label="Заряд от 1 до 10" style="--p:${((v??5)-1)/9*100}%">
+    <div class="charge-scale"><span>1 · без сил</span><span>10 · огонь</span></div></div>`; }
+function moodChips(m){ if(m && m.all!=null){ const v=+m.all; return `<div class="mchips"><span class="mchip ${moodLvl(v)}"><i></i>Заряд<b class="num">${v}</b></span></div>`; }
+  if(!m || MOOD.every(([k])=>m[k]==null)) return ''; return `<div class="mchips">${MOOD.map(([k,l])=>m[k]==null?'':`<span class="mchip ${moodLvl(m[k])}"><i></i>${l}<b class="num">${m[k]}</b></span>`).join('')}</div>`; }
 function setGauge(el,v){ const j=todayEntry(), key=el.dataset.mood; j.mood=j.mood||{}; if(j.mood[key]===v) return false; j.mood[key]=v; const f=v/10;
   el.classList.remove('none','lo','mid','hi'); el.classList.add(moodLvl(v));
   el.querySelector('.g-val').style.strokeDashoffset=(G.len*(1-f)).toFixed(2);
@@ -1749,7 +1776,7 @@ function admJournal(){
 /* ---------- аналитика учеников: рейтинг и тревожные сигналы ---------- */
 const DAY = 864e5;
 const parseRu = str => { const m=/(\d{2})\.(\d{2})\.(\d{4})/.exec(String(str||'')); return m ? new Date(+m[3],+m[2]-1,+m[1]) : null; };
-const fullMood = m => m && MOOD.every(([k])=>m[k]!=null);
+const fullMood = m => charge(m)!=null;
 function latestMood(s){ return (s.days||[]).slice().sort((a,b)=>a.date<b.date?1:-1).map(d=>d.entry&&d.entry.mood).find(fullMood) || null; }
 function analyze(s){
   const today=new Date(); today.setHours(0,0,0,0);
@@ -1769,9 +1796,10 @@ function analyze(s){
   if(!s.name){ if(since>=2) R.push({lvl:1,t:'Не активировал доступ'}); }
   else {
     const m0=moods[0], m1=moods[1], m2=moods[2];
-    if(m0) MOOD.forEach(([k,l])=>{ if(m0[k]<=3) R.push({lvl:2,t:`${l} ${m0[k]}/10`}); });
-    if(m0 && m1) MOOD.forEach(([k,l])=>{ if(m1[k]-m0[k]>=3 && m0[k]>3) R.push({lvl:1,t:`${l} упала: ${m1[k]} → ${m0[k]}`}); });
-    if(m0 && m1 && m2) MOOD.forEach(([k,l])=>{ if(m0[k]>3 && (m0[k]+m1[k]+m2[k])/3<=4.5) R.push({lvl:1,t:`${l} низкая 3 отчёта подряд`}); });
+    const c0=charge(m0), c1=charge(m1), c2=charge(m2);
+    if(c0!=null && c0<=3) R.push({lvl:2,t:`Заряд ${c0}/10`});
+    if(c0!=null && c1!=null && c1-c0>=3 && c0>3) R.push({lvl:1,t:`Заряд упал: ${c1} → ${c0}`});
+    if(c0!=null && c1!=null && c2!=null && c0>3 && (c0+c1+c2)/3<=4.5) R.push({lvl:1,t:'Заряд низкий 3 отчёта подряд'});
     if(lastRep>=2 && since>=2) R.push({lvl:lastRep>=4?2:1, t:lastRep>=7?'Нет отчётов больше недели':`Нет отчёта ${lastRep} ${plural(lastRep,['день','дня','дней'])}`});
     if(compl!==null && tot>=4 && compl<.5) R.push({lvl:1,t:`Выполняет ${Math.round(compl*100)}% задач`});
     if(s.rework) R.push({lvl:1,t:`${s.rework} ${plural(s.rework,['задание','задания','заданий'])} на доработке`});
@@ -1883,6 +1911,13 @@ function renderAdmin(){
   </div>`;
 }
 
+document.addEventListener('input',e=>{ if(e.target.id!=='chRange') return; const v=+e.target.value, j=todayEntry();
+  if(!j.mood || j.mood.all!==v) haptic('select');
+  j.mood={all:v,mind:v,motivation:v,energy:v};
+  e.target.style.setProperty('--p',(v-1)/9*100+'%');
+  const b=document.getElementById('moodBlock'); b.classList.remove('none','lo','mid','hi','need'); b.classList.add(moodLvl(v));
+  document.getElementById('chNum').textContent=v; document.getElementById('chWord').textContent=chargeWord(v); });
+document.addEventListener('change',e=>{ if(e.target.id==='chRange'){ save(); syncDay(); } });
 /* ================= ТАПЫ И ВИБРАЦИЯ =================
    В Telegram — родная вибрация Mini App, на Android в браузере — navigator.vibrate, на iPhone в Safari — только визуальный отклик. */
 function haptic(kind){
@@ -2039,8 +2074,8 @@ document.addEventListener('click',async e=>{
   if(el.hasAttribute('data-sendrep')){ const j=todayEntry();
     const open=j.tasks.find(t=>t.done!==true&&t.done!==false); if(open){ toast('Отметь каждую задачу: выполнил или нет'); haptic('warning'); return; }
     const noWhy=j.tasks.find(t=>t.done===false&&!t.why.trim()); if(noWhy){ const w=document.querySelector(`[data-why="${noWhy.id}"]`); if(w) w.focus(); toast('Напиши, почему задача не получилась'); haptic('warning'); return; }
-    const m=j.mood||{}; if(MOOD.some(([k])=>m[k]==null)){ const b=document.getElementById('moodBlock'); if(b){ b.classList.add('need'); b.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'center'}); }
-      toast('Отметь на шкалах состояние, мотивацию и энергию'); haptic('warning'); return; }
+    const m=j.mood||{}; if(m.all==null){ const b=document.getElementById('moodBlock'); if(b){ b.classList.add('need'); b.scrollIntoView({behavior:reduceMotion.matches?'auto':'smooth',block:'center'}); }
+      toast('Отметь свой заряд на ползунке'); haptic('warning'); return; }
     j.reported=true; if(!j.reportAt) j.reportAt=hm(); EDIT.report=false; save(); syncDay(); renderApp(); haptic('success'); toast('Отчёт за день отправлен'); return; }
   if(el.id==='admOut'){ ADMIN_KEY=''; try{ sessionStorage.removeItem('kurs-admin'); localStorage.removeItem('kurs-admin') }catch(_){} ADM.issued=null; ADM.loaded=false; route(); return; }
   if(el.dataset.copy){ const n=document.getElementById(el.dataset.copy); copyText(n.textContent,n); return; }

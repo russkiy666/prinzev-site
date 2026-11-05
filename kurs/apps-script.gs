@@ -231,8 +231,10 @@ function makeReview_(days, possible) {
   }
   if (moods.length) {
     const f1 = x => String(x).replace('.', ',');
-    S.push('В среднем за неделю: состояние ' + f1(A.mind) + ', мотивация ' + f1(A.motivation) + ', энергия ' + f1(A.energy) + ' из 10.');
-    const low = [['состояние', A.mind], ['мотивация', A.motivation], ['энергия', A.energy]].filter(x => x[1] <= 4.5).map(x => x[0]);
+    const one = moods.every(m => m.all != null || (m.mind == m.motivation && m.motivation == m.energy));
+    if (one) S.push('Средний заряд за неделю: ' + f1(A.mind) + ' из 10.');
+    else S.push('В среднем за неделю: состояние ' + f1(A.mind) + ', мотивация ' + f1(A.motivation) + ', энергия ' + f1(A.energy) + ' из 10.');
+    const low = one ? (A.mind <= 4.5 ? ['заряд'] : []) : [['состояние', A.mind], ['мотивация', A.motivation], ['энергия', A.energy]].filter(x => x[1] <= 4.5).map(x => x[0]);
     if (low.length) S.push((low.length > 1 ? 'Проседают ' + low.join(' и ') : 'Проседает ' + low[0]) + ': это главный риск следующей недели.');
     else if (moods.length >= 3) {
       const sum = m => Number(m.mind) + Number(m.motivation) + Number(m.energy);
@@ -254,7 +256,7 @@ function makeReview_(days, possible) {
   const finish = t => 'Доведи до конца: «' + String(t.text).slice(0, 90) + '»';
   if (stuck[0]) F.push(finish(stuck[0]));
   if ((A.energy !== null && A.energy <= 5) || (A.mind !== null && A.mind <= 5)) F.push('Запланируй восстановление: сон, прогулка, один спокойный вечер');
-  else if (A.motivation !== null && A.motivation <= 5) F.push('Вспомни, ради какой цели учишься, и каждый день делай одну задачу, которая к ней ведёт');
+  else if (A.motivation !== null && A.motivation <= 5 && !(A.motivation === A.mind && A.mind === A.energy)) F.push('Вспомни, ради какой цели учишься, и каждый день делай одну задачу, которая к ней ведёт');
   if (n < P) F.push('Сдавай отчёт каждый вечер, хватит 2–3 строк');
   if (pct !== null && pct < 50 && tot >= 4) F.push('Ставь 2–3 главные задачи в день вместо длинного списка');
   if (stuck[1] && (stuck[1].tries || 1) >= 2) F.push(finish(stuck[1]));
