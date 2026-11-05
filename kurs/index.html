@@ -626,6 +626,27 @@ tr.is-off td{opacity:.55}
 @keyframes flash{0%,45%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:var(--sh-1)}}
 @media (max-width:1100px){.spot{grid-template-columns:repeat(2,minmax(0,1fr))}.spot-att{grid-column:1/-1}}
 @media (max-width:860px){.spot{grid-template-columns:minmax(0,1fr)}.spot-r b{font-size:34px}}
+
+/* перенос невыполненных задач */
+.carry{display:grid;gap:10px;padding:14px;border-radius:12px;background:var(--warn-soft);border:1px solid color-mix(in srgb,var(--warn) 22%,transparent);animation:rise .35s var(--ease) both}
+.carry-h{display:flex;gap:10px;align-items:center}
+.carry-h b{display:block;font-size:14px}
+.carry-h small{display:block;font-size:12px;color:var(--ink-2)}
+.carry-ic{width:30px;height:30px;border-radius:50%;background:var(--surface);color:var(--warn);display:grid;place-items:center;flex:none}
+.carry-ic svg{width:15px;height:15px}
+.carry-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.carry-list li{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;justify-content:flex-end;padding:10px 8px 10px 12px;background:var(--surface);border-radius:10px;animation:rise .3s var(--ease) both}
+.carry-t{display:grid;gap:2px;min-width:0;font-size:14px;flex:1 1 200px}
+.carry-t span{overflow-wrap:break-word}
+.carry-t small{font-size:12px;color:var(--muted)}
+.try{white-space:nowrap;font-style:normal;font-size:11px;font-weight:600;color:var(--bad);justify-self:start;background:var(--bad-soft);border-radius:99px;padding:1px 8px;margin-top:2px}
+.carry-b{display:flex;gap:4px;align-items:center;flex:none}
+.carry-b .btn{padding:7px 10px}
+.carry-b .icon-btn{width:30px;height:30px}
+.carry-b .icon-btn svg{width:14px;height:14px}
+.tk-t small.tk-from{display:flex;gap:4px;align-items:center;font-size:11.5px;color:var(--warn);margin-top:2px}
+.tk-from svg{width:11px;height:11px}
+.tk.is-carried{border-color:color-mix(in srgb,var(--warn) 30%,var(--line))}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rip{display:none}.check.pop svg path{stroke-dashoffset:0}}
 </style>
 </head>
@@ -935,6 +956,21 @@ const hm = () => new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2
 const plural=(n,f)=>{const a=n%100,b=n%10;return a>10&&a<20?f[2]:b===1?f[0]:b>1&&b<5?f[1]:f[2]};
 function dayState(k){ const j=S.journal[k]; return !j?'none':j.reported?'full':(j.tasks&&j.tasks.length)?'half':'none'; }
 const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+/* ---------- перенос невыполненных задач ---------- */
+function carrySource(){ const k=dkey(new Date());
+  const prev=Object.keys(S.journal).filter(d=>d<k && (S.journal[d].tasks||[]).length).sort().pop(); if(!prev) return null;
+  const left=S.journal[prev].tasks.filter(t=>t.done!==true && !t.moved && !t.skip);
+  return left.length ? {key:prev, reported:!!S.journal[prev].reported, tasks:left} : null; }
+const fmtKey = k => fmtShort(new Date(k+'T00:00:00'));
+function carryTask(src,t){ const j=todayEntry(); if(j.tasks.some(x=>x.fromId===t.id)) return;
+  j.tasks.push({id:uid(),text:t.text,done:null,why:'',from:src.key,fromId:t.id,tries:(t.tries||1)+1}); if(!j.planAt) j.planAt=hm(); if(j.reported) j.reported=false; t.moved=true; }
+function syncKey(k){ if(LIVE && ME) pushDay(k); }
+function carryBlock(){ const c=carrySource(); if(!c) return '';
+  return `<div class="carry" id="carryBlock"><div class="carry-h"><span class="carry-ic">${I.refresh}</span><div><b>Не получилось в прошлый раз</b><small>${cap(fmtDay(new Date(c.key+'T00:00:00')))} · попробуешь сегодня?</small></div></div>
+    <ul class="carry-list">${c.tasks.map(t=>`<li><div class="carry-t"><span>${esc(t.text)}</span>${t.why?`<small>${esc(t.why)}</small>`:!c.reported?'<small>В отчёте не отмечена</small>':''}${(t.tries||1)>=2?`<i class="try">${(t.tries||1)}-я попытка</i>`:''}</div>
+      <div class="carry-b"><button class="btn sm" data-carry="${t.id}">${I.plus} На сегодня</button><button class="icon-btn" data-skip="${t.id}" aria-label="Больше не напоминать" title="Больше не напоминать">${I.x}</button></div></li>`).join('')}</ul>
+    ${c.tasks.length>1?`<button class="linkbtn" data-carryall>Перенести все ${c.tasks.length}</button>`:''}</div>`; }
+
 function todayEntry(){ const k=dkey(new Date()); return S.journal[k]||(S.journal[k]={tasks:[],planAt:'',reported:false,reportAt:''}); }
 /* старый формат (одна задача строкой) → список задач */
 function migrateJournal(){ Object.values(S.journal).forEach(j=>{ if(!j.tasks){ j.tasks = j.plan ? [{id:uid(),text:j.plan,done:j.report?true:null,why:''}] : []; j.reported=!!j.report; delete j.plan; delete j.report; } }); }
@@ -1169,7 +1205,7 @@ function todayCard(){
   const days=[...Array(7)].map((_,i)=>{ const d=addDays(mon,i), kk=dkey(d), s=dayState(kk), fut=kk>k;
     return `<div class="wd ${s} ${kk===k?'today':''} ${fut?'fut':''}" title="${cap(fmtDay(d))}"><span>${WD[i]}</span><i>${s==='full'?I.check:''}</i></div>`; }).join('');
   const locked = j.reported && !EDIT.report;
-  const plan = `<ul class="tk-list">${T.map((t,i)=>`<li class="tk"><span class="tk-n num">${i+1}</span><span class="tk-t">${esc(t.text)}</span>${locked?'':`<button class="icon-btn tk-rm" data-rmtask="${t.id}" aria-label="Удалить задачу">${I.x}</button>`}</li>`).join('')}</ul>
+  const plan = `${locked?'':carryBlock()}<ul class="tk-list">${T.map((t,i)=>`<li class="tk ${t.from?'is-carried':''}"><span class="tk-n num">${i+1}</span><span class="tk-t">${esc(t.text)}${t.from?`<small class="tk-from">${I.refresh}перенесена с ${fmtKey(t.from)}${(t.tries||2)>=3?` · ${t.tries}-я попытка`:''}</small>`:''}</span>${locked?'':`<button class="icon-btn tk-rm" data-rmtask="${t.id}" aria-label="Удалить задачу">${I.x}</button>`}</li>`).join('')}</ul>
     ${locked?'':`<div class="tk-add"><input type="text" id="tkIn" placeholder="${T.length?'Ещё одна задача':'Например: отписать DC-блогерам'}" maxlength="140" enterkeyhint="done"><button class="btn sm" data-addtask aria-label="Добавить задачу">${I.plus} Добавить</button></div>`}`;
   let rep;
   if(!T.length) rep = `<p class="muted" style="margin:0;font-size:13px">Откроется, когда добавишь хотя бы одну задачу.</p>`;
@@ -1379,6 +1415,8 @@ function analyze(s){
     if(lastRep>=2 && since>=2) R.push({lvl:lastRep>=4?2:1, t:lastRep>=7?'Нет отчётов больше недели':`Нет отчёта ${lastRep} ${plural(lastRep,['день','дня','дней'])}`});
     if(compl!==null && tot>=4 && compl<.5) R.push({lvl:1,t:`Выполняет ${Math.round(compl*100)}% задач`});
     if(s.rework) R.push({lvl:1,t:`${s.rework} ${plural(s.rework,['задание','задания','заданий'])} на доработке`});
+    const stuck=[0,1].flatMap(i=>((map[dkey(addDays(today,-i))]||{}).tasks||[])).filter(t=>t.done!==true && (t.tries||1)>=3).sort((x,y)=>y.tries-x.tries)[0];
+    if(stuck) R.push({lvl:1,t:`Переносит задачу ${stuck.tries}-й раз`});
     if(noLogin!==null && noLogin>=3) R.push({lvl:1,t:`Не заходил ${noLogin} ${plural(noLogin,['день','дня','дней'])}`});
   }
   R.sort((a,b)=>b.lvl-a.lvl);
@@ -1527,7 +1565,7 @@ document.getElementById('adminLoginForm').addEventListener('submit',async e=>{
 });
 
 document.addEventListener('click',async e=>{
-  const el = e.target.closest('[data-focus],[data-tab],#admRefresh,[data-score],[data-review],[data-reply],[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
+  const el = e.target.closest('[data-carry],[data-carryall],[data-skip],[data-focus],[data-tab],#admRefresh,[data-score],[data-review],[data-reply],[data-go],[data-lesson],[data-filter],[data-close],#markLesson,#sendTask,[data-pre],[data-copy],[data-copyinv],[data-toggle],#admOut,[data-edit],[data-req],[data-rmph],[data-addtask],[data-rmtask],[data-mark],[data-sendrep]');
   if(!el) return;
   if(el.dataset.tab){ ADM.tab=el.dataset.tab; renderAdmin(); return; }
   if(el.dataset.focus){ const st=ADM.students.find(x=>x.code===el.dataset.focus); if(!st) return;
@@ -1554,7 +1592,14 @@ document.addEventListener('click',async e=>{
   if(el.dataset.rmph){ PHOTOS.splice(+el.dataset.rmph,1); renderPhotos(); return; }
   if(el.dataset.edit){ EDIT.report=true; renderApp(); return; }
   if(el.hasAttribute('data-addtask')){ addTask(); return; }
-  if(el.dataset.rmtask){ const j=todayEntry(); j.tasks=j.tasks.filter(t=>t.id!==el.dataset.rmtask); save(); syncDay(); renderApp(); return; }
+  if(el.dataset.rmtask){ const j=todayEntry(), t=j.tasks.find(x=>x.id===el.dataset.rmtask); j.tasks=j.tasks.filter(x=>x.id!==el.dataset.rmtask);
+    if(t && t.from && S.journal[t.from]){ const o=S.journal[t.from].tasks.find(x=>x.id===t.fromId); if(o){ delete o.moved; syncKey(t.from); } }
+    save(); syncDay(); renderApp(); return; }
+  if(el.dataset.carry || el.hasAttribute('data-carryall') || el.dataset.skip){ const c=carrySource(); if(!c) return;
+    if(el.dataset.skip){ const t=c.tasks.find(x=>x.id===el.dataset.skip); if(t) t.skip=true; toast('Больше не напомню об этой задаче'); }
+    else { const list=el.dataset.carry ? c.tasks.filter(x=>x.id===el.dataset.carry) : c.tasks; list.forEach(t=>carryTask(c,t)); haptic('success');
+      toast(list.length>1 ? 'Задачи перенесены на сегодня' : 'Задача перенесена на сегодня'); syncDay(); }
+    syncKey(c.key); save(); renderApp(); return; }
   if(el.dataset.mark){ const t=todayEntry().tasks.find(x=>x.id===el.dataset.mark); if(t){ t.done = el.dataset.v==='1'; if(t.done) t.why=''; save(); syncDay(); renderApp();
       if(!t.done){ const w=document.querySelector(`[data-why="${t.id}"]`); if(w) w.focus(); } } return; }
   if(el.hasAttribute('data-sendrep')){ const j=todayEntry();
