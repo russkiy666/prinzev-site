@@ -2043,9 +2043,9 @@ function key(c,t,vol,light){ const r=1+(Math.random()-.5)*0.12;
 document.addEventListener('pointerup',e=>{ if(SND.down && e.target.closest(TAP_SEL)) sound('up'); SND.down=false; },{passive:true});
 document.addEventListener('pointerdown',e=>{ SND.down=!!e.target.closest(TAP_SEL); },{passive:true,capture:true});
 function sound(kind){ if(!SND.on) return; try{ const c=actx(); if(!c) return; const t=c.currentTime, now=performance.now();
-    if(kind==='select'){ if(now-SND.last<45) return; SND.last=now; key(c,t,.55,true); return; }
-    if(kind==='light'||kind==='down'){ if(now-SND.last<30) return; SND.last=now; key(c,t,1,false); return; }
-    if(kind==='up'){ key(c,t,.45,true); return; }
+    if(kind==='select'){ if(now-SND.last<45) return; SND.last=now; tone(c,1400,t,0.025,0.025,'sine',1200); return; }
+    if(kind==='light'){ if(now-SND.last<30) return; SND.last=now; tone(c,620,t,0.05,0.07,'sine',420); tone(c,1240,t,0.025,0.012,'sine'); return; }
+    if(kind==='up') return;
     if(kind==='success'){ tone(c,880,t,0.16,0.08); tone(c,1320,t+0.09,0.28,0.07); tone(c,1760,t+0.09,0.22,0.025); return; }
     if(kind==='error'||kind==='warning'){ tone(c,220,t,0.12,0.09,'triangle',170); tone(c,180,t+0.1,0.14,0.07,'triangle',140); return; }
   }catch(e){} }
