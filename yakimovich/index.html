@@ -157,8 +157,6 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .gets{list-style:none;margin:0;padding:0}
 .gets li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:10px 0;font-size:16px}
 .gets li + li{border-top:1px solid var(--line)}
-.lion{margin:18px auto 4px;width:min(58%,220px);border-radius:18px;overflow:hidden;box-shadow:0 10px 28px rgba(20,11,13,.28),0 0 0 1px rgba(255,255,255,.06)}
-.lion img{display:block;width:100%;height:auto}
 .gets li::before{content:"";width:8px;height:8px;margin:8px 0 0 4px;border-radius:50%;background:var(--blue)}
 
 /* анкета */
@@ -395,6 +393,7 @@ h1,h2{font-weight:700;letter-spacing:-.03em}
 .opt .oe{margin-left:auto;font-size:30px;line-height:1}
 .opts .opt:has(.oe){min-height:68px}
 .c-photo img{aspect-ratio:4/5;object-fit:cover;object-position:50% 0%}
+.c-lion{background:#0f0f10;box-shadow:0 10px 28px rgba(20,11,13,.3)}.c-lion::after{display:none}.c-lion img{aspect-ratio:auto;object-fit:contain;max-width:300px;margin:0 auto}
 .rate{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:2px}
 .rc{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;min-width:0}
 .rc span{font-size:11.5px;font-weight:600;color:var(--muted)}
@@ -515,7 +514,7 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 <main class="stage" data-stage="3" id="s3">
   <div class="wrap stack">
     <section class="card" id="consult">
-      <div class="c-photo"><picture><source type="image/webp" srcset="media/consult-480.webp?v=8 480w, media/consult-800.webp?v=8 800w" sizes="(max-width:560px) 92vw, 520px"><img src="media/consult-800.jpg?v=8" srcset="media/consult-480.jpg?v=8 480w, media/consult-800.jpg?v=8 800w" sizes="(max-width:560px) 92vw, 520px" alt="YAKIMOVICH" width="800" height="1187" decoding="async" fetchpriority="low"></picture></div>
+      <div class="c-photo c-lion"><img src="media/lion-bogatstvo.jpg?v=1" width="377" height="530" alt="Покой в богатстве" decoding="async"></div>
       <span class="label">Бесплатная консультация · 30 минут</span>
       <h2 class="c-h2">Соберём твой личный план<br>выхода на <span class="gold">200.000 ₽</span></h2>
       <ul class="gets">
@@ -523,7 +522,6 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
         <li>Покажем, где найти первого эксперта и как его закрыть</li>
         <li>Дам способ, как заработать первые 50.000 ₽ в рамках недели</li>
       </ul>
-      <figure class="lion"><img src="media/lion-bogatstvo.jpg?v=1" width="377" height="530" alt="Покой в богатстве" loading="lazy" decoding="async"></figure>
       <div class="goal">
         <h3 class="rate-title">Money Maxing Rate</h3>
         <div class="curve" id="iso"><svg viewBox="0 0 320 190" aria-hidden="true">
@@ -630,7 +628,7 @@ var SRC = "yakimovich";
 /* VIDEO_URL — ссылка на mp4 видеоурока, VIDEO_POSTER — обложка. Пока пусто: в плеере заглушка */
 var VIDEO_URL = "media/lesson.mp4?v=1";
 var VIDEO_POSTER = "media/poster.jpg?v=1";
-var SHEET_URL = "";   /* отдельный скрипт для YAKIMOVICH пока не подключён — никаких связей с ботом/таблицей Сабиза */   /* URL веб-приложения Apps Script (бот + заявки) */
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbyQvKEOB6AuXAYKYdNd1xC6E798tetUVtfJojHKGNv2J6qPDUFcDtkvDFNdE1c-RvKA/exec";   /* отдельный скрипт для YAKIMOVICH пока не подключён — никаких связей с ботом/таблицей Сабиза */   /* URL веб-приложения Apps Script (бот + заявки) */
 
 /* ===== Telegram Mini App: если сайт открыт внутри Telegram ===== */
 var TG = (function(){
