@@ -305,7 +305,13 @@ function pull_(s, withCourse) {
     week: cell_(x.v[2]), done: cell_(x.v[3]), summary: cell_(x.v[4]), wins: lines_(x.v[5]), focus: lines_(x.v[6]), date: cell_(x.v[7])
   })).reverse();
   let progress = null; try { progress = prog ? JSON.parse(prog.v[3]) : null; } catch (e) {}
-  const res = { progress, journal, submissions, requests, reviews };
+  let rating = [];
+  try {
+    const lc = {}; rows_('progress').forEach(x => { const p = json_(x.v[3]); lc[cell_(x.v[0])] = p && Array.isArray(p.leads) ? p.leads.length : 0; });
+    rating = rows_('students').map(stud_).filter(u => u.status === 'active' && u.name).map(u => ({ name: u.name, leads: lc[u.code] || 0, me: u.code === code }))
+      .sort((p, q) => q.leads - p.leads || (p.name < q.name ? -1 : 1)).slice(0, 100);
+  } catch (e) {}
+  const res = { progress, journal, submissions, requests, reviews, rating };
   if (withCourse) res.course = course_();
   return res;
 }

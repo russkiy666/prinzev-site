@@ -1021,6 +1021,22 @@ input,select,textarea{background:rgba(255,255,255,.7)}
 .lead-d{display:grid;gap:6px;background:rgba(47,91,255,.07);border-radius:14px;padding:14px}
 .lead-d-r{display:flex;align-items:baseline;gap:10px}.lead-d-r b{font-family:var(--f-display);font-size:34px;font-weight:600}.lead-d-r span{color:var(--ink-2);font-size:14px}
 .lead-tile b{color:#1A3DA6}
+
+/* MONEYMAXING RATE */
+.nav-rate{display:flex}
+@media (max-width:860px){.nav-rate{display:none!important}}
+.rate-mini{display:grid;gap:10px;text-decoration:none;color:inherit}
+.rate-mini-b{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.rate-mini-b b{font-family:var(--f-display);font-size:34px;font-weight:700;letter-spacing:-.02em;background:linear-gradient(180deg,#2f5bff,#0A1A52);-webkit-background-clip:text;background-clip:text;color:transparent}.rate-mini-b span{color:var(--muted);font-size:14px}
+.chad{position:relative;overflow:hidden;display:grid;gap:8px;justify-items:start;color:#fff;border:none!important;background:radial-gradient(90% 130% at 100% 0%,#2f5bff,transparent 62%),radial-gradient(60% 80% at 0% 100%,rgba(255,214,107,.35),transparent 70%),linear-gradient(160deg,#0d2370,#0A1A52)!important;box-shadow:0 18px 40px -16px rgba(26,61,166,.6),inset 0 1px 0 rgba(255,255,255,.18)!important}
+.chad-crown{position:absolute;right:20px;top:18px;color:#FFD66B}.chad-crown svg{width:44px;height:44px;filter:drop-shadow(0 0 14px rgba(255,214,107,.7))}
+.chad-tag{font-size:12px;font-weight:700;letter-spacing:.14em;color:#FFD66B}
+.chad-n{font-family:var(--f-display);font-size:34px;font-weight:700;letter-spacing:-.02em}
+.chad-s{font-size:16px;color:rgba(255,255,255,.85)}.chad-s b{color:#fff;font-size:22px}.chad-s.sm{font-size:13px;color:rgba(255,255,255,.65)}
+.rate-list{display:grid}
+.rate-row{display:grid;grid-template-columns:28px 36px 1fr auto;align-items:center;gap:12px;padding:10px 6px;border-bottom:1px solid var(--line)}.rate-row:last-child{border:none}
+.rate-row.me{background:rgba(47,91,255,.08);border-radius:12px;border-color:transparent}
+.rate-n{color:var(--muted);font-weight:600;text-align:center}.rate-row:first-child .rate-n{color:#C9971A}
+.rate-w b{font-weight:600}.rate-v{text-align:right;display:grid}.rate-v b{font-size:18px}.rate-v small{color:var(--muted);font-size:12px}
 </style>
 </head>
 <body>
@@ -1071,6 +1087,7 @@ input,select,textarea{background:rgba(255,255,255,.7)}
       <a href="#map" data-v="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg><span class="lg">Путь</span><span class="sh">Путь</span></a>
       <a href="#lessons" data-v="lessons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg>Уроки</a>
       <a href="#tasks" data-v="tasks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Задания<span class="badge" id="navBadge" hidden></span></a>
+      <a href="#rate" data-v="rate" class="nav-rate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg>Рейтинг</a>
       <a href="#journal" data-v="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16M8 14h3M8 17h6"/></svg>Дневник</a>
       <a href="#feedback" data-v="feedback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span class="lg">Обратная связь</span><span class="sh">Вопросы</span></a>
     </nav>
@@ -1339,6 +1356,7 @@ window.addEventListener('online',flushPending);
 function applyServer(d){
   const k=dkey(new Date()), localToday=S.journal&&S.journal[k];
   if(d.progress){ S.lessons=d.progress.lessons||{}; if(d.progress.current) S.current=d.progress.current; if(Array.isArray(d.progress.leads)) S.leads=d.progress.leads; }
+  if(Array.isArray(d.rating)) S.rating=d.rating;
   S.journal=d.journal||{};
   if(localToday && JSON.stringify(localToday)!==JSON.stringify(S.journal[k]||null)){ S.journal[k]=localToday; syncDay(); }
   S.reviews=d.reviews||[];
@@ -1521,6 +1539,27 @@ document.addEventListener('click',e=>{
   if(e.target.closest('#leadAdd') && S){ (S.leads=S.leads||[]).push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),at:new Date().toISOString()}); save(); syncProgress(); refreshLead(true); haptic('success'); const q=leadStats(S.leads); toast('Лид добавлен · '+rub(q.profit)+' всего'); }
   else if(e.target.closest('#leadUndo') && S && S.leads && S.leads.length){ S.leads.pop(); save(); syncProgress(); refreshLead(); haptic('light'); toast('Последний лид отменён'); } });
 
+/* ================= MONEYMAXING RATE ================= */
+function rateList(){ const my=(S.leads||[]).length; let L=(S.rating||[]).map(x=>Object.assign({},x));
+  if(DEMO && !L.length) L=[{name:'Артём К.',leads:9},{name:'Мария С.',leads:6},{name:'Данил Р.',leads:3},{name:'Ксения В.',leads:1}];
+  const i=L.findIndex(x=>x.me); if(i>=0) L[i].leads=my; else L.push({name:ME.name,leads:my,me:true});
+  L.forEach(x=>x.me=x.me||(ME && x.name===ME.name && !L.some(y=>y!==x&&y.me)));
+  L.sort((a,b)=>b.leads-a.leads||(a.me?-1:b.me?1:0)||(a.name<b.name?-1:1)); return L; }
+function placeOf(L){ const i=L.findIndex(x=>x.me); let p=1; for(let k=0;k<i;k++) if(L[k].leads>L[i].leads) p++; return {place:p,total:L.length,me:L[i],top:L[0]}; }
+function rateCard(){ const L=rateList(), P=placeOf(L), gap=P.top.leads-P.me.leads;
+  return `<a class="card rate-mini" href="#rate"><div class="lead-top"><span class="eyebrow">MONEYMAXING RATE</span><span class="lead-badge">${P.place===1&&P.me.leads>0?'ты — CHAD':'место '+P.place+' из '+P.total}</span></div>
+    <div class="rate-mini-b">${P.place===1&&P.me.leads>0?`<b>CHAD</b><span>ты ТОП-1 по лидам</span>`:`<b>#${P.place}</b><span>${gap>0?`до CHAD ${gap} ${plural(gap,['лид','лида','лидов'])}`:'догони CHAD по лидам'}</span>`}</div></a>`; }
+function vRate(){ const L=rateList(), P=placeOf(L), ch=L[0];
+  const row=(x,i)=>{ const p=L.findIndex(y=>y.leads===x.leads)+1; return `<div class="rate-row ${x.me?'me':''}"><span class="rate-n num">${p}</span><span class="ava sm">${esc(initials(x.name))}</span><span class="rate-w"><b>${esc(x.name)}${x.me?' · ты':''}</b></span><span class="rate-v"><b class="num">${x.leads}</b><small>${rub(x.leads*LEAD_RUB())}</small></span></div>`; };
+  return `<div class="head"><div><div class="eyebrow">рейтинг учеников по залитым лидам</div><h1>MONEYMAXING RATE</h1></div></div>
+  <section class="card chad">
+    <div class="chad-crown">${I.crown}</div><span class="chad-tag">ТОП-1 · CHAD</span>
+    ${ch.leads>0?`<div class="chad-n">${esc(ch.name)}</div><div class="chad-s"><b class="num">${ch.leads}</b> ${plural(ch.leads,['лид','лида','лидов'])} · ${rub(ch.leads*LEAD_RUB())} чистыми</div>`:`<div class="chad-n">Место свободно</div><div class="chad-s">Первый залитый лид — и ты CHAD</div>`}
+    ${ch.me&&ch.leads>0?'':`<div class="chad-s sm">Ты на месте #${P.place}${ch.leads-P.me.leads>0?' · до CHAD '+(ch.leads-P.me.leads)+' '+plural(ch.leads-P.me.leads,['лид','лида','лидов']):''}</div>`}
+  </section>
+  <section class="card" style="display:grid;gap:6px"><div class="lead-top"><span class="eyebrow">Все ученики</span><span class="lead-badge">1 лид = ${rub(LEAD_RUB())}</span></div>
+    <div class="rate-list">${L.map(row).join('')}</div></section>`; }
+
 function vPath(){
   const T = totals(); const st = COURSE.stages[T.cur];
   const nextLesson = ALL_LESSONS.find(l=>l.stage===T.cur && !S.lessons[l.id]);
@@ -1557,6 +1596,7 @@ function vPath(){
     </section>
     <div class="pg-side">
       ${leadCard()}
+      ${rateCard()}
       ${todayCard()}
       ${reviewCard()}
     </div>
@@ -1972,15 +2012,15 @@ function weakest(a){ return [[`прогресс ${a.pct}%`,a.pct/100],[`отчё
     .filter(x=>x[1]!==null).sort((p,q)=>p[1]-q[1]).slice(0,2).map(x=>x[0]).join(', '); }
 function admSpotlight(){
   const A=ADM.students.filter(s=>s.status==='active').map(analyze);
-  const rated=A.filter(a=>a.s.name).sort((x,y)=>y.rating-x.rating);
+  const LC=a=>(a.s.leads||[]).length; const rated=A.filter(a=>a.s.name).sort((x,y)=>LC(y)-LC(x)||y.rating-x.rating);
   const top=rated[0], nub=rated.length>1 ? rated[rated.length-1] : null;
   const att=A.filter(a=>a.reasons.length).sort((x,y)=>y.weight-x.weight).slice(0,5);
   const who=(a,cls)=>`<button class="spot-who" data-stu="${esc(a.s.code)}"><span class="ava ${cls||''}">${esc(initials(a.s.name))}</span><span><b>${esc(a.s.name)}</b><small>${esc(a.s.tg)}</small></span></button>`;
-  const score=a=>`<div class="spot-r"><b class="num">${a.rating}</b><span>рейтинг из 100</span></div>`;
+  const score=a=>`<div class="spot-r"><b class="num">${LC(a)}</b><span>${plural(LC(a),['лид','лида','лидов'])} · ${rub(LC(a)*LEAD_RUB())}</span></div>`;
   return `<div class="spot">
-    <section class="card spot-top"><div class="spot-h"><span class="eyebrow">ТОП-ученик</span>${I.crown}</div>
+    <section class="card spot-top"><div class="spot-h"><span class="eyebrow">CHAD · ТОП-1 MONEYMAXING RATE</span>${I.crown}</div>
       ${top ? who(top,'gold')+score(top)+metricRow(top)+moodChips(top.moodLast) : '<p class="spot-empty">Появится, когда ученики начнут заниматься.</p>'}</section>
-    <section class="card spot-nub"><div class="spot-h"><span class="eyebrow">НУБ-ученик</span>${I.down}</div>
+    <section class="card spot-nub"><div class="spot-h"><span class="eyebrow">Меньше всего лидов</span>${I.down}</div>
       ${nub ? who(nub)+score(nub)+metricRow(nub)+`<p class="spot-tip">Проседает: ${weakest(nub)}</p>` : '<p class="spot-empty">Нужно минимум два ученика, чтобы сравнить.</p>'}</section>
     <section class="card spot-att"><div class="spot-h"><span class="eyebrow">Обратить внимание</span>${att.length?`<b class="att-n num">${att.length}</b>`:''}</div>
       ${att.length ? `<div class="att-list">${att.map(a=>`<button class="att-row" data-stu="${esc(a.s.code)}"><span class="ava sm ${a.s.name?'':'cur'}">${a.s.name?esc(initials(a.s.name)):'?'}</span>
@@ -2132,7 +2172,7 @@ let PRE='', JUST='';
 function show(id){ ['scrLogin','scrName','scrApp','scrAdminLogin','scrAdmin'].forEach(s=>document.getElementById(s).hidden = s!==id); }
 function renderApp(){
   const v = (location.hash||'#path').slice(1);
-  const views = {path:vPath, map:vMap, lessons:vLessons, tasks:vTasks, journal:vJournal, feedback:()=>vFeedback(PRE)};
+  const views = {rate:vRate, path:vPath, map:vMap, lessons:vLessons, tasks:vTasks, journal:vJournal, feedback:()=>vFeedback(PRE)};
   const key = views[v]?v:'path';
   document.getElementById('main').innerHTML = `<div class="view">${views[key]()}</div>`;
   PRE=''; JUST='';
