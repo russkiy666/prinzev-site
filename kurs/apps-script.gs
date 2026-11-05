@@ -311,7 +311,8 @@ function pull_(s, withCourse) {
 }
 function saveProgress_(s, data) {
   return lock_(() => {
-    const json = JSON.stringify({ lessons: data.lessons || {}, current: data.current || '' });
+    const leads = (Array.isArray(data.leads) ? data.leads : []).slice(0, 5000).map(x => ({ id: String(x && x.id || '').slice(0, 24), at: String(x && x.at || '').slice(0, 30) })).filter(x => x.id && x.at);
+    const json = JSON.stringify({ lessons: data.lessons || {}, current: data.current || '', leads: leads });
     const r = rows_('progress').find(x => cell_(x.v[0]) === s.code);
     if (r) sh_('progress').getRange(r.row, 2, 1, 3).setValues([[s.name, now_(), json]]);
     else append_('progress', [s.code, s.name, now_(), json]);
@@ -360,6 +361,7 @@ function adminData_() {
     return Object.assign(st, {
       lessons: Object.keys((prog[st.code] || {}).lessons || {}).length,
       lessonIds: Object.keys((prog[st.code] || {}).lessons || {}),
+      leads: ((prog[st.code] || {}).leads || []).map(x => x.at),
       accepted: mine.filter(s => s.status === 'Принято').length,
       review: mine.filter(s => s.status === 'На проверке').length,
       rework: mine.filter(s => s.status === 'На доработке').length,

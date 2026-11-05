@@ -475,7 +475,7 @@ td.num{white-space:nowrap}
 .adm-actions{display:flex;gap:8px;flex-wrap:wrap}
 .adm-actions svg{width:15px;height:15px}
 .is-busy svg{animation:spin .8s linear infinite}
-.adm-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.adm-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
 .stat b small{font-size:15px;color:var(--muted);font-weight:500;margin-left:6px;letter-spacing:0}
 .stat > .muted{font-size:12px}
 .stat-btn{text-align:left;font:inherit;color:inherit;cursor:pointer;position:relative;overflow:hidden;transition:transform .18s var(--ease),border-color .18s,box-shadow .18s}
@@ -542,6 +542,7 @@ tr.is-off td{opacity:.55}
 .issued .eyebrow{color:var(--deep-muted)}
 @media (max-width:860px){
   .adm-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .adm-stats .lead-tile{grid-column:1/-1}
   .issue-row{grid-template-columns:minmax(0,1fr)}
   .issue-row .btn{width:100%}
   .adm-tabs{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1000,6 +1001,26 @@ input,select,textarea{background:rgba(255,255,255,.7)}
 .spot-top .spot-who small{color:rgba(255,255,255,.7);opacity:1}
 .spot-top .eyebrow{color:rgba(255,255,255,.75)}
 .spot-top .ava{background:rgba(255,255,255,.14);color:#fff;border-color:#FFD66B}
+
+/* лиды */
+.lead-card{display:grid;gap:12px;position:relative;overflow:hidden}
+.lead-card::after{content:"";position:absolute;inset:auto -30% -55% auto;width:70%;aspect-ratio:1;background:radial-gradient(circle,rgba(47,91,255,.18),transparent 65%);pointer-events:none}
+.lead-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.lead-badge{font-size:12px;font-weight:600;color:var(--accent,#1A3DA6);background:rgba(47,91,255,.1);border-radius:999px;padding:4px 10px}
+.lead-main{display:flex;align-items:baseline;gap:10px}
+.lead-main b{font-family:var(--f-display);font-size:56px;font-weight:600;line-height:1;letter-spacing:-.04em;background:linear-gradient(180deg,#2f5bff,#0A1A52);-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+.lead-main b.pop{animation:leadpop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes leadpop{0%{transform:scale(.7)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.lead-main span{font-size:15px;color:var(--muted)}
+.lead-profit{font-size:15px;color:var(--ink-2)}.lead-profit b{color:var(--ink);font-weight:700}
+.lead-sub{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);padding-top:10px}
+.lead-sub span{display:grid;gap:1px;font-size:12px;color:var(--muted)}.lead-sub span+span{border-left:1px solid var(--line);padding-left:12px}.lead-sub b{font-size:18px;color:var(--ink);font-weight:600}
+.lead-act{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.lead-add{flex:1;min-width:150px;justify-content:center;font-size:17px;padding-block:14px}
+.c-lead b{display:block;font-size:16px}.c-lead small{display:block}
+.lead-d{display:grid;gap:6px;background:rgba(47,91,255,.07);border-radius:14px;padding:14px}
+.lead-d-r{display:flex;align-items:baseline;gap:10px}.lead-d-r b{font-family:var(--f-display);font-size:34px;font-weight:600}.lead-d-r span{color:var(--ink-2);font-size:14px}
+.lead-tile b{color:#1A3DA6}
 </style>
 </head>
 <body>
@@ -1095,6 +1116,7 @@ const CONFIG = {
   SHEET_URL: 'https://docs.google.com/spreadsheets/d/1KQncA0n_t0j3g-0WRtjtKb4eRz__PSFzYrmKFEAPJ9Q/edit',
   SITE_URL: 'https://russkiy666.github.io/prinzev-site/kurs/',
   BOT_URL: 'https://t.me/YakimovichKursBot',
+  LEAD_PROFIT: 20000,   // чистая прибыль с одного лида, ₽
   CURATOR_TG: '@YakimovichI',
   DEMO_ADMIN_KEY: 'admin2026'
 };
@@ -1308,7 +1330,7 @@ let offlineToast=0;
 function markPending(kind,k){ const p=pend(); if(kind==='day'){ if(!p.days.includes(k)) p.days.push(k); } else p.progress=true; ls.set('kurs-pending',p);
   if(Date.now()-offlineToast>60000){ offlineToast=Date.now(); toast('Нет связи. Всё сохранено на устройстве и отправится само'); } }
 function clearPending(kind,k){ const p=pend(); if(kind==='day') p.days=p.days.filter(x=>x!==k); else p.progress=false; ls.set('kurs-pending',p); }
-function syncProgress(){ if(!LIVE || !ME) return; API.saveProgress(ME.code,{lessons:S.lessons,current:S.current}).then(r=>r.ok?clearPending('progress'):markPending('progress')); }
+function syncProgress(){ if(!LIVE || !ME) return; API.saveProgress(ME.code,{lessons:S.lessons,current:S.current,leads:S.leads||[]}).then(r=>r.ok?clearPending('progress'):markPending('progress')); }
 let dayTimer;
 function pushDay(k){ return API.saveDay(ME.code,k,S.journal[k]||{tasks:[]}).then(r=>r.ok?clearPending('day',k):markPending('day',k)); }
 function syncDay(){ if(!LIVE || !ME) return; clearTimeout(dayTimer); const k=dkey(new Date()); dayTimer=setTimeout(()=>pushDay(k),600); }
@@ -1316,7 +1338,7 @@ async function flushPending(){ if(!LIVE || !ME || !S) return; const p=pend(); fo
 window.addEventListener('online',flushPending);
 function applyServer(d){
   const k=dkey(new Date()), localToday=S.journal&&S.journal[k];
-  if(d.progress){ S.lessons=d.progress.lessons||{}; if(d.progress.current) S.current=d.progress.current; }
+  if(d.progress){ S.lessons=d.progress.lessons||{}; if(d.progress.current) S.current=d.progress.current; if(Array.isArray(d.progress.leads)) S.leads=d.progress.leads; }
   S.journal=d.journal||{};
   if(localToday && JSON.stringify(localToday)!==JSON.stringify(S.journal[k]||null)){ S.journal[k]=localToday; syncDay(); }
   S.reviews=d.reviews||[];
@@ -1479,6 +1501,26 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-locked]')
 /* ================= ЭКРАНЫ УЧЕНИКА ================= */
 function vMap(){ const T=totals();
   return `<div class="head"><div><div class="eyebrow">${T.pct}% пройдено · этап ${T.cur+1} из ${COURSE.stages.length}</div><h1>Путь</h1></div></div>${mapCard(true)}`; }
+
+/* ================= ЛИДЫ (РКО) ================= */
+const LEAD_RUB = () => CONFIG.LEAD_PROFIT || 20000;
+const rub = n => Math.round(n).toLocaleString('ru-RU').replace(/ /g,' ')+' ₽';
+function leadStats(list){ const L=(list||[]).map(x=>typeof x==='string'?x:x.at), now=new Date(), t0=dkey(now), wk=new Date(now); wk.setDate(wk.getDate()-6); const w0=dkey(wk), m0=t0.slice(0,7);
+  let today=0,week=0,month=0; L.forEach(a=>{ const k=dkey(new Date(a)); if(k===t0) today++; if(k>=w0) week++; if(k.slice(0,7)===m0) month++; });
+  return {total:L.length,today,week,month,profit:L.length*LEAD_RUB()}; }
+function leadCard(){ const q=leadStats(S.leads);
+  return `<section class="card lead-card" id="leadCard">
+    <div class="lead-top"><span class="eyebrow">Лиды на оформление</span><span class="lead-badge">1 лид = ${rub(LEAD_RUB())}</span></div>
+    <div class="lead-main"><b class="num" id="leadN">${q.total}</b><span>${plural(q.total,['лид','лида','лидов'])}</span></div>
+    <div class="lead-profit">Чистая прибыль: <b class="num">${rub(q.profit)}</b></div>
+    <div class="lead-sub"><span><b class="num">${q.today}</b>сегодня</span><span><b class="num">${q.week}</b>7 дней</span><span><b class="num">${q.month}</b>в месяце</span></div>
+    <div class="lead-act"><button class="btn lead-add" id="leadAdd">${I.plus} лид</button>${q.total?`<button class="linkbtn" id="leadUndo">Отменить последний</button>`:''}</div>
+  </section>`; }
+function refreshLead(pop){ const c=document.getElementById('leadCard'); if(!c) return; c.outerHTML=leadCard(); if(pop){ const n=document.getElementById('leadN'); if(n){ n.classList.add('pop'); } } }
+document.addEventListener('click',e=>{
+  if(e.target.closest('#leadAdd') && S){ (S.leads=S.leads||[]).push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),at:new Date().toISOString()}); save(); syncProgress(); refreshLead(true); haptic('success'); const q=leadStats(S.leads); toast('Лид добавлен · '+rub(q.profit)+' всего'); }
+  else if(e.target.closest('#leadUndo') && S && S.leads && S.leads.length){ S.leads.pop(); save(); syncProgress(); refreshLead(); haptic('light'); toast('Последний лид отменён'); } });
+
 function vPath(){
   const T = totals(); const st = COURSE.stages[T.cur];
   const nextLesson = ALL_LESSONS.find(l=>l.stage===T.cur && !S.lessons[l.id]);
@@ -1514,6 +1556,7 @@ function vPath(){
       <a class="linkbtn" href="#map" style="justify-self:start">Открыть карту пути →</a>
     </section>
     <div class="pg-side">
+      ${leadCard()}
       ${todayCard()}
       ${reviewCard()}
     </div>
@@ -1832,10 +1875,11 @@ function admStudents(q){
     <section class="card" style="display:grid;gap:14px">
       <div class="adm-h"><h2>Ученики</h2><input type="text" id="admQ" class="search" placeholder="Поиск по имени, нику, коду" value="${esc(ADM.q)}"></div>
       ${list.length?`<div class="tbl-wrap"><table>
-        <thead><tr><th>Ученик</th><th>Прогресс</th><th>7 дней</th><th>Сегодня</th><th>Код</th><th>Статус</th><th></th></tr></thead>
+        <thead><tr><th>Ученик</th><th>Прогресс</th><th>Лиды</th><th>7 дней</th><th>Сегодня</th><th>Код</th><th>Статус</th><th></th></tr></thead>
         <tbody>${list.map(s=>{ const p=pctOf(s); return `<tr class="${s.status!=='active'?'is-off':''}">
           <td class="c-who"><button class="who who-btn" data-stu="${esc(s.code)}">${s.name?`<span class="ava sm">${esc(initials(s.name))}</span>`:'<span class="ava sm cur">?</span>'}<div><b>${s.name?esc(s.name):'<span class="muted">Ещё не входил</span>'}</b><small>${esc(s.tg)}${s.note?' · '+esc(s.note):''}</small></div></button></td>
           <td class="c-prog"><div class="prog"><div class="bar"><i style="width:${p}%"></i></div><span class="num">${p}%</span></div><small class="muted num">${s.lessons||0} ур. · ${s.accepted||0} зад.${s.rework?` · ${s.rework} дораб.`:''}</small></td>
+          <td class="c-lead">${(()=>{const q=leadStats(s.leads);return `<b class="num">${q.total}</b><small class="muted num">${rub(q.profit)}</small>`})()}</td>
           <td class="c-dots"><div class="dots">${dayDots(s.days)}</div></td>
           <td class="c-today">${todayBadge(s)}</td>
           <td class="codecell c-code">${esc(s.code)}</td>
@@ -1969,6 +2013,7 @@ function openStudent(code){
     <div class="d-body">
       <div class="stu-meta">${s.status==='active'?'<span class="pill s-accepted">Активен</span>':'<span class="pill s-rework">Заблокирован</span>'}<span class="stu-code">${esc(s.code)}</span><span class="muted" style="font-size:13px">${s.last?'вход '+esc(ago(s.last)):'ещё не входил'}</span></div>
       ${s.name?`<div class="spot-r"><b class="num">${a.rating}</b><span>рейтинг из 100</span></div>${metricRow(a).replace('spot-m','spot-m in-d')}`:''}
+      ${(()=>{const q=leadStats(s.leads);return `<div class="lead-d"><span class="eyebrow">Лиды на оформление</span><div class="lead-d-r"><b class="num">${q.total}</b><span>${rub(q.profit)} чистыми</span></div><small class="muted num">сегодня ${q.today} · 7 дней ${q.week} · в месяце ${q.month}</small></div>`})()}
       ${a.reasons.length?`<div><div class="eyebrow" style="margin-bottom:8px">Обратить внимание</div><div class="att-r">${a.reasons.map(r=>`<i class="rs l${r.lvl}">${esc(r.t)}</i>`).join('')}</div></div>`:''}
       ${a.moodLast?`<div><div class="eyebrow" style="margin-bottom:8px">Последнее состояние</div>${moodChips(a.moodLast)}</div>`:''}
       <div style="display:grid;gap:8px"><div class="eyebrow">Программа</div>${stages}</div>
@@ -1998,6 +2043,7 @@ function admProgram(){
 function renderAdmin(){
   const st=ADM.students, q=ADM.q.toLowerCase(), active=st.filter(s=>s.status==='active');
   const entered=st.filter(s=>s.name).length, reported=active.filter(s=>{ const e=todayOf(s); return e && e.reported; }).length;
+  const LT=leadStats([].concat(...st.map(x=>x.leads||[])));
   const tabs=[['students','Ученики',0],['review','Проверка',ADM.pending.length],['questions','Вопросы',ADM.questions.length],['journal','Дневники',0],['program','Программа',0]];
   const body = !ADM.loaded ? `<section class="card adm-empty"><span class="spin"></span><p class="muted" style="margin:0">Загружаю данные из таблицы…</p></section>`
     : ADM.err && !st.length ? emptyCard('Не получилось загрузить',esc(ADM.err)+'. Нажми «Обновить».',I.x)
@@ -2012,6 +2058,7 @@ function renderAdmin(){
       <button class="card stat stat-btn" data-tab="students"><span class="eyebrow">Ученики</span><b class="num">${entered}<small>из ${st.length}</small></b><span class="muted">вошли в кабинет</span></button>
       <button class="card stat stat-btn" data-tab="review"><span class="eyebrow">Проверка</span><b class="num ${ADM.pending.length?'neon-text':''}">${ADM.pending.length}</b><span class="muted">${plural(ADM.pending.length,['задание ждёт','задания ждут','заданий ждут'])}</span></button>
       <button class="card stat stat-btn" data-tab="questions"><span class="eyebrow">Вопросы</span><b class="num ${ADM.questions.length?'neon-text':''}">${ADM.questions.length}</b><span class="muted">без ответа</span></button>
+      <button class="card stat stat-btn lead-tile" data-tab="students"><span class="eyebrow">Лиды</span><b class="num">${LT.total}</b><span class="muted">${rub(LT.profit)} чистыми</span></button>
       <button class="card stat stat-btn" data-tab="journal"><span class="eyebrow">Отчёты сегодня</span><b class="num">${reported}<small>из ${active.length}</small></b><span class="muted">сдали отчёт</span></button>
     </div>
     ${ADM.loaded && st.length ? admSpotlight() : ''}
