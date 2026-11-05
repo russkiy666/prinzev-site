@@ -744,6 +744,7 @@ const CONFIG = {
   API_URL: 'https://script.google.com/macros/s/AKfycbxeGOzkGdFLk5KMg1PsQLuXOVQZVpj_2SknB0bqK_kALts_y2AuAOElFi4vGCevZSEhIQ/exec',
   SHEET_URL: 'https://docs.google.com/spreadsheets/d/1KQncA0n_t0j3g-0WRtjtKb4eRz__PSFzYrmKFEAPJ9Q/edit',
   SITE_URL: 'https://russkiy666.github.io/prinzev-site/kurs/',
+  BOT_URL: 'https://t.me/YakimovichKursBot',
   DEMO_ADMIN_KEY: 'admin2026'
 };
 const DEMO = !CONFIG.API_URL;
@@ -1310,7 +1311,7 @@ async function adminLoad(){
   else ADM.err = r.error || 'Не удалось загрузить данные';
   ADM.loaded=true; if(!document.getElementById('scrAdmin').hidden && !busy()) renderAdmin();
 }
-function inviteText(s){ return `Привет! Твой доступ к платформе «Продюсер с нуля».\n\nСсылка: ${CONFIG.SITE_URL}\nКод для входа: ${s.code}\n\nКод личный, не передавай его другим.`; }
+function inviteText(s){ return `Привет! Твой доступ к платформе «Продюсер с нуля».\n\n1. Открой бота: ${CONFIG.BOT_URL}\n2. Нажми кнопку «Обучение» внизу\n3. Введи код: ${s.code}\n\nКод личный, не передавай его другим.`; }
 const linkify = t => t.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
 const pctOf = s => Math.round(((s.lessons||0)+(s.accepted||0))/(ALL_LESSONS.length+ALL_TASKS.length)*100);
 function todayOf(s){ const k=dkey(new Date()), d=(s.days||[]).find(x=>x.date===k); return d ? d.entry : null; }
