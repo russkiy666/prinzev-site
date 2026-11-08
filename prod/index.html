@@ -447,6 +447,19 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 .formula{align-items:center}
 .fx{min-height:380px}
 
+/* раскладка под место вебки (правый верхний угол 288×162) */
+.mini{grid-template-columns:minmax(0,1fr) 288px;gap:40px}
+.mini > .ph{margin-top:118px;height:auto}
+.mini .l{padding-right:20px}
+.mini h1{font-size:64px}
+.fin h1{font-size:66px}
+.tlh{justify-content:flex-start;gap:44px}
+.tl{margin-top:14px}
+.steps4{margin-top:28px}
+.formula{margin-top:20px}
+.fx{min-height:360px}
+.col3{margin-top:22px}
+
 /* ===== больше неона и дизайна ===== */
 .dgrid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(29,92,255,.22) 1.1px,transparent 1.3px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000 10%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000 10%,transparent 75%);opacity:.55}
 .orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;border:1.5px solid rgba(76,134,255,.18)}
@@ -482,30 +495,26 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 .tt::before{left:50%;top:-34px;width:20px;height:20px;margin-left:-10px;border:4px solid #CBD6E8;box-shadow:none;transition:border-color .4s,box-shadow .4s,transform .4s var(--spring);z-index:1}
 .slide.on .tt::before{border-color:var(--blue);box-shadow:0 0 0 5px rgba(76,134,255,.15),0 0 16px rgba(76,134,255,.95);transform:scale(1.1);transition-delay:calc(.5s + (var(--d) - 3) * .72s)}
 
-/* ===== панель вебки справа + запись ===== */
-:root{--side:330px}
+/* ===== место для вебки внутри слайда ===== */
 .viewport .stage{position:absolute;left:50%;top:50%}
-.viewport{transition:right .5s var(--ease)}
-.camon .viewport{right:calc(var(--side) + 28px)}
-.camp{position:fixed;top:24px;right:24px;bottom:24px;width:var(--side);z-index:6;display:none;flex-direction:column;gap:14px}
-.camon .camp{display:flex;animation:campIn .7s var(--ease) both}
-@keyframes campIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
-.camf{position:relative;isolation:isolate;flex:none;height:calc(var(--side) * 1.2);border-radius:24px;background:#0B1324;overflow:hidden;border:1px solid var(--line);box-shadow:0 18px 40px rgba(29,92,255,.18)}
-.camf video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
-.camf::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:3px;z-index:2;background:conic-gradient(from var(--ang),transparent 0 55%,#9FC0FF 70%,#fff 76%,#4C86FF 82%,transparent 92%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 4.5s linear infinite;filter:drop-shadow(0 0 6px rgba(76,134,255,.9))}
-.camf::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 60%,rgba(11,19,36,.6))}
-.camf .tag{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;display:flex;align-items:center;gap:10px;color:#fff}
-.camf .tag i{width:9px;height:9px;border-radius:50%;background:#4C86FF;box-shadow:0 0 10px #4C86FF;animation:ping 2.2s ease-out infinite}
-.camf .tag b{font:800 17px/1.1 'Inter',sans-serif;letter-spacing:-.02em}
-.camf .tag span{display:block;font:600 12px/1.2 'Inter',sans-serif;opacity:.8;margin-top:3px}
-.plan{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:24px;background:#fff;border:1px solid var(--line);background-image:radial-gradient(circle at 100% 0,rgba(76,134,255,.12),transparent 50%)}
-.plan .label{margin-bottom:6px}
-.plan div{flex:1;display:flex;align-items:center;gap:12px;padding:0 10px;border-radius:12px;font:700 15px/1.2 'Inter',sans-serif;color:var(--muted);transition:background-color .4s,color .4s}
-.plan div b{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--fill);color:var(--muted);font-size:13px;transition:background-color .4s,color .4s,box-shadow .4s}
-.plan div.done{color:var(--ink)}
-.plan div.done b{background:var(--soft);color:var(--blue)}
-.plan div.cur{background:var(--soft);color:var(--blue)}
-.plan div.cur b{background:var(--grad);color:#fff;box-shadow:0 0 14px rgba(76,134,255,.8)}
+.slot{position:absolute;right:48px;top:44px;width:288px;height:162px;border-radius:20px;z-index:3;isolation:isolate;overflow:hidden;background:#fff;border:1px solid #E1E8F5;box-shadow:0 14px 34px rgba(29,92,255,.14)}
+.slot::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2.5px;z-index:5;background:conic-gradient(from var(--ang),transparent 0 55%,#9FC0FF 70%,#fff 76%,#4C86FF 82%,transparent 92%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 4.5s linear infinite;filter:drop-shadow(0 0 6px rgba(76,134,255,.9))}
+.slot .info{position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;background-image:radial-gradient(circle at 100% 0,rgba(76,134,255,.16),transparent 55%),radial-gradient(rgba(29,92,255,.12) 1px,transparent 1.2px);background-size:auto,16px 16px;transition:opacity .5s}
+.slot .info .label{display:block}
+.slot .snum{display:flex;align-items:baseline;gap:6px}
+.slot .snum b{font:800 64px/.9 'Inter',sans-serif;letter-spacing:-.06em;background:linear-gradient(150deg,#4C86FF,#1D5CFF 60%,#1546C9);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 12px rgba(76,134,255,.35))}
+.slot .snum span{font:800 20px/1 'Inter',sans-serif;color:#B4C2D9}
+.slot .sname{font:700 15px/1.2 'Inter',sans-serif;color:var(--ink)}
+.slot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);opacity:0;transition:opacity .6s;z-index:1}
+.slot .shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 55%,rgba(11,19,36,.65));opacity:0;transition:opacity .6s}
+.slot .tag{position:absolute;left:14px;right:14px;bottom:12px;z-index:3;display:flex;align-items:center;gap:9px;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .6s .2s,transform .6s .2s}
+.slot .tag i{flex:none;width:8px;height:8px;border-radius:50%;background:#4C86FF;box-shadow:0 0 10px #4C86FF;animation:ping 2.2s ease-out infinite}
+.slot .tag b{font:800 14px/1.1 'Inter',sans-serif}
+.slot .tag span{display:block;font:600 11px/1.2 'Inter',sans-serif;opacity:.8;margin-top:2px}
+.slot .chip{position:absolute;left:12px;top:12px;z-index:3;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.92);font:800 11px/1 'Inter',sans-serif;letter-spacing:.06em;color:var(--blue);opacity:0;transition:opacity .6s .2s}
+.camon .slot video,.camon .slot .shade,.camon .slot .chip{opacity:1}
+.camon .slot .tag{opacity:1;transform:none}
+.camon .slot .info{opacity:0}
 .recbtn{color:#E5484D!important}
 .recbtn i{width:12px;height:12px;border-radius:50%;background:currentColor;display:block}
 .recbtn.on i{border-radius:3px;animation:blink 1s steps(2) infinite}
@@ -536,7 +545,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 0 -->
 <section class="slide">
-  <div class="wm">01</div><div class="top a"><span class="pill"><i></i>Этап 1 из 7 · Кто я</span><div class="dots"><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 1 из 7 · Кто я</span></div>
   <div class="whoT a" style="--d:1"><span class="ava" style="background-image:url(media/avatar.jpg)"></span><div><div class="role">Продюсер экспертов и блогеров</div><h1>Илья Якимович</h1></div></div>
   <div class="col3"><div class="ph ring  a" style="--d:2"><div class="img" style="background-image:url(media/podcast.jpg)"></div></div><div class="ph ring  a" style="--d:3"><div class="img" style="background-image:url(media/meeting.jpg)"></div></div><div class="ph ring  a" style="--d:4"><div class="img" style="background-image:url(media/setup.jpg)"></div></div></div>
   <div class="reg"><div class="a" style="--d:6"><b>30 млн+ ₽</b><span>выручки в проектах</span></div><div class="a" style="--d:7"><b>50+</b><span>реализованных запусков</span></div><div class="a" style="--d:8"><b>4 года</b><span>в заработке онлайн</span></div><div class="a" style="--d:9"><b>в 15 лет</b><span>переехал один в Москву</span></div></div>
@@ -544,7 +553,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 1 -->
 <section class="slide">
-  <div class="wm">02</div><div class="top a"><span class="pill"><i></i>Этап 2 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 2 из 7</span></div>
   <h1 class="tt1 a" style="--d:1;font-size:54px">В чём суть продюсирования</h1>
   <div class="formula">
     <div class="fx a" style="--d:2"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><span class="label">Блогер</span><h3>Аудитория</h3><p>Люди, которые ему доверяют</p></div>
@@ -557,14 +566,14 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 2 -->
 <section class="slide">
-  <div class="wm">03</div><div class="top a"><span class="pill"><i></i>Этап 3 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 3 из 7</span></div>
   <h1 class="tt1 a" style="--d:1;font-size:54px">Первые шаги</h1>
   <div class="steps4"><div class="s4 a" style="--d:2"><span class="nn">01</span><h3>Собери базу</h3><p>потенциальных блогеров</p></div><div class="s4 a" style="--d:3"><span class="nn">02</span><h3>Упакуй аккаунт</h3><p>грамотно, чтобы тебе доверяли</p></div><div class="s4 a" style="--d:4"><span class="nn">03</span><h3>Составь оффер</h3><p>что блогер получит от работы с тобой</p></div><div class="s4 a" style="--d:5"><span class="nn">04</span><h3>Сделай рассылку</h3><p>и выводи блогеров на созвон</p></div></div>
 </section>
 
 <!-- 3 -->
 <section class="slide">
-  <div class="wm">04</div><div class="top a"><span class="pill"><i></i>Этап 4 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 4 из 7</span></div>
   <div class="mini">
     <div class="l">
       <h1 class="a" style="--d:1">Подписание первого проекта</h1>
@@ -577,14 +586,14 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 4 -->
 <section class="slide">
-  <div class="wm">05</div><div class="top a"><span class="pill"><i></i>Этап 5 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 5 из 7</span></div>
   <div class="tlh"><h1 class="a" style="--d:1">Структура запуска</h1><div class="total a" style="--d:2"><span class="label">Весь запуск</span><b>≈ 2,5–4 недели</b></div></div>
   <div class="tl"><div class="tt  a" style="--d:3"><span class="dur">3–5 дней</span><h3>Анализ аудитории</h3><p>Кто подписчики и что им нужно</p></div><div class="tt  a" style="--d:4"><span class="dur">7–14 дней</span><h3>Прогрев + создание продукта</h3><p>Готовим аудиторию и продукт</p></div><div class="tt  a" style="--d:5"><span class="dur">1 день</span><h3>Продающее мероприятие</h3><p>Сбор заявок</p></div><div class="tt hl a" style="--d:6"><span class="dur">5–7 дней</span><h3>Обработка заявок</h3><p>Делаем кассу</p></div></div>
 </section>
 
 <!-- 5 -->
 <section class="slide">
-  <div class="wm">06</div><div class="top a"><span class="pill"><i></i>Этап 6 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 6 из 7</span></div>
   <div class="mini">
     <div class="l">
       <h1 class="a" style="--d:1">Обрабатываем заявки, <span class="accent">делаем кэш</span></h1>
@@ -596,7 +605,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 6 -->
 <section class="slide">
-  <div class="wm">07</div><div class="top a"><span class="pill"><i></i>Этап 7 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 7 из 7</span></div>
   <div class="mini fin">
     <div class="l">
       <h1 class="a" style="--d:1">Разберём твой путь на&nbsp;<span class="accent">бесплатной консультации</span></h1>
@@ -605,6 +614,10 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
     <div class="ph ring  a" style="--d:2"><div class="img" style="background-image:url(media/setup.jpg)"></div></div>
   </div>
 </section>
+
+<!-- 7 -->
+
+<div class="slot" id="slot"><div class="info"><span class="label">Этап</span><div class="snum"><b id="snum">01</b><span>/ 07</span></div><div class="sname" id="sname">Кто я</div></div><video id="camv" autoplay muted playsinline></video><div class="shade"></div><span class="chip" id="schip">ЭТАП 1 / 7</span><div class="tag"><i></i><div><b>Илья Якимович</b><span>Продюсер экспертов и блогеров</span></div></div></div>
 
 
 </div></div>
@@ -775,10 +788,6 @@ if(t.disableVerticalSwipes)t.disableVerticalSwipes();if(t.setHeaderColor)t.setHe
 document.documentElement.classList.add('tg');}catch(e){}})();
 </script>
 
-<aside class="camp" id="camp">
-  <div class="camf"><video id="camv" autoplay muted playsinline></video><div class="tag"><i></i><div><b>Илья Якимович</b><span>Продюсер экспертов и блогеров</span></div></div></div>
-  <div class="plan" id="plan"><span class="label">План урока</span></div>
-</aside>
 <div class="count" id="count"><b id="countn">3</b></div>
 <div class="rmsg" id="rmsg" hidden></div>
 <div class="saved" id="saved" hidden><div class="box"><h3>Видео готово</h3><p id="savedp"></p><a class="dl" id="dla" href="#">Скачать видео</a><button class="x" id="savedx">Закрыть</button></div></div>
@@ -788,21 +797,21 @@ document.documentElement.classList.add('tg');}catch(e){}})();
   var root=document.documentElement,camV=document.getElementById('camv'),recB=document.getElementById('rec'),camB=document.getElementById('camb'),
       cnt=document.getElementById('count'),cntN=document.getElementById('countn'),msg=document.getElementById('rmsg'),
       nav=document.getElementById('nav'),tip=document.getElementById('tip'),bar=document.getElementById('bar'),mh=document.getElementById('mhint'),
-      plan=document.getElementById('plan'),saved=document.getElementById('saved'),dla=document.getElementById('dla'),savedp=document.getElementById('savedp');
+      saved=document.getElementById('saved'),dla=document.getElementById('dla'),savedp=document.getElementById('savedp');
   var cam=null,disp=null,rec=null,chunks=[],ac=null,t0=0,title=document.title,tm=null,lastUrl=null;
   var names=["Кто я","Суть продюсирования","Первые шаги","Первый проект","Структура запуска","Делаем кэш","Консультация"];
-  names.forEach(function(n,i){var d=document.createElement('div');d.innerHTML='<b>'+(i+1)+'</b>'+n;plan.appendChild(d)});
-  var items=[].slice.call(plan.querySelectorAll('div')),slides=[].slice.call(document.querySelectorAll('.slide'));
-  function syncPlan(){var i=slides.findIndex(function(s){return s.classList.contains('on')});items.forEach(function(d,k){d.classList.toggle('cur',k===i);d.classList.toggle('done',k<i)})}
-  setInterval(syncPlan,250);syncPlan();
+  var slides=[].slice.call(document.querySelectorAll('.slide')),snum=document.getElementById('snum'),sname=document.getElementById('sname'),schip=document.getElementById('schip'),lastI=-1;
+  function syncPlan(){var i=slides.findIndex(function(s){return s.classList.contains('on')});if(i===lastI||i<0)return;lastI=i;
+    snum.textContent=String(i+1).padStart(2,'0');sname.textContent=names[i]||'';schip.textContent='ЭТАП '+(i+1)+' / 7'}
+  setInterval(syncPlan,200);syncPlan();
   function refit(){dispatchEvent(new Event('resize'))}
   function say(t,ms){msg.textContent=t;msg.hidden=false;clearTimeout(say._t);if(ms)say._t=setTimeout(function(){msg.hidden=true},ms)}
   async function camOn(){
     if(cam)return cam;
     cam=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:1280},height:{ideal:720},facingMode:'user'},audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
-    camV.srcObject=new MediaStream(cam.getVideoTracks());root.classList.add('camon');refit();setTimeout(refit,750);return cam;
+    camV.srcObject=new MediaStream(cam.getVideoTracks());root.classList.add('camon');return cam;
   }
-  function camOff(){if(rec)return;if(cam){cam.getTracks().forEach(function(t){t.stop()});cam=null}root.classList.remove('camon');refit()}
+  function camOff(){if(rec)return;if(cam){cam.getTracks().forEach(function(t){t.stop()});cam=null}root.classList.remove('camon')}
   camB.addEventListener('click',function(e){e.stopPropagation();cam?camOff():camOn().catch(function(){say('Не получилось включить камеру. Разреши доступ к камере в адресной строке браузера.',6000)})});
   function pick(){var c=['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1,mp4a.40.2','video/mp4;codecs=avc1,opus','video/webm;codecs=vp9,opus','video/webm'];
     for(var i=0;i<c.length;i++)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(c[i]))return c[i];return ''}
