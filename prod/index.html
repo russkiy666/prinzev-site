@@ -448,17 +448,17 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 .fx{min-height:380px}
 
 /* раскладка под место вебки (правый верхний угол 288×162) */
-.mini{grid-template-columns:minmax(0,1fr) 288px;gap:40px}
-.mini > .ph{margin-top:118px;height:auto}
+.mini{grid-template-columns:minmax(0,1fr) 352px;gap:40px}
+.mini > .ph{margin-top:154px;height:auto}
 .mini .l{padding-right:20px}
 .mini h1{font-size:64px}
 .fin h1{font-size:66px}
 .tlh{justify-content:flex-start;gap:44px}
-.tl{margin-top:14px}
-.steps4{margin-top:28px}
-.formula{margin-top:20px}
+.tl{margin-top:52px}
+.steps4{margin-top:64px}
+.formula{margin-top:40px}
 .fx{min-height:360px}
-.col3{margin-top:22px}
+.col3{margin-top:58px}
 
 /* ===== больше неона и дизайна ===== */
 .dgrid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(29,92,255,.22) 1.1px,transparent 1.3px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000 10%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000 10%,transparent 75%);opacity:.55}
@@ -497,7 +497,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 /* ===== место для вебки внутри слайда ===== */
 .viewport .stage{position:absolute;left:50%;top:50%}
-.slot{position:absolute;right:48px;top:44px;width:288px;height:162px;border-radius:20px;z-index:3;isolation:isolate;overflow:hidden;background:#fff;border:1px solid #E1E8F5;box-shadow:0 14px 34px rgba(29,92,255,.14)}
+.slot{position:absolute;right:48px;top:44px;width:352px;height:198px;border-radius:20px;z-index:3;isolation:isolate;overflow:hidden;background:#fff;border:1px solid #E1E8F5;box-shadow:0 14px 34px rgba(29,92,255,.14)}
 .slot::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2.5px;z-index:5;background:conic-gradient(from var(--ang),transparent 0 55%,#9FC0FF 70%,#fff 76%,#4C86FF 82%,transparent 92%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 4.5s linear infinite;filter:drop-shadow(0 0 6px rgba(76,134,255,.9))}
 .slot .info{position:absolute;inset:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;background-image:radial-gradient(circle at 100% 0,rgba(76,134,255,.16),transparent 55%),radial-gradient(rgba(29,92,255,.12) 1px,transparent 1.2px);background-size:auto,16px 16px;transition:opacity .5s}
 .slot .info .label{display:block}
@@ -509,8 +509,8 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 .slot .shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 55%,rgba(11,19,36,.65));opacity:0;transition:opacity .6s}
 .slot .tag{position:absolute;left:14px;right:14px;bottom:12px;z-index:3;display:flex;align-items:center;gap:9px;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .6s .2s,transform .6s .2s}
 .slot .tag i{flex:none;width:8px;height:8px;border-radius:50%;background:#4C86FF;box-shadow:0 0 10px #4C86FF;animation:ping 2.2s ease-out infinite}
-.slot .tag b{font:800 14px/1.1 'Inter',sans-serif}
-.slot .tag span{display:block;font:600 11px/1.2 'Inter',sans-serif;opacity:.8;margin-top:2px}
+.slot .tag b{font:800 16px/1.1 'Inter',sans-serif}
+.slot .tag span{display:block;font:600 12px/1.2 'Inter',sans-serif;opacity:.8;margin-top:2px}
 .slot .chip{position:absolute;left:12px;top:12px;z-index:3;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.92);font:800 11px/1 'Inter',sans-serif;letter-spacing:.06em;color:var(--blue);opacity:0;transition:opacity .6s .2s}
 .camon .slot video,.camon .slot .shade,.camon .slot .chip{opacity:1}
 .camon .slot .tag{opacity:1;transform:none}
