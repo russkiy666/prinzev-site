@@ -447,26 +447,61 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 .formula{align-items:center}
 .fx{min-height:380px}
 
+/* ===== больше неона и дизайна ===== */
+.dgrid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(29,92,255,.22) 1.1px,transparent 1.3px);background-size:28px 28px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000 10%,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 70% 30%,#000 10%,transparent 75%);opacity:.55}
+.orb{position:fixed;z-index:0;pointer-events:none;border-radius:50%;border:1.5px solid rgba(76,134,255,.18)}
+.orb::before{content:"";position:absolute;inset:-2px;border-radius:50%;padding:2px;background:conic-gradient(from var(--ang),transparent 0 70%,rgba(120,165,255,.9) 82%,#fff 86%,rgba(29,92,255,.9) 90%,transparent 96%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;filter:drop-shadow(0 0 8px rgba(76,134,255,.9));animation:spin 9s linear infinite}
+.orb.o1{width:560px;height:560px;right:-180px;bottom:-240px}
+.orb.o2{width:300px;height:300px;left:-110px;top:-120px;border-color:rgba(76,134,255,.14)}
+.orb.o2::before{animation-duration:13s;animation-direction:reverse}
+.wm{position:absolute;right:30px;top:-56px;z-index:0;font:800 300px/1 'Inter',sans-serif;letter-spacing:-.07em;color:transparent;-webkit-text-stroke:2px rgba(29,92,255,.10);pointer-events:none;user-select:none}
+.slide.on .wm{animation:wmIn 1.2s var(--ease) both}
+@keyframes wmIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:none}}
+.slide h1::after{content:"";display:block;width:0;height:5px;margin-top:16px;border-radius:5px;background:linear-gradient(90deg,#1D5CFF,#7FA8FF);box-shadow:0 0 14px rgba(76,134,255,.85)}
+.slide.on h1::after{transition:width .9s .45s var(--ease);width:72px}
+.whoT h1::after,.tlh h1::after{margin-top:10px}
+.fx,.s4,.tt,.reg div{background-image:radial-gradient(circle at 100% 0,rgba(76,134,255,.13),transparent 46%);border-color:#E1E8F5}
+.fx.res2,.tt.hl{background-image:radial-gradient(circle at 100% 0,rgba(255,255,255,.22),transparent 50%),var(--grad2)}
+.reg b{background:linear-gradient(120deg,#1D5CFF,#5C93FF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 10px rgba(76,134,255,.35))}
+.big b{text-shadow:0 0 22px rgba(255,255,255,.35)}
+.s4 h3,.tt h3,.fx h3{text-wrap:balance}
+.s4:hover,.tt:hover,.fx:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(29,92,255,.12),0 0 0 4px rgba(29,92,255,.05);border-color:#BFD1F5}
+.s4,.tt,.fx{transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
+/* фото: плавный зум и неоновая рамка */
+.ph{background:#0B1324}
+.ph .img{position:absolute;inset:0;background:center/cover no-repeat;transform:scale(1.02)}
+.slide.on .ph{animation:rise .7s var(--ease) both}
+.slide.on .ph .img{animation:kb2 16s ease-in-out .6s infinite alternate}
+@keyframes kb2{to{transform:scale(1.1)}}
+.ph::after{z-index:1}
+.ph.ring::before{z-index:2;animation-duration:6s}
+.ph .cap{z-index:3}
+/* таймлайн: линия ровно по центрам кружков */
+.tl{padding-top:40px}
+.tl::before,.tl::after{left:calc((100% - 42px) / 8);right:calc((100% - 42px) / 8);top:14px}
+.tt::before{left:50%;top:-34px;width:20px;height:20px;margin-left:-10px;border:4px solid #CBD6E8;box-shadow:none;transition:border-color .4s,box-shadow .4s,transform .4s var(--spring);z-index:1}
+.slide.on .tt::before{border-color:var(--blue);box-shadow:0 0 0 5px rgba(76,134,255,.15),0 0 16px rgba(76,134,255,.95);transform:scale(1.1);transition-delay:calc(.5s + (var(--d) - 3) * .72s)}
+
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}.a{opacity:1;transform:none}}
 </style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-<div class="aur a1"></div><div class="aur a2"></div><div class="aur a3"></div><canvas id="fx"></canvas>
+<div class="aur a1"></div><div class="aur a2"></div><div class="aur a3"></div><div class="dgrid"></div><div class="orb o1"></div><div class="orb o2"></div><canvas id="fx"></canvas>
 <div class="bar" id="bar"></div><div class="sweep" id="sweep"></div>
 <div class="viewport"><div class="stage" id="stage">
 
 <!-- 0 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 1 из 7 · Кто я</span><div class="dots"><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="wm">01</div><div class="top a"><span class="pill"><i></i>Этап 1 из 7 · Кто я</span><div class="dots"><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
   <div class="whoT a" style="--d:1"><span class="ava" style="background-image:url(media/avatar.jpg)"></span><div><div class="role">Продюсер экспертов и блогеров</div><h1>Илья Якимович</h1></div></div>
-  <div class="col3"><div class="ph  a" style="--d:2;background-image:url(media/podcast.jpg)"></div><div class="ph  a" style="--d:3;background-image:url(media/meeting.jpg)"></div><div class="ph  a" style="--d:4;background-image:url(media/setup.jpg)"></div></div>
+  <div class="col3"><div class="ph ring  a" style="--d:2"><div class="img" style="background-image:url(media/podcast.jpg)"></div></div><div class="ph ring  a" style="--d:3"><div class="img" style="background-image:url(media/meeting.jpg)"></div></div><div class="ph ring  a" style="--d:4"><div class="img" style="background-image:url(media/setup.jpg)"></div></div></div>
   <div class="reg"><div class="a" style="--d:6"><b>30 млн+ ₽</b><span>выручки в проектах</span></div><div class="a" style="--d:7"><b>50+</b><span>реализованных запусков</span></div><div class="a" style="--d:8"><b>4 года</b><span>в заработке онлайн</span></div><div class="a" style="--d:9"><b>в 15 лет</b><span>переехал один в Москву</span></div></div>
 </section>
 
 <!-- 1 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 2 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="wm">02</div><div class="top a"><span class="pill"><i></i>Этап 2 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
   <h1 class="tt1 a" style="--d:1;font-size:54px">В чём суть продюсирования</h1>
   <div class="formula">
     <div class="fx a" style="--d:2"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><span class="label">Блогер</span><h3>Аудитория</h3><p>Люди, которые ему доверяют</p></div>
@@ -479,52 +514,52 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 2 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 3 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="wm">03</div><div class="top a"><span class="pill"><i></i>Этап 3 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
   <h1 class="tt1 a" style="--d:1;font-size:54px">Первые шаги</h1>
   <div class="steps4"><div class="s4 a" style="--d:2"><span class="nn">01</span><h3>Собери базу</h3><p>потенциальных блогеров</p></div><div class="s4 a" style="--d:3"><span class="nn">02</span><h3>Упакуй аккаунт</h3><p>грамотно, чтобы тебе доверяли</p></div><div class="s4 a" style="--d:4"><span class="nn">03</span><h3>Составь оффер</h3><p>что блогер получит от работы с тобой</p></div><div class="s4 a" style="--d:5"><span class="nn">04</span><h3>Сделай рассылку</h3><p>и выводи блогеров на созвон</p></div></div>
 </section>
 
 <!-- 3 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 4 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="wm">04</div><div class="top a"><span class="pill"><i></i>Этап 4 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b></div></div>
   <div class="mini">
     <div class="l">
       <h1 class="a" style="--d:1">Подписание первого проекта</h1>
       <p class="lead a" style="--d:2">Созвон или встреча, договорились о проценте и сроках, начинаем запуск.</p>
       <div class="big ring a" style="--d:3"><span class="k">Один запуск приносит</span><b>от <span data-count="100000">100 000</span> ₽</b><span>чистыми, минимум</span></div>
     </div>
-    <div class="ph  a" style="--d:3;background-image:url(media/meeting.jpg)"><span class="cap"><i></i>Встреча с блогером</span></div>
+    <div class="ph ring  a" style="--d:3"><div class="img" style="background-image:url(media/meeting.jpg)"></div><span class="cap"><i></i>Встреча с блогером</span></div>
   </div>
 </section>
 
 <!-- 4 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 5 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b></div></div>
+  <div class="wm">05</div><div class="top a"><span class="pill"><i></i>Этап 5 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b></div></div>
   <div class="tlh"><h1 class="a" style="--d:1">Структура запуска</h1><div class="total a" style="--d:2"><span class="label">Весь запуск</span><b>≈ 2,5–4 недели</b></div></div>
   <div class="tl"><div class="tt  a" style="--d:3"><span class="dur">3–5 дней</span><h3>Анализ аудитории</h3><p>Кто подписчики и что им нужно</p></div><div class="tt  a" style="--d:4"><span class="dur">7–14 дней</span><h3>Прогрев + создание продукта</h3><p>Готовим аудиторию и продукт</p></div><div class="tt  a" style="--d:5"><span class="dur">1 день</span><h3>Продающее мероприятие</h3><p>Сбор заявок</p></div><div class="tt hl a" style="--d:6"><span class="dur">5–7 дней</span><h3>Обработка заявок</h3><p>Делаем кассу</p></div></div>
 </section>
 
 <!-- 5 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 6 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b></div></div>
+  <div class="wm">06</div><div class="top a"><span class="pill"><i></i>Этап 6 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b></div></div>
   <div class="mini">
     <div class="l">
       <h1 class="a" style="--d:1">Обрабатываем заявки, <span class="accent">делаем кэш</span></h1>
       <div class="chips2 a" style="--d:2"><span>Заявка</span><i>→</i><span>Разговор</span><i>→</i><span>Оплата</span><i>→</i><span class="hl">Делим выручку</span></div>
     </div>
-    <div class="ph  a" style="--d:3;background-image:url(media/cash.jpg)"></div>
+    <div class="ph ring  a" style="--d:3"><div class="img" style="background-image:url(media/cash.jpg)"></div></div>
   </div>
 </section>
 
 <!-- 6 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 7 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></div></div>
+  <div class="wm">07</div><div class="top a"><span class="pill"><i></i>Этап 7 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></div></div>
   <div class="mini fin">
     <div class="l">
       <h1 class="a" style="--d:1">Разберём твой путь на&nbsp;<span class="accent">бесплатной консультации</span></h1>
       <div class="cta a" style="--d:3">Ссылка на запись под этим уроком <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </div>
-    <div class="ph  a" style="--d:2;background-image:url(media/setup.jpg)"></div>
+    <div class="ph ring  a" style="--d:2"><div class="img" style="background-image:url(media/setup.jpg)"></div></div>
   </div>
 </section>
 
