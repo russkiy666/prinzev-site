@@ -329,6 +329,50 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 .math.m3 .m b{font-size:24px}
 .split .m b{font-size:30px}
 
+
+/* фото и «кто я» */
+.ph{position:relative;overflow:hidden;border-radius:20px;background:#0B1324 center/cover no-repeat;border:1px solid var(--line);min-height:0}
+.ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(11,19,36,.55))}
+.ph .cap{position:absolute;left:14px;bottom:14px;z-index:1;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.92);font:700 13px/1 'Inter',sans-serif;color:var(--ink)}
+.ph .cap i{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px rgba(76,134,255,.9)}
+.slide.on .ph{animation:rise .7s var(--ease) both,kb 14s ease-in-out 1s infinite alternate}
+@keyframes kb{to{background-size:112%}}
+.who{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px}
+.who .l{display:flex;flex-direction:column;gap:18px;min-height:0}
+.who .me{display:flex;align-items:center;gap:18px}
+.ava{flex:none;width:104px;height:104px;border-radius:50%;background:center/cover no-repeat;position:relative}
+.ava::before{content:"";position:absolute;inset:-5px;border-radius:50%;padding:3px;background:conic-gradient(from var(--ang),#1D5CFF,#9FC0FF,#fff,#4C86FF,#1D5CFF);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 4s linear infinite;filter:drop-shadow(0 0 8px rgba(76,134,255,.9))}
+.who h1{font-size:54px}
+.who .role{font:700 15px/1.3 'Inter',sans-serif;color:var(--blue);letter-spacing:.02em}
+.who .lead{max-width:none;font-size:18px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:auto}
+.stats div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
+.stats b{display:block;font:800 30px/1 'Inter',sans-serif;letter-spacing:-.04em;color:var(--blue)}
+.stats span{display:block;margin-top:8px;font-size:13.5px;line-height:1.35;color:var(--muted)}
+.who .r{display:grid;grid-template-rows:1fr auto;gap:12px;min-height:0}
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cases div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:12px 14px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+.cases b{font:800 14px/1 'Inter',sans-serif;letter-spacing:.02em}
+.cases span{font:700 14px/1 'Inter',sans-serif;color:var(--blue);white-space:nowrap}
+.grid.pg{grid-template-rows:auto auto auto}
+.grid .ph.tall{grid-row:span 2}
+.road.r7{grid-template-columns:repeat(7,1fr);gap:10px}
+.road.r7 .st{min-height:150px;padding:18px 16px;gap:10px}
+.road.r7 .st h3{font-size:17px}
+.road.r7 .st .n{width:44px;height:44px;font-size:19px;border-radius:14px}
+.road.r7 .st .ar{right:-17px;width:24px;height:24px}
+.consult{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px}
+.consult .l{display:flex;flex-direction:column;gap:18px}
+.consult h1{font-size:46px}
+.consult h1 .accent{color:var(--blue)}
+.ck{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ck li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:14px;background:#fff;border:1px solid var(--line);font:600 17px/1.35 'Inter',sans-serif}
+.ck li .ic{width:34px;height:34px;border-radius:10px}
+.ck li .ic svg{width:18px;height:18px}
+.cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;padding:18px 26px;border-radius:16px;background:var(--grad2);color:#fff;font:800 19px/1 'Inter',sans-serif;animation:pulse 2.4s ease-out infinite}
+.cta svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.6s ease-in-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(76,134,255,.55)}70%{box-shadow:0 0 0 16px rgba(76,134,255,0)}100%{box-shadow:0 0 0 0 rgba(76,134,255,0)}}
+
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}.a{opacity:1;transform:none}}
 </style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -340,157 +384,124 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 
 <!-- 0 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Бесплатный урок</span></div>
+  <div class="top a"><span class="pill"><i></i>Бесплатный урок · YAKIMOVICH</span></div>
   <div class="hero">
     <h1 class="a" style="--d:1">Как начать зарабатывать на <span class="accent">продюсировании</span> экспертов и&nbsp;блогеров</h1>
-    <p class="lead a" style="--d:2">Пошаговый план: от нуля до первых проектов и выхода на 100–200 тысяч в месяц.</p>
+    <p class="lead a" style="--d:2">7 этапов: от понимания ниши до первого проекта, заявок и денег.</p>
   </div>
-  <div class="road r5"><div class="st a" style="--d:4" data-go="4"><span class="n">1</span><h3>Фундамент</h3><p>Твоя база и упаковка</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:5" data-go="5"><span class="n">2</span><h3>Закрытие проекта</h3><p>Находим эксперта и договариваемся</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:6" data-go="6"><span class="n">3</span><h3>Фундамент проекта</h3><p>Продукт, аудитория, воронка</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:7" data-go="7"><span class="n">4</span><h3>Прогрев</h3><p>Контент-план и доверие</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st last ring a" style="--d:8" data-go="8"><span class="n">5</span><h3>Заработок</h3><p>Продажи и твой процент</p></div></div>
+  <div class="road r7"><div class="st a" style="--d:3" data-go="1"><span class="n">1</span><h3>Кто я</h3><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:4" data-go="2"><span class="n">2</span><h3>Суть направления</h3><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:5" data-go="3"><span class="n">3</span><h3>Как начать</h3><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:6" data-go="4"><span class="n">4</span><h3>Первый проект</h3><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:7" data-go="5"><span class="n">5</span><h3>Запуск и заявки</h3><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:8" data-go="6"><span class="n">6</span><h3>Делаем кэш</h3><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st last ring a" style="--d:9" data-go="7"><span class="n">7</span><h3>Консультация</h3></div></div>
 </section>
 
 <!-- 1 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Как на этом заработать</span></div>
-  <div class="body">
-    <div class="side">
-      <div class="num a"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></div>
-      <h1 class="sm a" style="--d:1">Что такое продю&shy;сирование</h1>
-      <p class="lead a" style="--d:2">Ты соединяешь эксперта с его аудиторией через продукт и зарабатываешь на каждой продаже.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Главное</div><p>Ты не вкладываешь деньги, ты вкладываешь навыки и получаешь процент</p></div>
+  <div class="top a"><span class="pill"><i></i>Этап 1 из 7 · Кто я</span><div class="dots"><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="who">
+    <div class="l">
+      <div class="me a" style="--d:1"><span class="ava" style="background-image:url(media/avatar.jpg)"></span><div><div class="role">Продюсер · YAKIMOVICH &amp; CO.</div><h1>Илья Якимович</h1></div></div>
+      <p class="lead a" style="--d:2">Делаю запуски блогерам и экспертам: превращаю блог в проект с доходом. Вся работа на нашей стороне, от блогера нужны 3–4 поста.</p>
+      <div class="stats">
+        <div class="a" style="--d:3"><b>50+</b><span>запусков блогеров за плечами</span></div>
+        <div class="a" style="--d:4"><b>100 млн+</b><span>₽ выручки в проектах команды</span></div>
+        <div class="a" style="--d:5"><b>100%</b><span>в белую, с налогами</span></div>
+      </div>
     </div>
-    <div class="grid">
-<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span><h3>Эксперт даёт</h3></div><p>Знания, лицо и аудиторию. Обычно у него нет времени и навыков, чтобы самому упаковать продукт и продать.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15l-3-3c1-4 4-8 10-9-1 6-5 9-9 10z"/><path d="M9 12H5l2-4h4M12 15v4l4-2v-4"/><path d="M6 18c-1 1-1.5 2.5-1.5 2.5S6 20 7 19"/></svg></span><h3>Продюсер даёт</h3></div><p>Продукт, воронку, прогрев и продажи. Ты берёшь на себя всё, что превращает аудиторию в деньги.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 12l4-4 4 2 3-2 4 1 3 3"/><path d="M7 8l-4 4 5 5c1 1 2 1 3 0l1-1M21 12l-4 4-3 3c-1 1-2 1-3 0"/></svg></span><h3>Как делятся деньги</h3></div><p>Ты работаешь за процент от выручки запуска, обычно 30–50%. Платить эксперту вперёд не нужно.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><h3>Почему это выгодно</h3></div><p>Один эксперт приносит деньги много раз: каждый новый запуск снова делится по договорённости.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><h3>Пример одного запуска</h3></div><div class="math m3"><div class="m"><b>100 продаж</b><span>из канала на 10 000 человек</span></div><span class="or">×</span><div class="m"><b>5 000 ₽</b><span>цена продукта</span></div><span class="or">=</span><div class="m"><b>500 000 ₽</b><span>выручка запуска</span></div></div><p class="note">Твоя доля 30–50% = 150 000–250 000 ₽ за один запуск. Цифры условные, для примера.</p></div>
+    <div class="r">
+      <div class="ph  a" style="--d:3;background-image:url(media/podcast.jpg)"><span class="cap"><i></i>Подкаст с командой</span></div>
+      <div class="cases"><div class="a" style="--d:6"><b>SERAFIMCHIK</b><span>2,5 млн ₽ / мес</span></div><div class="a" style="--d:7"><b>ДИКТОРЫЧ</b><span>3 млн ₽ за месяц</span></div><div class="a" style="--d:8"><b>HOLDENSKIY</b><span>2 млн ₽ / мес</span></div><div class="a" style="--d:9"><b>ИВАНИЧ</b><span>2,5 млн ₽ / запуск</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- 2 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Точка А → Точка Б</span></div>
-  <h1 class="tt1 a" style="--d:1;font-size:50px">Откуда стартуешь и куда придёшь</h1>
-  <div class="ab2">
-    <div class="card a" style="--d:2"><span class="label">Точка А · сейчас</span><h3>Старт с нуля</h3><ul><li>Нет опыта в запусках</li><li>Нет знакомых экспертов</li><li>Непонятно, с чего начать</li><li>Доход 0 ₽ или работа по найму</li></ul></div>
-    <div class="arr a" style="--d:3"><span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
-    <div class="card b a" style="--d:4"><span class="label">Точка Б · через 2–3 месяца</span><h3>Свои проекты</h3><ul><li>Понимаешь, как устроен запуск</li><li>Умеешь находить и закрывать экспертов</li><li>2–3 проекта в работе</li><li>Выход на 100–200 тысяч в месяц</li></ul></div>
+  <div class="top a"><span class="pill"><i></i>Этап 2 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a">02</div>
+      <h1 class="sm a" style="--d:1">В чём суть продю&shy;сирования</h1>
+      <p class="lead a" style="--d:2">У блогера есть аудитория, у тебя навык превратить её в деньги. Вы объединяетесь и делите результат.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Ты зарабатываешь на чужой аудитории без вложений и своего блога</p></div>
+    </div>
+    <div class="grid ">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span><h3>Что даёт блогер</h3></div><p>Аудиторию и доверие к себе. Ему не нужно разбираться в продуктах и продажах: от него 3–4 поста.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15l-3-3c1-4 4-8 10-9-1 6-5 9-9 10z"/><path d="M9 12H5l2-4h4M12 15v4l4-2v-4"/><path d="M6 18c-1 1-1.5 2.5-1.5 2.5S6 20 7 19"/></svg></span><h3>Что даёт продюсер</h3></div><p>Анализ аудитории, продукт, закрытый канал, прогрев и отдел продаж. Всё, что превращает блог в деньги.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 12l4-4 4 2 3-2 4 1 3 3"/><path d="M7 8l-4 4 5 5c1 1 2 1 3 0l1-1M21 12l-4 4-3 3c-1 1-2 1-3 0"/></svg></span><h3>Как делятся деньги</h3></div><p>Договариваетесь о проценте от выручки. Вкладывать свои деньги и платить блогеру вперёд не нужно.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Какой блог подходит</h3></div><p>Хватит от 3 500 подписчиков. Важнее живая и вовлечённая аудитория, чем миллион подписок.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2.5 20.5h19"/></svg></span><h3>Как это выглядит в цифрах · кейс SERAFIMCHIK</h3></div><div class="math m3"><div class="m"><b><span data-count="300">300</span></b><span>заявок в месяц</span></div><span class="or">→</span><div class="m"><b><span data-count="75">75</span></b><span>оформлений в месяц</span></div><span class="or">×</span><div class="m"><b><span data-count="30000">30 000</span> ₽</b><span>средний доход с человека</span></div></div><p class="note">Итог: 2 500 000 ₽ в месяц чистыми, а начинал блогер с продажи рекламы по 20 000 ₽.</p></div>
+    </div>
   </div>
 </section>
 
 <!-- 3 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Этап 0 · База</span><span class="tcount a" style="--d:1"><b>12</b> понятий</span></div>
-  <h1 class="tt1 a" style="--d:1">Обрести всю базу</h1>
-  <div class="tcols"><div class="card tcol a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Роли</h3></div><div class="tlist"><div class="tr a" style="--d:3"><b>Эксперт</b><span>Человек со знаниями и аудиторией, которому нужен продукт</span></div><div class="tr a" style="--d:4"><b>Блогер</b><span>Автор с аудиторией, которую можно монетизировать</span></div><div class="tr a" style="--d:5"><b>Продюсер</b><span>Отвечает за продукт, воронку и продажи за процент</span></div><div class="tr a" style="--d:6"><b>Команда</b><span>Сценарист, дизайнер, продажник, ассистент</span></div></div></div><div class="card tcol a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15l-3-3c1-4 4-8 10-9-1 6-5 9-9 10z"/><path d="M9 12H5l2-4h4M12 15v4l4-2v-4"/><path d="M6 18c-1 1-1.5 2.5-1.5 2.5S6 20 7 19"/></svg></span><h3>Запуск</h3></div><div class="tlist"><div class="tr a" style="--d:5"><b>Запуск</b><span>Период продаж продукта: прогрев, продажи, дожим</span></div><div class="tr a" style="--d:6"><b>Прогрев</b><span>Контент, который готовит аудиторию к покупке</span></div><div class="tr a" style="--d:7"><b>Воронка</b><span>Путь человека от первого касания до оплаты</span></div><div class="tr a" style="--d:8"><b>Лид-магнит</b><span>Бесплатная польза в обмен на контакт или подписку</span></div></div></div><div class="card tcol a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><h3>Продукт и деньги</h3></div><div class="tlist"><div class="tr a" style="--d:7"><b>Трипвайер</b><span>Недорогой продукт, чтобы человек впервые купил</span></div><div class="tr a" style="--d:8"><b>Основной продукт</b><span>Курс, наставничество или клуб, на нём основная выручка</span></div><div class="tr a" style="--d:9"><b>Конверсия<em>CR</em></b><span>Процент людей, которые перешли на следующий шаг</span></div><div class="tr a" style="--d:10"><b>Средний чек</b><span>Сколько в среднем платит один покупатель</span></div></div></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 3 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a">03</div>
+      <h1 class=" a" style="--d:1">Как начать</h1>
+      <p class="lead a" style="--d:2">Первый шаг: разобраться в механике и найти блогеров, с которыми ты будешь работать.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Список блогеров и первые сообщения отправлены</p></div>
+    </div>
+    <div class="grid ">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7M8 11h5"/></svg></span><h3>Разберись в базе</h3></div><p>Как устроен запуск: прогрев, закрытый канал, заявки, продажи. Ты должен объяснить блогеру это за 5 минут.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16c.6-1.6 2-2.4 3.5-2.4s2.9.8 3.5 2.4M15 10h3M15 13h3"/></svg></span><h3>Упакуй себя</h3></div><p>Профиль в Telegram: кто ты и чем полезен блогеру. Даже учебный кейс лучше, чем пустой профиль.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><h3>Найди блогеров</h3></div><p>TGStat, Telemetr, TikTok. От 3 500 подписчиков, живые охваты и комментарии, ещё нет своего продукта.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><h3>Подготовь шаблоны</h3></div><p>Первое сообщение, план созвона и таблица: кому написал, кто ответил, с кем созвон.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><h3>Первый шаг сегодня</h3></div><p>Составь список из 30–50 блогеров в одной нише и напиши первым десяти. Без идеального момента и идеальной упаковки.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- 4 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Шаг 1 из 5</span><div class="dots"><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 4 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b></div></div>
   <div class="body">
     <div class="side">
-      <div class="num a">01</div>
-      <h1 class=" a" style="--d:1">Фундамент</h1>
-      <p class="lead a" style="--d:2">Готовишь себя к работе с экспертами, чтобы с тобой хотелось работать.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Ты упакован и готов писать первым экспертам</p></div>
+      <div class="num a">04</div>
+      <h1 class="sm a" style="--d:1">Подписание первого проекта</h1>
+      <p class="lead a" style="--d:2">Превращаешь переписку в договорённость о совместном запуске.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Первый блогер, с которым договорились о запуске</p></div>
     </div>
-    <div class="grid">
-<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16c.6-1.6 2-2.4 3.5-2.4s2.9.8 3.5 2.4M15 10h3M15 13h3"/></svg></span><h3>Упакуй себя</h3></div><p>Профиль в Telegram: кто ты, чем помогаешь экспертам, кейсы. Даже учебный кейс лучше, чем пустой профиль.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7M8 11h5"/></svg></span><h3>Разберись в запуске</h3></div><p>Пойми, как идут прогрев, продажи и дожим. Ты должен уверенно объяснить эксперту, что будет происходить.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><h3>Подготовь шаблоны</h3></div><p>Скрипт первого сообщения, план созвона, договор о проценте. Всё готово до того, как пишешь экспертам.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 10h18M9 4v16"/></svg></span><h3>Заведи таблицу</h3></div><p>Список экспертов, статус переписки, созвоны, договорённости. Сразу видно, кто на каком этапе.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><h3>Выбери нишу</h3></div><p>Ниша, которую ты понимаешь: финансы, спорт, психология, обучение. Так проще говорить с экспертом на одном языке.</p></div>
+    <div class="grid ">
+<div class="ph tall a" style="--d:2;background-image:url(media/meeting.jpg)"><span class="cap"><i></i>Встреча с блогером</span></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg></span><h3>Зайди с оффером</h3></div><p>Сразу говори, что блогер получит: доход с блога без лишней работы, от него только 3–4 поста.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Созвон или встреча</h3></div><p>Разбираешь его аудиторию и показываешь план запуска. Блогер не рискует: ты работаешь за процент.</p></div><div class="card wide a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span><h3>Договорённость и конверсия</h3></div><p>Фиксируешь процент, сроки и роли письменно. Ориентир по воронке:</p><div class="math m3"><div class="m"><b>100</b><span>сообщений блогерам</span></div><span class="or">→</span><div class="m"><b>10–15</b><span>созвонов</span></div><span class="or">→</span><div class="m"><b>1–3</b><span>проекта</span></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- 5 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Шаг 2 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 5 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b></div></div>
   <div class="body">
     <div class="side">
-      <div class="num a">02</div>
-      <h1 class=" a" style="--d:1">Закрытие проекта</h1>
-      <p class="lead a" style="--d:2">Находишь эксперта и договариваешься о совместном запуске.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Первый эксперт, с которым договорились о запуске</p></div>
+      <div class="num a">05</div>
+      <h1 class="sm a" style="--d:1">Запуск и сбор заявок</h1>
+      <p class="lead a" style="--d:2">Работаем не на всю аудиторию, а отбираем тех, кому это действительно интересно.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Поток заявок от тёплой аудитории</p></div>
     </div>
-    <div class="grid">
-<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><h3>Где искать</h3></div><p>TGStat и Telemetr: каналы на 2 000–30 000 подписчиков с живыми охватами. Лучше всего те, у кого ещё нет своего продукта.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg></span><h3>Два способа зайти</h3></div><p>Оффер: сразу пишешь, что предлагаешь и что эксперт получит. Точка: начинаешь с вопроса или пользы и выводишь на диалог.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Созвон</h3></div><p>Эксперт соглашается, потому что не рискует: ты работаешь за процент, а он получает продукт и продажи без лишней работы.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 12l4-4 4 2 3-2 4 1 3 3"/><path d="M7 8l-4 4 5 5c1 1 2 1 3 0l1-1M21 12l-4 4-3 3c-1 1-2 1-3 0"/></svg></span><h3>Договорённость</h3></div><p>Фиксируешь процент, сроки, кто за что отвечает. Лучше письменно, даже простым сообщением.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span><h3>Средняя конверсия в проект</h3></div><div class="math m3"><div class="m"><b>100</b><span>сообщений экспертам</span></div><span class="or">→</span><div class="m"><b>10–15</b><span>ответов и созвонов</span></div><span class="or">→</span><div class="m"><b>1–3</b><span>проекта в работу</span></div></div><p class="note">Ориентир. Чем лучше упаковка и первое сообщение, тем выше конверсия.</p></div>
+    <div class="grid ">
+<div class="card wide a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15l-3-3c1-4 4-8 10-9-1 6-5 9-9 10z"/><path d="M9 12H5l2-4h4M12 15v4l4-2v-4"/><path d="M6 18c-1 1-1.5 2.5-1.5 2.5S6 20 7 19"/></svg></span><h3>Как идёт запуск</h3></div><p>Не выжигаем аудиторию основного блога: создаём отдельный канал, и вся работа идёт там.</p><div class="flow"><span>Подготовка</span><i>→</i><span>Прогрев в блоге</span><i>→</i><span>Закрытый канал</span><i>→</i><span class="hl">Заявки</span></div></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><h3>Подготовка</h3></div><p>Анализируем аудиторию, готовим закрытый канал и собираем отдел продаж.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 21c-4 0-7-2.7-7-6.5 0-3 2-5 3.5-6.5.3 2 1.5 3 2.5 3-.5-3 1-6 4-8 0 3 1.5 4.5 3 6.5 1 1.3 1 2.5 1 3.5 0 4.6-3 8-7 8z"/></svg></span><h3>Прогрев в блоге</h3></div><p>Блогер выкладывает 3–4 поста, и заинтересованные переходят в закрытый канал.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Закрытый канал</h3></div><p>Догреваем аудиторию: польза, кейсы, ответы на вопросы. Только тем, кому это правда интересно.</p></div><div class="card a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><h3>Сбор заявок</h3></div><p>Анкета или бот: человек оставляет заявку и ждёт, когда с ним свяжутся.</p></div>
     </div>
   </div>
 </section>
 
 <!-- 6 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Шаг 3 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b></div></div>
+  <div class="top a"><span class="pill"><i></i>Этап 6 из 7</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b></div></div>
   <div class="body">
     <div class="side">
-      <div class="num a">03</div>
-      <h1 class=" a" style="--d:1">Фундамент проекта</h1>
-      <p class="lead a" style="--d:2">Готовишь всё, на чём будет держаться запуск.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Понятный продукт, цена и воронка до первого поста прогрева</p></div>
+      <div class="num a">06</div>
+      <h1 class="sm a" style="--d:1">Обрабатываем заявки, делаем кэш</h1>
+      <p class="lead a" style="--d:2">Заявка становится деньгами только после разговора с человеком.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог этапа</div><p>Первые деньги и кейс для следующих блогеров</p></div>
     </div>
-    <div class="grid">
-<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span><h3>Распакуй эксперта</h3></div><p>Его опыт, сильные кейсы, история, чем он отличается от других. Из этого потом строится весь контент.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Изучи аудиторию</h3></div><p>Анкета в канале: возраст, доход, боли, что хотят получить. Так понятно, какой продукт им нужен.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg></span><h3>Собери продукт</h3></div><p>Формат (курс, наставничество, клуб), программа и цена под эту аудиторию.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span><h3>Построй воронку</h3></div><p>Лид-магнит → бот → прогрев → продажа. Каждый шаг ведёт человека к следующему.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><h3>Распредели роли</h3></div><p>Кто пишет контент, кто делает дизайн, кто ведёт продажи. Эксперт отвечает за экспертность, ты за всё остальное.</p></div>
+    <div class="grid ">
+<div class="ph tall a" style="--d:2;background-image:url(media/cash.jpg)"><span class="cap"><i></i>Созвоны с заявками</span></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.2A8.5 8.5 0 1 1 20.5 12z"/></svg></span><h3>Отдел продаж</h3></div><p>Обрабатывает все входящие заявки: переписка и созвоны, ответы на вопросы.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><h3>Дожим</h3></div><p>Кто не дошёл до оплаты, получает напоминание и ответ на свои сомнения.</p></div><div class="card wide a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><h3>Деньги делятся по договорённости</h3></div><div class="math m3"><div class="m"><b>300</b><span>заявок в месяц</span></div><span class="or">→</span><div class="m"><b>75</b><span>оформлений</span></div><span class="or">→</span><div class="m"><b>2,5 млн ₽</b><span>в месяц чистыми</span></div></div><p class="note">Кейс SERAFIMCHIK. Первый запуск будет меньше, но механика та же.</p></div>
     </div>
   </div>
 </section>
 
 <!-- 7 -->
 <section class="slide">
-  <div class="top a"><span class="pill"><i></i>Шаг 4 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b></div></div>
-  <div class="body">
-    <div class="side">
-      <div class="num a">04</div>
-      <h1 class="sm a" style="--d:1">Прогрев и контент-план</h1>
-      <p class="lead a" style="--d:2">Аудитория должна захотеть продукт ещё до того, как увидит цену.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Тёплая аудитория, которая ждёт открытия продаж</p></div>
+  <div class="top a"><span class="pill"><i></i>Этап 7 из 7 · Бесплатная консультация</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></div></div>
+  <div class="consult">
+    <div class="l">
+      <h1 class="a" style="--d:1">Разберём твой путь на&nbsp;<span class="accent">бесплатной консультации</span></h1>
+      <ul class="ck"><li class="a" style="--d:3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>Составим твой личный план входа в продюсирование</li><li class="a" style="--d:4"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span>Разберём, как в твоей ситуации легче всего начать</li><li class="a" style="--d:5"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 12l4-4 4 2 3-2 4 1 3 3"/><path d="M7 8l-4 4 5 5c1 1 2 1 3 0l1-1M21 12l-4 4-3 3c-1 1-2 1-3 0"/></svg></span>Покажу, как закрывать блогеров на работу</li><li class="a" style="--d:6"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span>Наметим путь к первому кэшу уже в ближайший месяц</li></ul>
+      <div class="cta a" style="--d:8">Ссылка на запись под этим уроком <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
     </div>
-    <div class="grid">
-<div class="card wide a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 21c-4 0-7-2.7-7-6.5 0-3 2-5 3.5-6.5.3 2 1.5 3 2.5 3-.5-3 1-6 4-8 0 3 1.5 4.5 3 6.5 1 1.3 1 2.5 1 3.5 0 4.6-3 8-7 8z"/></svg></span><h3>Логика прогрева</h3></div><p>Каждый день контента закрывает один вопрос в голове подписчика, пока он сам не захочет купить.</p><div class="flow"><span>Знакомство</span><i>→</i><span>Доверие</span><i>→</i><span>Боли</span><i>→</i><span>Кейсы</span><i>→</i><span class="hl">Продажа</span></div></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><h3>Контент-план</h3></div><p>10–14 дней прогрева, расписанных по дням: тема, формат, цель каждого поста.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.2A8.5 8.5 0 1 1 20.5 12z"/></svg></span><h3>Форматы</h3></div><p>Посты, кружки, сторис, опросы. Живой голос эксперта прогревает лучше, чем идеальный текст.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><h3>Кейсы и отзывы</h3></div><p>Результаты учеников эксперта. Если их мало, собери до запуска: бесплатные разборы, мини-группа.</p></div><div class="card a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><h3>Точка входа в продажу</h3></div><p>Эфир, вебинар или серия постов с открытием продаж и понятным дедлайном.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 8 -->
-<section class="slide">
-  <div class="top a"><span class="pill"><i></i>Шаг 5 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></div></div>
-  <div class="body">
-    <div class="side">
-      <div class="num a">05</div>
-      <h1 class=" a" style="--d:1">Заработок в проекте</h1>
-      <p class="lead a" style="--d:2">Продаёшь продукт, делишь выручку и превращаешь запуск в кейс.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Первые деньги и кейс, с которым легче закрывать следующих экспертов</p></div>
-    </div>
-    <div class="grid">
-<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><h3>Открой продажи</h3></div><p>Эфир или серия постов с оффером, ценой и дедлайном. Ссылка на оплату или запись в личку.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.2A8.5 8.5 0 1 1 20.5 12z"/></svg></span><h3>Веди в личку</h3></div><p>Заявки обрабатывает продажник или ты сам: отвечаешь на вопросы, снимаешь сомнения.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><h3>Дожимай</h3></div><p>Напоминания тем, кто не дошёл до оплаты: отзывы, последние места, конец скидки.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2.5 20.5h19"/></svg></span><h3>Посчитай итоги</h3></div><p>Выручка, конверсии, что сработало. Это твой кейс для следующих экспертов.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><h3>Первые кассы</h3></div><div class="math"><div class="m"><b>300 000 ₽</b><span>выручка небольшого запуска</span></div><span class="or">твои</span><div class="m"><b>90–150 тыс. ₽</b><span>при доле 30–50%</span></div></div><p class="note">Цифры условные. Первый запуск часто меньше, зато дальше растёт каждый раз.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 9 -->
-<section class="slide">
-  <div class="top a"><span class="pill"><i></i>Масштаб</span></div>
-  <div class="body">
-    <div class="side">
-      <div class="num a"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2.5 20.5h19"/></svg></div>
-      <h1 class="sm a" style="--d:1">Выход на<br>100–200 тысяч</h1>
-      <p class="lead a" style="--d:2">Когда первый запуск позади, растёшь за счёт количества проектов и команды.</p>
-      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог</div><p>Стабильный доход с нескольких проектов, а не с одного</p></div>
-    </div>
-    <div class="grid">
-<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><h3>2–3 проекта параллельно</h3></div><p>Пока один эксперт в прогреве, у второго идут продажи. Доход перестаёт зависеть от одного запуска.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Команда</h3></div><p>Ассистент, продажник, контентщик. Ты оставляешь себе стратегию и общение с экспертами.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><h3>Кейсы работают на тебя</h3></div><p>С результатами в профиле эксперты начинают писать сами, и ты выбираешь, с кем работать.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><h3>Повторные запуски</h3></div><p>С тем же экспертом каждый следующий запуск проходит быстрее и приносит больше.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3>Мой личный совет</h3></div><p>Не ищи идеального эксперта и идеальный момент. Закрой первый проект, доведи его до продаж, и дальше всё пойдёт быстрее.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 10 -->
-<section class="slide">
-  <div class="top a"><span class="pill"><i></i>Итог урока</span></div>
-  <div class="end">
-    <h1 class="a" style="--d:1">Твой путь в <span class="accent" style="color:var(--blue)">продюсирование</span></h1>
-    <div class="recap">
-      <span class="a" style="--d:3"><b>1</b>Фундамент</span>
-      <span class="a" style="--d:4"><b>2</b>Первый эксперт</span>
-      <span class="a" style="--d:5"><b>3</b>Продукт и воронка</span>
-      <span class="a" style="--d:6"><b>4</b>Прогрев</span>
-      <span class="a" style="--d:7"><b>5</b>Первые кассы</span>
-    </div>
-    <p class="lead a" style="--d:8">Хочешь понять, как пройти этот путь именно в твоей ситуации? Приходи на бесплатную консультацию: разберём твой план входа в продюсирование.</p>
+    <div class="ph  a" style="--d:3;background-image:url(media/setup.jpg)"><span class="cap"><i></i>Консультация по видеосвязи</span></div>
   </div>
 </section>
 
@@ -557,7 +568,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
     else if(k==='Home')go(0);else if(k==='End')go(slides.length-1);
     else if(k==='f'||k==='F'||k==='а'||k==='А')toggleFull();
     else if(k==='h'||k==='H'||k==='р'||k==='Р'){nav.classList.toggle('hide');tip.classList.toggle('hide');document.getElementById('mhint').classList.add('hide');bar.hidden=!bar.hidden}
-    else if(/^[1-9]$/.test(k))go(+k-1);else if(k==='0')go(9);
+    else if(/^[1-9]$/.test(k))go(+k-1);
   });
 
   // клик по краям экрана и свайп
