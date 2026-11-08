@@ -482,13 +482,30 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 .tt::before{left:50%;top:-34px;width:20px;height:20px;margin-left:-10px;border:4px solid #CBD6E8;box-shadow:none;transition:border-color .4s,box-shadow .4s,transform .4s var(--spring);z-index:1}
 .slide.on .tt::before{border-color:var(--blue);box-shadow:0 0 0 5px rgba(76,134,255,.15),0 0 16px rgba(76,134,255,.95);transform:scale(1.1);transition-delay:calc(.5s + (var(--d) - 3) * .72s)}
 
-/* запись урока с вебкой */
-.cam{position:fixed;right:max(28px,env(safe-area-inset-right,0px));bottom:max(28px,env(safe-area-inset-bottom,0px));width:340px;height:192px;border-radius:20px;z-index:8;cursor:grab;touch-action:none;display:none}
-.cam.on{display:block;animation:camIn .6s var(--spring) both}
-@keyframes camIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
-.cam video{width:100%;height:100%;object-fit:cover;border-radius:20px;transform:scaleX(-1);background:#0B1324;display:block}
-.cam::before{content:"";position:absolute;inset:-5px;border-radius:24px;padding:3px;background:conic-gradient(from var(--ang),#1D5CFF,#9FC0FF,#fff,#4C86FF,#1D5CFF);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 4s linear infinite;filter:drop-shadow(0 0 10px rgba(76,134,255,.9))}
-.cam.big{width:500px;height:282px}
+/* ===== панель вебки справа + запись ===== */
+:root{--side:330px}
+.viewport .stage{position:absolute;left:50%;top:50%}
+.viewport{transition:right .5s var(--ease)}
+.camon .viewport{right:calc(var(--side) + 28px)}
+.camp{position:fixed;top:24px;right:24px;bottom:24px;width:var(--side);z-index:6;display:none;flex-direction:column;gap:14px}
+.camon .camp{display:flex;animation:campIn .7s var(--ease) both}
+@keyframes campIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+.camf{position:relative;isolation:isolate;flex:none;height:calc(var(--side) * 1.2);border-radius:24px;background:#0B1324;overflow:hidden;border:1px solid var(--line);box-shadow:0 18px 40px rgba(29,92,255,.18)}
+.camf video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.camf::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:3px;z-index:2;background:conic-gradient(from var(--ang),transparent 0 55%,#9FC0FF 70%,#fff 76%,#4C86FF 82%,transparent 92%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 4.5s linear infinite;filter:drop-shadow(0 0 6px rgba(76,134,255,.9))}
+.camf::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 60%,rgba(11,19,36,.6))}
+.camf .tag{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;display:flex;align-items:center;gap:10px;color:#fff}
+.camf .tag i{width:9px;height:9px;border-radius:50%;background:#4C86FF;box-shadow:0 0 10px #4C86FF;animation:ping 2.2s ease-out infinite}
+.camf .tag b{font:800 17px/1.1 'Inter',sans-serif;letter-spacing:-.02em}
+.camf .tag span{display:block;font:600 12px/1.2 'Inter',sans-serif;opacity:.8;margin-top:3px}
+.plan{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:24px;background:#fff;border:1px solid var(--line);background-image:radial-gradient(circle at 100% 0,rgba(76,134,255,.12),transparent 50%)}
+.plan .label{margin-bottom:6px}
+.plan div{flex:1;display:flex;align-items:center;gap:12px;padding:0 10px;border-radius:12px;font:700 15px/1.2 'Inter',sans-serif;color:var(--muted);transition:background-color .4s,color .4s}
+.plan div b{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--fill);color:var(--muted);font-size:13px;transition:background-color .4s,color .4s,box-shadow .4s}
+.plan div.done{color:var(--ink)}
+.plan div.done b{background:var(--soft);color:var(--blue)}
+.plan div.cur{background:var(--soft);color:var(--blue)}
+.plan div.cur b{background:var(--grad);color:#fff;box-shadow:0 0 14px rgba(76,134,255,.8)}
 .recbtn{color:#E5484D!important}
 .recbtn i{width:12px;height:12px;border-radius:50%;background:currentColor;display:block}
 .recbtn.on i{border-radius:3px;animation:blink 1s steps(2) infinite}
@@ -499,6 +516,14 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
 @keyframes cnt{from{transform:scale(1.25);opacity:0}30%{opacity:1}to{transform:scale(.9);opacity:.2}}
 .rmsg{position:fixed;left:50%;top:max(20px,env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:21;max-width:min(560px,calc(100% - 32px));padding:14px 18px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 12px 30px rgba(15,30,60,.12);font:600 15px/1.45 'Inter',sans-serif;color:var(--ink)}
 .rmsg[hidden]{display:none}
+.done{}
+.saved{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:rgba(11,19,36,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.saved[hidden]{display:none}
+.saved .box{width:min(460px,calc(100% - 32px));padding:28px;border-radius:24px;background:#fff;box-shadow:0 30px 60px rgba(11,19,36,.25);display:flex;flex-direction:column;gap:14px}
+.saved h3{font:800 26px/1.1 'Inter',sans-serif;letter-spacing:-.03em}
+.saved p{font-size:15px;color:var(--muted)}
+.saved .dl{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:16px 20px;border-radius:14px;background:var(--grad2);color:#fff;font:800 17px/1 'Inter',sans-serif;text-decoration:none;animation:pulse 2.4s ease-out infinite}
+.saved .x{align-self:center;border:0;background:none;color:var(--muted);font:600 14px/1 'Inter',sans-serif;cursor:pointer;padding:6px}
 
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}.a{opacity:1;transform:none}}
 </style>
@@ -602,7 +627,7 @@ h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
       cur=0,busy=false,count=document.getElementById('count'),bar=document.getElementById('bar'),
       nav=document.getElementById('nav'),tip=document.getElementById('tip');
 
-  function fit(){var s=Math.min(innerWidth/1280,innerHeight/720);stage.style.transform='scale('+s+')'}
+  function fit(){var vp=document.querySelector('.viewport');var s=Math.min(vp.clientWidth/1280,vp.clientHeight/720);stage.style.transform='translate(-50%,-50%) scale('+s+')';return;stage.style.transform='scale('+s+')'}
   addEventListener('resize',fit);fit();
 
   function countUp(sl){
@@ -750,47 +775,54 @@ if(t.disableVerticalSwipes)t.disableVerticalSwipes();if(t.setHeaderColor)t.setHe
 document.documentElement.classList.add('tg');}catch(e){}})();
 </script>
 
-<div class="cam" id="cam"><video id="camv" autoplay muted playsinline></video></div>
+<aside class="camp" id="camp">
+  <div class="camf"><video id="camv" autoplay muted playsinline></video><div class="tag"><i></i><div><b>Илья Якимович</b><span>Продюсер экспертов и блогеров</span></div></div></div>
+  <div class="plan" id="plan"><span class="label">План урока</span></div>
+</aside>
 <div class="count" id="count"><b id="countn">3</b></div>
 <div class="rmsg" id="rmsg" hidden></div>
+<div class="saved" id="saved" hidden><div class="box"><h3>Видео готово</h3><p id="savedp"></p><a class="dl" id="dla" href="#">Скачать видео</a><button class="x" id="savedx">Закрыть</button></div></div>
 
 <script>
 (function(){
-  var camEl=document.getElementById('cam'),camV=document.getElementById('camv'),recB=document.getElementById('rec'),camB=document.getElementById('camb'),
+  var root=document.documentElement,camV=document.getElementById('camv'),recB=document.getElementById('rec'),camB=document.getElementById('camb'),
       cnt=document.getElementById('count'),cntN=document.getElementById('countn'),msg=document.getElementById('rmsg'),
-      nav=document.getElementById('nav'),tip=document.getElementById('tip'),bar=document.getElementById('bar'),mh=document.getElementById('mhint');
-  var cam=null,disp=null,rec=null,chunks=[],ac=null,t0=0,title=document.title,tm=null;
+      nav=document.getElementById('nav'),tip=document.getElementById('tip'),bar=document.getElementById('bar'),mh=document.getElementById('mhint'),
+      plan=document.getElementById('plan'),saved=document.getElementById('saved'),dla=document.getElementById('dla'),savedp=document.getElementById('savedp');
+  var cam=null,disp=null,rec=null,chunks=[],ac=null,t0=0,title=document.title,tm=null,lastUrl=null;
+  var names=["Кто я","Суть продюсирования","Первые шаги","Первый проект","Структура запуска","Делаем кэш","Консультация"];
+  names.forEach(function(n,i){var d=document.createElement('div');d.innerHTML='<b>'+(i+1)+'</b>'+n;plan.appendChild(d)});
+  var items=[].slice.call(plan.querySelectorAll('div')),slides=[].slice.call(document.querySelectorAll('.slide'));
+  function syncPlan(){var i=slides.findIndex(function(s){return s.classList.contains('on')});items.forEach(function(d,k){d.classList.toggle('cur',k===i);d.classList.toggle('done',k<i)})}
+  setInterval(syncPlan,250);syncPlan();
+  function refit(){dispatchEvent(new Event('resize'))}
   function say(t,ms){msg.textContent=t;msg.hidden=false;clearTimeout(say._t);if(ms)say._t=setTimeout(function(){msg.hidden=true},ms)}
   async function camOn(){
     if(cam)return cam;
     cam=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:1280},height:{ideal:720},facingMode:'user'},audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
-    camV.srcObject=new MediaStream(cam.getVideoTracks());camEl.classList.add('on');return cam;
+    camV.srcObject=new MediaStream(cam.getVideoTracks());root.classList.add('camon');refit();setTimeout(refit,750);return cam;
   }
-  function camOff(){if(rec)return;if(cam){cam.getTracks().forEach(function(t){t.stop()});cam=null}camEl.classList.remove('on')}
+  function camOff(){if(rec)return;if(cam){cam.getTracks().forEach(function(t){t.stop()});cam=null}root.classList.remove('camon');refit()}
   camB.addEventListener('click',function(e){e.stopPropagation();cam?camOff():camOn().catch(function(){say('Не получилось включить камеру. Разреши доступ к камере в адресной строке браузера.',6000)})});
-  // перетаскивание и размер кружка
-  var drag=null;
-  camEl.addEventListener('pointerdown',function(e){e.stopPropagation();var r=camEl.getBoundingClientRect();drag={dx:e.clientX-r.left,dy:e.clientY-r.top};camEl.setPointerCapture(e.pointerId)});
-  camEl.addEventListener('pointermove',function(e){if(!drag)return;camEl.style.left=(e.clientX-drag.dx)+'px';camEl.style.top=(e.clientY-drag.dy)+'px';camEl.style.right='auto';camEl.style.bottom='auto'});
-  camEl.addEventListener('pointerup',function(){drag=null});
-  camEl.addEventListener('click',function(e){e.stopPropagation()});
-  camEl.addEventListener('dblclick',function(e){e.stopPropagation();camEl.classList.toggle('big')});
   function pick(){var c=['video/mp4;codecs=avc1.640028,mp4a.40.2','video/mp4;codecs=avc1,mp4a.40.2','video/mp4;codecs=avc1,opus','video/webm;codecs=vp9,opus','video/webm'];
     for(var i=0;i<c.length;i++)if(window.MediaRecorder&&MediaRecorder.isTypeSupported(c[i]))return c[i];return ''}
-  function hideUI(h){[nav,tip,bar,mh].forEach(function(x){if(x)x.classList.toggle('hide',h)});if(bar)bar.hidden=h}
+  function hideUI(h){[nav,tip,mh].forEach(function(x){if(x)x.classList.toggle('hide',h)});if(bar)bar.hidden=h}
   async function start(){
+    if(!navigator.mediaDevices||!navigator.mediaDevices.getDisplayMedia||!window.MediaRecorder){say('Этот браузер не умеет записывать. Открой урок в Google Chrome.',8000);return}
     try{await camOn()}catch(e){say('Нужен доступ к камере и микрофону. Нажми на значок камеры в адресной строке и разреши.',7000);return}
     try{
       disp=await navigator.mediaDevices.getDisplayMedia({video:{frameRate:30,width:{ideal:1920},height:{ideal:1080}},audio:true,preferCurrentTab:true,selfBrowserSurface:'include',surfaceSwitching:'exclude',systemAudio:'exclude'});
-    }catch(e){say('Запись отменена. Нажми запись ещё раз и выбери «Эта вкладка».',6000);return}
-    ac=new (window.AudioContext||window.webkitAudioContext)();var dest=ac.createMediaStreamDestination();
-    ac.createMediaStreamSource(new MediaStream(cam.getAudioTracks())).connect(dest);
-    if(disp.getAudioTracks().length){var g=ac.createGain();g.gain.value=.7;ac.createMediaStreamSource(new MediaStream(disp.getAudioTracks())).connect(g);g.connect(dest)}
-    var stream=new MediaStream([disp.getVideoTracks()[0]].concat(dest.stream.getAudioTracks()));
-    var mt=pick();chunks=[];
-    rec=new MediaRecorder(stream,mt?{mimeType:mt,videoBitsPerSecond:6000000,audioBitsPerSecond:160000}:{});
+    }catch(e){say('Запись не началась: нужно выбрать «Эта вкладка» и нажать «Поделиться». ('+(e&&e.name||'')+')',8000);return}
+    try{
+      ac=new (window.AudioContext||window.webkitAudioContext)();var dest=ac.createMediaStreamDestination();
+      ac.createMediaStreamSource(new MediaStream(cam.getAudioTracks())).connect(dest);
+      if(disp.getAudioTracks().length){var g=ac.createGain();g.gain.value=.7;ac.createMediaStreamSource(new MediaStream(disp.getAudioTracks())).connect(g);g.connect(dest)}
+      var stream=new MediaStream([disp.getVideoTracks()[0]].concat(dest.stream.getAudioTracks()));
+      var mt=pick();chunks=[];
+      rec=new MediaRecorder(stream,mt?{mimeType:mt,videoBitsPerSecond:6000000,audioBitsPerSecond:160000}:{});
+    }catch(e){say('Не получилось начать запись: '+(e&&e.message||e),9000);if(disp){disp.getTracks().forEach(function(t){t.stop()});disp=null}return}
     rec.ondataavailable=function(e){if(e.data&&e.data.size)chunks.push(e.data)};
-    rec.onstop=save;
+    rec.onstop=save;rec.onerror=function(e){say('Ошибка записи: '+(e.error&&e.error.message||''),9000)};
     disp.getVideoTracks()[0].addEventListener('ended',function(){if(rec&&rec.state!=='inactive')rec.stop()});
     hideUI(true);msg.hidden=true;
     cnt.classList.add('on');for(var n=3;n>0;n--){cntN.textContent=n;await new Promise(function(r){setTimeout(r,1000)})}cnt.classList.remove('on');
@@ -805,17 +837,23 @@ document.documentElement.classList.add('tg');}catch(e){}})();
     if(ac){ac.close();ac=null}
     var type=(rec&&rec.mimeType)||'video/webm',ext=type.indexOf('mp4')>-1?'mp4':'webm';
     var blob=new Blob(chunks,{type:type});rec=null;
+    if(!blob.size){say('Видео получилось пустым. Попробуй записать ещё раз.',9000);return}
     var d=new Date(),name='urok-prodyusirovanie-'+d.getDate()+'-'+(d.getMonth()+1)+'-'+d.getHours()+'-'+String(d.getMinutes()).padStart(2,'0')+'.'+ext;
-    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
-    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},60000);
-    say('Готово! Видео сохранено в «Загрузки»: '+name,9000);
+    if(lastUrl)URL.revokeObjectURL(lastUrl);lastUrl=URL.createObjectURL(blob);
+    dla.href=lastUrl;dla.download=name;
+    var mb=(blob.size/1048576).toFixed(1),sec=Math.round((Date.now()-t0)/1000);
+    savedp.textContent=name+' · '+Math.floor(sec/60)+' мин '+(sec%60)+' сек · '+mb+' МБ. Если загрузка не началась сама, нажми кнопку ниже: файл попадёт в «Загрузки».';
+    saved.hidden=false;
+    try{dla.click()}catch(e){}
   }
+  document.getElementById('savedx').addEventListener('click',function(e){e.stopPropagation();saved.hidden=true});
+  saved.addEventListener('click',function(e){e.stopPropagation()});
   recB.addEventListener('click',function(e){e.stopPropagation();rec?stop():start()});
   addEventListener('keydown',function(e){var k=e.key;
     if(k==='r'||k==='R'||k==='к'||k==='К'){e.preventDefault();rec?stop():start()}
     else if(k==='Escape'&&rec){stop()}
     else if(k==='c'||k==='C'||k==='с'||k==='С'){cam?camOff():camOn().catch(function(){})}});
-  window._recTest={start:start,stop:stop};
+  window.addEventListener('beforeunload',function(e){if(rec){e.preventDefault();e.returnValue=''}});
 })();
 </script>
 </body>
