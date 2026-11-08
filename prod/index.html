@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Урок по продюсированию</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F6FB;--card:#FFFFFF;--ink:#0B1324;--muted:#5D6779;--line:#E6EBF3;--fill:#EEF2F8;--blue:#1D5CFF;--soft:#E8EFFF;
+  --grad:linear-gradient(150deg,#4C86FF,#1D5CFF 60%,#1546C9);--grad2:linear-gradient(150deg,#3D7BFF,#1D5CFF 55%,#1546C9);
+  --ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.34,1.56,.64,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg)}
+body{color:var(--ink);font:400 16px/1.45 'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;user-select:none}
+
+/* сцена 1280x720, масштабируется под экран */
+.viewport{position:fixed;inset:0;display:grid;place-items:center;z-index:1}
+.stage{position:relative;width:1280px;height:720px;flex:none;transform-origin:center center}
+.slide{position:absolute;inset:0;padding:44px 48px;display:flex;flex-direction:column;gap:26px;visibility:hidden;pointer-events:none}
+.slide.on{visibility:visible;pointer-events:auto}
+.glow{position:fixed;z-index:0;right:-180px;top:-220px;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(29,92,255,.16),rgba(29,92,255,0));pointer-events:none;animation:drift 12s ease-in-out infinite alternate}
+.glow.b{left:-260px;bottom:-300px;right:auto;top:auto;width:620px;height:620px;background:radial-gradient(closest-side,rgba(29,92,255,.09),rgba(29,92,255,0));animation-duration:15s}
+@keyframes drift{to{transform:translate(-40px,30px) scale(1.08)}}
+
+.top{position:relative;display:flex;justify-content:space-between;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;background:#fff;font:700 13px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--soft);animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(29,92,255,.45)}70%{box-shadow:0 0 0 8px rgba(29,92,255,0)}100%{box-shadow:0 0 0 0 rgba(29,92,255,0)}}
+.dots{display:flex;gap:6px}
+.dots b{position:relative;width:34px;height:6px;border-radius:6px;background:#DCE3EE;overflow:hidden}
+.dots b::after{content:"";position:absolute;inset:0;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.slide.on .dots b.on::after{transform:none}
+.slide.on .dots b.on:nth-child(2)::after{transition-delay:.1s}.slide.on .dots b.on:nth-child(3)::after{transition-delay:.2s}.slide.on .dots b.on:nth-child(4)::after{transition-delay:.3s}
+
+.body{position:relative;flex:1;display:grid;grid-template-columns:372px 1fr;gap:28px;min-height:0}
+.side{display:flex;flex-direction:column;gap:18px;min-height:0}
+.num{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;font:800 38px/1 'Inter',sans-serif;letter-spacing:-.04em;color:#fff;background:var(--grad);box-shadow:0 14px 30px rgba(29,92,255,.3),inset 0 1px 0 rgba(255,255,255,.35)}
+h1{font:800 50px/1.02 'Inter',sans-serif;letter-spacing:-.045em;text-wrap:balance}
+h1.sm{font-size:41px;letter-spacing:-.05em}
+.lead{font-size:19px;line-height:1.45;color:var(--muted);max-width:340px}
+.res{margin-top:auto;border-radius:22px;padding:22px 22px 24px;color:#fff;background:var(--grad2);box-shadow:0 14px 30px rgba(29,92,255,.26);position:relative;overflow:hidden}
+.res::after{content:"";position:absolute;top:0;bottom:0;width:60%;left:-70%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28),transparent);transform:skewX(-18deg)}
+.slide.on .res::after{animation:shine 1.1s .95s var(--ease) both}
+@keyframes shine{to{left:130%}}
+.res .k{display:flex;align-items:center;gap:8px;font:700 12px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.res .k svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.res p{margin-top:10px;font:700 21px/1.3 'Inter',sans-serif;letter-spacing:-.02em}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:stretch;min-height:0}
+.card{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(15,30,60,.08);border-color:#D6DFEE}
+.card .hd{display:flex;align-items:center;gap:12px}
+.ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--grad);box-shadow:0 6px 14px rgba(29,92,255,.26),inset 0 1px 0 rgba(255,255,255,.35)}
+.ic svg{width:21px;height:21px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font:700 18px/1.2 'Inter',sans-serif;letter-spacing:-.02em}
+.card p{margin-top:10px;font-size:15px;line-height:1.45;color:var(--muted)}
+.card.wide{grid-column:1 / -1}
+.sn{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--soft);color:var(--blue);font:800 17px/1 'Inter',sans-serif}
+.label{font:700 12px/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:9px 13px 9px 9px;border-radius:12px;background:var(--fill);font:600 15px/1 'Inter',sans-serif;transition:background-color .5s,color .5s,box-shadow .5s}
+.chip .mi{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:#fff}
+.chip .mi svg{width:15px;height:15px;fill:none;stroke:var(--blue);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.chip em{font-style:normal;font:700 11px/1 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:999px;background:rgba(255,255,255,.22);max-width:0;opacity:0;overflow:hidden;padding-inline:0;transition:max-width .5s var(--ease),opacity .4s,padding .5s}
+.slide.on .chip.hot{background:var(--blue);color:#fff;box-shadow:0 6px 14px rgba(29,92,255,.28);transition-delay:1s}
+.slide.on .chip.hot em{max-width:120px;opacity:1;padding-inline:7px;transition-delay:1.1s}
+.math{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin-top:14px}
+.m{border-radius:14px;background:var(--fill);padding:14px 16px}
+.m b{display:block;font:800 26px/1 'Inter',sans-serif;letter-spacing:-.03em;color:var(--blue);font-variant-numeric:tabular-nums}
+.m span{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
+.or{font:700 13px/1 'Inter',sans-serif;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.note{margin-top:10px;font-size:13px;color:var(--muted)}
+
+
+/* термины */
+.thead{position:relative;display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.thead h1{font-size:52px}
+.thead .grp{display:flex;flex-direction:column;align-items:flex-end;gap:8px;text-align:right}
+.thead .grp b{font:800 22px/1.1 'Inter',sans-serif;letter-spacing:-.02em;color:var(--blue)}
+.tgrid{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr 1fr;gap:14px}
+.term{display:flex;flex-direction:column;gap:10px}
+.term .tt{display:flex;align-items:center;gap:10px}
+.term .tn{flex:none;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;background:var(--soft);color:var(--blue);font:800 13px/1 'Inter',sans-serif}
+.term h3{font-size:24px;letter-spacing:-.03em}
+.term .ab{align-self:flex-start;font:700 11px/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--fill);color:var(--muted)}
+.card.term p{margin-top:2px;font-size:18px;line-height:1.45}
+.card.term{padding:22px}
+.tdots{display:flex;gap:6px}
+.tdots b{width:22px;height:6px;border-radius:6px;background:#DCE3EE}
+.tdots b.on{background:var(--blue);box-shadow:0 0 10px rgba(76,134,255,.7)}
+
+
+/* связки */
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.bnd{cursor:pointer;display:flex;flex-direction:column;gap:12px}
+.bnd p{margin-top:0}
+.bnd .go{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font:700 13px/1 'Inter',sans-serif;color:var(--blue)}
+.bnd .go svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease)}
+.bnd:hover .go svg{transform:translateX(4px)}
+.kv{display:flex;flex-direction:column;gap:6px}
+.kv span{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-radius:10px;background:var(--fill);font-size:14px;color:var(--muted)}
+.kv span b{color:var(--ink);font-weight:700;white-space:nowrap}
+.num svg{width:40px;height:40px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pc div{border-radius:14px;background:var(--fill);padding:14px 16px}
+.pc .label{display:block;margin-bottom:8px}
+.pc div.minus .label{color:var(--muted)}
+.pc p{margin-top:0;font-size:15px;color:var(--ink)}
+
+
+/* банки */
+.banks{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.bank{display:flex;flex-direction:column;gap:12px;padding:22px}
+.bank .bh{display:flex;align-items:center;gap:14px}
+.bank .lt{flex:none;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:var(--grad);color:#fff;font:800 26px/1 'Inter',sans-serif;box-shadow:0 6px 14px rgba(29,92,255,.26),inset 0 1px 0 rgba(255,255,255,.35);animation:neon 3.4s ease-in-out infinite}
+.bank h3{font-size:30px;letter-spacing:-.035em}
+.bank .pay{border-radius:16px;background:var(--soft);padding:18px 18px 16px}
+.bank .pay .label{display:block}
+.bank .pay b{display:block;margin-top:10px;font:800 40px/1 'Inter',sans-serif;letter-spacing:-.04em;color:var(--blue);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bank .rows{display:flex;flex-direction:column;gap:8px}
+.bank .rows span{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 14px;border-radius:12px;background:var(--fill);font-size:16px;color:var(--muted)}
+.bank .rows span b{color:var(--ink);font-weight:700;white-space:nowrap}
+.bank .age{display:inline-flex;padding:5px 10px;border-radius:999px;background:var(--ink);color:#fff;font:800 14px/1 'Inter',sans-serif}
+.bank .rows span b.age{color:#fff}
+.bank .goal{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-radius:14px;border:1px dashed #BFD1F5;font-size:15px;color:var(--muted)}
+.bank .goal b{font:800 22px/1 'Inter',sans-serif;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.bank .age.hot{background:var(--blue);box-shadow:0 0 14px rgba(76,134,255,.75)}
+.bnote{position:relative;display:flex;align-items:center;gap:12px;font-size:15px;color:var(--muted)}
+.bnote svg{flex:none;width:18px;height:18px;fill:none;stroke:var(--blue);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+
+/* альфа only */
+.bnd.nogo{cursor:default}
+.bank .more{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:12px;background:var(--blue);color:#fff;font:700 15px/1 'Inter',sans-serif;cursor:pointer;box-shadow:0 0 0 0 rgba(76,134,255,.6);animation:pulse 2.4s ease-out infinite}
+.bank .more svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease)}
+.bank .more:hover svg{transform:translateX(4px)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(76,134,255,.55)}70%{box-shadow:0 0 0 12px rgba(76,134,255,0)}100%{box-shadow:0 0 0 0 rgba(76,134,255,0)}}
+.ao{display:flex;flex-direction:column;gap:14px}
+.ao p{margin-top:0}
+.ao .tag2{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;font:800 13px/1 'Inter',sans-serif}
+.ao .tag2.open{background:var(--soft);color:var(--blue)}
+.ao .tag2.lock{background:var(--ink);color:#fff}
+.ao .tag2 svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ao h3{font-size:22px}
+.ao .big{font:800 34px/1.05 'Inter',sans-serif;letter-spacing:-.04em;color:var(--blue)}
+.ao.locked{overflow:hidden}
+.blur{position:relative;display:flex;flex-direction:column;gap:10px;margin-top:auto;padding:16px;border-radius:14px;background:var(--fill);overflow:hidden}
+.blur i{display:block;height:11px;border-radius:6px;background:#CBD6E8;filter:blur(3px)}
+.blur i:nth-child(1){width:92%}.blur i:nth-child(2){width:78%}.blur i:nth-child(3){width:85%}.blur i:nth-child(4){width:60%}
+.blur::after{content:"";position:absolute;top:0;bottom:0;width:45%;left:-50%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);animation:scan 2.6s ease-in-out infinite}
+@keyframes scan{to{left:120%}}
+.blur .lk{position:absolute;inset:0;display:grid;place-items:center;z-index:1}
+.blur .lk span{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font:700 14px/1 'Inter',sans-serif;color:var(--ink);box-shadow:0 0 18px rgba(76,134,255,.35)}
+.blur .lk svg{width:15px;height:15px;fill:none;stroke:var(--blue);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ao.wide .row2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.ao.wide .row2 .blur{margin-top:0}
+
+
+/* термины одним слайдом */
+.slide .tt1{position:relative;font-size:40px;margin-top:-10px}
+.tcount{font:600 15px/1 'Inter',sans-serif;color:var(--muted)}
+.tcount b{font-weight:800;color:var(--blue);font-size:18px;margin-right:4px}
+.tcols{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:-8px}
+.tcol{display:flex;flex-direction:column;gap:6px;padding:18px 20px}
+.tcol .hd{margin-bottom:4px}
+.tcol .ic{width:34px;height:34px;border-radius:10px}
+.tcol .ic svg{width:18px;height:18px}
+.tcol h3{font-size:18px}
+.tlist{flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.tr{display:flex;flex-direction:column;gap:1px;padding:5px 0;border-top:1px solid var(--line)}
+.tr:first-child{border-top:0}
+.tr b{font:700 15.5px/1.2 'Inter',sans-serif;letter-spacing:-.01em;color:var(--ink)}
+.tr b em{font-style:normal;font-weight:600;font-size:12px;color:var(--blue);margin-left:7px;padding:2px 6px;border-radius:6px;background:var(--soft);vertical-align:1px}
+.tr span{font-size:13.5px;line-height:1.35;color:var(--muted)}
+.slide.on .tr.a{animation-delay:calc(var(--d,0) * 45ms + 250ms)}
+
+/* обзор */
+.hero{position:relative;display:flex;flex-direction:column;gap:18px;margin-top:auto}
+.hero h1{font-size:62px;max-width:1040px}
+.hero h1 .accent{white-space:nowrap;color:var(--blue);background:linear-gradient(90deg,#1D5CFF,#4C86FF,#1D5CFF);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:flow 4s linear infinite}
+@keyframes flow{to{background-position:-200% 0}}
+.hero .lead{max-width:760px;font-size:20px}
+.road{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.st{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 20px;display:flex;flex-direction:column;gap:12px;min-height:212px;cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.st:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(15,30,60,.09)}
+.st .n{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font:800 22px/1 'Inter',sans-serif;color:#fff;background:var(--grad);box-shadow:0 8px 18px rgba(29,92,255,.28),inset 0 1px 0 rgba(255,255,255,.35)}
+.st h3{font:800 22px/1.15 'Inter',sans-serif;letter-spacing:-.03em}
+.st p{font-size:15px;color:var(--muted);line-height:1.4}
+.st .ar{position:absolute;right:-21px;top:34px;z-index:2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--soft);border:3px solid var(--bg)}
+.st .ar svg{width:14px;height:14px;fill:none;stroke:var(--blue);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.st.last{background:var(--grad2);color:#fff;border-color:transparent;box-shadow:0 14px 30px rgba(29,92,255,.26)}
+.st.last .n{background:#fff;color:var(--blue);box-shadow:none}
+.st.last p{color:rgba(255,255,255,.82)}
+
+/* финал */
+.end{position:relative;margin:auto 0;display:flex;flex-direction:column;align-items:flex-start;gap:22px}
+.end h1{font-size:64px;max-width:900px}
+.end .lead{max-width:640px;font-size:21px}
+.recap{display:flex;gap:10px;flex-wrap:wrap}
+.recap span{display:inline-flex;align-items:center;gap:10px;padding:12px 16px 12px 12px;border-radius:14px;background:#fff;border:1px solid var(--line);font:700 16px/1 'Inter',sans-serif}
+.recap span b{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:var(--grad);color:#fff;font-size:14px}
+
+/* анимации появления */
+.a{opacity:0;transform:translateY(22px)}
+.slide.on .a{animation:rise .7s var(--ease) both;animation-delay:calc(var(--d,0) * 70ms + 120ms)}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.slide.on .num.a{animation:pop .75s var(--spring) both;animation-delay:.1s}
+@keyframes pop{from{opacity:0;transform:scale(.5) rotate(-12deg)}to{opacity:1;transform:none}}
+.slide.on .res.a{animation:rise .8s var(--ease) both;animation-delay:.75s}
+.slide.on .ic,.slide.on .sn,.slide.on .st .n{animation:pop .7s var(--spring) both;animation-delay:calc(var(--d,0) * 70ms + 260ms)}
+
+/* переход между слайдами */
+.slide.out-l{visibility:visible;animation:outL .55s var(--ease) both}
+.slide.out-r{visibility:visible;animation:outR .55s var(--ease) both}
+.slide.in-r{animation:inR .6s var(--ease) both}
+.slide.in-l{animation:inL .6s var(--ease) both}
+@keyframes outL{to{opacity:0;transform:translateX(-80px) scale(.97)}}
+@keyframes outR{to{opacity:0;transform:translateX(80px) scale(.97)}}
+@keyframes inR{from{opacity:0;transform:translateX(80px)}to{opacity:1;transform:none}}
+@keyframes inL{from{opacity:0;transform:translateX(-80px)}to{opacity:1;transform:none}}
+
+/* управление */
+.nav{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:0 10px 30px rgba(15,30,60,.08);z-index:5;transition:opacity .3s,transform .3s}
+.nav.hide{opacity:0;transform:translate(-50%,16px);pointer-events:none}
+.nav button{width:40px;height:40px;border:0;border-radius:50%;display:grid;place-items:center;background:transparent;color:var(--ink);cursor:pointer;transition:background-color .2s}
+.nav button:hover{background:var(--fill)}
+.nav button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.nav button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.nav .count{min-width:56px;text-align:center;font:700 14px/1 'Inter',sans-serif;font-variant-numeric:tabular-nums;color:var(--muted)}
+.bar{position:fixed;left:0;top:0;height:3px;background:var(--blue);z-index:6;transition:width .6s var(--ease)}
+.tip{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(24px,env(safe-area-inset-bottom,0px));font:500 12px/1.4 'Inter',sans-serif;color:var(--muted);opacity:.7;z-index:5;transition:opacity .3s}
+.tip.hide{opacity:0}
+@media (max-width:700px){.tip{display:none}}
+
+
+/* ===== неон и движение ===== */
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+#fx{position:fixed;inset:0;z-index:0;pointer-events:none}
+.aur{position:fixed;z-index:0;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none;will-change:transform}
+.aur.a1{width:520px;height:520px;left:-120px;top:-140px;background:#7FA8FF;animation:au1 22s ease-in-out infinite alternate}
+.aur.a2{width:460px;height:460px;right:-100px;bottom:-160px;background:#4C86FF;opacity:.35;animation:au2 26s ease-in-out infinite alternate}
+.aur.a3{width:340px;height:340px;left:45%;top:30%;background:#B9CCFF;opacity:.4;animation:au3 30s ease-in-out infinite alternate}
+@keyframes au1{to{transform:translate(260px,180px) scale(1.2)}}
+@keyframes au2{to{transform:translate(-300px,-160px) scale(1.15)}}
+@keyframes au3{0%{transform:translate(-200px,-80px)}100%{transform:translate(180px,120px) scale(1.3)}}
+
+/* неоновая пульсация плиток */
+.num,.st .n,.ic{animation:neon 3.4s ease-in-out infinite}
+.slide.on .num{animation:pop .75s var(--spring) both .1s,neon 3.4s ease-in-out 1s infinite}
+.slide.on .ic,.slide.on .sn,.slide.on .st .n{animation:pop .7s var(--spring) both calc(var(--d,0) * 70ms + 260ms),neon 3.4s ease-in-out calc(var(--d,0) * 200ms + 1s) infinite}
+@keyframes neon{0%,100%{box-shadow:0 6px 14px rgba(29,92,255,.26),0 0 0 0 rgba(76,134,255,0),inset 0 1px 0 rgba(255,255,255,.35)}50%{box-shadow:0 8px 22px rgba(29,92,255,.42),0 0 22px 4px rgba(76,134,255,.45),inset 0 1px 0 rgba(255,255,255,.45)}}
+
+/* вращающийся неоновый контур */
+.ring{position:relative;isolation:isolate}
+.ring::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;z-index:-1;
+  background:conic-gradient(from var(--ang),transparent 0 55%,#9FC0FF 70%,#fff 76%,#4C86FF 82%,transparent 92%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  animation:spin 4.5s linear infinite;filter:drop-shadow(0 0 6px rgba(76,134,255,.9))}
+@keyframes spin{to{--ang:360deg}}
+.res.ring::before,.st.last.ring::before{background:conic-gradient(from var(--ang),transparent 0 50%,#CFE0FF 66%,#fff 74%,#8DB4FF 82%,transparent 94%)}
+
+/* подсветка карточки за курсором */
+.card,.st{background-image:radial-gradient(260px circle at var(--mx,-300px) var(--my,-300px),rgba(29,92,255,.09),transparent 70%)}
+.st.last{background-image:radial-gradient(260px circle at var(--mx,-300px) var(--my,-300px),rgba(255,255,255,.18),transparent 70%),var(--grad2)}
+.card:hover{border-color:#BFD1F5;box-shadow:0 14px 34px rgba(29,92,255,.12),0 0 0 4px rgba(29,92,255,.05)}
+
+/* неоновый блик по заголовку */
+h1 .accent{text-shadow:none;filter:drop-shadow(0 0 14px rgba(76,134,255,.45))}
+
+/* световая волна при смене слайда */
+.sweep{position:fixed;top:0;bottom:0;width:22vw;left:-30vw;z-index:4;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(120,165,255,.22),rgba(255,255,255,.55),rgba(120,165,255,.22),transparent);filter:blur(6px)}
+.sweep.go-r{animation:sweepR .9s var(--ease)}
+.sweep.go-l{animation:sweepL .9s var(--ease)}
+@keyframes sweepR{0%{left:-30vw;opacity:0}20%{opacity:1}100%{left:110vw;opacity:0}}
+@keyframes sweepL{0%{left:110vw;opacity:0}20%{opacity:1}100%{left:-30vw;opacity:0}}
+.slide.out-l{animation:outL .55s var(--ease) both}
+@keyframes outL{to{opacity:0;transform:translateX(-90px) scale(.96);filter:blur(6px)}}
+@keyframes outR{to{opacity:0;transform:translateX(90px) scale(.96);filter:blur(6px)}}
+@keyframes inR{from{opacity:0;transform:translateX(90px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes inL{from{opacity:0;transform:translateX(-90px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+
+/* светящийся прогресс */
+.bar{box-shadow:0 0 12px 2px rgba(76,134,255,.8),0 0 2px rgba(29,92,255,1)}
+.bar::after{content:"";position:absolute;right:-4px;top:-3px;width:9px;height:9px;border-radius:50%;background:#fff;box-shadow:0 0 12px 4px rgba(76,134,255,.95)}
+
+/* стрелки на обзоре бегут */
+.st .ar svg{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(3px)}}
+
+/* эквалайзер на кнопке музыки */
+.eq{display:flex;align-items:flex-end;gap:2px;height:16px}
+.eq i{width:3px;height:4px;border-radius:2px;background:currentColor;transition:height .3s}
+.nav button.on{color:var(--blue)}
+.nav button.on .eq i{animation:eq 1.1s ease-in-out infinite}
+.nav button.on .eq i:nth-child(2){animation-delay:.2s}.nav button.on .eq i:nth-child(3){animation-delay:.4s}.nav button.on .eq i:nth-child(4){animation-delay:.1s}
+@keyframes eq{0%,100%{height:4px}50%{height:15px}}
+.mhint{position:fixed;left:50%;bottom:max(78px,calc(env(safe-area-inset-bottom,0px) + 60px));transform:translateX(-50%);padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--line);font:600 13px/1 'Inter',sans-serif;color:var(--muted);z-index:5;transition:opacity .5s,transform .5s}
+.mhint.hide{opacity:0;transform:translate(-50%,8px);pointer-events:none}
+
+
+/* продюсирование */
+.dots b{width:26px}
+.flow{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.flow span{padding:9px 12px;border-radius:12px;background:var(--fill);font:700 14px/1 'Inter',sans-serif}
+.flow span.hl{background:var(--blue);color:#fff;box-shadow:0 0 14px rgba(76,134,255,.55)}
+.flow i{font-style:normal;color:var(--blue);font-weight:800}
+.ab2{position:relative;flex:1;min-height:0;display:grid;grid-template-columns:1fr 64px 1fr;gap:18px;align-items:stretch}
+.ab2 .card{display:flex;flex-direction:column;justify-content:center;gap:18px;padding:36px}
+.ab2 .card h3{font-size:38px;letter-spacing:-.04em}
+.ab2 .card ul{list-style:none;display:flex;flex-direction:column;gap:16px}
+.ab2 .card li{display:flex;gap:12px;align-items:flex-start;font-size:22px;line-height:1.4;color:var(--ink)}
+.ab2 .card li::before{content:"";flex:none;width:8px;height:8px;margin-top:11px;border-radius:50%;background:#B9C6DA}
+.ab2 .card.b li::before{background:var(--blue);box-shadow:0 0 8px rgba(76,134,255,.8)}
+.ab2 .card.b{background:var(--grad2);border-color:transparent;color:#fff}
+.ab2 .card.b li{color:#fff}
+.ab2 .card.b .label{color:rgba(255,255,255,.8)}
+.ab2 .arr{display:grid;place-items:center}
+.ab2 .arr span{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid var(--line);animation:neon 3.4s ease-in-out infinite}
+.ab2 .arr svg{width:26px;height:26px;fill:none;stroke:var(--blue);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.6s ease-in-out infinite}
+.road.r5{grid-template-columns:repeat(5,1fr)}
+.road.r5 .st{min-height:190px;padding:20px 18px}
+.road.r5 .st h3{font-size:19px}
+.road.r5 .st p{font-size:14px}
+.math.m3{grid-template-columns:1fr auto 1fr auto 1fr}
+.math.m3 .m b{font-size:24px}
+.split .m b{font-size:30px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}.a{opacity:1;transform:none}}
+</style>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<div class="aur a1"></div><div class="aur a2"></div><div class="aur a3"></div><canvas id="fx"></canvas>
+<div class="bar" id="bar"></div><div class="sweep" id="sweep"></div>
+<div class="viewport"><div class="stage" id="stage">
+
+<!-- 0 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Бесплатный урок</span></div>
+  <div class="hero">
+    <h1 class="a" style="--d:1">Как начать зарабатывать на <span class="accent">продюсировании</span> экспертов и&nbsp;блогеров</h1>
+    <p class="lead a" style="--d:2">Пошаговый план: от нуля до первых проектов и выхода на 100–200 тысяч в месяц.</p>
+  </div>
+  <div class="road r5"><div class="st a" style="--d:4" data-go="4"><span class="n">1</span><h3>Фундамент</h3><p>Твоя база и упаковка</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:5" data-go="5"><span class="n">2</span><h3>Закрытие проекта</h3><p>Находим эксперта и договариваемся</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:6" data-go="6"><span class="n">3</span><h3>Фундамент проекта</h3><p>Продукт, аудитория, воронка</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st a" style="--d:7" data-go="7"><span class="n">4</span><h3>Прогрев</h3><p>Контент-план и доверие</p><span class="ar"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="st last ring a" style="--d:8" data-go="8"><span class="n">5</span><h3>Заработок</h3><p>Продажи и твой процент</p></div></div>
+</section>
+
+<!-- 1 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Как на этом заработать</span></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></div>
+      <h1 class="sm a" style="--d:1">Что такое продю&shy;сирование</h1>
+      <p class="lead a" style="--d:2">Ты соединяешь эксперта с его аудиторией через продукт и зарабатываешь на каждой продаже.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Главное</div><p>Ты не вкладываешь деньги, ты вкладываешь навыки и получаешь процент</p></div>
+    </div>
+    <div class="grid">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span><h3>Эксперт даёт</h3></div><p>Знания, лицо и аудиторию. Обычно у него нет времени и навыков, чтобы самому упаковать продукт и продать.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15l-3-3c1-4 4-8 10-9-1 6-5 9-9 10z"/><path d="M9 12H5l2-4h4M12 15v4l4-2v-4"/><path d="M6 18c-1 1-1.5 2.5-1.5 2.5S6 20 7 19"/></svg></span><h3>Продюсер даёт</h3></div><p>Продукт, воронку, прогрев и продажи. Ты берёшь на себя всё, что превращает аудиторию в деньги.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 12l4-4 4 2 3-2 4 1 3 3"/><path d="M7 8l-4 4 5 5c1 1 2 1 3 0l1-1M21 12l-4 4-3 3c-1 1-2 1-3 0"/></svg></span><h3>Как делятся деньги</h3></div><p>Ты работаешь за процент от выручки запуска, обычно 30–50%. Платить эксперту вперёд не нужно.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><h3>Почему это выгодно</h3></div><p>Один эксперт приносит деньги много раз: каждый новый запуск снова делится по договорённости.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><h3>Пример одного запуска</h3></div><div class="math m3"><div class="m"><b>100 продаж</b><span>из канала на 10 000 человек</span></div><span class="or">×</span><div class="m"><b>5 000 ₽</b><span>цена продукта</span></div><span class="or">=</span><div class="m"><b>500 000 ₽</b><span>выручка запуска</span></div></div><p class="note">Твоя доля 30–50% = 150 000–250 000 ₽ за один запуск. Цифры условные, для примера.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Точка А → Точка Б</span></div>
+  <h1 class="tt1 a" style="--d:1;font-size:50px">Откуда стартуешь и куда придёшь</h1>
+  <div class="ab2">
+    <div class="card a" style="--d:2"><span class="label">Точка А · сейчас</span><h3>Старт с нуля</h3><ul><li>Нет опыта в запусках</li><li>Нет знакомых экспертов</li><li>Непонятно, с чего начать</li><li>Доход 0 ₽ или работа по найму</li></ul></div>
+    <div class="arr a" style="--d:3"><span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <div class="card b a" style="--d:4"><span class="label">Точка Б · через 2–3 месяца</span><h3>Свои проекты</h3><ul><li>Понимаешь, как устроен запуск</li><li>Умеешь находить и закрывать экспертов</li><li>2–3 проекта в работе</li><li>Выход на 100–200 тысяч в месяц</li></ul></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Этап 0 · База</span><span class="tcount a" style="--d:1"><b>12</b> понятий</span></div>
+  <h1 class="tt1 a" style="--d:1">Обрести всю базу</h1>
+  <div class="tcols"><div class="card tcol a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Роли</h3></div><div class="tlist"><div class="tr a" style="--d:3"><b>Эксперт</b><span>Человек со знаниями и аудиторией, которому нужен продукт</span></div><div class="tr a" style="--d:4"><b>Блогер</b><span>Автор с аудиторией, которую можно монетизировать</span></div><div class="tr a" style="--d:5"><b>Продюсер</b><span>Отвечает за продукт, воронку и продажи за процент</span></div><div class="tr a" style="--d:6"><b>Команда</b><span>Сценарист, дизайнер, продажник, ассистент</span></div></div></div><div class="card tcol a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 15l-3-3c1-4 4-8 10-9-1 6-5 9-9 10z"/><path d="M9 12H5l2-4h4M12 15v4l4-2v-4"/><path d="M6 18c-1 1-1.5 2.5-1.5 2.5S6 20 7 19"/></svg></span><h3>Запуск</h3></div><div class="tlist"><div class="tr a" style="--d:5"><b>Запуск</b><span>Период продаж продукта: прогрев, продажи, дожим</span></div><div class="tr a" style="--d:6"><b>Прогрев</b><span>Контент, который готовит аудиторию к покупке</span></div><div class="tr a" style="--d:7"><b>Воронка</b><span>Путь человека от первого касания до оплаты</span></div><div class="tr a" style="--d:8"><b>Лид-магнит</b><span>Бесплатная польза в обмен на контакт или подписку</span></div></div></div><div class="card tcol a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><h3>Продукт и деньги</h3></div><div class="tlist"><div class="tr a" style="--d:7"><b>Трипвайер</b><span>Недорогой продукт, чтобы человек впервые купил</span></div><div class="tr a" style="--d:8"><b>Основной продукт</b><span>Курс, наставничество или клуб, на нём основная выручка</span></div><div class="tr a" style="--d:9"><b>Конверсия<em>CR</em></b><span>Процент людей, которые перешли на следующий шаг</span></div><div class="tr a" style="--d:10"><b>Средний чек</b><span>Сколько в среднем платит один покупатель</span></div></div></div></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Шаг 1 из 5</span><div class="dots"><b class="on"></b><b class=""></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a">01</div>
+      <h1 class=" a" style="--d:1">Фундамент</h1>
+      <p class="lead a" style="--d:2">Готовишь себя к работе с экспертами, чтобы с тобой хотелось работать.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Ты упакован и готов писать первым экспертам</p></div>
+    </div>
+    <div class="grid">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.5 16c.6-1.6 2-2.4 3.5-2.4s2.9.8 3.5 2.4M15 10h3M15 13h3"/></svg></span><h3>Упакуй себя</h3></div><p>Профиль в Telegram: кто ты, чем помогаешь экспертам, кейсы. Даже учебный кейс лучше, чем пустой профиль.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M8 7h7M8 11h5"/></svg></span><h3>Разберись в запуске</h3></div><p>Пойми, как идут прогрев, продажи и дожим. Ты должен уверенно объяснить эксперту, что будет происходить.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><h3>Подготовь шаблоны</h3></div><p>Скрипт первого сообщения, план созвона, договор о проценте. Всё готово до того, как пишешь экспертам.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 10h18M9 4v16"/></svg></span><h3>Заведи таблицу</h3></div><p>Список экспертов, статус переписки, созвоны, договорённости. Сразу видно, кто на каком этапе.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><h3>Выбери нишу</h3></div><p>Ниша, которую ты понимаешь: финансы, спорт, психология, обучение. Так проще говорить с экспертом на одном языке.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Шаг 2 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b><b class=""></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a">02</div>
+      <h1 class=" a" style="--d:1">Закрытие проекта</h1>
+      <p class="lead a" style="--d:2">Находишь эксперта и договариваешься о совместном запуске.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Первый эксперт, с которым договорились о запуске</p></div>
+    </div>
+    <div class="grid">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><h3>Где искать</h3></div><p>TGStat и Telemetr: каналы на 2 000–30 000 подписчиков с живыми охватами. Лучше всего те, у кого ещё нет своего продукта.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg></span><h3>Два способа зайти</h3></div><p>Оффер: сразу пишешь, что предлагаешь и что эксперт получит. Точка: начинаешь с вопроса или пользы и выводишь на диалог.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span><h3>Созвон</h3></div><p>Эксперт соглашается, потому что не рискует: ты работаешь за процент, а он получает продукт и продажи без лишней работы.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 12l4-4 4 2 3-2 4 1 3 3"/><path d="M7 8l-4 4 5 5c1 1 2 1 3 0l1-1M21 12l-4 4-3 3c-1 1-2 1-3 0"/></svg></span><h3>Договорённость</h3></div><p>Фиксируешь процент, сроки, кто за что отвечает. Лучше письменно, даже простым сообщением.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span><h3>Средняя конверсия в проект</h3></div><div class="math m3"><div class="m"><b>100</b><span>сообщений экспертам</span></div><span class="or">→</span><div class="m"><b>10–15</b><span>ответов и созвонов</span></div><span class="or">→</span><div class="m"><b>1–3</b><span>проекта в работу</span></div></div><p class="note">Ориентир. Чем лучше упаковка и первое сообщение, тем выше конверсия.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Шаг 3 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b><b class=""></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a">03</div>
+      <h1 class=" a" style="--d:1">Фундамент проекта</h1>
+      <p class="lead a" style="--d:2">Готовишь всё, на чём будет держаться запуск.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Понятный продукт, цена и воронка до первого поста прогрева</p></div>
+    </div>
+    <div class="grid">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/></svg></span><h3>Распакуй эксперта</h3></div><p>Его опыт, сильные кейсы, история, чем он отличается от других. Из этого потом строится весь контент.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Изучи аудиторию</h3></div><p>Анкета в канале: возраст, доход, боли, что хотят получить. Так понятно, какой продукт им нужен.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg></span><h3>Собери продукт</h3></div><p>Формат (курс, наставничество, клуб), программа и цена под эту аудиторию.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></span><h3>Построй воронку</h3></div><p>Лид-магнит → бот → прогрев → продажа. Каждый шаг ведёт человека к следующему.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><h3>Распредели роли</h3></div><p>Кто пишет контент, кто делает дизайн, кто ведёт продажи. Эксперт отвечает за экспертность, ты за всё остальное.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Шаг 4 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class=""></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a">04</div>
+      <h1 class="sm a" style="--d:1">Прогрев и контент-план</h1>
+      <p class="lead a" style="--d:2">Аудитория должна захотеть продукт ещё до того, как увидит цену.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Тёплая аудитория, которая ждёт открытия продаж</p></div>
+    </div>
+    <div class="grid">
+<div class="card wide a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 21c-4 0-7-2.7-7-6.5 0-3 2-5 3.5-6.5.3 2 1.5 3 2.5 3-.5-3 1-6 4-8 0 3 1.5 4.5 3 6.5 1 1.3 1 2.5 1 3.5 0 4.6-3 8-7 8z"/></svg></span><h3>Логика прогрева</h3></div><p>Каждый день контента закрывает один вопрос в голове подписчика, пока он сам не захочет купить.</p><div class="flow"><span>Знакомство</span><i>→</i><span>Доверие</span><i>→</i><span>Боли</span><i>→</i><span>Кейсы</span><i>→</i><span class="hl">Продажа</span></div></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><h3>Контент-план</h3></div><p>10–14 дней прогрева, расписанных по дням: тема, формат, цель каждого поста.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.2A8.5 8.5 0 1 1 20.5 12z"/></svg></span><h3>Форматы</h3></div><p>Посты, кружки, сторис, опросы. Живой голос эксперта прогревает лучше, чем идеальный текст.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><h3>Кейсы и отзывы</h3></div><p>Результаты учеников эксперта. Если их мало, собери до запуска: бесплатные разборы, мини-группа.</p></div><div class="card a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><h3>Точка входа в продажу</h3></div><p>Эфир, вебинар или серия постов с открытием продаж и понятным дедлайном.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Шаг 5 из 5</span><div class="dots"><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b><b class="on"></b></div></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a">05</div>
+      <h1 class=" a" style="--d:1">Заработок в проекте</h1>
+      <p class="lead a" style="--d:2">Продаёшь продукт, делишь выручку и превращаешь запуск в кейс.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог шага</div><p>Первые деньги и кейс, с которым легче закрывать следующих экспертов</p></div>
+    </div>
+    <div class="grid">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><h3>Открой продажи</h3></div><p>Эфир или серия постов с оффером, ценой и дедлайном. Ссылка на оплату или запись в личку.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.7 7.4L3.5 20.5l1.1-4.2A8.5 8.5 0 1 1 20.5 12z"/></svg></span><h3>Веди в личку</h3></div><p>Заявки обрабатывает продажник или ты сам: отвечаешь на вопросы, снимаешь сомнения.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><h3>Дожимай</h3></div><p>Напоминания тем, кто не дошёл до оплаты: отзывы, последние места, конец скидки.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2.5 20.5h19"/></svg></span><h3>Посчитай итоги</h3></div><p>Выручка, конверсии, что сработало. Это твой кейс для следующих экспертов.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg></span><h3>Первые кассы</h3></div><div class="math"><div class="m"><b>300 000 ₽</b><span>выручка небольшого запуска</span></div><span class="or">твои</span><div class="m"><b>90–150 тыс. ₽</b><span>при доле 30–50%</span></div></div><p class="note">Цифры условные. Первый запуск часто меньше, зато дальше растёт каждый раз.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Масштаб</span></div>
+  <div class="body">
+    <div class="side">
+      <div class="num a"><svg viewBox="0 0 24 24"><path d="M4 20V11M10 20V5M16 20v-7M2.5 20.5h19"/></svg></div>
+      <h1 class="sm a" style="--d:1">Выход на<br>100–200 тысяч</h1>
+      <p class="lead a" style="--d:2">Когда первый запуск позади, растёшь за счёт количества проектов и команды.</p>
+      <div class="res ring a"><div class="k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Итог</div><p>Стабильный доход с нескольких проектов, а не с одного</p></div>
+    </div>
+    <div class="grid">
+<div class="card a" style="--d:2"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><h3>2–3 проекта параллельно</h3></div><p>Пока один эксперт в прогреве, у второго идут продажи. Доход перестаёт зависеть от одного запуска.</p></div><div class="card a" style="--d:3"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M16.5 14.6c2.6.3 4.5 2.2 4.5 5.4"/></svg></span><h3>Команда</h3></div><p>Ассистент, продажник, контентщик. Ты оставляешь себе стратегию и общение с экспертами.</p></div><div class="card a" style="--d:4"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg></span><h3>Кейсы работают на тебя</h3></div><p>С результатами в профиле эксперты начинают писать сами, и ты выбираешь, с кем работать.</p></div><div class="card a" style="--d:5"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><h3>Повторные запуски</h3></div><p>С тем же экспертом каждый следующий запуск проходит быстрее и приносит больше.</p></div><div class="card wide a" style="--d:6"><div class="hd"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3>Мой личный совет</h3></div><p>Не ищи идеального эксперта и идеальный момент. Закрой первый проект, доведи его до продаж, и дальше всё пойдёт быстрее.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="top a"><span class="pill"><i></i>Итог урока</span></div>
+  <div class="end">
+    <h1 class="a" style="--d:1">Твой путь в <span class="accent" style="color:var(--blue)">продюсирование</span></h1>
+    <div class="recap">
+      <span class="a" style="--d:3"><b>1</b>Фундамент</span>
+      <span class="a" style="--d:4"><b>2</b>Первый эксперт</span>
+      <span class="a" style="--d:5"><b>3</b>Продукт и воронка</span>
+      <span class="a" style="--d:6"><b>4</b>Прогрев</span>
+      <span class="a" style="--d:7"><b>5</b>Первые кассы</span>
+    </div>
+    <p class="lead a" style="--d:8">Хочешь понять, как пройти этот путь именно в твоей ситуации? Приходи на бесплатную консультацию: разберём твой план входа в продюсирование.</p>
+  </div>
+</section>
+
+
+</div></div>
+
+<nav class="nav" id="nav" aria-label="Навигация по слайдам">
+  <button id="prev" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <span class="count" id="count">1 / 6</span>
+  <button id="next" aria-label="Дальше"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+  <button id="music" aria-label="Музыка"><span class="eq"><i></i><i></i><i></i><i></i></span></button>
+  <button id="full" aria-label="На весь экран"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</nav>
+<div class="tip" id="tip">← → листать · M музыка · F весь экран · H скрыть панель</div>
+<div class="mhint" id="mhint">Нажми куда угодно, чтобы включить музыку</div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'),slides=[].slice.call(document.querySelectorAll('.slide')),
+      cur=0,busy=false,count=document.getElementById('count'),bar=document.getElementById('bar'),
+      nav=document.getElementById('nav'),tip=document.getElementById('tip');
+
+  function fit(){var s=Math.min(innerWidth/1280,innerHeight/720);stage.style.transform='scale('+s+')'}
+  addEventListener('resize',fit);fit();
+
+  function countUp(sl){
+    sl.querySelectorAll('[data-count]').forEach(function(el){
+      var to=+el.dataset.count,t0=null,dur=900,delay=700;
+      el.textContent='0';
+      function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0-delay)/dur);if(p<0){requestAnimationFrame(step);return}
+        el.textContent=Math.round(to*(1-Math.pow(1-p,3))).toLocaleString('ru-RU');if(p<1)requestAnimationFrame(step)}
+      requestAnimationFrame(step);
+    });
+  }
+  function ui(){count.textContent=(cur+1)+' / '+slides.length;bar.style.width=((cur+1)/slides.length*100)+'%';
+    try{history.replaceState(null,'','#'+(cur+1))}catch(e){}}
+
+  function go(n){
+    if(busy||n===cur||n<0||n>=slides.length)return;
+    busy=true;var dir=n>cur?1:-1,a=slides[cur],b=slides[n];var sw=document.getElementById('sweep');sw.className='sweep';void sw.offsetWidth;sw.className='sweep '+(dir>0?'go-r':'go-l');
+    a.classList.remove('on','in-r','in-l');a.classList.add(dir>0?'out-l':'out-r');
+    setTimeout(function(){
+      a.classList.remove('out-l','out-r');
+      b.classList.remove('in-r','in-l');void b.offsetWidth;
+      b.classList.add('on',dir>0?'in-r':'in-l');countUp(b);
+      cur=n;ui();setTimeout(function(){busy=false},350);
+    },380);
+  }
+
+  var start=parseInt((location.hash||'').slice(1),10);cur=(start>=1&&start<=slides.length)?start-1:0;
+  slides[cur].classList.add('on');countUp(slides[cur]);ui();
+
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  document.querySelectorAll('[data-go]').forEach(function(el){el.onclick=function(){go(+el.dataset.go)}});
+
+  function toggleFull(){try{if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen()}catch(e){}}
+  document.getElementById('full').onclick=toggleFull;
+
+  addEventListener('keydown',function(e){
+    var k=e.key;
+    if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='Enter'){e.preventDefault();go(cur+1)}
+    else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();go(cur-1)}
+    else if(k==='Home')go(0);else if(k==='End')go(slides.length-1);
+    else if(k==='f'||k==='F'||k==='а'||k==='А')toggleFull();
+    else if(k==='h'||k==='H'||k==='р'||k==='Р'){nav.classList.toggle('hide');tip.classList.toggle('hide');document.getElementById('mhint').classList.add('hide');bar.hidden=!bar.hidden}
+    else if(/^[1-9]$/.test(k))go(+k-1);else if(k==='0')go(9);
+  });
+
+  // клик по краям экрана и свайп
+  document.querySelector('.viewport').addEventListener('click',function(e){
+    if(e.target.closest('[data-go],.nav'))return;
+    if(e.clientX>innerWidth*0.7)go(cur+1);else if(e.clientX<innerWidth*0.3)go(cur-1);
+  });
+  var x0=null;
+  addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));x0=null});
+})();
+</script>
+
+<script>
+/* частицы с неоновыми связями */
+(function(){
+  var c=document.getElementById('fx'),x=c.getContext('2d'),W,H,P=[],mx=-9999,my=-9999,dpr=Math.min(2,devicePixelRatio||1);
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  function size(){W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;c.style.width=W+'px';c.style.height=H+'px';x.setTransform(dpr,0,0,dpr,0,0);
+    var n=Math.round(Math.min(70,W*H/22000));P=[];for(var i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*1.8+.8,p:Math.random()*6.28})}
+  size();addEventListener('resize',size);
+  addEventListener('pointermove',function(e){mx=e.clientX;my=e.clientY});
+  function tick(t){x.clearRect(0,0,W,H);
+    for(var i=0;i<P.length;i++){var a=P[i];a.x+=a.vx;a.y+=a.vy;
+      var dx=a.x-mx,dy=a.y-my,d=dx*dx+dy*dy;if(d<14000){a.x+=dx*.012;a.y+=dy*.012}
+      if(a.x<-20)a.x=W+20;if(a.x>W+20)a.x=-20;if(a.y<-20)a.y=H+20;if(a.y>H+20)a.y=-20;
+      for(var j=i+1;j<P.length;j++){var b=P[j],ex=a.x-b.x,ey=a.y-b.y,e2=ex*ex+ey*ey;
+        if(e2<16000){x.strokeStyle='rgba(60,115,255,'+(.16*(1-e2/16000))+')';x.lineWidth=1;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}
+      var tw=.55+.45*Math.sin(t/900+a.p);
+      x.beginPath();x.fillStyle='rgba(29,92,255,'+(.35*tw+.15)+')';x.shadowColor='rgba(76,134,255,.9)';x.shadowBlur=10*tw;x.arc(a.x,a.y,a.r,0,6.28);x.fill();x.shadowBlur=0}
+    requestAnimationFrame(tick)}
+  requestAnimationFrame(tick);
+})();
+
+/* подсветка карточек за курсором */
+document.addEventListener('pointermove',function(e){
+  var el=e.target.closest&&e.target.closest('.card,.st');if(!el)return;
+  var r=el.getBoundingClientRect(),k=r.width/el.offsetWidth;
+  el.style.setProperty('--mx',((e.clientX-r.left)/k)+'px');el.style.setProperty('--my',((e.clientY-r.top)/k)+'px');
+});
+
+/* спокойный эмбиент, генерируется в браузере */
+(function(){
+  var btn=document.getElementById('music'),hint=document.getElementById('mhint'),ctx=null,master=null,on=false,timer=null,step=0,wanted=true;
+  try{if(localStorage.getItem('finki-music')==='off')wanted=false}catch(e){}
+  if(!wanted)hint.classList.add('hide');
+  function f(m){return 440*Math.pow(2,(m-69)/12)}
+  var chords=[[57,64,67,72],[53,60,64,69],[48,55,64,71],[55,62,67,71]]; // Am7 Fmaj7 Cmaj7 G
+  var bass=[45,41,36,43],penta=[69,72,74,76,79,81,84];
+  function init(){
+    ctx=new (window.AudioContext||window.webkitAudioContext)();
+    master=ctx.createGain();master.gain.value=0;
+    var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=1400;lp.Q.value=.4;
+    var dl=ctx.createDelay(2);dl.delayTime.value=.42;var fb=ctx.createGain();fb.gain.value=.38;var wet=ctx.createGain();wet.gain.value=.35;
+    var cv=ctx.createConvolver(),len=ctx.sampleRate*3.2,buf=ctx.createBuffer(2,len,ctx.sampleRate);
+    for(var ch=0;ch<2;ch++){var d=buf.getChannelData(ch);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6)}
+    cv.buffer=buf;var rv=ctx.createGain();rv.gain.value=.55;
+    lp.connect(master);lp.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(wet);wet.connect(master);
+    lp.connect(cv);cv.connect(rv);rv.connect(master);master.connect(ctx.destination);
+    window._bus=lp;
+  }
+  function pad(m,t,dur,vol,type){
+    [-6,6].forEach(function(det){
+      var o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'sine';o.frequency.value=f(m);o.detune.value=det;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+dur*.35);g.gain.setValueAtTime(vol,t+dur*.6);g.gain.linearRampToValueAtTime(0,t+dur+1.5);
+      o.connect(g);g.connect(window._bus);o.start(t);o.stop(t+dur+1.6)});
+  }
+  function bell(m,t){var o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f(m);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+2.8);o.connect(g);g.connect(window._bus);o.start(t);o.stop(t+3)}
+  function bar(){
+    var t=ctx.currentTime+.05,i=step%4,dur=8;
+    chords[i].forEach(function(m){pad(m,t,dur,.045,'triangle')});
+    pad(bass[i],t,dur,.06,'sine');
+    for(var k=0;k<3;k++)if(Math.random()<.75)bell(penta[Math.floor(Math.random()*penta.length)],t+1+Math.random()*6);
+    step++;
+  }
+  function start(){
+    if(!ctx)init();ctx.resume();on=true;btn.classList.add('on');hint.classList.add('hide');
+    master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(.9,ctx.currentTime,1.2);
+    if(!timer){bar();timer=setInterval(bar,8000)}
+    try{localStorage.setItem('finki-music','on')}catch(e){}
+  }
+  function stop(){
+    on=false;btn.classList.remove('on');if(!ctx)return;
+    master.gain.setTargetAtTime(0,ctx.currentTime,.6);
+    setTimeout(function(){if(!on){clearInterval(timer);timer=null}},2500);
+    try{localStorage.setItem('finki-music','off')}catch(e){}
+  }
+  btn.addEventListener('click',function(e){e.stopPropagation();on?stop():start()});
+  function first(){if(wanted&&!on&&!ctx)start();removeEventListener('pointerdown',first);removeEventListener('keydown',firstKey)}
+  function firstKey(e){if(e.key!=='m'&&e.key!=='M'&&e.key!=='ь'&&e.key!=='Ь')first()}
+  addEventListener('pointerdown',first);addEventListener('keydown',firstKey);
+  addEventListener('keydown',function(e){if(e.key==='m'||e.key==='M'||e.key==='ь'||e.key==='Ь'){on?stop():start()}});
+  setTimeout(function(){hint.classList.add('hide')},9000);
+})();
+</script>
+
+<script>
+(function(){try{var t=window.Telegram&&Telegram.WebApp;if(!t||!t.initData&&!t.platform)return;t.ready();t.expand();
+if(t.disableVerticalSwipes)t.disableVerticalSwipes();if(t.setHeaderColor)t.setHeaderColor('#F3F6FB');if(t.setBackgroundColor)t.setBackgroundColor('#F3F6FB');
+document.documentElement.classList.add('tg');}catch(e){}})();
+</script>
+</body>
+</html>
