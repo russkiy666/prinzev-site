@@ -4,6 +4,7 @@
  * Что делает:
  *  1. Мини-апп шлёт сюда события: open (открыл), lesson (начал урок), watched (досмотрел / дошёл до записи)
  *     и саму заявку на бесплатную консультацию. Подлинность каждого запроса проверяется по initData Telegram.
+ *  1а. На /start в боте — приветствие с кнопкой «ЗАБРАТЬ УРОК!» (нужен вебхук: один раз выполнить setWebhook()).
  *  2. После заявки бот сразу присылает сообщение с кнопкой-ссылкой в закрытый канал.
  *  3. Дожим, если человек не посмотрел урок:
  *       через 30 минут после первого открытия — текст + кнопка «ЗАБРАТЬ УРОК!»
@@ -30,6 +31,7 @@ const TXT_BOOKED = 'заявка принята ✅\n\nпока смотрю с�
 const BTN_BOOKED = 'ЗАЙТИ В ЗАКРЫТЫЙ КАНАЛ';
 const TXT_D1 = 'деньги любят быстрых\n\nзарабатывают те, кто первый хватается за возможность и доводит до конца\n\nбесплатный урок – одна из таких возможностей, через 3 часа доступ к уроку пропадет.';
 const BTN_LESSON = 'ЗАБРАТЬ УРОК!';
+const TXT_START = 'привет 👋\n\nэто бесплатный урок: как выйти на первые 200.000 ₽ в онлайне – пошаговый план\n\nжми кнопку ниже и забирай урок 👇';
 
 const HEAD = ['ID Telegram', 'Имя', 'Telegram', 'Первое открытие', 'Начал урок', 'Досмотрел', 'Заявка', 'Дожим 30 мин', 'Дожим 2 ч', 'Сообщение после заявки', 'Возраст', 'Бюджет', 'Ответы (json)'];
 const C = { uid: 1, name: 2, tg: 3, opened: 4, lesson: 5, watched: 6, booked: 7, d1: 8, d2: 9, bookedMsg: 10, age: 11, budget: 12, json: 13 };
@@ -89,6 +91,7 @@ function tg_(method, payload) {
 }
 function lessonKb_() { return { inline_keyboard: [[{ text: BTN_LESSON, web_app: { url: MINI_APP_URL } }]] }; }
 function sendBooked_(chat) { return tg_('sendMessage', { chat_id: chat, text: TXT_BOOKED, reply_markup: { inline_keyboard: [[{ text: BTN_BOOKED, url: CHANNEL_LINK }]] } }); }
+function sendStart_(chat) { return tg_('sendMessage', { chat_id: chat, text: TXT_START, reply_markup: lessonKb_() }); }
 function sendD1_(chat) { return tg_('sendMessage', { chat_id: chat, text: TXT_D1, reply_markup: lessonKb_() }); }
 function sendD2_(chat) { return tg_('sendPhoto', { chat_id: chat, photo: LION_URL, reply_markup: lessonKb_() }); }
 /* результат отправки → что записать в ячейку: время или причина */
@@ -101,6 +104,12 @@ function doPost(e) {
   try {
     lock.waitLock(20000);
     const d = JSON.parse((e && e.postData && e.postData.contents) || '{}');
+    /* сообщение от Telegram (вебхук бота): на /start — приветствие с кнопкой урока */
+    if (d.update_id) {
+      const m = d.message;
+      if (m && m.chat && m.chat.type === 'private' && /^\/start\b/.test(m.text || '')) sendStart_(m.chat.id);
+      return out_({ ok: true });
+    }
     const u = checkInit_(d.init);
     if (!u) return out_({ ok: false, error: 'initData' });
     const sh = sheet_(), r = upsert_(sh, u), t = stamp_(now_());
@@ -149,9 +158,14 @@ function setup() {
   ScriptApp.newTrigger('tick').timeBased().everyMinutes(1).create();
   return ss.getUrl();
 }
+/* один раз после развертывания: направить сообщения бота в этот скрипт (для приветствия на /start) */
+function setWebhook() {
+  const url = ScriptApp.getService().getUrl();
+  return tg_('setWebhook', { url: url, allowed_updates: ['message'], drop_pending_updates: true });
+}
 function preview() {
   let chat = prop_('PREVIEW_CHAT_ID');
   if (!chat) { const sh = sheet_(); if (sh.getLastRow() > 1) chat = sh.getRange(2, 1).getValue(); }
   if (!chat) throw new Error('Нет получателя: открой мини-апп в боте или задай PREVIEW_CHAT_ID');
-  return [sendBooked_(chat), sendD1_(chat), sendD2_(chat)];
+  return [sendStart_(chat), sendBooked_(chat), sendD1_(chat), sendD2_(chat)];
 }
