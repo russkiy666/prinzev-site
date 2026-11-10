@@ -122,7 +122,9 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .player .inner{position:absolute;inset:0;z-index:1;background:rgba(20,11,13,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;text-align:center;padding:16px}
 .play{width:60px;height:60px;border-radius:50%;border:0;background:var(--blue);color:#fff;display:grid;place-items:center;cursor:pointer}
 .play svg{width:22px;height:22px;margin-left:3px;fill:currentColor}
-.player video.lv{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;background:#140B0D}
+.player video.lv{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;background:#F9F4F5}
+.player video.lv:fullscreen{object-fit:contain;background:#000}
+.player video.lv:-webkit-full-screen{object-fit:contain;background:#000}
 .ldbar{width:min(220px,70%);height:5px;border-radius:5px;background:rgba(255,255,255,.18);overflow:hidden}
 .ldbar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,#CA5E7C,#E597AB);transition:width .25s linear}
 .ldbar.done i{background:#3DDC84}
@@ -626,8 +628,8 @@ a,button,label,.opt,.emo,.stp{touch-action:manipulation;-webkit-tap-highlight-co
 /* SRC — метка воронки (для будущей отдельной таблицы YAKIMOVICH) */
 var SRC = "yakimovich";
 /* VIDEO_URL — ссылка на mp4 видеоурока, VIDEO_POSTER — обложка. Пока пусто: в плеере заглушка */
-var VIDEO_URL = "media/lesson.mp4?v=2";
-var VIDEO_POSTER = "media/poster.jpg?v=2";
+var VIDEO_URL = "media/lesson.mp4?v=3";
+var VIDEO_POSTER = "media/poster.jpg?v=3";
 var SHEET_URL = "https://script.google.com/macros/s/AKfycbyQvKEOB6AuXAYKYdNd1xC6E798tetUVtfJojHKGNv2J6qPDUFcDtkvDFNdE1c-RvKA/exec";   /* отдельный скрипт для YAKIMOVICH пока не подключён — никаких связей с ботом/таблицей Сабиза */   /* URL веб-приложения Apps Script (бот + заявки) */
 
 /* ===== Telegram Mini App: если сайт открыт внутри Telegram ===== */
