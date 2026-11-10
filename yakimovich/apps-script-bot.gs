@@ -113,7 +113,7 @@ function doPost(e) {
       cache.put(key, '1', 21600);
       if (m && m.chat && m.chat.type === 'private' && /^\/start\b/.test(m.text || '')) {
         const ck = 'start' + m.chat.id;
-        if (!cache.get(ck)) { cache.put(ck, '1', 60); sendStart_(m.chat.id); }
+        if (!cache.get(ck)) { cache.put(ck, '1', 5); sendStart_(m.chat.id); }
       }
       return out_({ ok: true });
     }
@@ -171,6 +171,12 @@ function setWebhook() {
   const r = tg_('setWebhook', { url: url, allowed_updates: ['message'], drop_pending_updates: true });
   Logger.log(JSON.stringify(r));
   return r;
+}
+/* диагностика вебхука: выполнить и посмотреть журнал */
+function webhookInfo() {
+  const res = UrlFetchApp.fetch('https://api.telegram.org/bot' + prop_('BOT_TOKEN') + '/getWebhookInfo', { muteHttpExceptions: true });
+  const j = JSON.parse(res.getContentText()).result || {};
+  Logger.log(JSON.stringify({ pending: j.pending_update_count, err: j.last_error_message, errAt: j.last_error_date ? new Date(j.last_error_date * 1000) : '', url: String(j.url || '').slice(-12) }));
 }
 function preview() {
   let chat = prop_('PREVIEW_CHAT_ID');
