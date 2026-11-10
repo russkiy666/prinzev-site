@@ -107,7 +107,14 @@ function doPost(e) {
     /* сообщение от Telegram (вебхук бота): на /start — приветствие с кнопкой урока */
     if (d.update_id) {
       const m = d.message;
-      if (m && m.chat && m.chat.type === 'private' && /^\/start\b/.test(m.text || '')) sendStart_(m.chat.id);
+      /* Telegram повторяет запрос, т.к. Apps Script отвечает редиректом 302 — отвечаем на каждое обновление только один раз */
+      const cache = CacheService.getScriptCache(), key = 'upd' + d.update_id;
+      if (cache.get(key)) return out_({ ok: true });
+      cache.put(key, '1', 21600);
+      if (m && m.chat && m.chat.type === 'private' && /^\/start\b/.test(m.text || '')) {
+        const ck = 'start' + m.chat.id;
+        if (!cache.get(ck)) { cache.put(ck, '1', 60); sendStart_(m.chat.id); }
+      }
       return out_({ ok: true });
     }
     const u = checkInit_(d.init);
