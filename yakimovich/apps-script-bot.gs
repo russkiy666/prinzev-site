@@ -160,8 +160,10 @@ function setup() {
 }
 /* один раз после развертывания: направить сообщения бота в этот скрипт (для приветствия на /start) */
 function setWebhook() {
-  const url = ScriptApp.getService().getUrl();
-  return tg_('setWebhook', { url: url, allowed_updates: ['message'], drop_pending_updates: true });
+  const url = 'https://script.google.com/macros/s/AKfycbyQvKEOB6AuXAYKYdNd1xC6E798tetUVtfJojHKGNv2J6qPDUFcDtkvDFNdE1c-RvKA/exec';   // адрес развертывания (не /dev)
+  const r = tg_('setWebhook', { url: url, allowed_updates: ['message'], drop_pending_updates: true });
+  Logger.log(JSON.stringify(r));
+  return r;
 }
 function preview() {
   let chat = prop_('PREVIEW_CHAT_ID');
