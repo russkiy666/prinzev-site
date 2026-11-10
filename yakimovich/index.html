@@ -56,7 +56,7 @@ html.js .stage.on{display:block;animation:in .35s ease-out}
 .stack{display:flex;flex-direction:column;gap:12px}
 .card{background:var(--card);border-radius:var(--r);padding:22px;box-shadow:0 1px 2px rgba(44,16,24,.05)}
 .card h2{font-size:24px;margin-top:6px}
-.ls-t{font-size:clamp(17px,5vw,24px)!important;line-height:1.2}.ls-t>span{display:block;white-space:nowrap}
+.ls-t{font-size:24px!important;line-height:1.2}.ls-t>span{display:block;white-space:nowrap}
 .ls-sp{display:inline-block;margin:8px 0 2px;padding:5px 11px;border-radius:999px;background:rgba(122,37,62,.08);color:#7A253E;font-size:13px;font-weight:600}
 .card > * + *{margin-top:12px}
 
@@ -1269,5 +1269,19 @@ var goStage = (function(){
 })();
 </script>
 
+<script>
+/* заголовок урока: ровно 2 строки, шрифт подгоняется под ширину экрана */
+(function(){
+  var h = document.querySelector(".ls-t"); if (!h) return;
+  function fit(){
+    h.style.setProperty("font-size", "24px", "important");
+    var w = h.clientWidth, m = 0;
+    Array.prototype.forEach.call(h.children, function(sp){ m = Math.max(m, sp.scrollWidth); });
+    if (m > w) h.style.setProperty("font-size", Math.max(13, Math.floor(24 * w / m * 10) / 10 - 0.3) + "px", "important");
+  }
+  fit(); window.addEventListener("resize", fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+})();
+</script>
 </body>
 </html>
