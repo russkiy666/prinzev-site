@@ -1037,9 +1037,71 @@ input,select,textarea{background:rgba(255,255,255,.7)}
 .rate-row.me{background:rgba(47,91,255,.08);border-radius:12px;border-color:transparent}
 .rate-n{color:var(--muted);font-weight:600;text-align:center}.rate-row:first-child .rate-n{color:#C9971A}
 .rate-w b{font-weight:600}.rate-v{text-align:right;display:grid}.rate-v b{font-size:18px}.rate-v small{color:var(--muted);font-size:12px}
+
+/* ================= LIQUID GLASS: стекло как в iOS — цветной фон, прозрачные панели, блики по кромке ================= */
+.bgfx{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:linear-gradient(160deg,#E3ECFF 0%,#EAF3FF 45%,#E6E4FF 100%)}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(60px);will-change:transform}
+.bgfx .b1{width:62vmax;height:62vmax;left:-20vmax;top:-22vmax;background:radial-gradient(circle,rgba(47,107,255,.55),transparent 62%);animation:bg1 30s ease-in-out infinite alternate}
+.bgfx .b2{width:54vmax;height:54vmax;right:-20vmax;top:12vh;background:radial-gradient(circle,rgba(34,200,240,.5),transparent 62%);animation:bg2 36s ease-in-out infinite alternate}
+.bgfx .b3{width:58vmax;height:58vmax;left:6vw;bottom:-28vmax;background:radial-gradient(circle,rgba(132,108,255,.45),transparent 62%);animation:bg3 40s ease-in-out infinite alternate}
+.bgfx .b4{width:34vmax;height:34vmax;right:8vw;bottom:-6vmax;background:radial-gradient(circle,rgba(20,60,200,.32),transparent 62%);animation:bg1 44s ease-in-out infinite alternate-reverse}
+@keyframes bg1{to{transform:translate(10vmax,8vmax) scale(1.15)}}
+@keyframes bg2{to{transform:translate(-9vmax,10vmax) scale(1.1)}}
+@keyframes bg3{to{transform:translate(8vmax,-9vmax) scale(1.18)}}
+body{background:transparent}
+body::before,body::after{display:none}
+:root{--r:22px;
+  --glass:linear-gradient(140deg,rgba(255,255,255,.68) 0%,rgba(255,255,255,.3) 36%,rgba(255,255,255,.38) 100%);
+  --glass-in:rgba(255,255,255,.46);
+  --glass-line:rgba(255,255,255,.72);
+  --glass-blur:blur(30px) saturate(2.1);
+  --glass-sh:inset 0 1.5px 0 rgba(255,255,255,.95),inset 1.5px 0 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(255,255,255,.3),inset 0 0 22px rgba(255,255,255,.18),0 18px 40px -22px rgba(20,45,130,.5),0 2px 6px -2px rgba(20,45,130,.12)}
+.card:not(.hero):not(.issued):not(.spot-top):not(.chad){background:var(--glass);border-radius:var(--r)}
+.side{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.3))}
+.me,.side-foot{background:var(--glass-in);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.auth-card{background:var(--glass);border-radius:28px}
+.step,.tk,.rep-edit li,.mood,.nx-row,.reqrow,.mat,.stu-stage,.trow,.mod,.jday,.carry{background:var(--glass-in)!important;border-color:rgba(255,255,255,.8)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.85)}
+.tcard,.seg2,.adm-tabs,.chip{background:var(--glass-in)}
+.tcard{border-radius:20px}
+.seg2{border-radius:16px}.seg2 button{border-radius:12px}
+.seg2 button[aria-selected="true"],.adm-tab[aria-selected="true"]{background:rgba(255,255,255,.82);box-shadow:inset 0 1px 0 #fff,0 6px 16px -8px rgba(20,50,140,.45)}
+input,select,textarea{background:rgba(255,255,255,.55);box-shadow:inset 0 1px 2px rgba(20,45,130,.08)}
+input:focus,select:focus,textarea:focus{background:rgba(255,255,255,.85)}
+.btn.line{background:rgba(255,255,255,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.7),0 6px 16px -10px rgba(20,50,140,.4)}
+.btn:not(.line):not(.ghost):not(.sm){box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45),inset 0 -2px 6px rgba(10,26,82,.25),0 10px 24px -10px rgba(47,107,255,.7)}
+.hero,.chad,.spot-top{border-radius:var(--r);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.35),inset 1.5px 0 0 rgba(255,255,255,.12),0 22px 44px -20px rgba(10,26,82,.7)!important}
+.nav a[aria-current="page"]{background:rgba(255,255,255,.6);box-shadow:inset 0 1px 0 #fff,0 6px 16px -10px rgba(20,50,140,.45)}
+.drawer{background:linear-gradient(160deg,rgba(255,255,255,.86),rgba(255,255,255,.7))}
+.lead-badge{background:rgba(255,255,255,.6);box-shadow:inset 0 1px 0 #fff}
+@media (max-width:860px){
+  .side::after{background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.34));-webkit-backdrop-filter:blur(30px) saturate(2.1);backdrop-filter:blur(30px) saturate(2.1);box-shadow:inset 0 -1px 0 rgba(255,255,255,.7)}
+  .side{border-bottom-color:transparent}
+  .nav{grid-template-columns:repeat(7,minmax(0,1fr))!important;left:12px;right:12px;border-radius:30px;padding:6px!important;
+    background:linear-gradient(140deg,rgba(255,255,255,.62),rgba(255,255,255,.3))!important;-webkit-backdrop-filter:blur(34px) saturate(2.2);backdrop-filter:blur(34px) saturate(2.2);
+    box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 1.5px 0 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(255,255,255,.3),0 18px 40px -14px rgba(20,40,110,.55)}
+  .nav a{font-size:9.5px!important;padding:7px 0 5px!important;gap:3px}
+  .nav svg{width:21px;height:21px}
+  .nav a[aria-current="page"]{background:rgba(255,255,255,.78)!important;border-radius:24px;color:var(--accent);box-shadow:inset 0 1px 0 #fff,0 6px 16px -8px rgba(20,50,140,.5)}
+  .nav-rate{display:flex!important}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){ :root{--glass:rgba(255,255,255,.94);--glass-in:rgba(255,255,255,.96)} }
+@media (prefers-reduced-motion:reduce){.bgfx i{animation:none}}
+/* лиды: цель и столбики за 7 дней */
+.lead-goal{display:grid;gap:6px}
+.lead-goal-h{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--ink-2)}.lead-goal-h b{color:var(--ink)}
+.lead-bar{height:10px;border-radius:99px;background:rgba(255,255,255,.55);box-shadow:inset 0 1px 2px rgba(20,45,130,.18);overflow:hidden}
+.lead-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#2F6BFF,#22C8F0);box-shadow:0 0 12px rgba(47,107,255,.6);transition:width .6s var(--ease)}
+.lead-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:64px}
+.lead-week span{display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:flex-end;height:100%;font-size:10px;color:var(--muted)}
+.lead-week i{display:block;width:100%;max-width:26px;min-height:4px;border-radius:7px 7px 4px 4px;background:rgba(47,107,255,.18);transition:height .5s var(--ease)}
+.lead-week i.on{background:linear-gradient(180deg,#22C8F0,#2F6BFF);box-shadow:0 4px 12px -4px rgba(47,107,255,.7)}
+.lead-week span.today{color:var(--accent);font-weight:700}
+.cf{position:fixed;z-index:60;width:8px;height:8px;border-radius:2px;pointer-events:none;animation:cf .9s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes cf{to{transform:translate(var(--dx),var(--dy)) rotate(540deg);opacity:0}}
 </style>
 </head>
 <body>
+<div class="bgfx" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i></div>
 
 <!-- Вход по коду -->
 <section class="auth" id="scrLogin" hidden>
@@ -1133,7 +1195,8 @@ const CONFIG = {
   SHEET_URL: 'https://docs.google.com/spreadsheets/d/1KQncA0n_t0j3g-0WRtjtKb4eRz__PSFzYrmKFEAPJ9Q/edit',
   SITE_URL: 'https://russkiy666.github.io/prinzev-site/kurs/',
   BOT_URL: 'https://t.me/YakimovichKursBot',
-  LEAD_PROFIT: 20000,   // чистая прибыль с одного лида, ₽
+  LEAD_PROFIT: 20000,
+  LEAD_GOAL: 10,        // цель по лидам (10 лидов = 200 000 ₽)   // чистая прибыль с одного лида, ₽
   CURATOR_TG: '@YakimovichI',
   DEMO_ADMIN_KEY: 'admin2026'
 };
@@ -1532,11 +1595,19 @@ function leadCard(){ const q=leadStats(S.leads);
     <div class="lead-main"><b class="num" id="leadN">${q.total}</b><span>${plural(q.total,['лид','лида','лидов'])}</span></div>
     <div class="lead-profit">Чистая прибыль: <b class="num">${rub(q.profit)}</b></div>
     <div class="lead-sub"><span><b class="num">${q.today}</b>сегодня</span><span><b class="num">${q.week}</b>7 дней</span><span><b class="num">${q.month}</b>в месяце</span></div>
+    ${(()=>{ const G=CONFIG.LEAD_GOAL||10, p=Math.min(100,Math.round(q.total/G*100)), left=Math.max(0,G-q.total);
+      const D=['Вс','Пн','Вт','Ср','Чт','Пт','Сб'], cnt={}; (S.leads||[]).forEach(x=>{ const k=dkey(new Date(x.at)); cnt[k]=(cnt[k]||0)+1; });
+      const days=[...Array(7)].map((_,i)=>{ const d=new Date(); d.setDate(d.getDate()-6+i); return {n:cnt[dkey(d)]||0,l:D[d.getDay()],t:i===6}; }), mx=Math.max(1,...days.map(d=>d.n));
+      return `<div class="lead-goal"><div class="lead-goal-h"><span>Цель: <b class="num">${rub(G*LEAD_RUB())}</b></span><span class="num">${left?`ещё ${left} ${plural(left,['лид','лида','лидов'])}`:'цель взята 🔥'}</span></div><div class="lead-bar"><i style="width:${p}%"></i></div></div>
+      <div class="lead-week" aria-label="Лиды за 7 дней">${days.map(d=>`<span class="${d.t?'today':''}"><i class="${d.n?'on':''}" style="height:${d.n?Math.max(10,Math.round(d.n/mx*44)):4}px" title="${d.n}"></i>${d.l}</span>`).join('')}</div>`; })()}
     <div class="lead-act"><button class="btn lead-add" id="leadAdd">${I.plus} лид</button>${q.total?`<button class="linkbtn" id="leadUndo">Отменить последний</button>`:''}</div>
   </section>`; }
-function refreshLead(pop){ const c=document.getElementById('leadCard'); if(!c) return; c.outerHTML=leadCard(); if(pop){ const n=document.getElementById('leadN'); if(n){ n.classList.add('pop'); } } }
+function confetti(x,y){ if(reduceMotion.matches) return; const C=['#2F6BFF','#22C8F0','#846CFF','#FFD66B','#fff'];
+  for(let i=0;i<18;i++){ const e=document.createElement('i'); e.className='cf'; const a=Math.random()*Math.PI*2, r=60+Math.random()*90;
+    e.style.cssText=`left:${x}px;top:${y}px;background:${C[i%C.length]};--dx:${Math.cos(a)*r}px;--dy:${Math.sin(a)*r-40}px`; document.body.appendChild(e); setTimeout(()=>e.remove(),950); } }
+function refreshLead(pop){ const c=document.getElementById('leadCard'); if(!c) return; c.outerHTML=leadCard(); const rm=document.getElementById('rateMini'); if(rm) rm.outerHTML=rateCard(); if(pop){ const n=document.getElementById('leadN'); if(n){ n.classList.add('pop'); } } }
 document.addEventListener('click',e=>{
-  if(e.target.closest('#leadAdd') && S){ (S.leads=S.leads||[]).push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),at:new Date().toISOString()}); save(); syncProgress(); refreshLead(true); haptic('success'); const q=leadStats(S.leads); toast('Лид добавлен · '+rub(q.profit)+' всего'); }
+  if(e.target.closest('#leadAdd') && S){ confetti(e.clientX||innerWidth/2,e.clientY||innerHeight/2); (S.leads=S.leads||[]).push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),at:new Date().toISOString()}); save(); syncProgress(); refreshLead(true); haptic('success'); const q=leadStats(S.leads); toast('Лид добавлен · '+rub(q.profit)+' всего'); }
   else if(e.target.closest('#leadUndo') && S && S.leads && S.leads.length){ S.leads.pop(); save(); syncProgress(); refreshLead(); haptic('light'); toast('Последний лид отменён'); } });
 
 /* ================= MONEYMAXING RATE ================= */
@@ -1547,7 +1618,7 @@ function rateList(){ const my=(S.leads||[]).length; let L=(S.rating||[]).map(x=>
   L.sort((a,b)=>b.leads-a.leads||(a.me?-1:b.me?1:0)||(a.name<b.name?-1:1)); return L; }
 function placeOf(L){ const i=L.findIndex(x=>x.me); let p=1; for(let k=0;k<i;k++) if(L[k].leads>L[i].leads) p++; return {place:p,total:L.length,me:L[i],top:L[0]}; }
 function rateCard(){ const L=rateList(), P=placeOf(L), gap=P.top.leads-P.me.leads;
-  return `<a class="card rate-mini" href="#rate"><div class="lead-top"><span class="eyebrow">MONEYMAXING RATE</span><span class="lead-badge">${P.place===1&&P.me.leads>0?'ты — CHAD':'место '+P.place+' из '+P.total}</span></div>
+  return `<a class="card rate-mini" id="rateMini" href="#rate"><div class="lead-top"><span class="eyebrow">MONEYMAXING RATE</span><span class="lead-badge">${P.place===1&&P.me.leads>0?'ты — CHAD':'место '+P.place+' из '+P.total}</span></div>
     <div class="rate-mini-b">${P.place===1&&P.me.leads>0?`<b>CHAD</b><span>ты ТОП-1 по лидам</span>`:`<b>#${P.place}</b><span>${gap>0?`до CHAD ${gap} ${plural(gap,['лид','лида','лидов'])}`:'догони CHAD по лидам'}</span>`}</div></a>`; }
 function vRate(){ const L=rateList(), P=placeOf(L), ch=L[0];
   const row=(x,i)=>{ const p=L.findIndex(y=>y.leads===x.leads)+1; return `<div class="rate-row ${x.me?'me':''}"><span class="rate-n num">${p}</span><span class="ava sm">${esc(initials(x.name))}</span><span class="rate-w"><b>${esc(x.name)}${x.me?' · ты':''}</b></span><span class="rate-v"><b class="num">${x.leads}</b><small>${rub(x.leads*LEAD_RUB())}</small></span></div>`; };
