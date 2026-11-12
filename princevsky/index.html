@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Антон Принцевский — обучение профессии продюсера</title>
+<title>Антон Принцевский — запуски блогеров и обучение продюсеров</title>
 <meta name="theme-color" content="#0E0E0D">
-<meta name="description" content="Обучение профессии продюсера экспертов: тарифы 150 000 ₽ и 200 000 ₽, 10 встреч, свой первый запуск. Кейсы запусков блогеров.">
+<meta name="description" content="Команда запускает блогеров на собственные продукты: анализ аудитории, прогрев, отдел продаж. Кейсы запусков и обучение профессии продюсера.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='32' fill='%23C8F03C'/><text x='32' y='45' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-weight='900' font-size='38' fill='%23111'>А</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1514,14 +1514,13 @@ html{scroll-padding-top:70px}
 .steps p{font-size:clamp(14px,1.1vw,18px);line-height:1.5;font-weight:600;color:var(--soft)}
 .apply-btn{align-self:flex-start}
 /* об Антоне */
-.about-g{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,80px);align-items:center}
+.about-g{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,80px);align-items:center}
 .about-ph{position:relative;aspect-ratio:4/5;border-radius:var(--r-lg);overflow:hidden;background:#111;border:1px solid rgba(243,241,234,.12)}
 .about-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:grayscale(1) contrast(1.08) brightness(.95)}
 .about-ph::after{content:"";position:absolute;inset:0;background:#C8F03C;mix-blend-mode:multiply;opacity:.16;pointer-events:none}
 .about-b{display:flex;flex-direction:column;gap:clamp(16px,2vw,28px)}
 .about-b p{font-size:clamp(17px,1.5vw,25px);line-height:1.5;color:var(--onDarkMuted);font-weight:600;max-width:680px}
-.about-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-@media (max-width:1100px){.about-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.about-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .about-facts div{padding:clamp(16px,1.6vw,24px);border-radius:var(--r-md);border:1px solid rgba(200,240,60,.28);background:rgba(243,241,234,.04)}
 .about-facts b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,40px);letter-spacing:-0.02em;color:var(--accent);line-height:1.1}
 .about-facts span{display:block;margin-top:6px;font-weight:700;font-size:clamp(13px,1vw,16px);color:var(--onDarkMuted)}
@@ -1535,44 +1534,48 @@ html{scroll-padding-top:70px}
   .cmp-r{grid-template-columns:1fr 1fr}
   .cmp-r>div:first-child{grid-column:1/-1;padding-bottom:0}
   .cmp-h>div:first-child{display:none}
-  .cmp-r:not(.cmp-h)>div:nth-child(2)::before,.cmp-r:not(.cmp-h)>div:nth-child(3)::before{display:block;margin-bottom:4px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9A988F}
-  .cmp-r:not(.cmp-h)>div:nth-child(2)::before{content:'Начинающий'}
-  .cmp-r:not(.cmp-h)>div:nth-child(3)::before{content:'Флагман';color:var(--accent)}
 }
 @media (max-width:560px){.path{grid-template-columns:1fr}}
+.sec-dark .steps h3,.sec-dark .steps b{color:var(--ink)}
+.prods-light .prod:not(.dark){background:var(--card);border-color:var(--ink)}
+.prods-light .prod.dark{border-color:var(--ink)}
+.prods-light .prod:not(.dark) .prod-meta span{background:var(--bg)}
+.cc-result b.long{font-size:clamp(20px,7.4cqi,40px)}
+.pain-note{font-weight:700;font-size:clamp(16px,1.3vw,22px);line-height:1.5;color:var(--ink);max-width:760px;padding:clamp(16px,1.6vw,24px) clamp(18px,2vw,30px);border-left:6px solid var(--accent);background:var(--card);border-radius:0 var(--r-md) var(--r-md) 0}
+.who-c h3{font-size:clamp(20px,1.9vw,30px)}
 </style>
 </head>
 <body>
 <header class="bar">
   <a class="brand" href="#top"><span class="mark">А</span><span>АНТОН <em>ПРИНЦЕВСКИЙ</em></span></a>
-  <nav class="bar-nav" aria-label="Разделы"><a href="#path">Этапы</a><a href="#cases">Кейсы</a><a href="#products">Программы</a><a href="#about">Об Антоне</a><a href="#faq">Вопросы</a></nav>
+  <nav class="bar-nav" aria-label="Разделы"><a href="#pains">Знакомо?</a><a href="#cases">Кейсы</a><a href="#path">Как работаем</a><a href="#products">Обучение</a><a href="#faq">Вопросы</a></nav>
   <div class="bar-r"><a class="bar-link" href="https://t.me/antonyprinzev" target="_blank" rel="noopener">Написать</a></div>
 </header>
 
 <section class="agency" id="top">
   <div class="orb orb-1" aria-hidden="true"></div><div class="orb orb-2" aria-hidden="true"></div><div class="orb orb-3" aria-hidden="true"></div>
   <div class="agency-in cv">
-    <div class="meta"><span>Обучение продюсеров экспертов</span><span>Набор · 2026</span></div>
+    <div class="meta"><span>Команда, которая запускает блогеров</span><span>Кейсы · 2026</span></div>
     <div class="cv-main">
       <div class="cv-left">
         <h1 class="cv-word"><span>АНТОН</span><span class="cv-co">ПРИНЦЕВСКИЙ</span></h1>
         <div class="cv-lead">
-          <p class="cv-offer">Научу профессии продюсера и&nbsp;выведу на&nbsp;свой первый запуск от&nbsp;<b>150&nbsp;000&nbsp;₽</b> чистыми</p>
+          <p class="cv-offer">Подписчики есть, а&nbsp;денег с&nbsp;блога нет? Мы соберём продукт, прогрев и&nbsp;продажи. Ты&nbsp;снимаешь 3–4 поста</p>
           <ul class="cv-pros">
-            <li>Обучение на реальных запусках блогеров</li>
-            <li>2 тарифа: войти в профессию или вырасти в бизнес</li>
-            <li>10 встреч и личное общение с Антоном</li>
+            <li>Вся работа на команде, от тебя 3–4 поста</li>
+            <li>Работаем от 3&nbsp;500 подписчиков, если аудитория живая</li>
+            <li>Не трогаем и не выжигаем основной блог</li>
           </ul>
         </div>
         <div class="cv-actions">
-          <a class="btn accent cv-cta" href="#products">Выбрать программу <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
-          <a class="cv-calc-link" href="https://t.me/antonyprinzev" target="_blank" rel="noopener">или сразу написать в личку<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="btn accent cv-cta" href="https://t.me/antonyprinzev" target="_blank" rel="noopener">Обсудить мой блог <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="cv-calc-link" href="#cases">или сначала посмотреть кейсы<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
         </div>
       </div>
       <div class="cv-faces">
-        <a class="cv-face" href="#cases" aria-label="SERAFIMCHIK"><div class="img-serafim"></div><span class="cv-face-cap"><b>SERAFIMCHIK</b><span>2 500 000 ₽ / мес</span></span></a>
-        <a class="cv-face" href="#cases" aria-label="BE FRESH"><div class="img-befresh"></div><span class="cv-face-cap"><b>BE FRESH</b><span>1 000 000 ₽ / мес</span></span></a>
-        <a class="cv-face" href="#cases" aria-label="ДИКТОРЫЧ"><div class="img-diktor"></div><span class="cv-face-cap"><b>ДИКТОРЫЧ</b><span>3 000 000 ₽ / мес</span></span></a>
+        <a class="cv-face" href="#cases" aria-label="SERAFIMCHIK"><div class="img-serafim"></div><span class="cv-face-cap"><b>SERAFIMCHIK</b><span>2 500 000 ₽ / 1,5 мес</span></span></a>
+        <a class="cv-face" href="#cases" aria-label="BE FRESH"><div class="img-befresh"></div><span class="cv-face-cap"><b>BE FRESH</b><span>500 000–700 000 ₽ / мес</span></span></a>
+        <a class="cv-face" href="#cases" aria-label="ДИКТОРЫЧ"><div class="img-diktor"></div><span class="cv-face-cap"><b>ДИКТОРЫЧ</b><span>3 000 000 ₽ / запуск</span></span></a>
         <a class="cv-face" href="#cases" aria-label="ИВАНИЧ"><div class="img-ivanich"></div><span class="cv-face-cap"><b>ИВАНИЧ</b><span>2 500 000 ₽ / запуск</span></span></a>
       </div>
     </div>
@@ -1584,21 +1587,25 @@ html{scroll-padding-top:70px}
   </div>
 </section>
 
-<section class="sec sec-light" id="who">
+<section class="sec sec-light" id="pains">
   <div class="sec-in">
-    <div><span class="kicker">Кому подойдёт</span><h2>ТЕБЕ СЮДА, ЕСЛИ…</h2></div>
+    <div><span class="kicker">Знакомо?</span><h2>ТАК ЖИВУТ МНОГИЕ БЛОГЕРЫ</h2></div>
     <div class="who-grid">
-      <article class="who-c"><span class="who-n">01</span><h3>Хочешь войти в профессию продюсера</h3><p>Опыта нет, а нужен понятный путь: чему учиться, в каком порядке и как дойти до первого запуска.</p><a class="who-to" href="#products">Начинающий тариф</a></article>
-      <article class="who-c"><span class="who-n">02</span><h3>Уже продюсируешь и упёрся в потолок</h3><p>Всё держится на тебе. Нужны команда, отдел продаж и система, которая работает без твоего ручного участия.</p><a class="who-to" href="#products">Флагман</a></article>
-      <article class="who-c"><span class="who-n">03</span><h3>Хочешь учиться на практике, а не на теории</h3><p>Не конспекты ради конспектов, а свой реальный запуск в процессе обучения и разбор с наставником.</p><a class="who-to" href="#path">Смотреть этапы</a></article>
+      <article class="who-c"><span class="who-n">01</span><h3>Охваты есть, а денег нет</h3><p>Подписчики растут, но доход — это реклама за 20 000 ₽ раз в пару недель. Столько же было у SERAFIMCHIK, пока он не запустил свой проект.</p></article>
+      <article class="who-c"><span class="who-n">02</span><h3>Хочешь свой продукт, но не знаешь, с какого конца браться</h3><p>Курс, закрытый канал или наставничество? Что продавать, за сколько, как упаковать. Месяцами думаешь, а время идёт.</p></article>
+      <article class="who-c"><span class="who-n">03</span><h3>Всё на тебе одном</h3><p>Снимаешь, пишешь, отвечаешь в личке, ещё и продаёшь. Выгораешь, а доход не растёт. Помощника нет, а нанять неизвестно кого.</p></article>
+      <article class="who-c"><span class="who-n">04</span><h3>Боишься сжечь аудиторию</h3><p>Один неудачный прогрев, и люди отписываются. Ты строил блог годами, и рисковать им страшно.</p></article>
+      <article class="who-c"><span class="who-n">05</span><h3>Уже пробовал запуститься и не вышло</h3><p>Потратил время и деньги, а заявок почти нет. Продажи без отдела продаж и нормального прогрева буксуют.</p></article>
+      <article class="who-c"><span class="who-n">06</span><h3>Не понимаешь, сколько реально можно заработать</h3><p>Кто-то обещает миллионы, кто-то говорит, что у тебя маленький блог. Цифры у каждой аудитории свои, и их надо считать.</p></article>
     </div>
+    <p class="pain-note">Если узнал себя хотя бы в двух пунктах, нам есть о чём поговорить. Мы берём на себя продукт, прогрев и продажи, чтобы ты занимался блогом.</p>
   </div>
 </section>
 
 <section class="cases" id="cases">
   <div class="cases-in">
     <div class="cases-head"><div class="ch-text"><span class="kicker">Результаты запусков</span><h2>НАШИ ЗАПУСКИ</h2></div></div>
-    <p class="cases-note">На таких запусках построена программа: вы разбираете, как это устроено, и делаете свой.</p>
+    <p class="cases-note">Это реальные запуски нашей команды. Суммы у всех разные: они зависят от аудитории и вовлечённости блогера и не являются гарантией дохода.</p>
     <div class="case-grid">
       <article class="case-card">
         <div class="cc-photo" role="img" aria-label="SERAFIMCHIK"><div class="img-serafim"></div><span class="cc-num">Кейс №01</span></div>
@@ -1606,7 +1613,7 @@ html{scroll-padding-top:70px}
           <div class="cc-tags"><span>Саморазвитие</span><span>TikTok / Telegram</span></div>
           <h3>SERAFIMCHIK</h3>
           <p class="cc-lead">От продажи рекламы за 20 000 ₽ до стабильного и по-настоящему денежного проекта</p>
-          <div class="cc-result"><b>2 500 000 ₽</b><span>в месяц чистыми</span></div>
+          <div class="cc-result"><b>2 500 000 ₽</b><span>за 1,5 месяца работы</span></div>
         </div>
       </article>
       <article class="case-card">
@@ -1615,7 +1622,7 @@ html{scroll-padding-top:70px}
           <div class="cc-tags"><span>Саморазвитие</span><span>Telegram / TikTok</span></div>
           <h3>VQIDER</h3>
           <p class="cc-lead">От лайф-блога до полноценного бизнеса</p>
-          <div class="cc-result"><b>1 500 000 ₽</b><span>в месяц</span></div>
+          <div class="cc-result"><b>1 500 000 ₽</b><span>за 1,5 месяца работы</span></div>
         </div>
       </article>
       <article class="case-card">
@@ -1632,8 +1639,8 @@ html{scroll-padding-top:70px}
         <div class="cc-body">
           <div class="cc-tags"><span>Саморазвитие</span><span>Telegram / YouTube</span></div>
           <h3>BE FRESH</h3>
-          <p class="cc-lead">От 50 000–100 000 ₽ в месяц с канала до 1&nbsp;000&nbsp;000&nbsp;₽ ежемесячно</p>
-          <div class="cc-result"><b>1 000 000 ₽</b><span>в месяц</span></div>
+          <p class="cc-lead">От 50 000–100 000 ₽ в месяц с канала до 500&nbsp;000–700&nbsp;000&nbsp;₽ ежемесячно</p>
+          <div class="cc-result"><b class="long">500 000–700 000 ₽</b><span>в месяц</span></div>
         </div>
       </article>
       <article class="case-card">
@@ -1641,8 +1648,8 @@ html{scroll-padding-top:70px}
         <div class="cc-body">
           <div class="cc-tags"><span>Саморазвитие</span><span>Telegram / YouTube</span></div>
           <h3>ДИКТОРЫЧ</h3>
-          <p class="cc-lead">С нуля до 3&nbsp;000&nbsp;000&nbsp;₽ за&nbsp;месяц</p>
-          <div class="cc-result"><b>3 000 000 ₽</b><span>за месяц</span></div>
+          <p class="cc-lead">С нуля до 3&nbsp;000&nbsp;000&nbsp;₽ за&nbsp;запуск</p>
+          <div class="cc-result"><b>3 000 000 ₽</b><span>за запуск</span></div>
         </div>
       </article>
       <article class="case-card">
@@ -1669,21 +1676,34 @@ html{scroll-padding-top:70px}
 
 <section class="sec sec-light" id="path">
   <div class="sec-in">
-    <div><span class="kicker">Как устроено обучение</span><h2>ЭТАПЫ ПУТИ</h2></div>
-    <p class="sec-sub">От входа в профессию до собственного бизнеса на продюсировании. Первые три этапа в начинающем тарифе, четвёртый во флагмане.</p>
+    <div><span class="kicker">Как мы работаем</span><h2>ЧТО ДЕЛАЕТ КОМАНДА</h2></div>
+    <p class="sec-sub">Ты не вникаешь в воронки и продажи. Мы идём по четырём шагам, а от тебя нужны 3–4 поста и ответы на вопросы.</p>
     <ol class="path">
-      <li><span class="path-n">01</span><h3>Обучение продюсированию</h3><p>Разбираешь, как устроен запуск блогера: от анализа аудитории и прогрева до продаж.</p><span class="path-tag">Начинающий</span></li>
-      <li><span class="path-n">02</span><h3>Профессия продюсера экспертов</h3><p>Проходишь все этапы профессии целиком и разбираешь их на встречах. Одна из 10 встреч — личная.</p><span class="path-tag">Начинающий</span></li>
-      <li><span class="path-n">03</span><h3>Свой первый запуск</h3><p>2 месяца работы и реальный запуск. Цель: от 150 000 ₽ чистыми.</p><span class="path-tag">Начинающий</span></li>
-      <li class="flag"><span class="path-n">04</span><h3>Продюсер как бизнес</h3><p>Наём и работа с командой, делегирование, отдел продаж и личный бренд. Плюс 2 индивидуальные стратегические сессии.</p><span class="path-tag">Флагман</span></li>
+      <li><span class="path-n">01</span><h3>Разбираем блог и аудиторию</h3><p>Смотрим, кто тебя читает, чего хочет и сколько готов платить. Из этого считаем, что реально продавать.</p><span class="path-tag">Команда</span></li>
+      <li><span class="path-n">02</span><h3>Собираем продукт и упаковку</h3><p>Подбираем формат и делаем отдельный канал, чтобы основной блог остался нетронутым.</p><span class="path-tag">Команда</span></li>
+      <li><span class="path-n">03</span><h3>Прогреваем аудиторию</h3><p>Готовим посты и контент для прогрева. От тебя нужны только 3–4 поста в основном блоге.</p><span class="path-tag">Команда + ты</span></li>
+      <li class="flag"><span class="path-n">04</span><h3>Продаём и разбираем итоги</h3><p>Отдел продаж обрабатывает заявки, а мы считаем результат. Ты видишь цифры, а не обещания.</p><span class="path-tag">Команда</span></li>
     </ol>
   </div>
 </section>
 
-<section class="sec sec-dark" id="products">
+<section class="sec sec-dark" id="apply">
   <div class="sec-in">
-    <div><span class="kicker">Программы Антона</span><h2>ВЫБЕРИ СВОЙ ТАРИФ</h2></div>
-    <div class="prods-grid">
+    <div><span class="kicker">Как начать</span><h2>ТРИ ШАГА ДО ЗАПУСКА</h2></div>
+    <ol class="steps">
+      <li><b>1</b><h3>Пишешь Антону в личку</h3><p>Коротко: кто ты, о чём блог и сколько у тебя подписчиков.</p></li>
+      <li><b>2</b><h3>Созвон и разбор</h3><p>Разбираем блог и аудиторию и считаем, сколько может принести запуск именно у тебя.</p></li>
+      <li><b>3</b><h3>План запуска и старт</h3><p>Если цифры сходятся, договариваемся об условиях и начинаем работать.</p></li>
+    </ol>
+    <a class="btn accent apply-btn" href="https://t.me/antonyprinzev" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать Антону</a>
+  </div>
+</section>
+
+<section class="sec sec-light" id="products">
+  <div class="sec-in">
+    <div><span class="kicker">Для тех, кто хочет делать запуски сам</span><h2>ОБУЧЕНИЕ АНТОНА</h2></div>
+    <p class="sec-sub">Хочешь не отдавать запуск команде, а освоить профессию продюсера? Есть два формата обучения. Результат зависит от твоей работы и ниши.</p>
+    <div class="prods-grid prods-light">
       <article class="prod">
         <span class="tag">Для начинающих</span>
         <h3>Начинающий тариф</h3>
@@ -1692,7 +1712,7 @@ html{scroll-padding-top:70px}
         <ul>
           <li>Обучение продюсированию</li>
           <li>Обучение профессии продюсера экспертов</li>
-          <li>Свой первый запуск на 150 000 ₽+ чистыми</li>
+          <li>Свой первый запуск, цель — от 150 000 ₽ чистыми</li>
         </ul>
         <a class="btn accent" href="https://t.me/antonyprinzev" target="_blank" rel="noopener">Записаться <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       </article>
@@ -1711,26 +1731,6 @@ html{scroll-padding-top:70px}
         <a class="btn accent" href="https://t.me/antonyprinzev" target="_blank" rel="noopener">Записаться <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       </article>
     </div>
-    <div class="cmp" role="table" aria-label="Сравнение тарифов">
-      <div class="cmp-r cmp-h" role="row"><div>Сравнение</div><div>Начинающий</div><div>Флагман</div></div>
-      <div class="cmp-r" role="row"><div>Стоимость</div><div>150 000 ₽</div><div>200 000 ₽</div></div>
-      <div class="cmp-r" role="row"><div>Длительность</div><div>2 месяца</div><div>2,5 месяца</div></div>
-      <div class="cmp-r" role="row"><div>Встречи</div><div>10, одна из них личная</div><div>10 + 2 индивидуальные стратегические сессии</div></div>
-      <div class="cmp-r" role="row"><div>Фокус</div><div>Профессия продюсера и первый запуск</div><div>Продюсер как бизнес: команда, продажи, бренд</div></div>
-      <div class="cmp-r" role="row"><div>Результат</div><div>Свой запуск на 150 000 ₽+ чистыми</div><div>Выстроенные команда, отдел продаж и личный бренд</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-light" id="apply">
-  <div class="sec-in">
-    <div><span class="kicker">Как попасть на обучение</span><h2>ТРИ ШАГА</h2></div>
-    <ol class="steps">
-      <li><b>1</b><h3>Пишешь Антону в личку</h3><p>Нажимаешь кнопку ниже и коротко рассказываешь, кто ты и чего хочешь.</p></li>
-      <li><b>2</b><h3>Подбираете тариф</h3><p>Определяете, что тебе подходит: войти в профессию или вырасти в бизнес.</p></li>
-      <li><b>3</b><h3>Стартуешь обучение</h3><p>Начинаются встречи, и ты шаг за шагом идёшь к своему запуску.</p></li>
-    </ol>
-    <a class="btn accent apply-btn" href="https://t.me/antonyprinzev" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать Антону</a>
   </div>
 </section>
 
@@ -1738,8 +1738,8 @@ html{scroll-padding-top:70px}
   <div class="sec-in">
     <div class="about-g">
       <div class="about-b">
-        <div><span class="kicker">Кто ведёт обучение</span><h2>АНТОН ПРИНЦЕВСКИЙ</h2></div>
-        <p>Управляет командой продюсеров и масштабирует агентство. Учу тому, что делаю сам: запускать блогеров и строить на этом бизнес.</p>
+        <div><span class="kicker">Кто за этим стоит</span><h2>АНТОН ПРИНЦЕВСКИЙ</h2></div>
+        <p>Руковожу командой продюсеров и масштабирую агентство. Мы запускаем блогеров на собственные проекты, а тех, кто хочет делать это сам, я учу.</p>
         <div class="about-facts">
           <div><b>5+ лет</b><span>в маркетинге</span></div>
           <div><b>100 млн+ ₽</b><span>выручки в проектах</span></div>
@@ -1757,15 +1757,17 @@ html{scroll-padding-top:70px}
     <div class="faq-head">
       <span class="kicker">Перед стартом</span>
       <h2>ЧАСТЫЕ ВОПРОСЫ</h2>
-      <p>Коротко о том, что обычно спрашивают перед записью на обучение</p>
+      <p>Коротко о том, что обычно спрашивают до первого разговора</p>
     </div>
     <div class="faq-list">
-      <details class="faq-i" open><summary><span>Чем отличаются два тарифа?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Начинающий тариф (150 000 ₽) — про профессию продюсера и твой первый запуск: 2 месяца работы и 10 встреч. Флагман «Продюсер как бизнес» (200 000 ₽) — про масштаб: команда, отдел продаж, личный бренд. Длится 2,5 месяца, 10 встреч и 2 индивидуальные стратегические сессии с Антоном.</p></div></details>
-      <details class="faq-i"><summary><span>Нужен ли опыт, чтобы начать?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Нет. Начинающий тариф сделан для тех, кто только входит в профессию: обучение продюсированию, обучение продюсеру экспертов и свой первый запуск.</p></div></details>
-      <details class="faq-i"><summary><span>Сколько длится обучение и как проходят встречи?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Начинающий тариф — 2 месяца работы, флагман — 2,5 месяца. В каждом по 10 встреч. В начинающем тарифе одна из встреч — личная, во флагмане добавляются 2 индивидуальные стратегические сессии.</p></div></details>
-      <details class="faq-i"><summary><span>Какой результат можно получить?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Цель начинающего тарифа — реализовать свой первый запуск на 150 000 ₽ и больше чистыми. Результат зависит от твоей работы, ниши и аудитории, поэтому гарантией дохода это не является.</p></div></details>
-      <details class="faq-i"><summary><span>Как записаться?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Напиши Антону в личные сообщения в Telegram. Расскажи о себе и о том, чего хочешь, — и вы вместе определите, какой тариф тебе подходит.</p></div></details>
-      <details class="faq-i"><summary><span>Это официально?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Да. Обучение проводит ИП Принцевский Антон Александрович, реквизиты (ИНН и ОГРНИП) указаны внизу страницы.</p></div></details>
+      <details class="faq-i" open><summary><span>Сколько нужно подписчиков?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Меньше, чем кажется: у VQIDER на старте было 3&nbsp;500 подписчиков. Важнее не размер, а живая аудитория, которая тебе доверяет. Подойдёт ли твой блог, видно только после разбора аудитории.</p></div></details>
+      <details class="faq-i"><summary><span>Что нужно от меня?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Твой блог и 3–4 поста для прогрева. Остальное берёт команда: анализ аудитории, продукт, отдельный канал, прогрев и отдел продаж, который обрабатывает заявки.</p></div></details>
+      <details class="faq-i"><summary><span>Не выжгу ли я аудиторию?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Вся работа идёт в отдельном канале, в основном блоге только 3–4 поста. Но любой запуск — это риск, поэтому сначала мы смотрим на твою аудиторию и только потом решаем, как именно запускаться.</p></div></details>
+      <details class="faq-i"><summary><span>Как быстро появятся деньги?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Зависит от блога. В наших кейсах это от одного запуска до 1,5 месяца работы. Заранее назвать точный срок и сумму честно нельзя, на созвоне мы прикидываем это под твою аудиторию.</p></div></details>
+      <details class="faq-i"><summary><span>Сколько стоит работа с командой?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Условия зависят от блога и аудитории. На созвоне разберём их и посчитаем, сколько может принести запуск именно у тебя.</p></div></details>
+      <details class="faq-i"><summary><span>Это законно?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Да. Работаем через ИП, всё в белую, с налогами с каждого рубля. Реквизиты указаны внизу страницы.</p></div></details>
+      <details class="faq-i"><summary><span>Чем отличаются тарифы обучения?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Начинающий тариф (150 000 ₽) — про профессию продюсера и твой первый запуск: 2 месяца и 10 встреч. Флагман «Продюсер как бизнес» (200 000 ₽) — про команду, отдел продаж и личный бренд: 2,5 месяца, 10 встреч и 2 индивидуальные стратегические сессии с Антоном.</p></div></details>
+      <details class="faq-i"><summary><span>Как записаться?</span><i aria-hidden="true"></i></summary><div class="faq-a"><p>Напиши Антону в личные сообщения в Telegram. Расскажи о себе и о своём блоге или целях, дальше разберёмся, что тебе подходит.</p></div></details>
     </div>
   </div>
 </section>
@@ -1773,19 +1775,19 @@ html{scroll-padding-top:70px}
 <section class="endcta" id="start">
   <div class="endcta-in">
     <span class="kicker">Следующий кейс — твой</span>
-    <h2>ГОТОВ УЧИТЬСЯ?</h2>
-    <p>Напиши Антону в личные сообщения: расскажи о себе, и вы подберёте программу.</p>
+    <h2>ПОСЧИТАЕМ ТВОЙ ЗАПУСК?</h2>
+    <p>Напиши Антону в личные сообщения. Разберём твой блог и аудиторию и скажем, какой запуск у тебя может получиться.</p>
     <div class="endcta-btns">
       <a class="btn accent" href="https://t.me/antonyprinzev" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l6 2.5L11.5 20l3-4.5L19 19z"/><path d="m9 13.5 6-4.5"/></svg>Написать в личку</a>
-      <a class="btn" href="#products" style="color:var(--onDark);border-color:rgba(243,241,234,.35);background:transparent">Смотреть тарифы</a>
+      <a class="btn" href="#cases" style="color:var(--onDark);border-color:rgba(243,241,234,.35);background:transparent">Смотреть кейсы</a>
     </div>
   </div>
 </section>
 
 <footer class="site-foot">
   <div class="sf-in">
-    <div class="sf-brand"><span class="mark">А</span><div><b>АНТОН <em>ПРИНЦЕВСКИЙ</em></b><small>Обучение профессии продюсера экспертов</small></div></div>
-    <nav class="sf-nav" aria-label="Навигация"><a href="#cases">Кейсы</a><a href="#products">Программы</a><a href="#faq">Вопросы</a><a href="#top">Наверх <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4"/></svg></a></nav>
+    <div class="sf-brand"><span class="mark">А</span><div><b>АНТОН <em>ПРИНЦЕВСКИЙ</em></b><small>Запуски блогеров и обучение продюсеров</small></div></div>
+    <nav class="sf-nav" aria-label="Навигация"><a href="#cases">Кейсы</a><a href="#products">Обучение</a><a href="#faq">Вопросы</a><a href="#top">Наверх <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4"/></svg></a></nav>
     <div class="sf-legal">
       <p class="sf-req">ИП Принцевский Антон Александрович</p>
       <p class="sf-req">ИНН:&nbsp;860238040955 · ОГРНИП:&nbsp;321861700000199</p>
