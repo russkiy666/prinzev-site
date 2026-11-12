@@ -19,7 +19,7 @@
  *  Проверка текстов: выполнить preview() — бот пришлёт все три сообщения на PREVIEW_CHAT_ID (свойство скрипта) или первому в таблице.
  */
 const MINI_APP_URL = 'https://russkiy666.github.io/prinzev-site/yakimovich/';
-const CHANNEL_LINK = 'https://t.me/+MmiYGcS3dKQ4M2Fi';
+const CHANNEL_LINK = 'https://t.me/+s9dSu-9P52JkZmEy';
 const LION_URL = 'https://russkiy666.github.io/prinzev-site/yakimovich/media/lion-nishcheta.jpg';
 const TZ = 'Europe/Moscow';
 const MIN = 60 * 1000;
